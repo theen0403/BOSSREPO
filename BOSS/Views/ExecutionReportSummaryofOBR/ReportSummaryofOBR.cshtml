@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "ReportSummaryofOBR";
+}
+
+<script>
+    $("#ExecutionReportSummaryofOBRID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Report - Summary of Obligation Requests</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3 col-xs-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        Pending
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-sm-3 col-xs-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        For Approval
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-sm-3 col-xs-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        Approved
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3 col-sm-3 col-xs-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        Cancelled
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label style="margin-bottom:2px;">Fund</label>
+                                <select class="form-control">
+                                    <option>Special Education Fund</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5 col-sm-8 form-group">
+                                <label style="margin-bottom:2px;">Department</label>
+                                <select class="form-control">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mt-2 pt-1">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio1" id="radioFirst">
+                                        View All Department
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-6 form-group">
+                                <label style="margin-bottom:2px;">Appropriation</label>
+                                <select class="form-control">
+                                    <option>Continuing Appropriation</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-6 form-group">
+                                <label style="margin-bottom:2px;">Type</label>
+                                <select class="form-control">
+                                    <option>All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label style="margin-bottom:2px;">View OBR's Prepared</label>
+                                <select class="form-control">
+                                    <option>Continuing Appropriation</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label style="margin-bottom:2px;">Date To</label>
+                                <div class="form-group">
+                                    <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date From</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-btnbackcolor white btn-min-width pull-right">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

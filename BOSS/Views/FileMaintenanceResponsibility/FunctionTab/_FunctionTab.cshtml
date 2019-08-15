@@ -1,0 +1,115 @@
+﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div id="FunctionTempID">
+
+</div>
+<div class="content-body rounded mt-1 box-shadow-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show px-1">
+                    <div class="card-body pb-0">
+                        <div id="DepttempID" class="row">
+
+                        </div>
+                        <div class="row mt-1" id="FunctionID">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        GetPartialIndexFunction();
+    })
+    function GetPartialIndexFunction() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetPartialIndexFunction',
+            success: function (result) {
+                $('#DepttempID').html(result);
+                GetFunctionDT();
+            }
+        })
+    }
+    function GetFunctionDT() {
+        var deptID = $("#deptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetFunctionDT',
+            data: { deptID: deptID },
+            success: function (result) {
+                GetAddFunction(deptID);
+                $("#FunctionID").html(result);
+            }
+        })
+    }
+    function GetAddFunction(deptID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddFunction',
+            data: { deptID: deptID },
+            success: function (result) {
+                $('#FunctionTempID').html(result);
+                GetSectorSubsectorFields();
+            }
+        })
+    }
+    function Get_UpdateFunction(FunctionID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/Get_UpdateFunction',
+            data: { FunctionID: FunctionID },
+            success: function (result) {
+                $('#FunctionTempID').html(result);
+                GetSectorSubsectorFields();
+            }
+        })
+    }
+    //For update function
+    function GetPartialIndexFunction2() {
+        var deptID = $("#deptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetPartialIndexFunction2',
+            data: { deptID: deptID },
+            success: function (result) {
+                $('#DepttempID').html(result);
+                GetAddFunction2(deptID);
+            }
+        })
+    }
+    //For update function
+    function GetAddFunction2(deptID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddFunction',
+            data: { deptID: deptID },
+            success: function (result) {
+                $('#FunctionTempID').html(result);
+                GetSectorSubsectorFields();
+                GetFunctionDT();
+            }
+        })
+    }
+    function DeleteFunction(FunctionID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/DeleteFunction',
+            data: { FunctionID: FunctionID },
+            success: function (result) {
+                GetFunctionDT();
+            }
+        })
+    }
+    function GetSectorSubsectorFields() {
+        var deptID = $("#deptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetSectorSubsectorFields',
+            data: { deptID: deptID },
+            success: function (result) {
+                $('#sectorSubsectorID').html(result);
+            }
+        })
+    }
+</script>

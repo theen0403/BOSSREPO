@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "ReportOBRTransmitalReport";
+}
+
+<script>
+    $("#ExecutionReportOBRTransmitalReportID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Report - Obligation Request for Transmittal</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3 form-inline">
+                                <label><input type="radio" name="radio1"/>Today</label>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 form-inline">
+                                <label><input type="radio" name="radio1"/>This Week</label>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 form-inline">
+                                <label><input type="radio" name="radio1"/>This Month</label>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 form-inline">
+                                <label><input type="radio" name="radio1"/>This Year</label>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label>Date</label>
+                                <div class="form-group">
+                                    <input type="date" data-format="dd/MM/yyyy" value="15/01/2018" class="form-control pickadate">
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4 form-group">
+                                <label>Type</label>
+                                <select class="form-control">
+                                    <option>-All-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label>Fund</label>
+                                <select class="form-control">
+                                    <option>General Fund</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4 col-sm-5 form-group">
+                                <label>Transmit To</label>
+                                <select class="form-control">
+                                    <option>Office of the Accountant</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label>Control Number</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="card box-shadow-2 mt-1">
+                            <div class="card-header" style="background-color: #FEDF82;">
+                                <h4 class="card-title black" style="background-color: #FEDF82;">List of Approved Obligation Request for Transmittal</h4>
+                            </div>
+                            <div class="card-content collapse show black">
+                                <div class="card-body box-shadow-2">
+                                    <table class="table table-striped table-bordered zero-configuration">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th width="5%"><input type="checkbox" /></th>
+                                                <th width="23%">OBR No.</th>
+                                                <th width="23%">OBR Type</th>
+                                                <th>Approved</th>
+                                                <th>Department/Office</th>
+                                                <th>Title/Purpose</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" ><input class="text-center" type="checkbox" /></td>
+                                                <td>100-18-05-00003</td>
+                                                <td>Purchase Request(Goods)</td>
+                                                <td>5/24/2018</td>
+                                                <td>8751 - Office of the Engineer</td>
+                                                <td>Upgrading of Road at E. Velasco St. P to Rivas Lote - Aircondition - 1.5 HP Window Type, Etc.</td>
+                                                <td class="text-right">22,000.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

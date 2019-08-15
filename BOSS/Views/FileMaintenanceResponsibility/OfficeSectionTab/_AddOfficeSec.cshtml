@@ -1,0 +1,39 @@
+﻿@model BOSS.Models.FMResponsibilityModels.OfficeSectionModel
+@{
+    /**/
+
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+@using (Ajax.BeginForm("AddNewSection", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetOfficeSecDT','Successfully Added!')", OnFailure = "", }))
+{
+    @Html.HiddenFor(m => m.DeptID, new { })
+    @Html.HiddenFor(m => m.FuncID, new { })
+
+    <div class="row"> 
+        <div class="col-md-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Office Section</label>
+                @Html.TextAreaFor(m => m.getOfficeSecColumns.OfficeSecTitle, new { @class = "form-control", @rows = 1, id = "OfficeSecTitle" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right" onclick="GetPartialIndex()">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+                Add
+            </button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+    })
+</script>

@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "ReportApprovedPAOO";
+}
+
+<script>
+    $("#ReviewReportApprovedPAOOID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Reports - Approved PAOO (By Office)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-3">
+                                <label><input type="radio" name="optradio">LFC Review/Approved </label>
+                            </div>
+                            <div class="col-md-3">
+                                <label><input type="radio" name="optradio">SP Reviwed/Approved</label>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-3">
+                                <label><input type="radio" name="optradio1">Consolidated</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label><input type="radio" name="optradio1">Detailed</label>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Responsibility Center</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Appropriation Source</label>
+                                    <select class="form-control">
+                                        <option>Annual Budget 2018</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Function</label>
+                                    <select class="form-control">
+                                        <option>General Administration</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Prepared By</label>
+                                    <select class="form-control">
+                                        <option>Juan A. Santos</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label style="visibility:hidden">Hide This Label</label>
+                                    <label><input type="checkbox" class="mt-1" />No Footer</label>
+                                </div>
+                            </div>
+                            <div class="col text-right">
+                                <div class="form-group">
+                                    <label style="visibility:hidden">Hide</label><br />
+                                    <a class="btn btn-btnbackcolor btn-min-width button"
+                                    data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                    target='_blank'>
+                                        View Report
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

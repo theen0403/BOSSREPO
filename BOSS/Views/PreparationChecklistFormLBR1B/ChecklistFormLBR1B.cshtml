@@ -1,0 +1,304 @@
+﻿
+@{
+    ViewBag.Title = "ChecklistFormLBR1B";
+}
+
+<script>
+    $("#PreparationChecklistFormLBR1BID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="col-9">
+        <h3 class="content-header-title"><strong>Checklists on Documentary and Signature Requirements for the Annual Budget (LBR Form No. 1A)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row pl-1">
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                <div class="col-md-10">
+                                    <button type="button" class="btn btn-btnbackcolor form-control btn-min-width"
+                                            data-toggle="modal"
+                                            data-target="#ViewPrintPreviewModal"
+                                            onclick="OpenViewUpdatePrintPreviewModal()" style="border-color:white;">
+                                        CHECK EACH ITEM
+                                    </button>
+                                </div>
+                                <div class="col-md-12 col-sm-12 mt-2">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Transmittal Letter
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Budget Message
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Appropriation Ordinance
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Funds actually available:
+                                        </label>
+                                        <label class="ml-2">Certified State of Additional Realized Income</label>
+                                        <label class="ml-2">Certification of Savings</label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            New Revenue Measures:
+                                        </label>
+                                        <label class="ml-2">Certified Statement of Income from New Revenue Measures;</label>
+                                        <label class="ml-2">Copy of duly enacted Tax Ordinance which imposes new local taxes, charges, fees, fines or penalties or wich raises existing local taxes, charges, fees, fines of penaltie; and</label>
+                                        <label class="ml-2">Copy of official communication setting that the LGU is a recipient of new or higher remittances, contributions, subsidies or grants in aid from the National Government of from government corporations and private entities.</label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Realignment of Appropriations in Times of Public Calamity
+                                        </label>
+                                        <label class="ml-2">Certificate of Source of Funds Available for Appropriations</label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Veto Message, If any
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Sanggunian's action on veto, If any
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="col-md-10" style="border-color:white;">
+                                    <button type="button" class="btn btn-btnbackcolor form-control btn-min-width"
+                                            data-toggle="modal"
+                                            data-target="#ViewPrintPreviewModal"
+                                            onclick="OpenViewUpdatePrintPreviewModal()" style="border-color:white;">
+                                        Signatory
+                                    </button>
+                                </div>
+                                <div class="col-md-12 col-sm-12 mt-1">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Secretary to the Sanggunian
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Chief Executive
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Secretary to the Sanggunian
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Presiding Officer
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Chief Executive
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Treasurer and Local Accountant
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Treasurer and Local Accountant
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Treasurer and Local Accountant
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Treasurer
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Accountant
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Chief Executive
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Local Chief Executive
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Secretary to the Sanggunian
+                                        </label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <fieldset>
+                                        <label>
+                                            <input type="checkbox" name="radio2" value="">
+                                            Presiding Officer
+                                        </label>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="col-md-10" style="border-color:white;">
+                                    <button type="button" class="btn btn-btnbackcolor form-control btn-min-width"
+                                            data-toggle="modal"
+                                            data-target="#ViewPrintPreviewModal"
+                                            onclick="OpenViewUpdatePrintPreviewModal()" style="border-color:white;">
+                                        Remarks
+                                    </button>
+                                </div>
+                                <div class="col-md-10 col-sm-12 mt-1" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                                <div class="col-md-10 col-sm-12" style="margin-bottom:4px;">
+                                    <input type="text" class="form-control" style="height:10px;">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-1 mx-0 px-0">
+                                <a class="btn btn-btnbackcolor btn-min-width button mr-1 float-right"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Print a Copy
+                                </a>
+
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"> Save Checklist</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model BOSS.Models.FMResponsibilityModels.OfficeSectionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group ">
+    <label style="margin-bottom:2px;">Function</label>
+    @Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID", onchange = "LoadGetOfficeSecDT()" })
+</div>
+<script>
+    $(function () {
+        $("#FuncID").select2();
+    })
+</script>
+<script>
+    $(function () {
+        LoadGetOfficeSecDT();
+    })
+    function LoadGetOfficeSecDT() {
+        GetOfficeSecDT();
+    }
+</script>

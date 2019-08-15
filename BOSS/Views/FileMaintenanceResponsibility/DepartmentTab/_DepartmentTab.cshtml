@@ -1,0 +1,92 @@
+﻿@model BOSS.Models.FMResponsibilityModels.DepartmentModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<div id="DepartmentTempID">
+
+</div>
+<div class="content-body rounded mt-1 box-shadow-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show px-1">
+                    <div class="card-body pb-0">
+                        <div class="row mt-1" id="DepartmentID">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        GetDepartmentDT();
+    })
+    function GetDepartmentDT() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDepartmentDT',
+            //data: { DeptID: DeptID },
+            success: function (result) {
+                $("#DepartmentID").html(result);
+                GetAddDepartment();
+            }
+        })
+    }
+
+    function GetAddDepartment() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddDepartment',
+            success: function (result) {
+                $("#DepartmentTempID").html(result);
+            }
+        })
+    }
+
+    function Get_UpdateDepartment(DeptID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/Get_UpdateDepartment',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $("#DepartmentTempID").html(result);
+            }
+        })
+    }
+    function DeleteDepartment(DeptID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/DeleteDepartment',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                GetDepartmentDT();
+            }
+        })
+    }
+    function GetAddDynamicSubSector() {
+        var SectorID = $("#SecID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddDynamicSubSector',
+            data: { SectorID: SectorID },
+            success: function (result) {
+                $("#SubSectorID").html(result);
+            }
+        })
+    }
+    function GetUpdateDynamicSubSector() {
+        var SectorID = $("#SecID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetUpdateDynamicSubSector',
+            data: { SectorID: SectorID },
+            success: function (result) {
+                $("#SubSectorID").html(result);
+            }
+        })
+    }
+    
+</script>

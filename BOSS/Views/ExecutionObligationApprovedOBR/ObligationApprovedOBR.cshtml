@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "ObligationApprovedOBR";
+}
+
+<script>
+    $("#ExecutionObligationApprovedOBRControllerID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Approved Obligation Requests</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1"></div>
+                            <div class="col-md-2 col-sm-2">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Today
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Week
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Month
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Year
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-8 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>Current Legislative Appropriation</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 col-sm-4 mt-2 pt-1">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        View All Department
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-6 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Type</label>
+                                    <select class="form-control">
+                                        <option>-All-</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-4">
+                                <fieldset class="form-group">
+                                    <label class="mb-0">Search Options</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-btnbackcolor" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <fieldset class="form-group">
+                                    <label class="mb-0">Amount</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-right" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-btnbackcolor" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <fieldset class="form-group">
+                                    <label class="mb-0">Payee</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-btnbackcolor" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">List of Approved Appropriation Requests</h4>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Buttons*@
+                                            <div class="col-12 p-0 pb-1">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    View OBR
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    View PR
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    OBR Details
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Cancel OBR
+                                                </button>
+                                            </div>
+                                            @*Table*@
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>OBR No.</th>
+                                                            <th>OBR Type</th>
+                                                            <th>Approved</th>
+                                                            <th>Department</th>
+                                                            <th>Title/Purpose</th>
+                                                            <th width="15%">Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="text-center">
+                                                            <td>23-2018-121-5131</td>
+                                                            <td>Payment/Cash Advance</td>
+                                                            <td>11/14/2018</td>
+                                                            <td>OFFICE of the ACCOUNTANT</td>
+                                                            <td>For Training</td>
+                                                            <td class="text-right">214,000.00</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

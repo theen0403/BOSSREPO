@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "FilePosition";
+}
+
+
+<script>
+    $("#FileMaintenancePositionID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Position for Staffing Profile</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body" id="FMPositionSPController" ng-controller="FMPositionSPController" ng-init="GetPositionSPDTable(); GetProjectlistDTable(); GetActivitylistDTable();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded m-0" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="card-content collapse show">
+                            <div class="card-header bg-active">
+                                <h4 class="card-title black">Add New Position</h4>
+                            </div>
+                            <div class="card-body px-1 card-body rounded box-shadow-4">
+                                <div class="card-body m-0 p-0 row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label style="margin-bottom:2px;">Position name</label>
+                                            <fieldset class="form-group">
+                                                <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label style="margin-bottom:2px;">Permanent/Non-Permanent</label>
+                                                <select class="form-control">
+                                                    <option>Permanent</option>
+                                                    <option>Non-Permanent</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label style="margin-bottom:2px;">Classification</label>
+                                                <select class="form-control">
+                                                    <option>With RATA</option>
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right"
+                                                data-toggle="modal"
+                                                data-target="#ViewPrintPreviewModal"
+                                                onclick="OpenViewUpdatePrintPreviewModal()">
+                                            Cancel
+                                        </button>
+                                        <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                                data-toggle="modal"
+                                                data-target="#ViewPrintPreviewModal"
+                                                onclick="OpenViewUpdatePrintPreviewModal()">
+                                            OK
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row m-1" ng-bind-html="FMPositionSPID">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    app.controller('FMPositionSPController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        //Get Position and Staffing Profile Datatable Partial View
+        F.GetPositionSPDTable = function () {
+            F.FMPositionSPID = null;
+            P({
+                url: '/FileMaintenancePosition/GetPositionSPDTable',
+            }).then(function (response) {
+                F.FMPositionSPID = D(response.data);
+            });
+        }
+    });
+</script>

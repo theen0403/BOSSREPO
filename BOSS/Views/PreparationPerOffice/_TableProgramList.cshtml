@@ -1,0 +1,59 @@
+﻿<table id="table-program" class="table table-striped table-bordered zero-configuration w-100 table-smss-hover">
+        <thead>
+            <tr class="text-center">
+                <th width="5%">No.</th>
+                <th width="10%">AIP Reference Code</th>
+                <th>Program Description</th>
+                <th width="20%">Estimated Cost(Php)</th>
+                <th class="width-5-per">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var ProjectList = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-clipboard'></i> Projet List</button>";
+                var ActivityList = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-clipboard'></i> Activity List</button>";
+                var EditProgram = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewEditProgram','" + 1 + "')\"> <i class='la la-edit'></i> Edit/View</button>";
+                var RemoveProgram = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Remove</button>";
+
+                var ActionContentProgram = ProjectList + ActivityList + EditProgram + RemoveProgram;
+
+                <tr>
+                    <td class="text-center">1</td>
+                    <td class="text-center">9000-1</td>
+                    <td>Barangay Development Program</td>
+                    <td class="text-right">300,000.00</td>
+                    <td class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()" 
+                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                data-toggle="popover" data-content="@ActionContentProgram"
+                                data-original-title="" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td class="text-center">9000-7</td>
+                    <td>CLIMATE CHANGE ADOPTATION</td>
+                    <td class="text-right">498,000,000.00</td>
+                    <td width="5px" class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()" 
+                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                data-toggle="popover" data-content="@ActionContentProgram"
+                                data-original-title="" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

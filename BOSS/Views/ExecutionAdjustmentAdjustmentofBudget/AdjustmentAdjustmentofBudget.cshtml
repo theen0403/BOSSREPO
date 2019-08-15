@@ -1,0 +1,321 @@
+﻿
+@{
+    ViewBag.Title = "AdjustmentAdjustmentofBudget";
+}
+
+<script>
+    $("#ExecutionAdjustmentAdjustmentofBudgetID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Adjustment of Budget</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1 "></div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Office Operational Expenses
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        Programs/Projects/Activities
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date Released</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Adjustment Type</label>
+                                    <select class="form-control">
+                                        <option>Augmentation Type</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-8s">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option class="target-desc"></option>
+                                        <option class="target-desc"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Program</label>
+                                    <select class="form-control">
+                                        <option>No Program/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Project</label>
+                                    <select class="form-control">
+                                        <option>No Project/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Activity</label>
+                                    <select class="form-control">
+                                        <option>No Activity/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Purpose/Remarks</label>
+                                    <div>
+                                        <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Notes</label>
+                                    <div>
+                                        <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Advice No.</label>
+                                    <div>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body box-shadow-3 rounded">
+                            <div class="row">
+                                <div class="col-md-12 mx-0 px-0">
+                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                            data-toggle="modal"
+                                            data-target="#ViewPrintPreviewModal"
+                                            onclick="OpenViewUpdatePrintPreviewModal()">
+                                        Add/Update Adjustments
+                                    </button>
+                                </div>
+                            </div>
+                            @*Personal Services Table*@
+                            <div class="card box-shadow-2 m-0 p-0">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Personal Services</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse">
+                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                                        <div class="card-body m-0 p-0">
+                                            <div class="row m-0">
+                                                <div class="table-responsive">
+                                                    <div class="col-12 mb-0">
+                                                        <p class="red text-center">No appropriations found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Maintenance table*@
+                            <div class="card box-shadow-2 m-0 p-0">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Maintenance and Other Operating Expenses</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse">
+                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                                        <div class="card-body m-0 p-0">
+                                            <div class="row m-0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                        <thead class="text-center">
+                                                            <tr>
+                                                                <th width="25%">Particular</th>
+                                                                <th width="10%">Account Code</th>
+                                                                <th width="25%">Allotment</th>
+                                                                <th width="25%">Obligation</th>
+                                                                <th width="25%">Allotment Balance</th>
+                                                                <th width="25%">Prior Adjustment</th>
+                                                                <th width="25%">Current Adjustment</th>
+                                                                <th width="25%">Total Adjustment</th>
+                                                                <th width="25%">Ajdusted Allotment</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-right">
+                                                            <tr>
+                                                                <td class="text-center">Office Supplies Expenses</td>
+                                                                <td class="text-center">755</td>
+                                                                <td>-320,000.00</td>
+                                                                <td>0.00</td>
+                                                                <td>-320,000.00</td>
+                                                                <td>(320,000.00)</td>
+                                                                <td>0.00</td>
+                                                                <td>(320,000.00)</td>
+                                                                <td>(320,000.00)</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot class="bg-active black text-right">
+                                                            <tr>
+                                                                <th class="text-center">Office Supplies Expenses</th>
+                                                                <th class="text-center">755</th>
+                                                                <th style="padding-right:5px;">-320,000.00</th>
+                                                                <th style="padding-right:5px;">0.00</th>
+                                                                <th style="padding-right:5px;">-320,000.00</th>
+                                                                <th style="padding-right:5px;">(320,000.00)</th>
+                                                                <th style="padding-right:5px;">0.00</th>
+                                                                <th style="padding-right:5px;">(320,000.00)</th>
+                                                                <th style="padding-right:5px;">(320,000.00)</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Capial Outlay table*@
+                            <div class="card box-shadow-2 m-0 p-0">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Capital Outlay</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse">
+                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                                        <div class="card-body m-0 p-0">
+                                            <div class="row m-0">
+                                                <div class="table-responsive">
+                                                    <div class="col-12 mb-0">
+                                                        <p class="red text-center">No appropriations found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Other Financial Expenses Table*@
+                            <div class="card box-shadow-2 m-0 p-0">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Other Financial Expenses</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse">
+                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                                        <div class="card-body m-0 p-0">
+                                            <div class="row m-0">
+                                                <div class="table-responsive">
+                                                    <div class="col-12 mb-0">
+                                                        <p class="red text-center">No appropriations found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Continuing Fund*@
+                            <div class="card box-shadow-2 m-0 p-0">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Continuing Fund</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse">
+                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                                        <div class="card-body m-0 p-0">
+                                            <div class="row m-0">
+                                                <div class="table-responsive">
+                                                    <div class="col-12 mb-0">
+                                                        <p class="red text-center">No appropriations found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+﻿@model BOSS.Models.FMResponsibilityModels.OfficeSectionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<div id="PartialIndexID">
+
+</div>
+<div class="content-body rounded mt-1 box-shadow-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show px-1">
+                    <div class="card-body pb-0">
+                        <div class="row mt-1" id="DeptSectionID">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        GetPartialIndex();
+    })
+    function GetPartialIndex() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetPartialIndex',
+            success: function (result) {
+                $('#PartialIndexID').html(result);
+                GetAddFunctionList();
+            }
+        })
+    }
+    function GetAddFunctionList() {
+        var DeptID = $("#DeptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddFunctionList',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#FunctionListID').html(result);
+            }
+        })
+    }
+    function GetOfficeSecDT() {
+        var DeptID = $("#DeptID").val();
+        var FuncID = $("#FuncID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetOfficeSecDT',
+            data: { DeptID: DeptID, FuncID: FuncID },
+            success: function (result) {
+                $("#DeptSectionID").html(result);
+                GetAddOfficeSec(DeptID, FuncID);
+            }
+        })
+    }
+    //Add Office Section
+    function GetAddOfficeSec(DeptID, FuncID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddOfficeSec',
+            data: { DeptID: DeptID, FuncID: FuncID },
+            success: function (result) {
+                $('#OfficeSecTempID').html(result);
+            }
+        })
+    }
+    //Upadate Office Section
+    function Get_UpdateOfficeSection(OfficeSecID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/Get_UpdateOfficeSection',
+            data: { OfficeSecID: OfficeSecID },
+            success: function (result) {
+                $('#PartialIndexID').html(result);
+    
+               GetDeptTitleDisplay();
+                
+            }
+        })
+    }
+    function GetPartialIndex2() {
+        var DeptID = $("#DeptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetPartialIndex2',
+            data: { DeptID: DeptID},
+            success: function (result) {
+                $('#PartialIndexID').html(result);
+                GetAddFunctionList2(DeptID)
+            }
+        })
+    }
+    var GlobalFuncID = 0;
+    function GetAddFunctionList2(DeptID) {
+
+        var FuncID = GlobalFuncID;
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddFunctionList2',
+            data: { DeptID: DeptID, FuncID: FuncID},
+            success: function (result) {
+                $('#FunctionListID').html(result);
+            }
+        })
+    }
+    //Get Department Title In Update
+    function GetDeptTitleDisplay() {
+        var DeptID = $("#DeptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDeptTitledisplay',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#UpdateDisplayDeptTitle').html(result);
+                GetfunctionTitleDisplay();
+            }
+        })
+    }
+    
+    function GetfunctionTitleDisplay() {
+        var FuncID = $("#FuncUpdateID").val();
+        GlobalFuncID = FuncID;
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetfunctionTitleDisplay',
+            data: { FuncID: FuncID },
+            success: function (result) {
+                $('#UpdateDisplayFunctionTitle').html(result);
+            }
+        })
+    }
+    function DeleteOfficeSection(OfficeSecID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/DeleteOfficeSection',
+            data: { OfficeSecID: OfficeSecID },
+            success: function (result) {
+                GetOfficeSecDT();
+            }
+        })
+    }
+    
+   
+</script>

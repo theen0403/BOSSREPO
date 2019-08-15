@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "AdjustmentListofAdjustedOBR";
+}
+
+<script>
+    $("#ExecutionAdjustmentListofAdjustedOBRID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>List of Adjusted of Obligation Requests</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mb-0">
+                            <div class="col-md-3 col-sm-4 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Type</label>
+                                    <select class="form-control">
+                                        <option>All</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date To</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date From</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-4 m-0 p-0 mt-1">
+                            <div class="card-content collapse show">
+                                <div class="card-header bg-active rounded p-1">
+                                </div>
+                                <div class="card-body px-1 card-body rounded box-shadow-4">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Table*@
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>OBR No.</th>
+                                                            <th>OBR Date</th>
+                                                            <th>Title/Purpose</th>
+                                                            <th>Payee</th>
+                                                            <th width="5%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="text-center">
+                                                            <td>23-2018-121-5132</td>
+                                                            <td>11/14/2018</td>
+                                                            <td>For Training</td>
+                                                            <td>OFFICE of the ACCOUNTANT</td>
+                                                            <td>
+                                                                @{
+                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor" data-toggle="popoverAllotmentRelease"
+                                                                            data-placement="left" data-conztainer="body"
+                                                                            data-original-title="" onfocusout="ClosePopOver1()">
+                                                                        <i class="la la-reorder"></i>
+                                                                    </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

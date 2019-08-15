@@ -1,0 +1,352 @@
+﻿
+@{
+    ViewBag.Title = "ObligationPrepareOBR";
+}
+
+<script>
+    $("#ExecuteObligationPrepareOBRID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Prepare Obligation Requests</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1 "></div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Office Operational Expenses
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        Programs/Projects/Activities
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">OBR No.</label>
+                                    <div>
+                                        <input type="text" value="101-2014" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Status</label>
+                                    <div>
+                                        <input type="text" value="Pending" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-5 mt-2 pt-1">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        For Contructing/Sub Contructing
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-md-4 col-sm-6 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Appropriation</label>
+                                    <select class="form-control">
+                                        <option>Current Legislative Appropriation</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 mt-0">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-0">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Program</label>
+                                    <select class="form-control">
+                                        <option>No Program/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Project</label>
+                                    <select class="form-control">
+                                        <option>No Project/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Activity</label>
+                                    <select class="form-control">
+                                        <option>No Activity/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Title/Purpose</label>
+                                    <div>
+                                        <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Expense Class</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group ">
+                                    <label style="margin-bottom:2px;">Signatory</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">Obligation Request Details</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Buttons*@
+                                            <div class="col-12 p-0 pb-1">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    New OBR
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Save OBR
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Add Details
+                                                </button>
+                                            </div>
+                                            @*Table*@
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>Object of Expenditure</th>
+                                                            <th width="10%">Account Code</th>
+                                                            <th>Particulars</th>
+                                                            <th width="15%">Amount</th>
+                                                            <th width="5%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Fly Now Pay Later Program</td>
+                                                            <td>969-145</td>
+                                                            <td>For Training</td>
+                                                            <td class="text-right">45,850.00</td>
+                                                            <td width="5px" class="text-center">
+                                                                @{
+                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                            data-toggle="popoverAllotmentRelease" style="padding:10px;"
+                                                                            data-placement="left" data-conztainer="body"
+                                                                            data-original-title="" onfocusout="ClosePopOver1()">
+                                                                        <i class="la la-reorder"></i>
+                                                                    </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*NAV TAB*@
+                        <div class="card box-shadow-2 m-0 p-0 mt-1">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">Status of Allotments and Obligations</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="row m-0">
+                                        <ul class="nav nav-tabs btn-btnbackcolor m-1">
+                                            <li class="nav-item  text-white">
+                                                <a class="nav-link active" id="base-tab21" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Personal Services</a>
+                                            </li>
+                                            <li class="nav-item text-white">
+                                                <a class="nav-link" id="base-tab22" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Maintenance and Other Operating Expenses</a>
+                                            </li>
+                                            <li class="nav-item text-white">
+                                                <a class="nav-link" id="base-tab23" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Capital Outlays</a>
+                                            </li>
+                                            <li class="nav-item text-white">
+                                                <a class="nav-link" id="base-tab24" data-toggle="tab" aria-controls="tab24" href="#tab24" aria-expanded="false">Other Financial Expenses</a>
+                                            </li>
+                                        </ul>
+                                        @*TAB*@
+                                        <div class="tab-content w-100" id="nav-tabContent">
+                                            <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                                @*=====================*@
+                                                <div class="tab-pane active" id="tab21">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-5"></div>
+                                                            <div class="col-md-7 red">
+                                                                <label>No appropriations found.</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*=====================*@
+                                                <div class="tab-pane" id="tab22">
+                                                    <div class="container">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                                <thead class="text-center">
+                                                                    <tr>
+                                                                        <th width="35%">Account Title</th>
+                                                                        <th width="10%">Account Code</th>
+                                                                        <th width="25%">Allotment</th>
+                                                                        <th width="25%">Obligations</th>
+                                                                        <th width="25%">Allotment Balance</th>
+                                                                        <th width="5%">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Other MOOE - Fly Now Pay Later Program</td>
+                                                                        <td class="text-center">969-145</td>
+                                                                        <td class="text-right">1,240,000.00</td>
+                                                                        <td class="text-right">323,000.00</td>
+                                                                        <td class="text-right">917,000.00</td>
+                                                                        <td class="text-center">
+                                                                            @{
+                                                                                <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                                        data-toggle="popoverAllotmentRelease" style="padding:10px;"
+                                                                                        data-placement="left" data-conztainer="body"
+                                                                                        data-original-title="" onfocusout="ClosePopOver1()">
+                                                                                    <i class="la la-reorder"></i>
+                                                                                </button>
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*===================*@
+                                                <div class="tab-pane" id="tab23">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-5"></div>
+                                                            <div class="col-md-7 red">
+                                                                <label>No appropriations found.</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*===================*@
+                                                <div class="tab-pane" id="tab24">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-md-5"></div>
+                                                            <div class="col-md-7 red">
+                                                                <label>No appropriations found.</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

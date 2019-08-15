@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "PreparationSummaryIndex";
+}
+
+<script>
+    $("#PreparationSummaryID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-12 col-12 mb-0">
+        <h3 class="content-header-title"><strong>Program/Project/Activities (By Responsibility Center)</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body" id="RCenterController" ng-controller="RCenterController" ng-init="GetViewRCenter();">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="col-md-2 col-sm-4 form-group pl-0">
+                            <label>Budget Year</label>
+                            <select class="form-control">
+                                <option>2018</option>
+                                <option>2019</option>
+                            </select>
+                        </div>
+                        <div class="card-header bg-active mt-1 rounded p-1">
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-3 rounded">
+                                <div class="row m-0" ng-bind-html="RCenterID">
+                                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*JS===================================>>*@
+<script>
+    app.controller('RCenterController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        //Get Table Responsibility Center Datatable Partial View
+        F.GetViewRCenter = function () {
+            F.RCenterID = null;
+            P({
+                url: '/PreparationSummary/GetViewRCenter',
+            }).then(function (response) {
+                F.RCenterID = D(response.data);
+            });
+        }
+
+    });
+</script>

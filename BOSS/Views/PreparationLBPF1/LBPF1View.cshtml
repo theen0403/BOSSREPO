@@ -1,0 +1,588 @@
+﻿
+@{
+    ViewBag.Title = "LBPF1View";
+}
+<script>
+    $("#PreparationLBPF1ViewID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-12 col-12 mb-10">
+        <h3 class="content-header-title"><strong>LBPF 1 - Budget Of Expenditures and Sources of Financing</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body" id="LBPF1Controller" ng-controller="LBPF1Controller" ng-init="GetSORlistDT(); GetRIlistDT();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group ">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-5">
+                                <div class="form-group">
+                                    <label>Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option>Option</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 mt-1 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-sm card-content collapse show">
+                            <div class="card-body">
+                                <div class="row m-0">
+                                    <ul class="nav nav-tabs btn-btnbackcolor">
+                                        <li class="nav-item  text-white">
+                                            <a class="nav-link active" id="base-tab21" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">State of Receipts</a>
+                                        </li>
+                                        <li class="nav-item text-white">
+                                            <a class="nav-link" id="base-tab22" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Receipts/Income</a>
+                                        </li>
+                                        <li class="nav-item text-white">
+                                            <a class="nav-link" id="base-tab23" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Expenditures</a>
+                                        </li>
+                                    </ul>
+                                    @*TAB*@
+                                    <div class="tab-content w-100" id="nav-tabContent">
+                                        <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                            @*State Of Receipt Tab*@
+                                            <div role="tabpanel" class="tab-pane active" id="tab21" aria-expanded="true" aria-labelledby="base-tab21">
+                                                <div class="container">
+                                                    <div class="row ">
+                                                        <div class="col-md-12 text-right m-0 p-0">
+                                                            <button type="button" class="btn btn-btnbackcolor btn-min-width float-right"
+                                                                    onclick="AngularGlobalView('LBPF1Controller','GetViewAddAccountSOR','  1 ')">
+                                                                Add Account
+                                                            </button>
+                                                        </div>
+                                                        <div class="card box-shadow-2">
+                                                            <div class="card-content collapse show">
+                                                                <div class="card-body my-0 py-0">
+
+                                                                    <div class="row mb-0 pb-0" ng-bind-html="StateOfReceiptID">
+                                                                       
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-bordered my-0 py-0" style="border: 10px solid; border-color: #FFE082;">
+                                                </div>
+                                                <div>
+                                                    <div class="row">
+                                                        <div class="card-body my-0 py-0">
+                                                            <h4><b class="black">BEGINNING BALANCES:</b></h4>
+                                                            <div class="row my-0 py-0">
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label>First Sem</label>
+                                                                        <input type="text" class="form-control text-right" data-type="currency">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label>Second Sem</label>
+                                                                        <input type="text" class="form-control text-right" data-type="currency">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="form-group">
+                                                                        <label>Total</label>
+                                                                        <input type="text" class="form-control text-right" data-type="currency">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-bordered my-0 py-0" style="border: 10px solid; border-color: #FFE082;">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <a class="btn btn-btnbackcolor btn-min-width ml-1 mt-1 button float-right"
+                                                           data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                                           target='_blank'>
+                                                            Print Preview
+                                                        </a>
+                                                        @{
+                                                            var SaveConfirmationMess = "Are you sure you want save this?";
+
+                                                            <button class="btn btn-btnbackcolor btn-min-width float-right mt-1"
+                                                                    onclick="swalConfirmation('@SaveConfirmationMess' ,'', 'Successfully Saved!')">
+                                                                Save
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*Receipts/Income Tab*@
+                                            <div class="tab-pane" id="tab22" aria-labelledby="base-tab22">
+                                                <div class="tab-pane" id="tab1" aria-labelledby="base-tab1">
+                                                    <div class="container">
+                                                        <div class="row ">
+                                                            <div class="col-md-12 text-right m-0 p-0">
+                                                                <button type="button" class="btn btn-btnbackcolor btn-min-width float-right"
+                                                                        onclick="AngularGlobalView('LBPF1Controller','GetViewAddAccountRI','  1 ')">
+                                                                    Add Account
+                                                                </button>
+                                                            </div>
+                                                            <div class="card box-shadow-2">
+                                                                <div class="card-content collapse show">
+                                                                    <div class="card-body my-0 py-0">
+                                                                        <div class="row mb-0 pb-0" ng-bind-html="ReceiptsIncomeID">
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @*===============================*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*Expenditures Tab*@
+                                            <div class="tab-pane" id="tab23" aria-labelledby="base-tab23">
+
+                                                <div class="container">
+                                                    <div class="row ">
+                                                        <div class="col-md-12 text-right m-0 p-0">
+                                                            <button type="button" class="btn btn-btnbackcolor btn-min-width float-right"
+                                                                    onclick="AngularGlobalView('LBPF1Controller','GetViewAddAccountExpenditure','  1 ')">
+                                                                Add Account
+                                                            </button>
+                                                        </div>
+                                                        @*PERSONAL SERVICES*@
+                                                        <div class="card box-shadow-2">
+                                                            <div class="card-content collapse show mt-1">
+                                                                <div class="card-header bg-active">
+                                                                    <h4 class="card-title black">Personal Services</h4>
+                                                                </div>
+                                                                <div class="card-content collapse show">
+                                                                    <div class="card-body px-1 p-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                                                                        @*TABLE*@
+                                                                        <table class="table table-responsive table-striped table-bordered zero-configuration w-100">
+                                                                            <thead class="text-center">
+                                                                                <tr>
+                                                                                    <th>Particular</th>
+                                                                                    <th>Account Code</th>
+                                                                                    <th>Past Year (Actual) 2015</th>
+                                                                                    <th>1st Semester (Actual) 2016</th>
+                                                                                    <th>2nd Semester (Estimated) 2016</th>
+                                                                                    <th>TOTAL 2016</th>
+                                                                                    <th>Budget Year (Proposed) 2017</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Salaries and Wages - Regular</td>
+                                                                                    <td class="text-center">1-01-02-010</td>
+                                                                                    <td class="text-right">100,000.00</td>
+                                                                                    <td class="text-right">50,000.00</td>
+                                                                                    <td class="text-right">0.00</td>
+                                                                                    <td class="text-right">110,000.00</td>
+                                                                                    <td class="text-right">120,000,00</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>Year End Bonus</td>
+                                                                                    <td class="text-center">1-01-02-010</td>
+                                                                                    <td class="text-right">100,000.00</td>
+                                                                                    <td class="text-right">50,000.00</td>
+                                                                                    <td class="text-right">0.00</td>
+                                                                                    <td class="text-right">110,000.00</td>
+                                                                                    <td class="text-right">120,000,00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                            <tfoot class="bg-active text-right">
+                                                                                <tr>
+                                                                                    <th colspan="2" class="text-center">Total:</th>
+                                                                                    <th>200,000.00</th>
+                                                                                    <th>100,000.00</th>
+                                                                                    <th>0.00</th>
+                                                                                    <th>220,000.00</th>
+                                                                                    <th>240,000.00</th>
+                                                                                </tr>
+                                                                            </tfoot>
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*Maintenence And Other Operating Expenses*@
+                                                        <div class="card box-shadow-2">
+                                                            <div class="card-content collapse show">
+                                                                <div class="card-header bg-active">
+                                                                    <h4 class="card-title black">Capital Outlay</h4>
+                                                                </div>
+                                                                <div class="card-content collapse show">
+                                                                    <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                                                                        @*TABLE*@
+                                                                        <table class="table table-responsive table-striped table-bordered zero-configuration w-100">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Particular</th>
+                                                                                    <th>Account Code</th>
+                                                                                    <th>Past Year (Actual) 2015</th>
+                                                                                    <th>1st Semester (Actual) 2016</th>
+                                                                                    <th>2st Semester (Estimated) 2016</th>
+                                                                                    <th>TOTAL 2016</th>
+                                                                                    <th>Budget Year (Proposed) 2017</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Repairs and Maintenance</td>
+                                                                                    <td class="text-center">1-01-02-010</td>
+                                                                                    <td class="text-right">100,000.00</td>
+                                                                                    <td class="text-right">50,000.00</td>
+                                                                                    <td class="text-right">0.00</td>
+                                                                                    <td class="text-right">110,000.00</td>
+                                                                                    <td class="text-right">120,000,00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                            <tfoot class="bg-active text-right">
+                                                                                <tr>
+                                                                                    <th colspan="2" class="text-center">Total:</th>
+                                                                                    <th>100,000.00</th>
+                                                                                    <th>50,000.00</th>
+                                                                                    <th>0.00</th>
+                                                                                    <th>110,000.00</th>
+                                                                                    <th>120,000.00</th>
+                                                                                </tr>
+                                                                            </tfoot>
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*Capital Outlay*@
+                                                        <div class="card box-shadow-2">
+                                                            <div class="card-content collapse show">
+                                                                <div class="card-header bg-active">
+                                                                    <h4 class="card-title black">Capital Outlay</h4>
+                                                                </div>
+                                                                <div class="card-content collapse show">
+                                                                    <div class="card-body px-1 p-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                                                                        @*TABLE*@
+                                                                        <table class="table table-responsive table-striped table-bordered zero-configuration w-100">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Particular</th>
+                                                                                    <th>Account Code</th>
+                                                                                    <th>Past Year (Actual) 2015</th>
+                                                                                    <th>1st Semester (Actual) 2016</th>
+                                                                                    <th>2st Semester (Estimated) 2016</th>
+                                                                                    <th>TOTAL 2016</th>
+                                                                                    <th>Budget Year (Proposed) 2017</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Office Equipment</td>
+                                                                                    <td class="text-center">1-01-02-010</td>
+                                                                                    <td class="text-right">100,000.00</td>
+                                                                                    <td class="text-right">50,000.00</td>
+                                                                                    <td class="text-right">0.00</td>
+                                                                                    <td class="text-right">110,000.00</td>
+                                                                                    <td class="text-right">120,000,00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                            <tfoot class="bg-active text-right">
+                                                                                <tr>
+                                                                                    <th colspan="2" class="text-center">Total:</th>
+                                                                                    <th>100,000.00</th>
+                                                                                    <th>50,000.00</th>
+                                                                                    <th>0.00</th>
+                                                                                    <th>110,000.00</th>
+                                                                                    <th>120,000.00</th>
+                                                                                </tr>
+                                                                            </tfoot>
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @*Other Financial Expenses*@
+                                                        <div class="card box-shadow-2">
+                                                            <div class="card-content collapse show">
+                                                                <div class="card-header bg-active">
+                                                                    <h4 class="card-title black">Other Financial Expenses</h4>
+                                                                </div>
+                                                                <div class="card-content collapse show">
+                                                                    <div class="card-body px-1 p-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                                                                        @*TABLE*@
+                                                                        <table class="table table-responsive table-striped table-bordered zero-configuration w-100">
+                                                                            <thead class="text-center">
+                                                                                <tr>
+                                                                                    <th>Particular</th>
+                                                                                    <th>Account Code</th>
+                                                                                    <th>Past Year (Actual) 2015</th>
+                                                                                    <th>1st Semester (Actual) 2016</th>
+                                                                                    <th>2st Semester (Estimated) 2016</th>
+                                                                                    <th>TOTAL 2016</th>
+                                                                                    <th>Budget Year (Proposed) 2017</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>Other (Example)</td>
+                                                                                    <td class="text-center">1-01-02-010</td>
+                                                                                    <td class="text-right">100,000.00</td>
+                                                                                    <td class="text-right">50,000.00</td>
+                                                                                    <td class="text-right">0.00</td>
+                                                                                    <td class="text-right">110,000.00</td>
+                                                                                    <td class="text-right">120,000,00</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                            <tfoot class="bg-active text-right">
+                                                                                <tr>
+                                                                                    <th colspan="2" class="text-center">Total:</th>
+                                                                                    <th>100,000.00</th>
+                                                                                    <th>50,000.00</th>
+                                                                                    <th>0.00</th>
+                                                                                    <th>110,000.00</th>
+                                                                                    <th>120,000.00</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*MODALS=====================================*@
+    @*STATE OF RECEIPT*@
+    @*ADD New Account*@
+    <div class="modal fade text-left" id="ViewAddAccountSORModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Add New Account/s</h4>
+                </div>
+                <div class="modal-body m-0" ng-bind-html="ViewAddAccountSOR">
+
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" data-toggle="modal" data-target="" onclick="">Add Account/s</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Receipt/Income*@
+    @*ADD New Account*@
+    <div class="modal fade text-left" id="ViewAddNewAccountReceiptIncomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Add New Account/s</h4>
+                </div>
+                <div class="modal-body m-0" ng-bind-html="ViewAddAccountRI">
+                    
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" data-toggle="modal" data-target="" onclick="">Add Account/s</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*EXPENDITURES*@
+    @*ADD NEW ACCOUNT*@
+    <div class="modal fade text-left" id="ViewAddNewAccountExpenditureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Add New Account/s</h4>
+                </div>
+                <div class="modal-body m-0" ng-bind-html="ExpendituresID">
+
+
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" data-toggle="modal" data-target="" onclick="">Add Account/s</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    app.controller('LBPF1Controller', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+        //=========================STATE OF RECEIPT================================
+        //Get Table STATE OF RECEIPT List Datatable Partial View
+        F.GetSORlistDT = function () {
+            F.StateOfReceiptID = null;
+            P({
+                url: '/PreparationLBPF1/GetSORlistDT',
+            }).then(function (response) {
+                F.StateOfReceiptID = D(response.data);
+            });
+        }
+        //Get add account STATE OF RECEIPT Modal Partial View
+        F.GetViewAddAccountSOR = function (ID) {
+            //F.ViewProgramDetailsTemp = null;
+            P({
+                url: '/PreparationLBPF1/GetViewAddAccountSOR',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddAccountSOR = D(response.data);
+                $('#ViewAddAccountSORModal').modal('toggle');
+            });
+        }
+        //=========================RECEIPTS/INCOME================================
+        //Get Table RECEIPTS/INCOME Datatable Partial View
+        F.GetRIlistDT = function () {
+            F.ReceiptsIncomeID = null;
+            P({
+                url: '/PreparationLBPF1/GetRIlistDT',
+            }).then(function (response) {
+                F.ReceiptsIncomeID = D(response.data);
+            });
+        }
+        //Get add account RECEIPTS/INCOME Modal Partial View
+        F.GetViewAddAccountRI = function (ID) {
+            //F.ViewProgramDetailsTemp = null;
+            P({
+                url: '/PreparationLBPF1/GetViewAddAccountRI',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddAccountRI = D(response.data);
+                $('#ViewAddNewAccountReceiptIncomeModal').modal('toggle');
+            });
+        }
+        //=========================EXENDITURES================================
+         //Get add account EXENDITURES Modal Partial View
+        F.GetViewAddAccountExpenditure = function (ID) {
+            //F.ViewProgramDetailsTemp = null;
+            P({
+                url: '/PreparationLBPF1/GetViewAddAccountExpenditure',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ExpendituresID = D(response.data);
+                $('#ViewAddNewAccountExpenditureModal').modal('toggle');
+            });
+        }
+    });
+</script>
+
+@*State Of RECEIPT*@
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>
+<script>
+    //ADD NEW ACCOUNT STATE OF RECEIPT
+    function OpenViewAddNewAccountStateofReceipt() {
+        //var ID = $("#SupplyAccountCodeList").val();
+        var IDTemp = "1";
+        $.ajax({
+            url: '/PreparationLBPF1/GetViewAddNewAccountStateofReceipt',
+            data: { ID: IDTemp },
+            success: function (result) {
+                $('#ViewAddNewAccountStateofReceipt').html(result);
+            }
+        })
+    }
+</script>
+@*RECEIPTS/INCOME*@
+<script>
+    //ADD NEW ACCOUNT RECEIPT / INCOME
+    function OpenViewAddNewAccountReceiptIncome() {
+        //var ID = $("#SupplyAccountCodeList").val();
+        var IDTemp = "1";
+        $.ajax({
+            url: '/PreparationLBPF1/GetViewNewAccountReceiptIncome',
+            data: { ID: IDTemp },
+            success: function (result) {
+                $('#ViewAddNewAccountReceiptIncome').html(result);
+            }
+        })
+    }
+</script>
+@*EXPENDITURE*@
+<script>
+    //ADD NEW ACCOUNT EXPENDITURE
+    function OpenViewAddNewAccountExpenditure() {
+        //var ID = $("#SupplyAccountCodeList").val();
+        var IDTemp = "1";
+        $.ajax({
+            url: '/PreparationLBPF1/GetViewAddNewAccountExpenditure',
+            data: { ID: IDTemp },
+            success: function (result) {
+                $('#ViewAddNewAccountExpenditure').html(result);
+            }
+        })
+
+    }
+</script>
+@*Currency Format*@
+<script>
+
+    $("input[data-type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+    formatCurrency();
+    formatNumber();
+
+</script>
+

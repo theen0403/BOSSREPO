@@ -1,0 +1,82 @@
+
+@{
+    ViewBag.Title = "FileAccounts";
+}
+
+<script>
+    $("#FileMaintenanceAccountsID").addClass("active");
+</script>
+@*BODY*@
+<div class="content-body" id="FMAccountsController" ng-controller="FMAccountsController" ng-init="COATab()">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        @*NAV TAB*@
+                        <div class="card box-shadow-2">
+                            <div class="row m-0">
+                                <ul class="nav nav-tabs btn-btnbackcolor">
+                                    <li class="nav-item  text-white">
+                                        <a class="nav-link active" id="base-tab21" ng-click="COATab()" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Charts of Accounts (2015-009)</a>
+                                    </li>
+                                    <li class="nav-item text-white">
+                                        <a class="nav-link" id="base-tab22" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Revision for Chart of Accounts</a>
+                                    </li>
+                                    <li class="nav-item text-white">
+                                        <a class="nav-link" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">PIN</a>
+                                    </li>
+                                </ul>
+                                @*TAB*@
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+
+                                        <div class="tab-pane active" id="tab21" ng-bind-html="tab21">
+
+                                        </div>
+                                        <div class="tab-pane" id="tab22" ng-bind-html="tab22">
+
+                                        </div>
+                                        <div class="tab-pane" id="tab23" ng-bind-html="tab23">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    app.controller('FMAccountsController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+        //Chart of Accounts Tab
+        F.COATab = function () {
+            F.tab21 = null;
+            P({
+                url: '/FileMaintenanceAccounts/COATab',
+            }).then(function (response) {
+                F.tab21 = D(response.data);
+            });
+        }
+        F.RevisionCOATab = function () {
+            F.tab22 = null;
+            P({
+                url: '/FileMaintenanceAccounts/RevisionCOATab',
+            }).then(function (response) {
+                F.tab22 = D(response.data);
+            });
+        }
+        F.PINTab = function () {
+            F.tab23 = null;
+            P({
+                url: '/FileMaintenanceAccounts/PINTab',
+            }).then(function (response) {
+                F.tab23 = D(response.data);
+            });
+        }
+    });
+</script> 

@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "LBPF6";
+}
+
+
+<script>
+    $("#PreparationLBPF6ViewID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-12 col-12 mb-12">
+        <h3 class="content-header-title"><strong>LBPF 6 - Statement of Statutory and Contractual Obligation and Budgetary Requirements</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Fund Source</label>
+                                    <select class="form-control">
+                                        <option>Calamity Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-2 col-sm-3 mt-1 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank' onclick="CloseModal()">
+                                    Print Preview
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active mt-1 rounded">
+                            <h4 class="card-title black">Statutory and Contractual Obligations</h4>
+                        </div>
+                        <div class="card-body pt-1  rounded box-shadow-3">
+
+                            <div class="col-md-3 col-sm-3 mx-0 px-0">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1">Add</button>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive mx-1">
+                                    <table class="table table-striped zero-configuration table-bordered">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th width="70%">Description</th>
+                                                <th>Total Amount</th>
+                                                <th width="5%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Terminal Leave Benefits</td>
+                                                <td class="text-right">11,952,000.00</td>
+                                                <td class="text-center">
+                                                    @{
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Debt Services</td>
+                                                <td class="text-right">127,646,326.02</td>
+                                                <td class="text-center">
+                                                    @{
+
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Employees Compensation Insurance Premiums</td>
+                                                <td class="text-right">1,102,800.00</td>
+                                                <td class="text-center">
+                                                    @{
+
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active mt-1 rounded">
+                            <h4 class="card-title black">Budgetary Requirements</h4>
+                        </div>
+                        <div class="card-body pt-1  rounded box-shadow-3">
+
+                            <div class="col-md-3 col-sm-3 mx-0 px-0">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1">Add</button>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive mx-1">
+                                    <table class="table table-striped zero-configuration table-bordered">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th width="70%">Description</th>
+                                                <th>Total Amount</th>
+                                                <th width="5%">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>20% of IRA for Development Fund</td>
+                                                <td class="text-right">219,000,000.00</td>
+                                                <td class="text-center">
+                                                    @{
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor " 
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body"
+                                                                data-original-title="">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>5% Local Disaster Risk Reduction and Management</td>
+                                                <td class="text-right">85,785,000.00</td>
+                                                <td class="text-center">
+                                                    @{
+
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body"
+                                                                data-original-title="">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Financial Assitance to Barangays</td>
+                                                <td class="text-right">237,000.00</td>
+                                                <td class="text-center">
+                                                    @{
+
+                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                data-placement="left" data-conztainer="body"
+                                                                data-original-title="">
+                                                            <i class="la la-reorder"></i>
+                                                        </button>
+                                                    }
+
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

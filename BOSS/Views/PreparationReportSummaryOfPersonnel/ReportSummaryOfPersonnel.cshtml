@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "ReportSummaryOfPersonnel";
+}
+
+<script>
+    $("#PreparationReportSummaryOfPersonnelID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12">
+        <h3 class="content-header-title"><strong>Reports-Summary of Personnel</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-2 mt-1 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Preview
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 col-sm-6">
+                                <label for="basicTextarea" class="cursor-pointer card-title mb-0"><strong>Report Header</strong></label>
+                                <fieldset class="form-group">
+                                    <textarea class="form-control" id="basicTextarea" rows="6"></textarea>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-5 col-sm-6">
+                                <label for="basicTextarea" class="cursor-pointer card-title mb-0"><strong>Note</strong></label>
+                                <fieldset class="form-group">
+                                    <textarea class="form-control" id="basicTextarea" rows="6"></textarea>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

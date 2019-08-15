@@ -1,0 +1,61 @@
+﻿<table class="table table-responsive table-bordered table-smss-hover zero-configuration w-100">
+    <thead class="text-center">
+        <tr>
+            <th>Full Name</th>
+            <th>Position</th>
+            <th>Department</th>
+            <th>Function</th>
+            <th width="5%">Department Head</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+            var successUpdate = "Successfully Updated!";
+
+            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+            var ActionFM = Update + Remove;
+
+            <tr>
+                <td>EDUARDO D. BANZON</td>
+                <td>Provincial Governor</td>
+                <td>REGIONAL TRIAL COURT - Branch V, 96 Office of the COC, Dinalupitan</td>
+                <td>General Administration</td>
+                <td class="text-center">Yes</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionFM" style="padding:8px;"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Albert S. Garcia</td>
+                <td>Provincial Budget Officer</td>
+                <td>METRO BATAAN DEVELOPMENT AUTHORITY</td>
+                <td>General Administration</td>
+                <td class="text-center">No</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionFM"  style="padding:8px;"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

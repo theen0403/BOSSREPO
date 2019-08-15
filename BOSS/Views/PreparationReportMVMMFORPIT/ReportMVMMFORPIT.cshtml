@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "ReportMVMMFORPIT";
+}
+
+
+<script>
+    $("#PreparationReportMVMMFORPITID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="col-md-12">
+        <h3 class="content-header-title"><strong>Reports-Mandate, Vision/Mission, Major Final Output, Performance Indicators and Targets)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <fieldset class="radio float-right">
+                                    <label>
+                                        <input type="radio" name="radio" value="" checked>
+                                        Client's Format
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <fieldset class="radio">
+                                    <label>
+                                        <input type="radio" name="radio" value="">
+                                        Default Format
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Function/Division</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7"></div>
+                            <div class="col-md-2 col-sm-9">
+                                <fieldset class="mt-2 text-right" style="padding-top:10px;">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        No Footer
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <a class="btn btn-btnbackcolor btn-min-width mt-2 button float-right"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

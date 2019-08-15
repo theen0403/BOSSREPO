@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "AdjustmentPersonnelServicesSaving";
+}
+
+<script>
+    $("#ExecutionAdjustmentPersonnelServicesSavingID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Personnel Services Savings</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-8">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Savings Release Code</label>
+                                    <select class="form-control">
+                                        <option>1-2018-6-54</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-7 mt-1" style="padding-top:8px;">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width">
+                                    Update Savings
+                                </button>
+                                <button type="button" class="btn btn-btnbackcolor mr-1 btn-min-width">
+                                    New Savings
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-9 col-sm-12">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Remarks</label>
+                                    <div>
+                                        <textarea class="form-control" id="basicTextarea" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right">
+                                    View Savings
+                                </button>
+                            </div>
+                        </div>
+                        @*table*@
+                        <div class="card box-shadow-3 m-0 p-0">
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th><label></label></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><label></label></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label></label></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label></label></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label></label></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-active">
+                                                        <tr>
+                                                            <th><label></label></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

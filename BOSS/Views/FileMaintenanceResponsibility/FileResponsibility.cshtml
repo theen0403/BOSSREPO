@@ -1,0 +1,97 @@
+﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+    ViewBag.Title = "FileResponsibility";
+}
+@using BOSS.Models;
+
+
+<script>
+    $("#FileMaintenanceResponsibilityID").addClass("active");
+</script>
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Responsibility Center</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body" id="FMResponsibilityController" ng-controller="FMResponsibilityController" ng-init="DepartmentTab()">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        @*NAV TAB*@
+                        <div class="card box-shadow-2">
+                            <div class="row m-0">
+                                <ul class="nav nav-tabs btn-btnbackcolor">
+                                    <li class="nav-item  text-white">
+                                        <a class="nav-link active" ng-click="DepartmentTab()" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true">Department</a>
+                                    </li>
+                                    <li class="nav-item text-white">
+                                        <a class="nav-link" id="base-tab2" ng-click="FunctionTab()" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false">Function</a>
+                                    </li>
+                                    <li class="nav-item text-white">
+                                        <a class="nav-link" id="base-tab3" ng-click="OfficeSectionTab()" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false">Office Section</a>
+                                    </li>
+                                </ul>
+                                @*TAB*@
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                        @*Department Tab*@
+                                        <div class="tab-pane active" id="tab1" ng-bind-html="tab1"  >
+                                         
+                                        </div>
+                                        @*Function Tab*@
+                                        <div class="tab-pane" id="tab2" ng-bind-html="tab2" >
+                         
+                                        </div>
+                                        @*Office Section Tab*@
+                                        <div class="tab-pane" id="tab3" ng-bind-html="tab3" >
+                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*=============================================*@
+<script>
+    app.controller('FMResponsibilityController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+        //Department Tab
+        F.DepartmentTab = function () {
+            F.tab1 = null;
+            P({
+                url: '/FileMaintenanceResponsibility/DepartmentTab',
+            }).then(function (response) {
+                F.tab1 = D(response.data);
+            });
+        }
+        //Function Tab
+        F.FunctionTab = function () {
+            F.tab2 = null;
+            P({
+                url: '/FileMaintenanceResponsibility/FunctionTab',
+            }).then(function (response) {
+                F.tab2 = D(response.data);
+            });
+        }
+        //Office Section Tab
+        F.OfficeSectionTab = function () {
+            F.tab3 = null;
+            P({
+                url: '/FileMaintenanceResponsibility/OfficeSectionTab',
+            }).then(function (response) {
+                F.tab3 = D(response.data);
+            });
+        }
+    });
+</script>

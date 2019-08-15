@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "FileAppropriation";
+}
+
+<script>
+    $("#FileMaintenanceAppropriationID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Appropriation Source</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body" id="ApproSourceController" ng-controller="ApproSourceController" ng-init="InitFunctions();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        @*Add Appropriation Source*@
+                        <div id="AppropSoureIDTemp">
+                            
+                        </div>
+                        <div class="content-body rounded mt-1 box-shadow-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card box-shadow-2"> 
+                                        <div class="card-content collapse show px-1">
+                                            <div class="card-body pb-0">
+                                                <div class="row mt-1" ng-bind-html="ApproSourceID">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    app.controller('ApproSourceController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        //Calling all Init Function
+        F.InitFunctions = function () {
+            F.GetAppropriationSourceDT();
+        }
+        F.GetDynamicFund = function () {
+            var AppropriationSourceID = $("#AppropriationSourceTypeID").val();
+            P({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund',
+                params: { AppropriationSourceID: AppropriationSourceID }
+            }).then(function (response) {
+                $('#FundSourceID').html(response.data);
+            });
+        }
+        //Calling Dynamic Fund Source Partial View
+        F.GetDynamicFund2 = function (FundSourceIDHidden, ApproIDHidden) {
+            P({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund2',
+                params: { FundSourceIDHidden: FundSourceIDHidden, ApproIDHidden: ApproIDHidden }
+            }).then(function (response) {
+                $('#FundSourceID2').html(response.data);
+            });
+        }
+        F.GetDynamicFund3 = function () {
+            var AppropriationSourceID = $("#AppropriationSourceTypeID2").val();
+            P({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund',
+                params: { AppropriationSourceID: AppropriationSourceID }
+            }).then(function (response) {
+                $('#FundSourceID2').html(response.data);
+            });
+        }
+        //Get Table Appropriation Source Datatable Partial View
+        F.GetAppropriationSourceDT = function () {
+            F.ApproSourceID = null;
+            P({
+                url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
+            }).then(function (response) {
+                F.ApproSourceID = D(response.data);
+                F.GetAddAppropSource();
+            });
+        }
+        //Get GetAppropriation Source Add Partial View
+        F.GetAddAppropSource = function () {
+            P({
+                url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+            }).then(function (response) {
+                $('#AppropSoureIDTemp').html(response.data);
+              
+            });
+        }
+        ////Get GetAppropriation Source Update Partial View
+        F.Get_UpdateAppropSource = function (AppropSourceID) {
+         
+            P({
+                url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
+                params: { AppropSourceID: AppropSourceID }
+            }).then(function (response) {
+                $('#AppropSoureIDTemp').html(response.data);
+               
+            });
+        }
+        //Delete AppropriationSource
+        F._DeleteAppropriationSource = function (AppropSourceID) {
+            P({
+                url: '/FileMaintenanceAppropriation/DeleteAppropriationSource',
+                params: { AppropriationID: AppropSourceID }
+            }).then(function (response) {
+                F.GetAppropriationSourceDT();
+            });
+        }
+    });
+</script>

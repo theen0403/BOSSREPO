@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "RecordSAOO";
+}
+
+<script>
+    $("#RecordSAOOID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Summary of Appropriation, Allotment and Obligations</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Appropriation Source</label>
+                                    <fieldset class="form-group">
+                                        <input type="text" class="form-control" id="readonlyInput" readonly="readonly" value="Annual budget 2018" style="background-color:white">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-5">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4">
+                               <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date To</label>
+                                    <div>
+                                        <input id="date" type="date" format="dd/mm/yyyy" class="form-control pickadate" value="01/01/2017">
+                                    </div>
+                                </div>
+                                @*<div class="form-group">
+                                    <label style="margin-bottom:2px;">Date To</label>
+                                    <div class="input-group mt-0">
+                                        <input type='text' class="form-control pickadate" value="01/01/2017"/>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <span class="la la-calendar-o"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>*@
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="form-group">
+                                        <label style="margin-bottom:2px;">Quarter Ending</label>
+                                        <select class="form-control">
+                                            <option>As of</option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-4">
+                                    <div class="form-group">
+                                        <label style="margin-bottom:2px;">Date Form</label>
+                                        <div>
+                                            <input id="date" type="date" format="dd/mm/yyyy" class="form-control pickadate ">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right"
+                                        data-toggle="modal"
+                                        data-target="#ViewUpdateSignatoryModal"
+                                        onclick="OpenViewUpdateSignatoryModal()">
+                                    Preview SAAO Consolidated
+                                </button>
+                            </div>
+                        </div>
+
+                        @*NAV TAB1*@
+                        <div class="container mt-1">
+                            <div class="row">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" id="base-tab1" data-toggle="tab" aria-controls="tabPersonal" href="#tabPersonal" aria-expanded="true">Personal Services</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabMOOS" data-toggle="tab" aria-controls="tabMOOS" href="#tabMOOS" aria-expanded="true">Maintenance and other Operating Services</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tabCapital" aria-expanded="true">Capital Outlay</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tabOtherFinancial" aria-expanded="true">Other Financial Expense</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tabPPA" aria-expanded="true">PPA's Expenditures</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-4">
+                                        <div class="tab-pane active" id="tabPersonal">
+                                            <div class="card-header bg-active mt-1 rounded">
+                                                <h4 class="card-title black">Status of Appropriation, Allotment and Obligations</h4>
+                                            </div>
+                                            <div class="card-body pt-1 rounded box-shadow-3">
+                                                <div class="row">
+                                                    <div class="table-responsive mx-1">
+                                                        <table class="table table-striped zero-configuration table-bordered">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th width="30%">Particulars</th>
+                                                                    <th width="20%">Code</th>
+                                                                    <th width="15%">Appropriation</th>
+                                                                    <th width="15%">Allotment</th>
+                                                                    <th width="15%">Obligation</th>
+                                                                    <th width="15%">Appropriation</th>
+                                                                    <th width="25%">Allotment</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-right">
+                                                                <tr>
+                                                                    <td class="text-center">Salaries and Wages - Regular</td>
+                                                                    <td class="text-center">5-01-01-010</td>
+                                                                    <td>16,670,984.00</td>
+                                                                    <td>248,750.00</td>
+                                                                    <td>0.00</td>
+                                                                    <td>248,750.00</td>
+                                                                    <td>16,422,234.00</td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot class="bg-active black text-right">
+                                                                <tr>
+                                                                    <th class="text-center" colspan="2">TOTAL</th>
+                                                                    <th>16,670,984.00</th>
+                                                                    <th>248,750.00</th>
+                                                                    <th>0.00</th>
+                                                                    <th>248,750.00</th>
+                                                                    <th>16,422,234.00</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tabMOOS">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                        <div class="tab-pane" id="tabCapital">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                        <div class="tab-pane" id="tabOtherFinancial">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                        <div class="tab-pane" id="tabPPA">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*NAV TAB2*@
+                        <div class="container mt-1">
+                            <div class="row">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" id="base-tab1" data-toggle="tab" aria-controls="tabAppropriation" href="#tabAppropriation" aria-expanded="true">Appropriation/Allotment</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabMOOS" data-toggle="tab" aria-controls="tabObligation" href="#tabObligation" aria-expanded="true">Obligation</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-4">
+                                        <div class="tab-pane active" id="tabAppropriation">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                        <div class="tab-pane" id="tabObligation">
+                                            <div class="card-header bg-active mt-1 rounded">
+                                                <h4 class="card-title black">Obligation</h4>
+                                            </div>
+                                            <div class="card-body pt-1 rounded box-shadow-3">
+                                                <div class="row">
+                                                    <div class="table-responsive mx-1">
+                                                        <table class="table table-striped zero-configuration table-bordered">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>OBR Date</th>
+                                                                    <th>OBR No.</th>
+                                                                    <th>Particular</th>
+                                                                    <th>Payee</th>
+                                                                    <th>Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-right">
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot class="bg-active black text-right">
+                                                                <tr>
+                                                                    <th colspan="4">TOTAL:</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

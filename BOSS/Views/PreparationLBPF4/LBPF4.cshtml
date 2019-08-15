@@ -1,0 +1,356 @@
+﻿
+@{
+    ViewBag.Title = "LBPF4";
+}
+<script>
+    $("#PreparationLBPF4ViewID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-12 col-12">
+        <h3 class="content-header-title"><strong>LBPF 4 - Mandate, Vision, Mission, Major Final Output, Performance Indicators and Targets</strong></h3>
+    </div>
+</div>
+
+<div class="content-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+    <div class="row">
+        <div class="col-12 col-xl-12">
+            <div class="card box-shadow-3 mb-0 pb-0">
+                <div class="card-content collapse show">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 col-sm-6">
+                                <div class="form-group">
+                                    <label>Responsibility Center</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-2 mt-1 pt-1">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width">View</button>
+                            </div>
+                        </div>
+
+                        @*TAB*@
+                        <div class="row">
+                            <div class="col-12 col-xl-12 mt-0 ">
+                                <div class="card">
+
+                                    <div class="card-block">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <ul class="nav nav-tabs bg-backcolorheader">
+                                                        <li class="nav-item  text-white">
+                                                            <a class="nav-link active" id="base-tab21" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Mandate and Organization Outcome</a>
+                                                        </li>
+                                                        <li class="nav-item text-white">
+                                                            <a class="nav-link" id="base-tab22" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Vision/Mission</a>
+                                                        </li>
+                                                        <li class="nav-item text-white">
+                                                            <a class="nav-link" id="base-tab23" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Programs/Projects/Activities</a>
+                                                        </li>
+                                                    </ul>
+                                                    @*Tab content*@
+                                                    <div class="tab-content w-100" id="nav-tabContent">
+                                                        <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                                            @*tab1*@
+                                                            <div role="tabpanel" class="tab-pane active" id="tab21" aria-expanded="true" aria-labelledby="base-tab21">
+
+                                                                @*===================*@
+
+                                                                <div class="card-body m-0 p-0">
+                                                                    <a class="btn btn-btnbackcolor btn-min-width mb-1 button float-right"
+                                                                       data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                                                       target='_blank' onclick="CloseModal()">
+                                                                        Print Preview
+                                                                    </a>
+                                                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1  mr-1 float-right">Add</button>
+                                                                </div>
+                                                                @*1ST Table*@
+                                                                <div>
+                                                                    <table class="table table-striped table-bordered w-100">
+                                                                        <thead>
+                                                                            <tr class="text-center">
+                                                                                <th rowspan="2" colspan="2">MANDATE</th>
+                                                                                <th width="5%">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                                                                                var DeleteSuccesMess = "Successfully Deleted";
+                                                                                var successUpdate = "Successfully Updated!";
+
+                                                                                var UpdateMandate = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                                                                var RemoveMandate = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                                                                var ActionMandate = UpdateMandate + RemoveMandate;
+                                                                                <tr>
+                                                                                    <td width="5%">1)</td>
+                                                                                    <td>Enhance productivity of Bataenos. Improved the efficiency of the Provincial Government Management and Operation.</td>
+
+                                                                                    <td class="text-center">
+                                                                                        <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                                                                                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                                                                                data-toggle="popover" data-content="@ActionMandate"
+                                                                                                data-original-title="" data-html="true" data-placement="left">
+                                                                                            <i class="la la-bars"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                @*2ndTable*@
+                                                                <div>
+                                                                    <table class="table table-striped table-bordered w-100">
+                                                                        <thead>
+                                                                            <tr class="text-center">
+                                                                                <th rowspan="2" colspan="2">ORGANIZATIONAL OUTCOME</th>
+                                                                                <th width="5%">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                var UpdateOrganizationOutcome = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                                                                var RemoveOrganizationOutcome = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                                                                var ActionOrganizationOutcome = UpdateOrganizationOutcome + RemoveOrganizationOutcome;
+                                                                                <tr>
+                                                                                    <td width="5%">1)</td>
+                                                                                    <td>Provide curative and preventive services and improve efficiency and provision of quality healthcare.</td>
+
+                                                                                    <td class="text-center">
+                                                                                        <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                                                                                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                                                                                data-toggle="popover" data-content="@ActionOrganizationOutcome"
+                                                                                                data-original-title="" data-html="true" data-placement="left">
+                                                                                            <i class="la la-bars"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                                @*Table end*@
+                                                                <div class="row mt-2">
+                                                                    <div class="col-md-7">
+                                                                        <div class="form-group">
+                                                                            <label for="basicTextarea" class="cursor-pointer card-title m-0">Footnote</label>
+                                                                            <fieldset>
+                                                                                <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                                                            </fieldset>
+                                                                            <button type="button" class="btn btn-btnbackcolor float-left mt-1">Save Footnote</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @*===================*@
+                                                            </div>
+                                                            @*tab 2*@
+                                                            <div class="tab-pane" id="tab22" aria-labelledby="base-tab22">
+                                                                @*===================*@
+                                                                <div class="card-body m-0 p-0">
+                                                                    <a class="btn btn-btnbackcolor btn-min-width mb-1 button float-right"
+                                                                       data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                                                       target='_blank' onclick="CloseModal()">
+                                                                        Print Preview
+                                                                    </a>
+                                                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1  mr-1 float-right">Add</button>
+                                                                </div>
+                                                                @*1st Table*@
+                                                                <div>
+                                                                    <table class="table table-striped table-bordered w-100">
+                                                                        <thead>
+                                                                            <tr class="text-center">
+                                                                                <th rowspan="2" colspan="2">VISION</th>
+                                                                                <th width="5%">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                var UpdateVission = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                                                                var RemoveVission = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                                                                var ActionVission = UpdateVission + RemoveVission;
+                                                                                <tr>
+                                                                                    <td width="5%">1)</td>
+                                                                                    <td>The Provincial Accountant's Office aims to be an effective internal auditor and in-charge of the accounting and internal audit services of the Province.</td>
+
+                                                                                    <td class="text-center">
+                                                                                        <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                                                                                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                                                                                data-toggle="popover" data-content="@ActionVission"
+                                                                                                data-original-title="" data-html="true" data-placement="left">
+                                                                                            <i class="la la-bars"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                @*2ndTable*@
+                                                                <div>
+                                                                    <table class="table table-striped table-bordered w-100">
+                                                                        <thead>
+                                                                            <tr class="text-center">
+                                                                                <th rowspan="2" colspan="2">MISSION</th>
+                                                                                <th width="5%">Action</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{
+                                                                                var UpdateMission = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                                                                var RemoveMission = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                                                                var ActionMission = UpdateMission + RemoveMission;
+                                                                                <tr>
+                                                                                    <td width="5%">1)</td>
+                                                                                    <td>Its mission is to enhance the integrity of accounting records, serve the best interest of the public, and contribution to the attainment of the objectives of the Province.</td>
+
+                                                                                    <td class="text-center">
+                                                                                        <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                                                                                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                                                                                data-toggle="popover" data-content="@ActionMission"
+                                                                                                data-original-title="" data-html="true" data-placement="left">
+                                                                                            <i class="la la-bars"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <div class="row mt-2">
+                                                                    <div class="col-md-7">
+                                                                        <div class="form-group">
+                                                                            <label for="basicTextarea" class="cursor-pointer card-title m-0">Footnote</label>
+                                                                            <fieldset>
+                                                                                <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                                                            </fieldset>
+                                                                            <button type="button" class="btn btn-btnbackcolor float-left mt-1">Save Footnote</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @*===================*@
+                                                            </div>
+                                                            @*tab3*@
+                                                            <div class="tab-pane" id="tab23" aria-labelledby="base-tab22">
+
+                                                                <div role="tabpanel" class="tab-pane active" id="tab21" aria-expanded="true" aria-labelledby="base-tab21">
+
+                                                                    @*===================*@
+                                                                    <div class="card-content collapse show">
+                                                                        <div class="card-body">
+                                                                            <a class="btn btn-btnbackcolor btn-min-width ml-1 float-right button"
+                                                                               data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                                                               target='_blank' onclick="CloseModal()">
+                                                                                Print Preview
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    @*Table*@
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="table-responsive mx-1">
+                                                                                <table id="SuppliesDT" class="table table-bordered zero-configuration w-100">
+                                                                                    <thead>
+                                                                                        <tr class="text-center">
+                                                                                            <th width="5%">AIP Reference Code</th>
+                                                                                            <th>PPA Description</th>
+                                                                                            <th>Cost(Php)</th>
+                                                                                            <th>Performance Output(Indicator)</th>
+                                                                                            <th>Annual Targets</th>
+                                                                                            <th>Annual Targets</th>
+                                                                                            <th>From</th>
+                                                                                            <th>To</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td class="text-center">1000-10</td>
+                                                                                            <td>Accounting Services</td>
+                                                                                            <td class="text-right"><strong>19,430,000.00</strong></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td></td>
+                                                                                            <td class="text-center">01/01</td>
+                                                                                            <td class="text-center">12/31</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                    <tfoot class="bg-active black m-0">
+                                                                                        <tr>
+
+                                                                                            <th colspan="2">Total Cost</th>
+                                                                                            <th class="text-right" style="padding-right:5px;">19,430,000.00</th>
+                                                                                            <th></th>
+                                                                                            <th></th>
+                                                                                            <th></th>
+                                                                                            <th></th>
+                                                                                            <th></th>
+                                                                                        </tr>
+                                                                                    </tfoot>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-7">
+                                                                                <div class="form-group">
+                                                                                    <label for="basicTextarea" class="cursor-pointer card-title m-0">Footnote</label>
+                                                                                    <fieldset>
+                                                                                        <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                                                                    </fieldset>
+                                                                                    <button type="button" class="btn btn-btnbackcolor float-left mt-1">Save Footnote</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            @*Table end*@
+                                                            @*===================*@
+                                                        </div>
+                                                    </div>
+
+                                                    @*tab content end*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*JS=========================*@
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>

@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "QueriesSAOO";
+}
+
+<script>
+    $("#ExecutionQueriesSAOOID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Status of Appropriations, Allotments and Obligations (for OBR Checking)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-3 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-9 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Appropriation Type</label>
+                                    <select class="form-control">
+                                        <option>Current Legislative Appropriation</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-4 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-8 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-6 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">As of</label>
+                                    <fieldset class="form-group">
+                                        <input type="text" class="form-control" />
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Search by Office Code</label>
+                                    <fieldset>
+                                        <div class="input-group mt-0">
+                                            <input type="text" class="form-control black" aria-describedby="button-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-btnbackcolor" type="button">Search</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*NAV TAB*@
+                        <div class="card box-shadow-3 m-0 p-0">
+                            <div class="card-content collapse show">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true">Personal Services</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="true">Other Maintenance & Operating Expenses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="true">Capital Outlay</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" data-toggle="tab" aria-controls="tab4" href="#tab4" aria-expanded="true">Other Financial Expenses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" data-toggle="tab" aria-controls="tab5" href="#tab5" aria-expanded="true">Non-Office Expenditures</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-4">
+                                        <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
+                                            <div class="card-body pt-1  rounded box-shadow-3">
+                                                <div class="row">
+                                                    <div class="table-responsive mx-1">
+                                                        <table class="table table-striped zero-configuration w-100 table-bordered">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>
+                                                                        <fieldset class="checkbox">
+                                                                            <input type="checkbox" name="checkbox" value="">
+                                                                        </fieldset>
+                                                                    </th>
+                                                                    <th>Object of Expenditure</th>
+                                                                    <th>Account Code</th>
+                                                                    <th>Annual Appropriation</th>
+                                                                    <th>Allotment Release</th>
+                                                                    <th>Obligations</th>
+                                                                    <th>Allotment Balance</th>
+                                                                    <th>Balance of Appropriation</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-right">
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <fieldset class="checkbox">
+                                                                            <input type="checkbox" name="checkbox" value="">
+                                                                        </fieldset>
+                                                                    </td>
+                                                                    <td class="text-left">Salaries and Wages - Regular</td>
+                                                                    <td class="text-center">701</td>
+                                                                    <td>7,154,296.00</td>
+                                                                    <td>1,788,574.00</td>
+                                                                    <td>12,000.00</td>
+                                                                    <td>1,776,574.00</td>
+                                                                    <td>5,365,722.00</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        <fieldset class="checkbox">
+                                                                            <input type="checkbox" name="checkbox" value="">
+                                                                        </fieldset>
+                                                                    </td>
+                                                                    <td class="text-left">Salaries and Wages - Casual</td>
+                                                                    <td class="text-center">701</td>
+                                                                    <td>7,154,296.00</td>
+                                                                    <td>1,788,574.00</td>
+                                                                    <td>12,000.00</td>
+                                                                    <td>1,776,574.00</td>
+                                                                    <td>5,365,722.00</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <p class="red">No Appropriation Found.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab3" aria-labelledby="base-tab2">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <p class="red">No Appropriation Found.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab4" aria-labelledby="base-tab2">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <p class="red">No Appropriation Found.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab5" aria-labelledby="base-tab2">
+                                            <div class="row">
+                                                <div class="col text-center">
+                                                    <p class="red">No Appropriation Found.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

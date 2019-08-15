@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BOSS.Models.FMAppropriationSourceModels.AppropriationSourceList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<table class="table table-responsive table-striped table-bordered zero-configuration table-smss-hover w-100">
+    <thead class="text-center">
+        <tr>
+            <th>Appropriation Source</th>
+            <th>Appropriation Type</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"AngularGlobalEdit('ApproSourceController','Get_UpdateAppropSource','" + @Items.AppropriationID + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+
+                var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.Description + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.AppropriationID + ",&quot;_DeleteAppropriationSource&quot;,&quot;ApproSourceController&quot;)')\"><i class='la la-trash'></i> Delete</button></div>";
+                                                                                                                                                                                  
+
+                var ActionAS = Update + Remove;
+
+                <tr>
+                    <td>@Items.Description</td>
+                    <td class="target-desc">@Items.AppropriationSourceType</td>
+                    <td class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                data-toggle="popover" data-content="@ActionAS"
+                                data-original-title="" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

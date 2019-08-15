@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "LBAFQuarterlyReport";
+}
+
+<script>
+    $("#AccountabilityLBAFQuarterlyReportID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Quartely Report of Income</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 col-sm-4 mt-0">
+                                <div class="form-group ">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4 mt-0">
+                                <div class="form-group ">
+                                    <label>Quarter</label>
+                                    <select class="form-control">
+                                        <option>1st</option>
+                                        <option>2nd</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @*table*@
+                        <div class="card box-shadow-4 m-0 p-0 mt-1">
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 card-body rounded box-shadow-4">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            <div class="col-12 p-0">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" id="basicTextarea" rows="6"></textarea>
+                                                </div>
+                                                <div class="row mt-1">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-btnbackcolor btn-min-width ml-1 float-right" data-toggle="modal" data-target="#ViewPrintPreviewModal" onclick="OpenViewUpdatePrintPreviewModal()">
+                                                            Undo
+                                                        </button>
+                                                        <button type="button" class="btn btn-btnbackcolor btn-min-width ml-1 float-right" data-toggle="modal" data-target="#ViewPrintPreviewModal" onclick="OpenViewUpdatePrintPreviewModal()">
+                                                            Save
+                                                        </button>
+                                                        <button type="button" class="btn btn-btnbackcolor btn-min-width ml-1 float-right" data-toggle="modal" data-target="#ViewPrintPreviewModal" onclick="OpenViewUpdatePrintPreviewModal()">
+                                                            Exit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿@model BOSS.Models.BarModels.BarModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+
+<div class="collapse navbar-collapse" id="navbar-mobile">
+    <ul class="nav navbar-nav mr-auto float-left">
+        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
+
+        <li class="dropdown nav-item mega-dropdown">
+            <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><b>B</b>udget <b>O</b>perations <b>S</b>upport <b>S</b>ystem</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav float-right">
+        <li class="dropdown dropdown-user nav-item">
+            <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                <span class="mr-1">
+                    Hello,
+                    <span class="user-name text-bold-700">@Model.FullName</span>
+                </span>
+                <span class="avatar avatar-online">
+                    <img src="~/Resources/Avatar/teacher.png" alt="avatar"><i></i>
+                </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="/Profile/ProfileView"><i class="ft-user"></i> Edit Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/Login/ConfirmLogout"><i class="ft-power"></i> Logout</a>
+            </div>
+        </li>
+
+    </ul>
+</div>
+

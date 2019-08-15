@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "ReportSAOOSummarized";
+}
+
+<script>
+    $("#ExecutionReportSAOOSummarizedID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Report - Status of Appropriations, Allotments and Obligations (Summarized)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row ">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-inline">
+                                <label><input type="radio" name="radio1"/>Summarized (Client's Format)</label>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-inline">
+                                <label><input type="radio" name="radio1" />Summarized (Default)</label>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-inline">
+                                <label><input type="radio" name="radio1"/>Consolidated (Default)</label>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-2 "></div>
+                            <div class="col-md-2 col-sm-3 col-xs-3 form-group">
+                                <label>Budget Year</label>
+                                <select class="form-control">
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-group">
+                                <label>Fund</label>
+                                <select class="form-control">
+                                    <option>General Fund</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-5 col-xs-5 form-group">
+                                <label>Appropriation</label>
+                                <select class="form-control">
+                                    <option>Continuing Appropriation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-4 col-xs-4 form-group">
+                                <label>Quarter Ending</label>
+                                <select class="form-control">
+                                    <option>As of</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-group">
+                                <label>Date To</label>
+                                <div class="form-group">
+                                    <input type="date" data-format="dd/MM/yyyy" value="15/01/2018" class="form-control pickadate">
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 col-xs-4 form-group">
+                                <label>Date From</label>
+                                <div class="form-group">
+                                    <input type="date" data-format="dd/MM/yyyy" value="15/01/2018" class="form-control pickadate">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4 col-sm-12 pull-right">
+                                <button class="btn btn-btnbackcolor white btn-min-width">Preview</button>
+                                <button class="btn btn-btnbackcolor white btn-min-width">Download Excel File</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BOSS.Models.FMResponsibilityModels.FunctionList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th>Function</th>
+            <th>Function Abbreviation</th>
+            <th>Function Code</th>
+            <th>Sector</th>
+            <th>Sub Sector</th>
+            <th>Fund</th>
+            <th width="5%">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var UpdateFunction = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"GlobalEdit('Get_UpdateFunction','" + @Items.FunctionID + "')\"> <i class='la la-edit'></i> Edit</button>";
+                var RemoveFunction = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.FunctionTitle + "','" + @DeleteSuccesMess + "','GlobalDelete(" + @Items.FunctionID + ",&quot;DeleteFunction&quot;)')\"><i class='la la-trash'></i> Delete</button>";
+
+                var ActionFunction = UpdateFunction + RemoveFunction;
+        <tr>
+
+            <td>@Items.FunctionTitle</td>
+            <td>@Items.FunctionAbbrv</td>
+            <td>@Items.FunctionCode</td>
+            <td> @Items.SectorTitle</td>
+            <td>
+                @{ 
+                    var SubsectorTitleValue = "N/A";
+                    var departmentTable = (from e in BOSSDB.SubSectors where e.SubSectorID == Items.SubSectorID select e).FirstOrDefault();
+
+                    if (departmentTable != null)
+                    {
+                        SubsectorTitleValue = departmentTable.SubSectorTitle;
+                    }
+                }
+             @SubsectorTitleValue
+            </td>
+            <td>@Items.FundTitle</td>
+            <td class="text-center">
+                <button type="button" onfocusout="PopoveLostFocus()"
+                        class="btn btn-m btn-btnbackcolor popover-trigger"
+                        data-toggle="popover" data-content="@ActionFunction"
+                        data-original-title="" data-html="true" data-placement="left">
+                    <i class="la la-bars"></i>
+                </button>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

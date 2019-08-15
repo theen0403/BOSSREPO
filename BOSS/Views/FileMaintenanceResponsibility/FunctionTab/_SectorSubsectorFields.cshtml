@@ -1,0 +1,20 @@
+﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="row">
+    <div class="col-md-5 col-sm-4 mt-0">
+        <div class="form-group ">
+            <label class="custom-form-margin">Sector</label>
+            @Html.TextBoxFor(m => m.SectorTitle, new { @class = "form-control", id = "SecTitleID", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="col-md-7 col-sm-4 mt-0">
+        <div class="form-group ">
+            <label class="custom-form-margin">SubSector</label>
+            @Html.TextBoxFor(m => m.SubSectorTitle, new { @class = "form-control", id = "SubSectorTitleID", @readonly = "readonly" })
+        </div>
+    </div>
+</div>

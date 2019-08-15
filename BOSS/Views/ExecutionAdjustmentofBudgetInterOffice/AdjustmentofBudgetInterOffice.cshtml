@@ -1,0 +1,259 @@
+﻿
+@{
+    ViewBag.Title = "AdjustmentofBudgetInterOffice";
+}
+<script>
+    $("#ExecutionAdjustmentofBudgetInterOfficeID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Adjustment of Budget (Inter Office)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1 "></div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Office Operational Expenses
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-4 col-sm-5">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        Programs/Projects/Activities
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-9">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Program</label>
+                                    <select class="form-control">
+                                        <option>No Program/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Project</label>
+                                    <select class="form-control">
+                                        <option>No Project/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Activity</label>
+                                    <select class="form-control">
+                                        <option>No Activity/s found</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Release Code</label>
+                                    <select class="form-control">
+                                        <option>1-2018-6-54</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-sm-10 mt-1" style="padding-top:9px;">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width">
+                                    New Release Code
+                                </button>
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width">
+                                    Update Release Code
+                                </button>
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width">
+                                    Lock Release Code
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Release Type</label>
+                                    <select class="form-control">
+                                        <option>Deductions</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 mt-2">
+                                <div class="form-group">
+                                    <label style="padding-top:15px;">Remarks:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right">
+                                    View Allotment
+                                </button>
+                            </div>
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-4 m-0 p-0 mt-1">
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        @*LABEL*@
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label style="color:#CC0000">Total Balance Deducted:</label>
+                                                    <label style="color:#CC0000">0.00</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4">
+                                                <div class="form-group">
+                                                    <label style="color:#CC0000">Total Balance Transfered:</label>
+                                                    <label style="color:#CC0000">26,328,700.00</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*BUTTON*@
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right">
+                                                    Copy Values
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right mr-1">
+                                                    Finalize
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right mr-1">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                        @*Table*@
+                                        <div class="table-responsive mt-1">
+                                            <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>Account Title</th>
+                                                        <th width="10%">Account Code</th>
+                                                        <th width="15%">Allotment Balance</th>
+                                                        <th width="15%">Approved Savings</th>
+                                                        <th width="15%">Adjusted Balance</th>
+                                                        <th>Allotment Class</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Traveling Expenses - Local</td>
+                                                        <td>751</td>
+                                                        <td class="text-right">791,300.00</td>
+                                                        <td class="mx-2 px-2" style="margin-top:5px; padding-top:5px;">
+                                                            <div class="row">
+                                                                <div class="col-mg-12">
+                                                                    <fieldset class="form-group">
+                                                                        <input type="text" class="form-control mx-0 px-0 text-right" value="0.00" id="basicInput">
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">79,300.00</td>
+                                                        <td>MOOE</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Traveling Expenses - Local</td>
+                                                        <td>751</td>
+                                                        <td class="text-right">791,300.00</td>
+                                                        <td class="mx-2 px-2" style="margin-top:5px; padding-top:5px;">
+                                                            <div class="row">
+                                                                <div class="col-mg-12">
+                                                                    <fieldset class="form-group">
+                                                                        <input type="text" class="form-control mx-0 px-0 text-right" value="0.00" id="basicInput">
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">79,300.00</td>
+                                                        <td>MOOE</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot class="bg-active black text-right">
+                                                    <tr>
+                                                        <th class="text-center" colspan="2">TOTAL</th>
+                                                        <th style="padding-right:5px;">1,582,600.00</th>
+                                                        <th style="padding-right:5px;">0.00</th>
+                                                        <th style="padding-right:5px;">1,582,600.00</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <div class="row mt-1">
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="form-group">
+                                                    <label style="margin-bottom:2px;">Prepared By:</label>
+                                                    <select class="form-control">
+                                                        <option>JUAN D. CRUZ</option>
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <div class="form-group">
+                                                    <label style="margin-bottom:2px;">Approved By:</label>
+                                                    <select class="form-control">
+                                                        <option>DANIEL D. SANTOS</option>
+                                                        <option></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

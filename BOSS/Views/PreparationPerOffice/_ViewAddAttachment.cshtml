@@ -1,0 +1,27 @@
+﻿<div class="col-md-12">
+    <h3 class="card-title">
+        <label class="ft-plus-square font-large-2 success btn" for="my-file-selector">
+            <input id="my-file-selector" type="file" style="display:none;"
+                   onchange="$('#upload-file-info').html(this.files[0].name)">
+        </label>
+        <span class="font-large-1">Attach File</span>
+    </h3>
+    <div id="file-container" class="attached-files-container">
+        <div class="documentParent">
+            <i class="ft-delete"></i>
+            <span class='documentParent label label-info ml-1' id="upload-file-info"></span>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    $(function () {
+        $('#upload-file-info').change(function () {    // use class or use $('select')
+            if ($(this).val() == html(this.files[1].name) {
+                $("#file-container").style.display = "block";
+            } else {
+                $("#file-container").style.display = "none";
+            }
+        });
+    });
+</script>*@

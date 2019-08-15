@@ -1,0 +1,10 @@
+﻿@model BOSS.Models.FMResponsibilityModels.OfficeSectionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<div class="form-group">
+    <label class="custom-form-margin">Function</label>
+    @*@Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID"})*@
+    @Html.TextBoxFor(m => m.FunctionTitle, new { @class = "form-control", id = "FuncID", @readonly = "readonly" })
+</div>

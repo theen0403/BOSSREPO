@@ -1,0 +1,17 @@
+﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label style="margin-bottom:2px;">Fund Source</label>
+  @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2", id="FundID" })
+</div>
+
+<script>
+    $(function () {
+        $("#FundID").select2();
+
+    })
+</script>

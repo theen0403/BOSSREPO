@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "ListOfApproved";
+}
+
+<script>
+    $("#ReviewListOfApprovedID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="col-12">
+        <h3 class="content-header-title"><strong>List of Approved Programmed Appropriation and Obligation by Object Expenditure</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Appropriation Source</label>
+                                    <select class="form-control">
+                                        <option>Annual Budget 2018</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-2 mt-1 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    View
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-block">
+                                <div class="card-body">
+                                    <div class="container">
+                                        <div class="row">
+                                            <ul class="nav nav-tabs">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active bg-backcolorheader" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true">Office Operational Expenses</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link bg-backcolorheader" id="base-tab2" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="true">Program/Project/Activity</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content w-100" id="nav-tabContent">
+                                                <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true" aria-labelledby="base-tab1">
+                                                        <div class="row">
+                                                            <div class="table-responsive  m-1">
+                                                                <table class="table table-striped table-bordered w-100 zero-configuration text-center">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Department/Office/Responsibility Center</th>
+                                                                            <th width="5%">Office Code</th>
+                                                                            <th width="5%">Date Submitted</th>
+                                                                            <th width="5%">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="text-left">REGIONAL TRAIL COURT-Branch I,II,III,92,93, and Office of the COC Balangan</td>
+                                                                            <td width="5px">000111</td>
+                                                                            <td width="5px">02/28/2018</td>
+                                                                            <td width="5px">
+                                                                                @{
+                                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor " 
+                                                                                            data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                                            data-placement="left" data-conztainer="body"
+                                                                                            data-original-title="">
+                                                                                        <i class="la la-reorder"></i>
+                                                                                    </button>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-left">OFFICE of the PROVINCIAL AGRICULTURIST</td>
+                                                                            <td>8711</td>
+                                                                            <td>02/28/2018</td>
+                                                                            <td>
+                                                                                @{
+                                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor " 
+                                                                                            data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                                            data-placement="left" data-conztainer="body"
+                                                                                            data-original-title="">
+                                                                                        <i class="la la-reorder"></i>
+                                                                                    </button>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
+                                                        <div class="row">
+                                                            <div class="table-responsive  m-1">
+                                                                <table class="table table-striped table-bordered w-100 zero-configuration text-center">
+
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Department/Office/Responsibility Center</th>
+                                                                            <th width="5%">Office Code</th>
+                                                                            <th width="5%">Date Submitted</th>
+                                                                            <th width="5%">Action</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="text-left">REGIONAL TRAIL COURT-Branch I,II,III,92,93, and Office of the COC Balangan</td>
+                                                                            <td>000111</td>
+                                                                            <td>02/28/2018</td>
+                                                                            <td>
+                                                                                @{
+                                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor " 
+                                                                                            data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                                            data-placement="left" data-conztainer="body"
+                                                                                            data-original-title="">
+                                                                                        <i class="la la-reorder"></i>
+                                                                                    </button>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-left">OFFICE of the PROVINCIAL AGRICULTURIST</td>
+                                                                            <td>8711</td>
+                                                                            <td>02/28/2018</td>
+                                                                            <td>
+                                                                                @{
+                                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor " 
+                                                                                            data-toggle="popoverListOfProgram" style="padding:8px;"
+                                                                                            data-placement="left" data-conztainer="body"
+                                                                                            data-original-title="">
+                                                                                        <i class="la la-reorder"></i>
+                                                                                    </button>
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

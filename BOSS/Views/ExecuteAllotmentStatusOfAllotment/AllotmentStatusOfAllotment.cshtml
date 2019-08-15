@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "AllotmentStatusOfAllotment";
+}
+<script>
+    $("#ExecuteAllotmentStatusOfAllotmentID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Status of Allotment Releases</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1 "></div>
+                            <div class="col-md-2 col-sm-2">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Today
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Week
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Month
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Year
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-5">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Date</label>
+                                    <div>
+                                        <input type="date" data-format="dd/MM/yyyy" class="form-control pickadate ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-8">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>OFFICE of the PROVINCIAL ACCOUNTANT</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 mt-2 pt-1">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="Radio" id="radioFirst">
+                                        View All Department
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Allotment Type</label>
+                                    <select class="form-control">
+                                        <option>-All-</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">List of Allotment Releases</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th width="10%">ARO No.</th>
+                                                            <th>Issued</th>
+                                                            <th>Status</th>
+                                                            <th>Type</th>
+                                                            <th>Department/PPA</th>
+                                                            <th width="15%">Fund</th>
+                                                            <th width="15%">Amount</th>
+                                                            <th width="5%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>2018-0032</td>
+                                                            <td>5/25/2018</td>
+                                                            <td>For Execution</td>
+                                                            <td>First Quarter</td>
+                                                            <td>OFFICE of the PROVINCIAL ACCOUNTANT General Fund</td>
+                                                            <td>General Fund</td>
+                                                            <td class="text-right">125,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                            data-toggle="popoverAllotmentRelease" style="padding:8px;"
+                                                                            data-placement="left" data-conztainer="body"
+                                                                            data-original-title="" onfocusout="ClosePopOver1()">
+                                                                        <i class="la la-reorder"></i>
+                                                                    </button>
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2018-0032</td>
+                                                            <td>5/25/2018</td>
+                                                            <td>For Execution</td>
+                                                            <td>First Quarter</td>
+                                                            <td>OFFICE of the PROVINCIAL ACCOUNTANT General Fund</td>
+                                                            <td>General Fund</td>
+                                                            <td class="text-right">125,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                            data-toggle="popoverAllotmentRelease" style="padding:8px;"
+                                                                            data-placement="left" data-conztainer="body"
+                                                                            data-original-title="" onfocusout="ClosePopOver1()">
+                                                                        <i class="la la-reorder"></i>
+                                                                    </button>
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var popupElement =
+            '<div class="row m-small"><button class="btn btn-icon black btn-menuorange form-control  target-desc t-has-destination2" destination="table-project" style="border-color: white" ><i class="la la-chevron-right"></i>Execute</button></div>' +
+            '<div class="row m-small"><button class="btn btn-icon black btn-menuorange form-control" style="border-color: white" data-toggle="modal" data-target="#ViewProgramModal" onclick="OpenViewProgramModal()"><i class="la la-times"></i>Unexecute</button></div>' +
+            '<div class="row m-small"><button class="btn btn-icon black btn-menuorange form-control" style="border-color: white" data-toggle="modal" data-target="#ViewProgramModal" onclick="OpenViewProgramModal()"><i class="la la-arrow-up"></i>Update</button></div>' +
+            '<div class="row m-small"><button class="btn btn-icon black btn-menuorange form-control" style="border-color: white"><i class="la la-print"></i>Print</button></div>';
+        $('[data-toggle="popoverAllotmentRelease"]').popover({
+            animation: true,
+            content: popupElement,
+            html: true
+        });
+    });
+    function ClosePopOver1() {
+        $('[data-toggle="popoverAllotmentRelease"]').popover('hide');
+    }
+</script>

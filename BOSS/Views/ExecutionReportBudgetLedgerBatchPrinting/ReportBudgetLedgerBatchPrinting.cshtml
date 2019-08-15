@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "ReportBudgetLedgerBatchPrinting";
+}
+
+<script>
+    $("#ExecutionReportBudgetLedgerBatchPrintingID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Report - Budget Ledger (Batch Printing)</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-4 form-group">
+                                <label>Budget Year</label>
+                                <select class="form-control">
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label>Fund</label>
+                                <select class="form-control">
+                                    <option>General Fund</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <label>Allotment Class</label>
+                                <select class="form-control">
+                                    <option>Personal Services</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row ml-1">
+                            <div class="col-md-5 form-group">
+                                <label>Department</label>
+                                <select class="form-control">
+                                    <option>Office of the ACCOUNTANT</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-6 form-group">
+                                <label>Appropriation</label>
+                                <select class="form-control">
+                                    <option>Continuing Appropriation</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-6 form-group">
+                                <label>Account/Sub Account</label>
+                                <select class="form-control">
+                                    <option>All Account/s</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-btnbackcolor pull-right btn-min-width">Preview</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

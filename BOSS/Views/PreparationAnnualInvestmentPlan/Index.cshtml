@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $("#PreparationAnnualInvestmentPlanID").addClass("active");
+</script>
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Annual Investment Plan</strong></h3>
+    </div>
+</div>
+@*BODY*@
+
+<div class="content-body" id="AIPController" ng-controller="AIPController" ng-init="GetProgramlistDT(); GetProjectlistDT(); GetActivitylistDT();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group ">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2017</option>
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                        <option>2020</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label>Sector</label>
+                                    <select id="dp" class="form-control">
+                                        <option>Economic Services</option>
+                                        <option>Environmental Services</option>
+                                        <option>General Public Services</option>
+                                        <option>Other Purposes</option>
+                                        <option>Social Services</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group mt-3">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        Show All Sectors
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row float-right">
+                            <a class="btn btn-btnbackcolor btn-min-width mr-1 button"
+                               data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                               target='_blank'>
+                                Print Preview
+                            </a>
+                            @{
+                                var ResetConfirmationMess = "Are you sure you want to reset the AIP Reference Code of these Programs/Projects/Activities??";
+                                var SuccesMess = "Reset of AIP Code was successful!";
+                                <button class="btn btn-btnbackcolor btn-min-width mr-1"
+                                        onclick="swalConfirmation('@ResetConfirmationMess' ,'', '@SuccesMess')">
+                                    Reset AIP Code
+                                </button>
+                            }
+                        </div>
+                        @*Table for LIST OF PROGRAM*@
+                        <div class="card-header bg-active mt-4 rounded">
+                            <h4 class="card-title black">List of Program for: <span id="dpValue"></span> (Total Cost: Php 160,717,000.00@*<span id="dpValue2"></span>*@)</h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-sm box-shadow-3 rounded">
+                                <div class="row m-0" ng-bind-html="ProgramListID">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class=" col-lg-4">
+                                    <h4 class="card-title black pull-right ">TOTAL COST (All Programs):</h4>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h4 class="card-title text-right pr-1 black">160,717,000.00</h4>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                        </div>
+                        @*LIST OF PROJECT*@
+                        <div class="card-sm card-header bg-active mt-2 rounded" id="d-project">
+                            <h4 class="card-title black">List of Project for: <span></span></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-sm box-shadow-3 rounded">
+                                <div class="row m-0" ng-bind-html="ProjectListID">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class=" col-lg-4">
+                                    <h4 class="card-title black pull-right">TOTAL COST (All Project):</h4>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h4 class="card-title text-right pr-1 black">40,161,000.00</h4>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                        </div>
+                        @*LIST OF ACTIVITIES*@
+                        <div class=" card-sm card-header bg-active rounded mt-2" id="d-activity">
+                            <h4 class="card-title black">List of Activities for: <span></span></h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-sm box-shadow-3 rounded">
+                                <div class="row m-0" ng-bind-html="ActivityListID">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class=" col-lg-4">
+                                    <h4 class="card-title black pull-right">TOTAL COST (All Activities):</h4>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h4 class="card-title text-right pr-1 black">36,000.00</h4>
+                                </div>
+                                <div class="col-lg-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*List of Program for MODALS==============================================*@
+    @*VIEW PROGRAM*@
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="form-group">
+            <div class="modal fade text-left" id="ViewProgramModal" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header
+                             bg-active">
+                            <h4 class="modal-title" id="myModalLabel1">Program Details</h4>
+                        </div>
+                        <div class="modal-body skin skin-square">
+                            <div class="row" ng-bind-html="ViewProgramDetailsTemp">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*VIEW PROJECT*@
+    <div class="modal fade text-left" id="ViewProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title" id="myModalLabel1">Project Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewProjectDetailsTemp">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*VIEW ACTIVITY*@
+    <div class="modal fade text-left" id="ViewActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title" id="myModalLabel1">Activity Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewActivityDetailsTemp">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*JS==================================================*@
+<script>
+    app.controller('AIPController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        //Get Table Program List Datatable Partial View
+        F.GetProgramlistDT = function () {
+            F.ProgramListID = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetProgramlistDT',
+            }).then(function (response) {
+                F.ProgramListID = D(response.data);
+            });
+        }
+        //Get Program Details Modal Partial View
+        F.GetProgramDetailsModal = function (ID) {
+            //F.ViewProgramDetailsTemp = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetProgramDetailsModal',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewProgramDetailsTemp = D(response.data);
+                $('#ViewProgramModal').modal('toggle');
+            });
+        }
+        //Get Table Project List Datatable Partial View
+        F.GetProjectlistDT = function () {
+            F.ProjectListID = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetProjectlistDT',
+            }).then(function (response) {
+                F.ProjectListID = D(response.data);
+            });
+        }
+        //Get Project Details Modal Partial View
+        F.GetViewProjectDetail = function (ID) {
+            //F.ViewProjectDetailsTemp = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetViewProjectDetail',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewProjectDetailsTemp = D(response.data);
+                $('#ViewProjectModal').modal('toggle');
+            });
+        }
+        //Get Table Activity List Datatable Partial View
+        F.GetActivitylistDT = function () {
+            F.ActivityListID = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetActivitylistDT',
+            }).then(function (response) {
+                F.ActivityListID = D(response.data);
+            });
+        }
+        //Get Program Details Modal Partial View
+        F.GetViewActivityDetails = function (ID) {
+            //F.ViewProgramDetailsTemp = null;
+            P({
+                url: '/PreparationAnnualInvestmentPlan/GetViewActivityDetails',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewActivityDetailsTemp = D(response.data);
+                $('#ViewActivityModal').modal('toggle');
+            });
+        }
+    });
+</script>
+<script>
+    $('#dpValue').text($('#dp option:selected').text());
+    //$('#dpValue2').text($('#dp2 option:selected').text());
+    $(document).ready(function () {
+        $('#dp').on('change', function () {
+            var dpValue = $(this).find('option:selected').text();
+            $('#dpValue').text(dpValue);
+            //$('#dpValue2').text(dpValue);
+        });
+    });
+</script>

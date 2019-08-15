@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $("#ExecutionReportAdviceOfAllotmentID").addClass("active");
+</script>
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Reports - Advice of Allotment / Allotment Release Order </strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                        <div class="card-sm card-content collapse show">
+                            <div class="card-body">
+                                <div class="row m-0">
+                                    <ul class="nav nav-tabs btn-btnbackcolor">
+                                        <li class="nav-item  text-white">
+                                            <a class="nav-link active" id="base-tab21" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Advice of Allotment</a>
+                                        </li>
+                                        <li class="nav-item text-white">
+                                            <a class="nav-link" id="base-tab22" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Allotment Release Order</a>
+                                        </li>
+                                    </ul>
+                                    @*TAB*@
+                                    <div class="tab-content w-100" id="nav-tabContent">
+                                        <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                            @*tab1*@
+                                            <div role="tabpanel" class="tab-pane active" id="tab21" aria-expanded="true" aria-labelledby="base-tab21">
+
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="row">
+                                                            <div class="col-md-2"></div>
+                                                            <div class="col-md-2 col-sm-6 col-xs-6">
+                                                                <div class="form-group">
+                                                                    <label>Budget Year</label>
+                                                                    <select class="form-control">
+                                                                        <option>2018</option>
+                                                                        <option>2019</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label>Department</label>
+                                                                <select class="form-control">
+                                                                    <option>General Service Office</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-2"></div>
+                                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                <div class="form-group">
+                                                                    <label>Allotment Type</label>
+                                                                    <select class="form-control">
+                                                                        <option>Quarterly</option>
+                                                                        <option></option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4 col-sm-8 form-group">
+                                                                <label>Advice No.</label>
+                                                                <select class="form-control">
+                                                                    <option>2019-0007</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <button class="btn btn-btnbackcolor white btn-min-width pull-right">Preview</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            @*tab2*@
+                                            <div class="tab-pane" id="tab22" aria-labelledby="base-tab22">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

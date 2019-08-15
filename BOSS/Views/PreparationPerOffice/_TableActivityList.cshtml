@@ -1,0 +1,63 @@
+﻿<table id="table-activity" class="table table-striped table-bordered zero-configuration w-100 table-smss-hover t-has-destination">
+    <thead>
+        <tr class="text-center">
+            <th width="5%">No.</th>
+            <th width="10%">AIP Reference Code</th>
+            <th>Activity Description</th>
+            <th width="20%">Estimated Cost(Php)</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+
+            var ActivityDetails = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-clipboard'></i> View Details</button>";
+            var Submit = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-check'></i> Submit</button>";
+            var EditActivity = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewEditActivity','" + 1 + "')\"> <i class='la la-edit'></i> Edit/View</button>";
+            var ViewAttachment = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetviewAttachment','" + 1 + "')\"><i class='la la-paperclip'></i> View Attachment</button>";
+            var AddAttachment = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewAddAttachment','" + 1 + "')\"><i class='la la-paperclip'></i> Add Attachment</button>";
+            var RemoveActivity = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Remove</button>";
+
+            var ActionContentActivity = ActivityDetails + Submit + EditActivity + ViewAttachment + AddAttachment + RemoveActivity;
+
+            <tr>
+                <td class="text-center">1</td>
+                <td class="text-center">1000-1-2-1</td>
+                <td>Procurement of Helicopter</td>
+                <td class="text-right">200,000,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" 
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="text-center">2</td>
+                <td class="text-center">1000-1-2-2</td>
+                <td>Rice/Seed Production</td>
+                <td class="text-right">0.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" 
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

@@ -1,0 +1,518 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $("#PreparationPerOfficeID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-6 col-12 mb-0">
+        <h3 class="content-header-title"><strong>Program/Project/Activities</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body" id="PerOfficeController" ng-controller="PerOfficeController" ng-init="GetProgramlistDTable(); GetProjectlistDTable(); GetActivitylistDTable();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Responsibility Center</label>
+                                    <select class="form-control">
+                                        <option>Local Chief Executive</option>
+                                        <option>Option2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <p></p>
+                                <button type="button" class="btn btn-btnbackcolor btn-min-width button mt-1"
+                                   @*data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'*@
+                                   data-toggle="modal"
+                                   data-target="#ViewPrintPreviewModal"
+                                   onclick="OpenViewUpdatePrintPreviewModal()">
+                                    Preview
+                                </button>
+                            </div>
+                        </div>
+                        @*Program*@
+                        <div class="card-header bg-active mt-1 rounded">
+                            <h4 class="card-title black">Sector: General Services</h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-3 rounded p-1">
+                                <div class="col-md-4 p-0">
+                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1"
+                                            onclick="AngularGlobalView('PerOfficeController','GetViewAddProgram','  1 ')">
+                                        Add Program
+                                    </button>
+                                </div>
+                                <div class="row m-0" ng-bind-html="ProgramListID">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                                <div class=" col-lg-4 col-md-4 col-sm-4">
+                                    <h4 class="card-title black pull-right">TOTAL COST (All Programs):</h4>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <h4 class="card-title text-right pr-1 black">498,300,000.00</h4>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                            </div>
+                        </div>
+
+                        @*LIST OF PROJECTS*@
+                        <div class="card-header bg-active mt-1 rounded">
+                            <h4 class="card-title black">List Of Projects:</h4>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body box-shadow-3 rounded p-1">
+                                <div class="col-md-4 p-0">
+                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1"
+                                            onclick="AngularGlobalView('PerOfficeController','GetViewAddProject','  1 ')">
+                                        Add Project
+                                    </button>
+                                </div>
+                                <div class="row m-0" ng-bind-html="ProjectListID">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                                <div class=" col-lg-4 col-md-4 col-sm-4">
+                                    <h4 class="card-title black pull-right">TOTAL COST (All Project):</h4>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <h4 class="card-title text-right pr-1 black">40,161,000.00</h4>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                            </div>
+                        </div>
+
+                        @*LIST OF ACTIVITIES*@
+                        <div class="card-header bg-active rounded mt-1">
+                            <h4 class="card-title black">List of Activities for:</h4>
+                        </div>
+                        <div class="card-content collapse show ">
+                            <div class="card-body card-sm box-shadow-3 rounded  p-1">
+                                <div class="col-md-4 p-0">
+                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mb-1"
+                                            onclick="AngularGlobalView('PerOfficeController','GetViewAddActivity','  1 ')">
+                                        Add Activity
+                                    </button>
+                                </div>
+                                <div class="row m-0" ng-bind-html="ActivityListID">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header bg-active rounded">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 col-sm-4"></div>
+                                <div class=" col-lg-4 col-md-4 col-sm-4">
+                                    <h4 class="card-title black pull-right">TOTAL COST (All Activities):</h4>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <h4 class="card-title text-right pr-1 black">200,000,000.00</h4>
+                                </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*MODALS=============================================================================================*@
+    @*PROGAM*@
+    @*ADD Program*@
+    <div class="modal fade text-left" id="ViewAddProgramModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Program Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewAddProgram">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        var SuccessMess = "Added Successfully!";
+
+                        <button type="button" class="btn bg-active btn-min-width black" onclick="swalSuccess('@SuccessMess')" data-dismiss="modal">Add</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*ViewEdit Program*@
+    <div class="modal fade text-left" id="ViewEditProgramModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Program Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewEditProgram">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        var ConfirmationEditMess = "Are you sure you want to update?";
+                        var ProgramTitle = "Program, \"Executive Governance\" (1000-1) was successfully updated in the 2018 List of P/P/As.";
+                        var SuccesEditMess = "Program Successfully Updated!!";
+                        <button class="btn bg-active btn-min-width black"
+                                onclick="swalConfirmation('@ConfirmationEditMess',' @ProgramTitle ' ,'@SuccesEditMess ' )" data-dismiss="modal">
+                            Update
+                        </button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*PROJECT*@
+    @*View Add Project*@
+    <div class="modal fade text-left" id="ViewAddProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Project Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewAddProject">
+
+                    </div>
+                </div>
+
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" onclick="swalSuccess('@SuccessMess')" data-dismiss="modal">Add</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width black" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*View Edit Project*@
+    <div class="modal fade text-left" id="ViewEditProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Project Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewEditProject">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        var ProgramTitle2 = "Project, \"Purchase of Helicopter\" (1000-1-1) was successfully updated in the 2018 List of P/P/As.";
+                        var SuccesEditMess2 = "Project Successfully Updated!!";
+                        <button class="btn bg-active btn-min-width black"
+                                onclick="swalConfirmation('@ConfirmationEditMess',' @ProgramTitle2 ' ,'@SuccesEditMess2 ' )" data-dismiss="modal">
+                            Update
+                        </button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*ACTIVITY*@
+    @*View Add Activity*@
+    <div class="modal fade text-left" id="ViewAddActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Activity Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewAddActivity">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" onclick="swalSuccess('@SuccessMess')" data-dismiss="modal">Add</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*View Edit Activity*@
+    <div class="modal fade text-left" id="ViewEditActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <h4 class="modal-title black" id="myModalLabel2">Activity Details</h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewEditActivity">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        var ProgramTitle3 = "Project, \"Purchase of Helicopter\"(1000 - 1 - 1 - 2) was successfully updated in the 2018 List of P / P / As.";
+                        var SuccesEditMess3 = "Activity Succesfully Updated!!";
+                        <button class="btn bg-active btn-min-width black"
+                                onclick="swalConfirmation('@ConfirmationEditMess',' @ProgramTitle3 ' ,'@SuccesEditMess3 ' )" data-dismiss="modal">
+                            Update
+                        </button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*View Attachments*@
+    <div class="modal animated zoomIn text-left" id="ViewAttachmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <p class="modal-title black" id="myModalLabel2">Attachments (Note: Accepted file types: *.doc, *.rar, *.zip, *.xls, and *.xlsx):</p>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewAttachment">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*View Add Attachment*@
+    <div class="modal animated zoomIn text-left" id="ViewAddAttachmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-active">
+                    <p class="modal-title black" id="myModalLabel2">Attachments (Note: Accepted file types: *.doc, *.rar, *.zip, *.xls, and *.xlsx):</p>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="row" ng-bind-html="ViewAddAttachment">
+
+                    </div>
+                </div>
+                <div class="modal-footer m-0 p-1">
+                    @{
+                        <button type="button" class="btn bg-active btn-min-width black" data-toggle="modal" data-target="" onclick="">Add</button>
+                    }
+                    <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Print Preview*@
+<div class="modal fade text-left" id="ViewPrintPreviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title black" id="myModalLabel2">Print Preview Options</h4>
+            </div>
+            <div class="modal-body m-0" id="ViewPrintPreview">
+
+
+            </div>
+            <div class="modal-footer m-0 p-1">
+                @{
+                    <a class="btn bg-active2 btn-min-width black button"
+                       data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                       target='_blank' onclick="CloseModal()">
+                        Ok
+                    </a>
+                }
+                <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*JS==========================================================================================*@
+<script>
+    app.controller('PerOfficeController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        //=========================PROGRAM TABLE =========================
+        //Get PROGRAM Datatable Partial View
+        F.GetProgramlistDTable = function () {
+            F.ProgramListID = null;
+            P({
+                url: '/PreparationPerOffice/GetProgramlistDTable',
+            }).then(function (response) {
+                F.ProgramListID = D(response.data);
+            });
+        }
+        //Get Add PROGRAM Modal Partial View
+        F.GetViewAddProgram = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewAddProgram',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddProgram = D(response.data);
+                $('#ViewAddProgramModal').modal('toggle');
+            });
+        }
+        //Get Edit/View PROGRAM Modal Partial View
+        F.GetViewEditProgram = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewEditProgram',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewEditProgram = D(response.data);
+                $('#ViewEditProgramModal').modal('toggle');
+            });
+        }
+        //=========================PROJECT TABLE =========================
+        //Get Datatable PROJECT Partial View
+        F.GetProjectlistDTable = function () {
+            F.ProjectListID = null;
+            P({
+                url: '/PreparationPerOffice/GetProjectlistDTable',
+            }).then(function (response) {
+                F.ProjectListID = D(response.data);
+            });
+        }
+        //Get Add PROJECT Modal Partial View
+        F.GetViewAddProject = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewAddProject',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddProject = D(response.data);
+                $('#ViewAddProjectModal').modal('toggle');
+            });
+        }
+        //Get Edit/View PROJECT Modal Partial View
+        F.GetViewEditProject = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewEditProject',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewEditProject = D(response.data);
+                $('#ViewEditProjectModal').modal('toggle');
+            });
+        }
+        //=========================ACTIVITY TABLE =========================
+        //Get Datatable ACTIVITY Partial View
+        F.GetActivitylistDTable = function () {
+            F.ActivityListID = null;
+            P({
+                url: '/PreparationPerOffice/GetActivitylistDTable',
+            }).then(function (response) {
+                F.ActivityListID = D(response.data);
+            });
+        }
+        //Get Add ACTIVITY Modal Partial View
+        F.GetViewAddActivity = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewAddActivity',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddActivity = D(response.data);
+                $('#ViewAddActivityModal').modal('toggle');
+            });
+        }
+        //Get Edit/View ACTIVITY Modal Partial View
+        F.GetViewEditActivity = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewEditActivity',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewEditActivity = D(response.data);
+                $('#ViewEditActivityModal').modal('toggle');
+            });
+        }
+        //Get Add Attachment ACTIVITY Modal Partial View
+        F.GetViewAddAttachment = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewAddAttachment',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAddAttachment = D(response.data);
+                $('#ViewAddAttachmentModal').modal('toggle');
+            });
+        }
+        //Get View Attachment ACTIVITY Modal Partial View
+        F.GetviewAttachment = function (ID) {
+            P({
+                url: '/PreparationPerOffice/GetViewAttachment',
+                params: { ID: ID }
+            }).then(function (response) {
+                F.ViewAttachment = D(response.data);
+                $('#ViewAttachmentModal').modal('toggle');
+            });
+        }
+    });
+</script>
+<script>
+    //PRINT PREVIEW
+    function OpenViewUpdatePrintPreviewModal() {
+        //var ID = $("#SupplyAccountCodeList").val();
+        var IDTemp = "1";
+        $.ajax({
+            url: '/PreparationPerOffice/GetViewPrintPreview',
+            data: { ID: IDTemp },
+            success: function (result) {
+                $('#ViewPrintPreview').html(result);
+            }
+        })
+    }
+
+    $('#dpValue').text($('#dp option:selected').text());
+    $(document).ready(function () {
+        $('#dp').on('change', function () {
+            var dpValue = $(this).find('option:selected').text();
+            $('#dpValue').text(dpValue);
+        });
+    });
+    function CloseModal() {
+        $('#ViewPrintPreviewModal').modal('toggle');
+    }
+</script>

@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "ReportStatementofFund";
+}
+
+<script>
+    $("#ReviewReportStatementofFundID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Reports - Statement of Funding Sources </strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-2 col-sm-4 form-group">
+                                <label>Budget Year</label>
+                                <select class="form-control">
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <div class="form-group">
+                                    <label>Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 form-group">
+                                <div class="form-group">
+                                    <label>Appropriation Source</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3 form-group mt-2" style="padding-top:5px;">
+                                <a class="btn btn-btnbackcolor btn-min-width button pull-right"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

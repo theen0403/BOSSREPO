@@ -1,0 +1,59 @@
+﻿<table id="table-program" class="table table-responsive table-striped table-bordered zero-configuration w-100 table-smss-hover t-has-destination" destination="table-project">
+
+    <thead>
+        <tr class="text-center">
+            <th width="5%">No.</th>
+            <th width="10%">AIP Reference Code</th>
+            <th width="10%">Responsibility Center</th>
+            <th>Program Description</th>
+            <th width="20%">Total Cost</th>
+            <th class="width-5-per">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            var ViewProjects = "<button class=\"btn btn-icon btn-block black btn-menuorange   border-0\" type=\"button\"><i class='la la-clipboard'></i> View Projects</button>";
+            var ViewProgramDetails = "<button class=\"btn btn-icon btn-block black btn-menuorange  border-0\" type=\"button\" onclick=\"AngularGlobalView('AIPController','GetProgramDetailsModal','" + 1 + "')\"> <i class='la la-clipboard'></i> View Details</button>";
+            var ViewProgramPAOO = "<button class=\"btn btn-icon black btn-block btn-menuorange  border-0\" type=\"button\"><i class='la la-clipboard'></i> View PAOO</button>";
+
+            var ActionContentProgram = ViewProjects + ViewProgramDetails + ViewProgramPAOO ;
+            <tr class="text-center">
+                <td>1</td>
+                <td>8000-1</td>
+                <td>[8711] AGRI</td>
+                <td class="target-desc">Agricultural Production Services</td>
+                <td class="text-right">140,715,000.00</td>
+                <td>
+                    <button type="button" onfocusout="PopoveLostFocus()" 
+                            class="btn btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentProgram"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr class="text-center">
+                <td>2</td>
+                <td>8000-2</td>
+                <td>[8761] PCEDO</td>
+                <td class="target-desc">COOPERATIVE DEVELOPMENT SERVICES</td>
+                <td class="text-right">20,002,000.00</td>
+                <td>
+                    <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                            class="btn btn-btnbackcolor popover-trigger" data-toggle="popover" 
+                            data-content="@ActionContentProgram"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+   $(function () {
+        LoadDataTable();
+    })
+</script>

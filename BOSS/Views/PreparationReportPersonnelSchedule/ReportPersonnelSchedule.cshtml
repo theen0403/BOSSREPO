@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "ReportPersonnelSchedule";
+}
+
+<script>
+    $("#PreparationReportPersonnelScheduleID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12">
+        <h3 class="content-header-title"><strong>Reports-Personnel Schedule</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Function/Division</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Prepared By:</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="checkboxsas mt-3 text-center">
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        No Footer
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-3 col-sm-2 mt-2 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

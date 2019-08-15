@@ -1,0 +1,91 @@
+﻿@using BOSS.Models;
+@using System.Security.Claims;
+@{
+
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+
+<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+    @{
+        //PARENT List
+        List<ParentModule> parents = (from e in BOSSDB.ParentModules select e).ToList();
+        //PARENT Loop
+        foreach (var parentItems in parents.ToList())
+        {
+            //LEVEL 1 List
+            List<Level1Modules> level1 = (from e in BOSSDB.Level1Modules where e.ModuleParentID == parentItems.ModuleParentID select e).ToList();
+            var lvl1Counts = level1.Count();
+            //Parent has Level 1
+            if (lvl1Counts > 0)
+            {
+
+                <li class=" nav-item">
+                    <a><i class="@parentItems.icon"></i><span class="menu-title">@parentItems.ModuleName</span></a>
+                    <ul class="menu-content">
+                        @foreach (var level1Items in level1.ToList())
+                        {
+                            //LEVEL 2 List
+                            List<Level2Modules> level2 = (from e in BOSSDB.Level2Modules where e.Level1ModuleID == level1Items.Level1ModuleID select e).ToList();
+                            var lvl2Counts = level2.Count();
+                            //LEVEL 1 has Level 2
+                            if (lvl2Counts > 0)
+                            {
+                                <li>
+                                    <a class="menu-item"><i class="la la-circle-o"></i>@level1Items.Level1ModuleName</a>
+                                    <ul class="menu-content">
+                                        @foreach (var level2Items in level2.ToList())
+                                        {
+                                            //LEVEL 3 List
+                                            List<Level3Modules> level3 = (from e in BOSSDB.Level3Modules where e.Level2ModuleID == level2Items.Level2ModuleID select e).ToList();
+                                            var lvl3Counts = level3.Count();
+                                            //LEVEL 2 has Level 3
+                                            if (lvl3Counts > 0)
+                                            {
+                                                <li>
+                                                    <a class="menu-item"><i class="la la-minus"></i>@level2Items.Level2ModuleName</a>
+                                                    <ul class="menu-content">
+                                                        @foreach (var level3Items in level3.ToList())
+                                                        {
+
+                                                            <li id="@level3Items.JSID">
+                                                                <a class="menu-item" href="/@level3Items.ControllerName/@level3Items.ActionName">@level3Items.Level3ModuleName</a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }
+                                            //LEVEL 2 has no Level 3
+                                            else
+                                            {
+                                                <li id="@level2Items.JSID">
+                                                    <a class="menu-item" href="/@level2Items.ControllerName/@level2Items.ActionName"><i class="la la-minus"></i>@level2Items.Level2ModuleName</a>
+                                                </li>
+                                            }
+
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            //LEVEL 1 has no Level 2
+                            else
+                            {
+                                <li id="@level1Items.JSID">
+                                    <a class="menu-item" href="/@level1Items.ControllerName/@level1Items.ActionName"><i class="la la-circle-o"></i>@level1Items.Level1ModuleName</a>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </li>
+
+            }
+            //Parent has no Level 1
+            else
+            {
+                <li class=" nav-item" id="@parentItems.JSID">
+                    <a href="/@parentItems.ControllerName/@parentItems.ActionName"><i class="@parentItems.icon"></i><span class="menu-title"><b>@parentItems.ModuleName</b></span></a>
+                </li>
+            }
+        }
+    }
+</ul>

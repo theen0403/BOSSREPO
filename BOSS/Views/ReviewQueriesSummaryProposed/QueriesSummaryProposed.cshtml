@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "QueriesSummaryProposed";
+}
+
+<script>
+    $("#ReviewQueriesSummaryProposedID").addClass("active");
+</script>
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Summary of Proposed Annual Budget - Query</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 mt-1 pt-1">
+                                <a class="btn btn-btnbackcolor btn-min-width button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Print Preview
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body box-shadow-3 rounded">
+                            <div class="row m-0">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                        <thead class="text-center">
+                                            <tr>
+                                                <th>Department/Office</th>
+                                                <th width="7%">Code</th>
+                                                <th width="15%">Personal Services</th>
+                                                <th width="15%">MOOE</th>
+                                                <th width="15%">Capital Outlay</th>
+                                                <th width="15%">Other Financial Expences</th>
+                                                <th>TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-right">
+                                            <tr>
+                                                <td class="text-left">BAGAC COMMUNITY and MEDICARE HOSPITAL</td>
+                                                <td class="text-center">4421-3</td>
+                                                <td>13,818,394.52</td>
+                                                <td>7,854,111.18</td>
+                                                <td>289,000.00</td>
+                                                <td>0.00</td>
+                                                <td>21,961,505.71</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">JOSE C PAYUMO JR. MEMORIAL HOSPITAL</td>
+                                                <td class="text-center">4421-2</td>
+                                                <td>32,924,674.28</td>
+                                                <td>24,337,908.00</td>
+                                                <td>550,000.00</td>
+                                                <td>0.00</td>
+                                                <td>57,812,582.28</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">METRO DEVELOPMENT AUTHORITY</td>
+                                                <td class="text-center">4421-2</td>
+                                                <td>32,924,674.28</td>
+                                                <td>24,337,908.00</td>
+                                                <td>550,000.00</td>
+                                                <td>0.00</td>
+                                                <td>57,812,582.28</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">OFFICE if the PROVINCIAL ACCOUNTANT</td>
+                                                <td class="text-center">4421-2</td>
+                                                <td>32,924,674.28</td>
+                                                <td>24,337,908.00</td>
+                                                <td>550,000.00</td>
+                                                <td>0.00</td>
+                                                <td>57,812,582.28</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot class="bg-active black text-right">
+                                            <tr>
+                                                <th class="text-center" colspan="2">GRAND TOTAL</th>
+                                                <th>112,592,417.36</th>
+                                                <th>80,867,835.19</th>
+                                                <th>1,939,000.00</th>
+                                                <th>0.00</th>
+                                                <th>195,399,252.55</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

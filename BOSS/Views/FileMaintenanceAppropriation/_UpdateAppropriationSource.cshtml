@@ -1,0 +1,100 @@
+﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('ApproSourceController', 'GetAppropriationSourceDT','Appropriation Updated!')", OnFailure = "OnFailure()", }))
+{
+
+    <div class="card-header bg-active">
+        <h4 class="card-title black">Update Appropriation Source</h4>
+    </div>
+    <div>
+
+        @Html.TextBoxFor(m => m.FundSourceIDHidden, new { @class = "hidden", type = "text", id = "FundSourceIDHidden" })
+        @Html.TextBoxFor(m => m.ApproIDHidden, new { @class = "hidden", type = "text", id = "ApproIDHidden" })
+        @Html.HiddenFor(m => m.getAppropriationSourceColumns2.AppropriationID, new { })
+        <div class="card-body card-body rounded box-shadow-4">
+            <div class="card-body py-0">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 mx-0">
+                        <div class="form-group">
+                            <label style="margin-bottom:2px;">Appropriation Source Type</label>
+                            @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2", id = "AppropriationSourceTypeID2", onchange = "LoadGetDynamicFund3()" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 mx-0">
+                        <div class="form-group">
+                            <label style="margin-bottom:2px;">Description</label>
+                            @Html.TextBoxFor(m => m.getAppropriationSourceColumns2.Description, new { @class = "form-control", type = "text", id = "desc" })
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 mx-0" id="FundSourceID2">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 mx-0">
+                        <div class="form-group">
+                            <label style="margin-bottom:2px;">Total Amount</label>
+                            @Html.TextBoxFor(m => m.getAppropriationSourceColumns2.TotalAmount, new { @class = "form-control text-right", type = "currency", id = "total" })
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-5 mx-0">
+                        <div class="form-group">
+                            <label style="margin-bottom:2px;">Budget Year</label>
+                            @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col p-0">
+                        <button type="button" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')" class="btn btn-danger btn-min-width pull-right">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                            Update
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(function () {
+        LoadGetDynamicFund2();
+    })
+    function LoadGetDynamicFund2() {
+        var FundSourceIDHidden = $("#FundSourceIDHidden").val();
+        var ApproIDHidden = $("#ApproIDHidden").val();
+
+        AngularGlobalFunctionsTwoParams('ApproSourceController', 'GetDynamicFund2', FundSourceIDHidden, ApproIDHidden);
+    }
+
+    function LoadGetDynamicFund3() {
+        AngularGlobalFunctions('ApproSourceController', 'GetDynamicFund3', '')
+    }
+
+    $("input[type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+    formatCurrency();
+    formatNumber();
+</script>
+<script>
+    $(function () {
+        LoadICheck();
+    })
+</script>

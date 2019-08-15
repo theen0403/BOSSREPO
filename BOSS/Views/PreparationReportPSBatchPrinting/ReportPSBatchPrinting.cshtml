@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "ReportPSBatchPrinting";
+}
+
+
+<script>
+    $("#PreparationReportPSBatchPrintingID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12">
+        <h3 class="content-header-title"><strong>Reports-Personnel Schedule (Batch Printing)</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-2">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3">
+                                <div class="form-group">
+                                    <label>Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                        <option>2019</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <label>Prepared By</label>
+                                    <select class="form-control">
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-3 mt-3">
+                                <fieldset>
+                                    <label>
+                                        <input type="checkbox" value="">
+                                        No Footer
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-6 col-sm-9">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered" style="height:300px; border:1px solid;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center" width="10%"><input type="checkbox" class="cb-element" /></td>
+                                                <td>Bureau of Fire Protection</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td>Tax Assestment Appeal</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td>Department of Interior and Local Government</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><input type="checkbox" class="cb-element" /></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <button class="btn btn-min-width bg-backcolorheader white checkedAll" >Select All</button>
+                                <button class="btn btn-min-width bg-backcolorheader white mt-1 uncheckedAll" style="display:block">Deselect All</button>
+                                <a class="btn btn-btnbackcolor btn-min-width mt-1 button"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                   Preview
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Select All button
+    var state = false;
+    $('.checkedAll').click(function () {
+
+        $('.cb-element').each(function () {
+            if (!state) {
+                this.checked = true;
+            } else {
+                this.checked = false;
+            }
+        });
+    });
+    $('.uncheckedAll').click(function () {
+        $('.cb-element').each(function () {
+            if (!state) {
+                this.checked = false;
+            } else {
+                this.checked = true;
+            }
+        });
+    });
+</script>

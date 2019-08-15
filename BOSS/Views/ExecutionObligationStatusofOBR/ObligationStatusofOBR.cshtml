@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "StatusofObligation";
+}
+<script>
+    $("#ExecutionObligationSummaryofOBRID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Status of Obligation</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2 col-sm-1 "></div>
+                            <div class="col-md-2 col-sm-2">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Today
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Week
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Month
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-2 col-sm-3">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        This Year
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 col-sm-9">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Department</label>
+                                    <select class="form-control">
+                                        <option>Current Legislative Appropriation</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Status</label>
+                                    <select class="form-control">
+                                        <option>All</option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-3 col-sm-6">
+                                <fieldset class="form-group">
+                                    <label class="mb-0"> Search by Office Code</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-btnbackcolor" type="button"><i class="la la-search"></i></button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        @*table*@
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">Obligation Request Details</h4>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 pt-1 card-body rounded box-shadow-3">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Buttons*@
+                                            <div class="col-12 p-0 pb-1">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Print Preview
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    View PR
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right  ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Cancel
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right ml-1"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Details
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width pull-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Update
+                                                </button>
+                                            </div>
+                                            @*Table*@
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>OBR Type</th>
+                                                            <th>Prepared</th>
+                                                            <th>Received</th>
+                                                            <th>Approved</th>
+                                                            <th>Cancelled</th>
+                                                            <th>Title/Purpose</th>
+                                                            <th>Amount</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="text-center">
+                                                            <td>Payment/Cash Advance</td>
+                                                            <td>11/14/2018</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>Program</td>
+                                                            <td class="text-right">214,000.00</td>
+                                                            <td width="5px" class="text-center">
+                                                                @{
+                                                                    <button type="button" class="btn btn-icon btn-btnbackcolor" 
+                                                                            data-toggle="popoverAllotmentRelease" style="padding:10px;"
+                                                                            data-placement="left" data-conztainer="body"
+                                                                            data-original-title="" onfocusout="ClosePopOver1()">
+                                                                        <i class="la la-reorder"></i>
+                                                                    </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

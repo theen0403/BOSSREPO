@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "BudgetPPA";
+}
+
+<script>
+    $("#RecordBudgetPPAID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Budget Ledger - PPA</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row mt-0">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-3 col-sm-4">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Per Account Code
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioSecond">
+                                        Per Responsibility Center
+                                    </label>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <fieldset class="">
+                                    <label>
+                                        <input type="radio" name="RadioS" id="radioFirst">
+                                        Per P/P/A
+                                    </label>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-sm-3 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Budget Year</label>
+                                    <select class="form-control">
+                                        <option>2018</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4 mx-0">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Appropriation Source</label>
+                                    <fieldset class="form-group">
+                                        <input type="text" class="form-control" id="readonlyInput" readonly="readonly" value="Annual budget 2018" style="background-color:white">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-5">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Fund</label>
+                                    <select class="form-control">
+                                        <option>General Fund</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Allotment Type</label>
+                                    <select class="form-control">
+                                        <option>Maintenance and Other Operationg Expense</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6">
+                                <div class="form-group">
+                                    <label style="margin-bottom:2px;">Account Title</label>
+                                    <select class="form-control">
+                                        <option>5-02-01-010 Traveling Expenses</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Summary of.... table*@
+                        <div class="card box-shadow-4 m-0 p-0 mt-1">
+                            <div class="card-content collapse show">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black">Summary of Traveling Expenses - Local</h4>
+                                </div>
+                                <div class="card-body px-1 card-body rounded box-shadow-4">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Table*@
+                                            <table class="table table-bordered table-smss-hover zero-configuration w-100">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th width="33.33%">Appropriation</th>
+                                                        <th width="33.33%">Allotment</th>
+                                                        <th width="33.33%">Obligation</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="text-right">
+                                                        <td>4,424,635.00</td>
+                                                        <td>188,000.00</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mx-0 px-0">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Preview Budget Ledger
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewUpdateSignatoryModal"
+                                                        onclick="OpenViewUpdateSignatoryModal()">
+                                                    View Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*Budget Ledger table*@
+                        <div class="card box-shadow-4 m-0 p-0 mt-1">
+                            <div class="card-content collapse show">
+                                <div class="card-header bg-active">
+                                    <h4 class="card-title black">Budget Ledger</h4>
+                                </div>
+                                <div class="card-body px-1 card-body rounded box-shadow-4">
+                                    <div class="card-body m-0 p-0">
+                                        <div class="row m-0">
+                                            @*Table*@
+                                            <table class="table table-responsive table-bordered table-smss-hover zero-configuration w-100">
+                                                <thead class="text-center">
+                                                    <tr>
+                                                        <th>Programs/Projects/Activities</th>
+                                                        <th>Responsibility Center</th>
+                                                        <th>Total Appropriation</th>
+                                                        <th>Total Release</th>
+                                                        <th>Total Obligation</th>
+                                                        <th>Appropriations</th>
+                                                        <th>Allotment</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="text-right">
+                                                        <td class="text-left">1000-1 - Executive Governance Services 1000-1-1.1-1 - EXECUTIVE ACTIVITIES</td>
+                                                        <td class="text-left">1011 - OFFICE of the LOCAL GOVERNOR</td>
+                                                        <td>0.00</td>
+                                                        <td>0.00</td>
+                                                        <td>60,000.00</td>
+                                                        <td>0.00</td>
+                                                        <td>0.00</td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot class="bg-active text-right">
+                                                    <tr style="padding-right:5px;">
+                                                        <th colspan="2">TOTAL</th>
+                                                        <th>0.00</th>
+                                                        <th>0.00</th>
+                                                        <th>60,000.00</th>
+                                                        <th>0.00</th>
+                                                        <th>0.00</th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mx-0 px-0">
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewPrintPreviewModal"
+                                                        onclick="OpenViewUpdatePrintPreviewModal()">
+                                                    Preview Budget Ledger
+                                                </button>
+                                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
+                                                        data-toggle="modal"
+                                                        data-target="#ViewUpdateSignatoryModal"
+                                                        onclick="OpenViewUpdateSignatoryModal()">
+                                                    View Detail
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*NAV TAB 2*@
+                        <div class="container mt-1">
+                            <div class="row">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" id="base-tab1" data-toggle="tab" aria-controls="tabAppropriation" href="#tabAppropriation" aria-expanded="true">Appropriation/Allotment</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabMOOS" data-toggle="tab" aria-controls="tabObligation" href="#tabObligation" aria-expanded="true">Obligation</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content w-100" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-4">
+                                        <div class="tab-pane active" id="tabAppropriation">
+                                            <p class="red text-center">No appropriations found.</p>
+                                        </div>
+                                        <div class="tab-pane" id="tabObligation">
+                                            <div class="card-header bg-active mt-1 rounded">
+                                                <h4 class="card-title black">Obligation</h4>
+                                            </div>
+                                            <div class="card-body pt-1 rounded box-shadow-3">
+                                                <div class="row">
+                                                    <div class="table-responsive mx-1">
+                                                        <table class="table table-striped zero-configuration table-bordered">
+                                                            <thead>
+                                                                <tr class="text-center">
+                                                                    <th>OBR Date</th>
+                                                                    <th>OBR No.</th>
+                                                                    <th>Particular</th>
+                                                                    <th>Payee</th>
+                                                                    <th>Amount</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-right">
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                            <tfoot class="bg-active black text-right">
+                                                                <tr>
+                                                                    <th colspan="4">TOTAL:</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

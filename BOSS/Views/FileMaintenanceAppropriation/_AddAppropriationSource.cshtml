@@ -1,0 +1,96 @@
+﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+@{
+    /**/
+
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+@using (Ajax.BeginForm("AddNewAppropSoure", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('ApproSourceController', 'GetAppropriationSourceDT','Appropriation Saved!')", OnFailure = "OnFailure()", }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="card-header bg-active">
+        <h4 class="card-title black">Add Appropriation Source</h4>
+    </div>
+    <div class="card-body card-body rounded box-shadow-4">
+        <div class="card-body py-0" action="index.html" novalidate>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mx-0">
+                    <div class="form-group">
+                        <label style="margin-bottom:2px;">Appropriation Source Type</label>
+                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2", id = "AppropriationSourceTypeID", onchange = "LoadGetDynamicFund()" })
+
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-5 mx-0">
+                    <div class="form-group">
+                        <label style="margin-bottom:2px;">Description</label>
+                        @Html.TextBoxFor(m => m.getAppropriationSourceColumns.Description, new { @class = "form-control", type = "text", id = "desc" })
+                        @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-5 mx-0" id="FundSourceID">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mx-0">
+                    <div class="form-group">
+                        <label style="margin-bottom:2px;">Total Amount</label>
+                        @Html.TextBoxFor(m => m.getAppropriationSourceColumns.TotalAmount, new { @class = "form-control text-right", type = "currency", id = "total" })
+                        @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.TotalAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 mx-0">
+                    <div class="form-group">
+                        <label style="margin-bottom:2px;">Budget Year</label>
+                        @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control", id="budgetyrID" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col px-0">
+                    <button type="button" class="btn btn-danger btn-min-width pull-right" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        LoadGetDynamicFund();
+    })
+    function LoadGetDynamicFund() {
+        AngularGlobalFunctions('ApproSourceController', 'GetDynamicFund', '')
+    }
+
+    $("input[type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+    formatCurrency();
+    formatNumber();
+</script>
+
+<script>
+    $(function () {
+        LoadICheck();
+        $("#budgetyrID").select2({
+            minimumResultsForSearch: Infinity
+        });
+    })
+</script>

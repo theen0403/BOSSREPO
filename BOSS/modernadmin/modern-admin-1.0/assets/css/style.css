@@ -1,0 +1,511 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+
+
+.header-navbar .navbar-header .navbar-brand {
+    padding: 7px 0px !important;
+    margin-right: 0;
+}
+
+.header-navbar .navbar-header .navbar-brand .brand-logo {
+    width: 50px !important;
+}
+
+.bg-info {
+
+    background-color: #1883AE !important;
+}
+
+/*Start Edited*/
+/*.form-control:disabled, .form-control[readonly] {
+    background-color: #FFFFFF !important;
+}*/
+.bg-backcolorheadertitle { 
+    background-color: #6DAD4B !important;
+}
+
+.bg-backcolorheader {
+    background-color: #388E3C !important;
+}
+
+
+.btn-success {
+    background-color: #6DAD4B !important;
+    border-color: #6DAD4B !important;
+    color: white;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #388E3C !important;
+    border-color: #388E3C;
+}
+    .btn-success:active {
+        background-color: #388E3C !important;
+    }
+.btn-btnbackcolor {
+    background-color: #388E3C !important;
+    color: white;
+    border-color: #24CB8C !important;
+}
+.btn-menuorange {
+    background-color: #F0AD4E !important;
+    color:white;
+}
+
+.btn-menuRed {
+    background-color: #D9534F !important;
+    color: white;
+}
+.btn-m {
+    padding: 5px;
+}
+.navbar-semi-light .navbar-header {
+    background-image: linear-gradient(to right, rgba(109, 173, 75,0), rgba(109, 173, 75,1));
+}
+
+.nav-link.active {
+    background-color: #E49B1F !important;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: black !important;
+    font-weight: 600 !important;
+}
+
+.nav-tabs .nav-topline .nav-item {
+    background-color: #E49B1F;
+    box-shadow: inset 0 3px 0 #388E3C;
+    color: white;
+    border-radius: 0;
+    border-bottom: none;
+}
+
+/* End Edited*/
+.main-menu.menu-light .navigation > li ul .open > ul li > a {
+    padding: 8px 18px 8px 64px !important;
+    margin-left: 14px !important;
+    color: black;
+}
+
+.bg-info.bg-lighten-1 {
+    background-color: #1883AE !important;
+}
+
+.page-item.active .page-link {
+    background-color:  #1883AE !important;
+    border-color:  #1883AE !important;
+}
+
+.dataTables_wrapper{
+    padding: 0 !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    margin-top: 1rem;
+    float: right;
+}
+
+.pagination .page-link {
+    color: #1883AE;
+    border: 1px solid #BABFC7;
+}
+
+
+.custom-div
+{
+    padding:5px;
+    margin:10px;
+}
+
+.RecordsFileUploadImageSmall
+{
+      height: 100px;
+    width: 85px;
+}
+
+.navbar-dark {
+    background: #1883AE !important;
+}
+
+
+.btn-info {
+    border-color: #168DEE !important;
+    background-color: #1883AE !important;
+    color: #FFFFFF;
+}
+
+
+.custom-btn-blue{
+        font-size: 14px !important;
+    padding: 10px !important;
+      margin: 5px;
+}
+
+.custom-btn-blue-fixed{
+        font-size: 14px !important;
+    padding: 10px !important;
+      margin: 5px;
+      width:100px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    font-size: 14px !important;
+    margin-top: 5px;
+}
+
+
+table.table {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+    table.table thead tr th,
+    table.table tbody tr td {
+        /*background: #1883AE;*/
+        /*color: #fff;*/
+        border-color: black;
+    }
+
+table thead tr th {
+   white-space: normal;
+}
+
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(1),
+table.table-ledger thead tr:nth-child(2) th:nth-child(2),
+table.table-ledger thead tr:nth-child(2) th:nth-child(3),
+table.table-ledger thead tr:nth-child(2) th:nth-child(4),
+table.table-ledger thead tr:nth-child(2) th:nth-child(5) {
+    border-right: 0px solid #1883AE;
+    border-left: 0px solid #1883AE;
+}
+
+table.table-ledger thead tr:nth-child(2) th:nth-child(7),
+table.table-ledger thead tr:nth-child(2) th:nth-child(9),
+table.table-ledger thead tr:nth-child(2) th:nth-child(11){
+    border-right: 0px solid #1883AE;
+    border-left: 0px solid #1883AE;
+}*/
+
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(7),
+table.table-ledger thead tr:nth-child(2) th:nth-child(9),
+table.table-ledger thead tr:nth-child(2) th:nth-child(11) {
+    border-left: 2px solid #1883AE;
+}*/
+/*table.table-ledger thead tr:nth-child(2) th:nth-child(8) {
+    border-right: 2px solid #1883AE;
+}
+table.table-ledger thead tr:nth-child(2) th:nth-child(10) {
+    border-right: 2px solid #1883AE;
+}
+table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
+    border-right: 2px solid #1883AE;
+}*/
+
+.nav-pills .nav-pills .nav-link.active .show > .nav-link {
+    background-color: #E49B1F !important;
+}
+
+
+.select2-container {
+    width: 100% !important;
+}
+
+
+
+/*Form Styles*/
+.form-inline {
+    align-items: flex-start
+}
+.form-inline .form-group {
+    margin-bottom: 8px;
+}
+.form-group div {
+    font-weight: bold;
+}
+
+.nav.nav-tabs .nav-item .nav-link.active {
+    background-color: #fff;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: white;
+}
+
+.nav.nav-tabs .nav-item .nav-link {
+    padding: 0.5rem 0.7rem;
+    display: inline-flex;
+    color: white;
+}
+.m-small{
+    margin: 5px 0px;
+}
+
+body{
+    color:black;
+}
+
+.main-menu.menu-light .navigation > li.open > a {
+    color: black;
+    background: whitesmoke;
+    border-right: 4px solid #6DAD4B !important;
+}
+.card-header {
+    padding: 8px;
+    margin:1px;
+}
+table.table tfoot tr th {
+    padding:5px;
+    margin:5px;
+    padding-right:5px;
+}
+
+.modal-header {
+    padding: 5px;
+    margin: 1px;
+}
+/*====================================================*/
+/*====================================================*/
+.card-sm .card-header {
+    padding: 7px;
+}
+
+table.table {
+    border-left: 1px solid #595959;
+    border-right: 1px solid #595959;
+    border-bottom: 1px solid #595959;
+    color: #000;
+}
+
+table.table thead tr th,
+table.table tbody tr td{
+    border-color: #595959;
+    padding: 5px;
+    margin: 5px;
+}
+
+table thead tr th {
+    white-space: normal;
+    vertical-align: middle;
+}
+
+.form-inline {
+    align-items: flex-start
+}
+
+.form-inline .form-group {
+    margin-bottom: 15px;
+}
+
+.form-inline .form-group label {
+    justify-content: flex-start;
+    position: relative;
+    padding-right: 5px;
+}
+
+.form-group label {
+    color: #000;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group div {
+    color: #404040;
+}
+
+.form-control {
+    border-color: #4d4d4d;
+}
+
+@media(min-width: 600px) {
+    .bordered-div:not(:last-child) {
+        border-right: 1px solid #808080;
+    }
+}
+
+.table-smss-hover tbody tr:hover {
+    background: #fff2cc;
+    cursor: pointer;
+    color: #000;
+}
+
+.table-smss-hover tbody tr.active {
+    background: #FFE082;
+    color: #000;
+}
+
+.img-150 {
+    max-width: 150px;
+    /*border: 1px solid #FFE082;*/
+}
+.bg-active {
+    background: #FFE082;
+    color: #000 !important;
+}
+
+.bg-active2 {
+    background: #FFE082;
+    color: #000 !important;
+}
+
+    .bg-active2:hover {
+        background: #FFA600;
+        color: black !important;
+    }
+
+.picker__day--highlighted, .picker__day--highlighted:hover, 
+.picker--focused .picker__day--highlighted {
+    cursor: pointer;
+    color: #fff;
+    background-color: #6DAD4B;
+}
+
+.main-menu.menu-dark .navigation > li.open > a {
+    color: #FFFFFF !important;
+    border-right: 4px solid #6DAD4B !important;
+}
+
+.main-menu.menu-dark .navigation > li .active > a {
+    color: #f6f6f6;
+    background: #6DAD4B !important;
+}
+
+.custom-form-margin {
+    margin-bottom: 3px;
+}
+
+html body a:hover {
+    color: white !important;
+}
+/*Login Footer*/
+footer.footer-dark {
+    background: #6DAD4B !important;
+}
+.popover {
+    z-index: 1020 !important;
+}
+
+body.vertical-layout.vertical-menu.menu-collapsed 
+.main-menu .main-menu-content > span.menu-title, 
+body.vertical-layout.vertical-menu.menu-collapsed 
+.main-menu .main-menu-content a.menu-title {
+    right: -260px;
+    width: 260px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: left;
+    background-color: #23262F !important;
+    border-color: #23262F !important;
+    padding: 14px 20px;
+}
+.main-menu.menu-dark ul.menu-popout .active {
+    background-color: #6DAD4B !important;
+}
+.select2-container--classic .select2-results__options
+.select2-results__option[aria-selected=true],
+.select2-container--default .select2-results__options
+.select2-results__option[aria-selected=true] {
+    background-color: #6DAD4B !important;
+    color: #FFFFFF !important;
+}
+    .select2-container--classic .select2-selection--single, 
+    .select2-container--default .select2-selection--single {
+   
+        border-color: #4B4B4B !important;
+    }
+/*login inputs*/
+.text-muted {
+    color: black !important;
+}
+form .form-control {
+    border: 1px solid #4B4B4B !important;
+    color: #4B4B4B !important;
+}
+
+/*costume menuitem*/
+.dropdown .dropdown-menu .dropdown-item:active {
+    color: black !important;
+    background-color: #6DAD4B !important;
+}
+.dropdown .dropdown-item:hover {
+    color: black !important;
+    background-color: #B1D39F!important;
+}
+/*Table Paginator*/
+.page-item.active .page-link {
+    background-color: #B1D39F !important;
+    border-color: #255E28 !important;
+    color: black !important;
+}
+/*Documents Styles*/
+.attached-files-container .documentParent {
+    background-color: #FFCC80;
+    position: relative;
+    margin: 5px !important;
+    padding: 8px;
+    border-radius: 10px;
+}
+
+    .attached-files-container .documentParent span {
+        font-weight: 700;
+    }
+
+    .attached-files-container .documentParent i {
+        font-size: 25px;
+        color: red;
+        padding: 0px 2px;
+        border-radius: 0 0 0 5px;
+    }
+
+        .attached-files-container .documentParent i.ft-delete {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            z-index: 3;
+        }
+
+            .attached-files-container .documentParent i.ft-delete:hover {
+                cursor: pointer;
+            }
+
+            .attached-files-container .documentParent i:hover {
+                cursor: pointer;
+            }
+
+.bs-callout-success {
+    background-color: #ECF5D9 !important;
+    border-color: #388E3C !important;
+    color: #051811 !important;
+}
+
+/*text Link*/
+.alert-link:hover {
+    cursor: pointer;
+}
+
+/*FMAccounts /Account Code*/
+.accntCode {
+    margin-top: 8px;
+    border: 0px white;
+    background-color: white;
+}
+
+/*Modal center-position input windows*/
+#ViewEnterPIN {
+    top: 35%;
+    outline: none;
+    overflow: hidden;
+}

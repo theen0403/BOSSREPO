@@ -1,0 +1,13 @@
+﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+@{
+    /**/
+
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label class="custom-form-margin">Department</label>
+    @Html.DropDownListFor(m => m.DeptID2, Model.DeptSelectionList, new { @class = "form-control select2", id = "deptID",
+   onchange = "GetFunctionDT()" })
+</div>

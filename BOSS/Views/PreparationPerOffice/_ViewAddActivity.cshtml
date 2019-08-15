@@ -1,0 +1,179 @@
+﻿@*ADD ACTIVITY Modal*@
+<div class=" col-md-12 col-lg-12 col-sm-12">
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">AIP Reference Code:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Activity Description:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Start Date:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <input type='text' class="form-control pickadate datepicker " />
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Completion Date:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <input type='text' class="form-control pickadate datepicker" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Other Implementing Office/s:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Performance Indicator:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Performance/Output Indicator:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+            <div class="form-group text-center custom-form-margin">
+                <label class="mb-0"><i>Attachments (Note: Accepted file types: *.doc, *.rar, *.zip, *.xls, and *.xlsx):</i></label>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-md-12">
+                <div id="dropzone">
+                    <form action="#" class="dropzone dropzone-area m-0 p-0" id="dpz-multiple-files"></form>
+                </div>
+            </div>
+        </div>*@
+    <div class="row" style="margin-top:5px;">
+        <label class="col-md-3 mr-0 pr-0 text-right ml-1" style="margin-top:5px;">Attach File:</label>
+        <label class=" col-md-3 btn btn-dark white ml-1" for="my-file-selector">
+            <input id="my-file-selector" class="white" type="file" style="display:none;"
+                   onchange="$('#upload-file-info').html(this.files[0].name)">
+            Choose File
+        </label>
+        <span class='label label-info ml-1' style="margin-top:5px;" id="upload-file-info"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+            <div class="form-group text-center custom-form-margin">
+                <label><i>(If this Program doesn't have atleast one PROJECT/ACTIVITY)</i></label><br />
+                <label class="mb-0"><i>Estimated Cost (Amount in Php)</i></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0 mt-1">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Personal Services:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-0 mt-1">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">MOOE:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Capital Outlay:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Other Fee:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0">
+        </div>
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Total (Php):</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right text-bold-700" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+            <div class="form-group text-center custom-form-margin">
+                <label class="mt-1"><i>Climate Change</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin mt-1">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Adoptation:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Mitigation:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Typology Code:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+
+</div>
+
+
+@*JS*@
+<script>
+    LoadDatePicker();
+
+    $("input[data-type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+    formatCurrency();
+    formatNumber();
+
+</script>
+

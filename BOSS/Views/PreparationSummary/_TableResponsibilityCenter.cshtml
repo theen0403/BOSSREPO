@@ -1,0 +1,50 @@
+﻿<table class="table table-responsive table-striped table-bordered zero-configuration w-100">
+    <thead>
+        <tr class="text-center">
+            <th width="15%">RC Code</th>
+            <th width="70%">Responsibility Center</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+
+            var ListPPA = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-edit'></i> View List of PPA</button>";
+            var Remove = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button>";
+
+            var ActionContent = ListPPA + Remove;
+            <tr>
+                <td class="text-center">4421-3</td>
+                <td>BAGAC COMMUNITY and MEDICAL HOSPITAL</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionContent"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">4421-2</td>
+                <td>JOSE C PAYUMO JR. MEMORIAL HOSPITAL</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" style="padding:5px;"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionContent"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

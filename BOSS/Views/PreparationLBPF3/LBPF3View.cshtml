@@ -1,0 +1,361 @@
+﻿
+@{
+    ViewBag.Title = "LBPF3View";
+}
+<script>
+    $("#PreparationLBPF3ViewID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class="content-header-left col-md-12 col-12">
+        <h3 class="content-header-title"><strong>LBPF 3 - Personnel Schedule</strong></h3>
+    </div>
+</div>
+
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        @*First Panel*@
+                        <div class="content-body rounded box-shadow-3">
+                            <div class="row mx-1 pt-md-1">
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="form-group">
+                                        <label>Budget Year</label>
+                                        <select class="form-control">
+                                            <option>2018</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label>Office/Department</label>
+                                        <select class="form-control">
+                                            <option>BAGAC COMMUNITY and MEDICARE</option>
+                                            <option>Bids and Awards Committee Office</option>
+                                            <option>Bureau of Fire Protection</option>
+                                            <option>Department of Interior and Local Government</option>
+                                            <option>MANAGEMENT INFORMATION SYSTEM OFFICE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Function/Division</label>
+                                        <select class="form-control">
+                                            <option>General Administration</option>
+                                            <option>Option...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mx-1">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Office Section</label>
+                                        <select class="form-control">
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-5 col-sm-6">
+                                    <div class="form-group">
+                                        <fieldset class="checkboxsas mt-3">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                View all personnel in the selected department
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <fieldset class="checkboxsas mt-3">
+                                            <label>
+                                                <input type="checkbox" value="">
+                                                Add PS w/o Office Section
+                                            </label>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-0 pb-0 mx-1 mb-1">
+                                <div class="col-md-12 col-sm-12 pull-right">
+                                    <button type="button" class="btn btn-btnbackcolor btn-min-width mr-0 mb-0 float-right">View</button>
+                                </div>
+                            </div>
+                            <div class="card-header bg-active">
+                                <h4 class="card-title black">LGU Information</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            </div>
+                            <div class="card-content collapse show  my-0 py-0">
+                                <div class="card-body  rounded box box-shadow-3">
+
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Province</label>
+                                                <fieldset class="form-group">
+                                                    <input type="text" class="form-control" id="basicInput">
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Zip Code</label>
+                                                <fieldset class="form-group">
+                                                    <input type="text" class="form-control" id="basicInput">
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Region</label>
+                                                <select class="form-control">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label>
+                                                <select class="form-control">
+                                                    <option>Philippines</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*Second Panel*@
+                        <div class="content-body rounded mt-1 box-shadow-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card box-shadow-2">
+                                        <div class="card-content collapse show">
+                                            <div class="card-body pb-0">
+                                                <div class="form-group float-right">
+                                                    @{
+                                                        var SaveConfirmationMess = "Are you sure you want to save this transaction?";
+                                                        var SaveSuccess = "Transaction has been successfully saved!";
+
+                                                        <button class="btn btn-btnbackcolor btn-min-width"
+                                                                onclick="swalConfirmation('@SaveConfirmationMess' ,'', '@SaveSuccess')">
+                                                            Save
+                                                        </button>
+                                                        <button type="button" class="btn btn-btnbackcolor btn-min-width ml-1"
+                                                                data-toggle="modal"
+                                                                data-target="#ViewPrintPreviewModal"
+                                                                onclick="OpenPrintPreviewModal()">
+                                                            Print Preview
+                                                        </button>
+                                                        <button id="btnAdd" type="button" class="button-add btn btn-btnbackcolor btn-min-width ml-1"
+                                                                onclick="insertRow();">
+                                                            Add Row
+                                                        </button>
+                                                   }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*table*@
+                                        <div class="card box-shadow-2">
+                                            <div class="card-content collapse show">
+                                                <div class="card-body mt-0 pt-0">
+                                                    <div class="row">
+                                                        <div class="table-responsive mx-1">
+                                                            <table id="myTable" class="table table-bordered zero-configuration w-100">
+                                                                <thead class="text-center">
+                                                                    <tr>
+                                                                        <th rowspan="2">Old Item Number</th>
+                                                                        <th rowspan="2">New Item Number</th>
+                                                                        <th rowspan="2">Position Title</th>
+                                                                        <th rowspan="2">Name if Incubent</th>
+                                                                        <th colspan="2">Current Year(2017) Authorized Rate/Annum</th>
+                                                                        <th colspan="2">Budget Year(2018) Proposed Rate/Annum</th>
+                                                                        <th style="border:1px solid; border-color:gray;" rowspan="2" width="15%">Increase / Decrease</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th>SG/Step</th>
+                                                                        <th>Amount</th>
+                                                                        <th>SG/Step</th>
+                                                                        <th>Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="text-center">03</td>
+                                                                        <td class="text-center">03</td>
+                                                                        <td>Accountant IV</td>
+                                                                        <td>Leonora O. Siasat</td>
+                                                                        <td class="text-center">G-22/2</td>
+                                                                        <td class="text-right">642,036.00</td>
+                                                                        <td class="text-center">G-22/2</td>
+                                                                        <td class="text-right">715,164.00</td>
+                                                                        <td class="text-right">73,128.00</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="text-center">04</td>
+                                                                        <td class="text-center">04</td>
+                                                                        <td>Accountant IV</td>
+                                                                        <td>Edmarie B. Genotiva</td>
+                                                                        <td class="text-center">G-19/1</td>
+                                                                        <td class="text-right">642,036.00</td>
+                                                                        <td class="text-center">G-22/2</td>
+                                                                        <td class="text-right">715,164.00</td>
+                                                                        <td class="text-right">73,128.00</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                                <tfoot class="bg-active text-white">
+                                                                    <tr>
+                                                                        <th colspan="5" class="text-center">Total:</th>
+                                                                        <th class="text-right">1,284,072‬.00</th>
+                                                                        <th></th>
+                                                                        <th class="text-right">1,430,328.00</th>
+                                                                        <th class="text-right">146,256.00</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-4">
+                                                            <div class="form-group">
+                                                                <label>Prepared By:</label>
+                                                                <select class="form-control">
+                                                                    <option>Albert S. Garcia</option>
+                                                                </select>
+                                                                <label><i> Staff</i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-4">
+                                                            <div class="form-group">
+                                                                <label>Received By:</label>
+                                                                <select class="form-control">
+                                                                    <option>Luz R. Enriquez</option>
+                                                                </select>
+                                                                <label><i>Accountant</i></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-4">
+                                                            <div class="form-group">
+                                                                <label>Approved By:</label>
+                                                                <select class="form-control">
+                                                                    <option>Albert S. Garcia</option>
+                                                                    <option></option>
+                                                                </select>
+                                                                <label><i>Local Chief Executive</i></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @*FOOTER*@
+                                                    <div class="row mt-0">
+                                                        <div class="col-md-7 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label for="basicTextarea" class="cursor-pointer card-title m-0">Footnote</label>
+                                                                <fieldset>
+                                                                    <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*MODALS==============================================================================*@
+
+@*Print Preview*@
+<div class="modal animated zoomIn text-left" id="ViewPrintPreviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title black" id="myModalLabel2">Print Preview Options</h4>
+            </div>
+            <div class="modal-body m-0" id="ViewPrintPreview">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <fieldset class="radio">
+                            <label>
+                                <input type="checkbox" name="checkbox">
+                                With Footer?
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="modal-footer m-0 p-1">
+                @{
+                <a class="btn bg-active2 btn-min-width black button"
+                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                   target='_blank' onclick="CloseModal()">
+                    Ok
+                </a>
+                }
+                <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*JS==================================================================================*@
+<script>
+    $(function () {
+        LoadDataTable();
+        LoadPopOver();
+    })
+</script>
+@*PRINT PREVIEW*@
+<script>
+    function OpenViewPrintPreviewModal() {
+        //var ID = $("#SupplyAccountCodeList").val();
+        var IDTemp = "1";
+        $.ajax({
+            url: '/PreparationLBPF3/LBPF3',
+            data: { ID: IDTemp },
+            success: function (result) {
+                $('#ViewPrintPreviewModal').html(result);
+            }
+        })
+    }
+</script>
+@*ADD ROW*@
+<script>
+    $('#btnAdd').click(function (e) {
+        $("table tbody").append(
+            '<tr><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td><td><input type="text" class="form-control"/></td></tr>'
+        );
+    });
+</script>
+@*Close modal*@
+<script>
+    function CloseModal() {
+        $('#ViewPrintPreviewModal').modal('toggle');
+    }
+</script>

@@ -1,0 +1,57 @@
+﻿<table id="table-activity" class="table table-responsive table-striped table-bordered zero-configuration table-smss-hover w-100">
+    <thead class="thead-dual">
+        <tr class="text-center">
+            <th width="5">No.</th>
+            <th width="15px">AIP Reference Code</th>
+            <th>Program Description</th>
+            <th width="20%">Total Cost</th>
+            <th class="width-5-per">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+
+            var ViewActivitiesDetails = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('AIPController','GetViewActivityDetails','" + 1 + "')\"> <i class='la la-clipboard'></i> View Details</button>";
+            var ViewActivitiesPAOO = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Remove</button>";
+
+            var ActionContentActivities = ViewActivitiesDetails + ViewActivitiesPAOO;
+
+            <tr>
+                <td class="text-center">1</td>
+                <td class="text-center">8000-1-2-1</td>
+                <td>Plant Material Production Distribution (Provincial Nursery)</td>
+                <td class="text-right">20,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" 
+                            class="btn btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivities"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">2</td>
+                <td class="text-center">8000-1-2-2</td>
+                <td>Rice/Seed Production</td>
+                <td class="text-right">16,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()" 
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivities"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

@@ -1,0 +1,15 @@
+﻿@model BOSS.Models.FMResponsibilityModels.DepartmentModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<div class="form-group">
+    <label class="custom-form-margin">Sub Sector</label>
+    @Html.DropDownListFor(m => m.SubSectorID, Model.SubSectorList, new { @class = "form-control select2", id = "SubSecID" })
+</div>
+
+<script>
+    $(function () {
+        $("#SubSecID").select2();
+    })
+</script>

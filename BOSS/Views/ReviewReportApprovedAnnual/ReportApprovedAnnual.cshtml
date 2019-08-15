@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "ReportApprovedAnnual";
+}
+
+<script>
+    $("#ReviewReportApprovedAnnualID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Reports - Summary of Approved Annual Budget </strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-2 col-sm-6 form-group">
+                                <label>Budget Year</label>
+                                <select class="form-control">
+                                    <option>2018</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-sm-6 form-group">
+                                <div class="form-group">
+                                    <label style="visibility:hidden">Hide This Label</label>
+                                    <label><input type="checkbox" class="mt-1" />No Footer</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

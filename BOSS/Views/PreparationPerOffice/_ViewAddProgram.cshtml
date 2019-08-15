@@ -1,0 +1,191 @@
+﻿@*ADD PROGRAM Modal*@
+<div class=" col-md-12 col-lg-12 col-sm-12">
+
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Sector:</label>
+        <div class="col-sm-7">
+            <select class="form-control">
+                <option>Economic Services</option>
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Sub-Sector:</label>
+        <div class="col-sm-7">
+            <select class="form-control">
+                <option>This sector has no sub-sector/s</option>
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">AIP Reference Code:</label>
+        <div class="col-sm-7">
+            <input type="text" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Program Description:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" id="basicTextarea" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Type:</label>
+        <div class="col-sm-7">
+            <select class="form-control">
+                <option>-Unclassified-</option>
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Funding Source:</label>
+        <div class="col-sm-7">
+            <select class="form-control">
+                <option>General Fund</option>
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Start Date:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <input type='text' class="form-control pickadate datepicker" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Completion Date:</label>
+        <div class="col-sm-7">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                </div>
+                <input type='text' class="form-control pickadate datepicker" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Program's Policy Objective/s:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Expected Output/s:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-sm-5">Other Implementing Department/s:</label>
+        <div class="col-sm-7">
+            <textarea class="form-control" rows="1"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+            <div class="form-group text-center custom-form-margin">
+                <label><i>(If this Program doesn't have atleast one PROJECT/ACTIVITY)</i></label><br />
+                <label class="mb-0"><i>Estimated Cost (Amount in Php)</i></label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0 mt-1">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Personal Services:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-0 mt-1">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">MOOE:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Capital Outlay:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Other Fee:</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-md-6 mb-0">
+        </div>
+        <div class="col-md-6 mb-0">
+            <div class="form-group row custom-form-margin">
+                <label class="col-md-3 mr-1 pr-0 font-small-3">Total (Php):</label>
+                <div class="col-md-8 pl-0">
+                    <input type="text" class="form-control text-right text-bold-700" placeholder="0.00" data-type="currency">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+            <div class="form-group text-center custom-form-margin">
+                <label class="mt-1"><i>Climate Change</i></label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin mt-1">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Adoptation:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Mitigation:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+    <div class="form-group row custom-form-margin">
+        <label class="col-md-6 mr-0 pr-0">Climate Change Typology Code:</label>
+        <div class="col-md-6 pl-0">
+            <input type="text" placeholder="0.00" class="form-control text-right" data-type="currency">
+        </div>
+    </div>
+
+</div>
+
+@*JS*@
+<script>
+    LoadDatePicker();
+
+    $("input[data-type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+
+    formatCurrency();
+    formatNumber();
+
+</script>

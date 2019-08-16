@@ -293,6 +293,7 @@
     <Compile Include="Models\FMAccounts\RevisionOfCOAModel.cs" />
     <Compile Include="Models\FMAccounts\SubAccountsModel.cs" />
     <Compile Include="Models\FMAppropriationSourceModels\FMAppropriationSourceModel.cs" />
+    <Compile Include="Models\FMPositionforSPModels\PositionforSPModel.cs" />
     <Compile Include="Models\FMResponsibilityModels\DepartmentModel.cs" />
     <Compile Include="Models\FMResponsibilityModels\FunctionModel.cs" />
     <Compile Include="Models\FMResponsibilityModels\OfficeSectionModel.cs" />
@@ -321,6 +322,12 @@
     <Compile Include="Models\PIN_Accounts.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PositionClassification.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PositionStatu.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Sector.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
@@ -340,6 +347,9 @@
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMOfficeSection.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMPosition.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMRevisionOfCOA.cs">
@@ -9048,7 +9058,7 @@
     <Content Include="Views\PreparationLBPF1\_TableStateOfReceipt.cshtml" />
     <Content Include="Views\PreparationLBPF1\_TableReceiptsIncome.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_TableFileMaintenanceSignatory.cshtml" />
-    <Content Include="Views\FileMaintenancePosition\_TableFileMaintenancePositionSP.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_TablePositionSP.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_TableDepartmentList.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_TableFunctionList.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\OfficeSectionTab\_TableOfficeSectionList.cshtml" />
@@ -9095,6 +9105,9 @@
     <Content Include="Views\FileMaintenanceAccounts\PIN\IndexCOAPIN.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_UpdateRCOA.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\ChartOfAccounts\GeneralAccount\_DynamicAllotmentClassForUpdate.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_AddPosition.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_DynamicClassification.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_UpdatePosition.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

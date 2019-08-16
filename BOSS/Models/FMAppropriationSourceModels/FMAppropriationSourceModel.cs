@@ -17,11 +17,12 @@ namespace BOSS.Models.FMAppropriationSourceModels
             getAppropriationSourceList = new List<AppropriationSourceList>();
             getAppropriationSourceColumns2 = new Tbl_FMAppropriationSource();
         }
+        public Tbl_FMAppropriationSource getAppropriationSourceColumns { get; set; }
+        public Tbl_FMAppropriationSource getAppropriationSourceColumns2 { get; set; }
+        public List<AppropriationSourceList> getAppropriationSourceList { get; set; }
         public int FundSourceIDValue { get; set; }
         public int FundSourceID { get; set; }
-
         public int FundSourceID2 { get; set; }
-
         public int FundSourceIDHidden { get; set; }
         public int ApproIDHidden { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FundSourceList { get; set; }
@@ -34,12 +35,7 @@ namespace BOSS.Models.FMAppropriationSourceModels
                 return new System.Web.Mvc.SelectList(BudgetYearLists, "BudgetYearID", "BudgetYearTitle");
             }
         }
-        public Tbl_FMAppropriationSource getAppropriationSourceColumns { get; set; }
-        public Tbl_FMAppropriationSource getAppropriationSourceColumns2 { get; set; }
-
         public int AppropriationID { get; set; }
-        public IEnumerable<BOSS.Models.Tbl_FMAppropriationSource> getAppropList { get; set; }
-
         public int AppropriationSourceID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> AppropriationSourceTypeList
         {
@@ -49,13 +45,10 @@ namespace BOSS.Models.FMAppropriationSourceModels
                 return new System.Web.Mvc.SelectList(AppropriationSourceTypeLists, "AppropriationSourceID", "AppropriationSourceType1");
             }
         }
-
-        public int DynamicAppropriationSourceID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> DynamicAppropriationSourceTypeList { get; set; }
-
-
-        public List<AppropriationSourceList> getAppropriationSourceList { get; set; }
-
+        public IEnumerable<BOSS.Models.Tbl_FMAppropriationSource> getAppropList { get; set; }
+        public int DynamicAppropriationSourceID { get; set; }
+        
     }
     public class AppropriationSourceList
     {

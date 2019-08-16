@@ -1,0 +1,49 @@
+﻿
+@model IEnumerable<BOSS.Models.FMPositionforSPModels.PositionList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th>Position Name</th>
+            <th>Permanent/Non-Permanent</th>
+            <th>Classification</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @{
+            foreach (var Items in Model)
+            {
+                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                var DeleteSuccesMess = "Successfully Deleted";
+
+                var UpdatePos = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalEdit('FMPositionSPController','Get_UpdatePosition','" + @Items.PositionID + "')\"> <i class='la la-edit'></i> Edit</button>";
+                var RemovePos = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.PositionTitle + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.PositionID + ",&quot;_DeleteAppropriationSource&quot;,&quot;FMPositionSPController&quot;)')\"></i> Delete</button>";
+
+                var ActionPos = UpdatePos + RemovePos;
+                <tr>
+                    <td>@Items.PositionTitle</td>
+                    <td>@Items.PSTitle</td>
+                    <td>@Items.PCTitle</td>
+                    <td>
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                data-toggle="popover" data-content="@ActionPos" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

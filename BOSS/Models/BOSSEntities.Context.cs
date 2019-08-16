@@ -39,6 +39,8 @@ namespace BOSS.Models
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
         public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
+        public virtual DbSet<PositionClassification> PositionClassifications { get; set; }
+        public virtual DbSet<PositionStatu> PositionStatus { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<SubSector> SubSectors { get; set; }
         public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
@@ -46,6 +48,7 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMFunction> Tbl_FMFunction { get; set; }
         public virtual DbSet<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
         public virtual DbSet<Tbl_FMOfficeSection> Tbl_FMOfficeSection { get; set; }
+        public virtual DbSet<Tbl_FMPosition> Tbl_FMPosition { get; set; }
         public virtual DbSet<Tbl_FMRevisionOfCOA> Tbl_FMRevisionOfCOA { get; set; }
         public virtual DbSet<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
     
@@ -74,6 +77,15 @@ namespace BOSS.Models
                 new ObjectParameter("SQLStatement", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMAccounts", sQLStatementParameter);
+        }
+    
+        public virtual int SP_PositionSP(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_PositionSP", sQLStatementParameter);
         }
     }
 }

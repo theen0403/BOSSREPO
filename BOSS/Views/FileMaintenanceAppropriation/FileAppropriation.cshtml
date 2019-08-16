@@ -52,6 +52,44 @@
         //Calling all Init Function
         F.InitFunctions = function () {
             F.GetAppropriationSourceDT();
+        }//Get Table Appropriation Source Datatable Partial View
+        F.GetAppropriationSourceDT = function () {
+            F.ApproSourceID = null;
+            P({
+                url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
+            }).then(function (response) {
+                F.ApproSourceID = D(response.data);
+                F.GetAddAppropSource();
+            });
+        }
+        //Get GetAppropriation Source Add Partial View
+        F.GetAddAppropSource = function () {
+            P({
+                url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+            }).then(function (response) {
+                $('#AppropSoureIDTemp').html(response.data);
+
+            });
+        }
+        ////Get GetAppropriation Source Update Partial View
+        F.Get_UpdateAppropSource = function (AppropSourceID) {
+
+            P({
+                url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
+                params: { AppropSourceID: AppropSourceID }
+            }).then(function (response) {
+                $('#AppropSoureIDTemp').html(response.data);
+
+            });
+        }
+        //Delete AppropriationSource
+        F._DeleteAppropriationSource = function (AppropSourceID) {
+            P({
+                url: '/FileMaintenanceAppropriation/DeleteAppropriationSource',
+                params: { AppropriationID: AppropSourceID }
+            }).then(function (response) {
+                F.GetAppropriationSourceDT();
+            });
         }
         F.GetDynamicFund = function () {
             var AppropriationSourceID = $("#AppropriationSourceTypeID").val();
@@ -78,45 +116,6 @@
                 params: { AppropriationSourceID: AppropriationSourceID }
             }).then(function (response) {
                 $('#FundSourceID2').html(response.data);
-            });
-        }
-        //Get Table Appropriation Source Datatable Partial View
-        F.GetAppropriationSourceDT = function () {
-            F.ApproSourceID = null;
-            P({
-                url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
-            }).then(function (response) {
-                F.ApproSourceID = D(response.data);
-                F.GetAddAppropSource();
-            });
-        }
-        //Get GetAppropriation Source Add Partial View
-        F.GetAddAppropSource = function () {
-            P({
-                url: '/FileMaintenanceAppropriation/GetAddAppropSource',
-            }).then(function (response) {
-                $('#AppropSoureIDTemp').html(response.data);
-              
-            });
-        }
-        ////Get GetAppropriation Source Update Partial View
-        F.Get_UpdateAppropSource = function (AppropSourceID) {
-         
-            P({
-                url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
-                params: { AppropSourceID: AppropSourceID }
-            }).then(function (response) {
-                $('#AppropSoureIDTemp').html(response.data);
-               
-            });
-        }
-        //Delete AppropriationSource
-        F._DeleteAppropriationSource = function (AppropSourceID) {
-            P({
-                url: '/FileMaintenanceAppropriation/DeleteAppropriationSource',
-                params: { AppropriationID: AppropSourceID }
-            }).then(function (response) {
-                F.GetAppropriationSourceDT();
             });
         }
     });

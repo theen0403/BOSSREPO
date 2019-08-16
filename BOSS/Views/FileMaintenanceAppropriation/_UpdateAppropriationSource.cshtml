@@ -12,8 +12,8 @@
     </div>
     <div>
 
-        @Html.TextBoxFor(m => m.FundSourceIDHidden, new { @class = "hidden", type = "text", id = "FundSourceIDHidden" })
-        @Html.TextBoxFor(m => m.ApproIDHidden, new { @class = "hidden", type = "text", id = "ApproIDHidden" })
+        @Html.TextBoxFor(m => m.FundSourceIDHidden, new { id = "FundSourceIDHidden" })
+        @Html.TextBoxFor(m => m.ApproIDHidden, new { id = "ApproIDHidden" })
         @Html.HiddenFor(m => m.getAppropriationSourceColumns2.AppropriationID, new { })
         <div class="card-body card-body rounded box-shadow-4">
             <div class="card-body py-0">

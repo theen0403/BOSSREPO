@@ -1,0 +1,55 @@
+﻿@model BOSS.Models.FMPositionforSPModels.PositionforSPModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("AddNewPosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('FMPositionSPController','GetPositionSPDTable','Appropriation Saved!')", OnFailure = "OnFailure()", }))
+{
+    @Html.HiddenFor(m => m.PositionID, new { })
+    @Html.TextAreaFor(m => m.PCHiddenID, new { })
+    <div class="m-0 p-0 row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label style="margin-bottom:2px;">Position name</label>
+                <fieldset class="form-group">
+                    @Html.TextAreaFor(m => m.getPositionColumns2.PositionTitle, new { @class = "form-control", @rows = 1, id = "PositionTitle" })
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <div class="form-group">
+                    <label style="margin-bottom:2px;">Permanent/Non-Permanent</label>
+                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2", id = "PSID", onchange = "LoadGetDynamicClassification2()" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div id="PositionClassificationID">
+
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <div class="col">
+                <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="AngularGlobalFunctions('FMPositionSPController','GetPositionSPDTable','')">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        LoadGetDynamicClassification2();
+    })
+    function LoadGetDynamicClassification2() {
+        AngularGlobalFunctions('FMPositionSPController', 'GetDynamicClassification2', '')
+    }
+</script>

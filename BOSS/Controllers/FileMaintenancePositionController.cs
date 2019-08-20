@@ -29,7 +29,7 @@ namespace BOSS.Controllers
 
             List<PositionList> getPositionList = new List<PositionList>();
 
-            var SQLQuery = "SELECT [PositionID], [PositionTitle], [PSTitle], [PCTitle] FROM[Tbl_FMPosition], [PositionStatus], [PositionClassification] where[Tbl_FMPosition].PSID = [PositionStatus].PSID and[Tbl_FMPosition].[PCID] = [PositionClassification].[PCID]";
+            var SQLQuery = "SELECT [PositionID], [PositionTitle], [PSTitle], [Tbl_FMPosition].[PCID] FROM [Tbl_FMPosition], [PositionStatus], [PositionClassification] where [PositionClassification].[PCID]=[Tbl_FMPosition].[PCID] and [PositionStatus].PSID = [PositionClassification].PSID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -45,7 +45,7 @@ namespace BOSS.Controllers
                             PositionID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             PositionTitle = GlobalFunction.ReturnEmptyString(dr[1]),
                             PSTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            PCTitle = GlobalFunction.ReturnEmptyString(dr[3])
+                            PCID = GlobalFunction.ReturnEmptyInt(dr[3])
                         });
                     }
                 }
@@ -60,34 +60,27 @@ namespace BOSS.Controllers
             PositionforSPModel model = new PositionforSPModel();
             return PartialView("_AddPosition", model);
         }
-        public ActionResult GetDynamicPositionClassification()
-        {
-            PositionforSPModel model = new PositionforSPModel();
-            return PartialView("_DynamicClassification", model);
-        }
-        public ActionResult GetDynamicClassification(int PSID)
+        public ActionResult GetAddDynamicClassification(int PSID)
         {
             PositionforSPModel model = new PositionforSPModel();
 
             model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
 
-            return PartialView("_DynamicClassification", model);
+            return PartialView("_AddDynamicClassification", model);
         }
-        public ActionResult GetDynamicClassification2(PositionforSPModel model, int PCHiddenID)
+        public ActionResult GetUpdateDynamicClassification(int PSID,int PCID)
         {
+            PositionforSPModel model = new PositionforSPModel();
 
-            model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PCID == PCHiddenID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
-            model.PCID = PCHiddenID;
-
-
-            return PartialView("_DynamicFundSource", model);
+            model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
+            model.PCID = PCID;
+            return PartialView("_UpdateDynamicClassification", model);
         }
         public JsonResult AddNewPosition(PositionforSPModel model)
         {
             Tbl_FMPosition PositionTBL = new Tbl_FMPosition();
 
             PositionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionTitle);
-            PositionTBL.PSID = GlobalFunction.ReturnEmptyInt(model.PSID);
             PositionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
             BOSSDB.Tbl_FMPosition.Add(PositionTBL);
 
@@ -99,10 +92,30 @@ namespace BOSS.Controllers
             Tbl_FMPosition tblposition = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == PositionID select e).FirstOrDefault();
 
             model.getPositionColumns2.PositionTitle = tblposition.PositionTitle;
-            model.PSID = Convert.ToInt32(tblposition.PSID);
-            model.PCHiddenID = Convert.ToInt32(tblposition.PCID);
+            model.PSID = Convert.ToInt32(tblposition.PositionClassification.PSID);
+            model.PCIDTemp =Convert.ToInt32(tblposition.PCID) ;
             model.PositionID = PositionID;
             return PartialView("_UpdatePosition", model);
+        }
+        public ActionResult UpdatePosition(PositionforSPModel model)
+        {
+            Tbl_FMPosition positionTBL = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == model.PositionID select e).FirstOrDefault();
+            
+            positionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionTitle);
+            positionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
+            
+            BOSSDB.Entry(positionTBL);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DeletePosition(PositionforSPModel model, int PositionID)
+        {
+            Tbl_FMPosition positionTbl = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == PositionID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMPosition.Remove(positionTbl);
+            BOSSDB.SaveChanges();
+            return RedirectToAction("FilePosition");
         }
     }
 }

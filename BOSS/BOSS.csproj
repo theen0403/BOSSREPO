@@ -297,6 +297,7 @@
     <Compile Include="Models\FMResponsibilityModels\DepartmentModel.cs" />
     <Compile Include="Models\FMResponsibilityModels\FunctionModel.cs" />
     <Compile Include="Models\FMResponsibilityModels\OfficeSectionModel.cs" />
+    <Compile Include="Models\FMSignatoryModels\SignatoryModel.cs" />
     <Compile Include="Models\FundSource.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
@@ -353,6 +354,9 @@
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMRevisionOfCOA.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMSignatory.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMSubAccount.cs">
@@ -9106,8 +9110,12 @@
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_UpdateRCOA.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\ChartOfAccounts\GeneralAccount\_DynamicAllotmentClassForUpdate.cshtml" />
     <Content Include="Views\FileMaintenancePosition\_AddPosition.cshtml" />
-    <Content Include="Views\FileMaintenancePosition\_DynamicClassification.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_AddDynamicClassification.cshtml" />
     <Content Include="Views\FileMaintenancePosition\_UpdatePosition.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_UpdateDynamicClassification.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\_AddSignatory.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\_AddDynamicFunctionList.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\_UpdateSignatory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

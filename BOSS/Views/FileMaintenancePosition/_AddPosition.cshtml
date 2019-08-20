@@ -3,8 +3,7 @@
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
-
-@using (Ajax.BeginForm("AddNewPosition", "FileMaintenancePosition", new AjaxOptions {         OnSuccess = "AngularGlobalAlertsCallingwoModal('FMPositionSPController','GetPositionSPDTable','Appropriation Saved!')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("AddNewPosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetPositionSPDTable','Successfully Saved!')", OnFailure = "", }))
 {
     <div class="m-0 p-0 row">
         <div class="col-md-4">
@@ -19,7 +18,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label style="margin-bottom:2px;">Permanent/Non-Permanent</label>
-                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2", id = "PSID", onchange = "LoadGetDynamicClassification()" })
+                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2", id = "PSID", onchange = "LoadGetAddDynamicClassification()" })
                 </div>
             </div>
         </div>
@@ -32,7 +31,7 @@
     <div class="row mb-3">
         <div class="col">
             <div class="col">
-                <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="AngularGlobalFunctions('FMPositionSPController','GetPositionSPDTable','')">
+                <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetPositionSPDTable()">
                     Cancel
                 </button>
                 <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
@@ -45,9 +44,13 @@
 
 <script>
     $(function () {
-        LoadGetDynamicClassification();
+        LoadGetAddDynamicClassification();
     })
-    function LoadGetDynamicClassification() {
-        AngularGlobalFunctions('FMPositionSPController', 'GetDynamicClassification', '')
+    function LoadGetAddDynamicClassification() {
+        GetAddDynamicClassification();
     }
+
+    $(function () {
+        $("#PSID").select2();
+    })
 </script>

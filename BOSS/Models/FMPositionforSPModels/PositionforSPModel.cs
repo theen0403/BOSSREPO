@@ -24,7 +24,7 @@ namespace BOSS.Models.FMPositionforSPModels
         public string PositionTitle { get; set; }
         public int PSID { get; set; }
         public int PCID { get; set; }
-
+        public int PCIDTemp { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> PositionStatusList
         {
             get
@@ -40,9 +40,9 @@ namespace BOSS.Models.FMPositionforSPModels
     {
         public int PositionID { get; set; }
         public string PositionTitle { get; set; }
-        public string PCTitle { get; set; }
         public int PSID { get; set; }
         public string PSTitle { get; set; }
         public int PCID { get; set; }
+        public string PCTitle { get; set; }
     }
 }

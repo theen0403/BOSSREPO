@@ -1,0 +1,17 @@
+﻿@model BOSS.Models.FMPositionforSPModels.PositionforSPModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <div class="form-group">
+        <label style="margin-bottom:2px;">Classification</label>
+        @Html.DropDownListFor(m => m.PCID, Model.PositionClassList, new { @class = "form-control", id = "PCID" })
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#PCID").select2();
+    })
+</script>

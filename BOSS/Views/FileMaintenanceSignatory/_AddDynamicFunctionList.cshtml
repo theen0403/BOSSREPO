@@ -1,0 +1,15 @@
+﻿@model BOSS.Models.FMSignatoryModels.SignatoryModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label style="margin-bottom:2px;">Function</label>
+    @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control", id = "FunctionID" })
+</div>
+<script>
+    $(function () {
+        $("#FunctionID").select2();
+    })
+</script>

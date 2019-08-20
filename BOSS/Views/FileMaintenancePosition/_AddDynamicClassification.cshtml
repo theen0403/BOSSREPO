@@ -10,3 +10,8 @@
         @Html.DropDownListFor(m => m.PCID, Model.PositionClassList, new { @class = "form-control", id = "PCID" })
     </div>
 </div>
+<script>
+    $(function () {
+        $("#PCID").select2();
+    })
+</script>

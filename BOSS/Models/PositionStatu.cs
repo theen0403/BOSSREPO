@@ -18,7 +18,6 @@ namespace BOSS.Models
         public PositionStatu()
         {
             this.PositionClassifications = new HashSet<PositionClassification>();
-            this.Tbl_FMPosition = new HashSet<Tbl_FMPosition>();
         }
     
         public int PSID { get; set; }
@@ -26,7 +25,5 @@ namespace BOSS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PositionClassification> PositionClassifications { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMPosition> Tbl_FMPosition { get; set; }
     }
 }

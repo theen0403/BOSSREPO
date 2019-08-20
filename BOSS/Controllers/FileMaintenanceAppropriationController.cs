@@ -23,27 +23,6 @@ namespace BOSS.Controllers
             FMAppropriationSourceModel model = new FMAppropriationSourceModel();
             return View(model);
         }
- 
-
-        public ActionResult GetDynamicFund(int AppropriationSourceID)
-        {
-            FMAppropriationSourceModel model = new FMAppropriationSourceModel();
-
-            model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == AppropriationSourceID).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
-
-
-
-            return PartialView("_DynamicFundSource", model);
-        }
-        public ActionResult GetDynamicFund2(FMAppropriationSourceModel model, int FundSourceIDHidden,int ApproIDHidden)
-        {
-
-            model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == ApproIDHidden).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
-            model.FundSourceID = FundSourceIDHidden;
-
-
-            return PartialView("_DynamicFundSource", model);
-        }
         //Get Appropriation Source Datatable Partial View
         public ActionResult GetAppropriationSourceDT()
         {
@@ -72,10 +51,23 @@ namespace BOSS.Controllers
                 }
                 Connection.Close();
             }
-
             model.getAppropriationSourceList = getAppropriationSourceList.ToList();
-            
             return PartialView("_TableAppropriationSource", model.getAppropriationSourceList);
+        }
+        public ActionResult GetDynamicFund(int AppropriationSourceID)
+        {
+            FMAppropriationSourceModel model = new FMAppropriationSourceModel();
+
+            model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == AppropriationSourceID).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
+            
+            return PartialView("_DynamicFundSource", model);
+        }
+        public ActionResult GetDynamicFund2(FMAppropriationSourceModel model, int FundSourceIDHidden, int ApproIDHidden)
+        {
+            model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == ApproIDHidden).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
+            model.FundSourceID = FundSourceIDHidden;
+
+            return PartialView("_DynamicFundSource", model);
         }
         //Get AppropriationSource Partial View
         public ActionResult GetAddAppropSource()

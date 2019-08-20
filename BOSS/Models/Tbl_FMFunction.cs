@@ -17,6 +17,7 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_FMFunction()
         {
+            this.Tbl_FMSignatory = new HashSet<Tbl_FMSignatory>();
             this.Tbl_FMOfficeSection = new HashSet<Tbl_FMOfficeSection>();
         }
     
@@ -29,6 +30,8 @@ namespace BOSS.Models
     
         public virtual FundType FundType { get; set; }
         public virtual Tbl_FMDepartment Tbl_FMDepartment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMOfficeSection> Tbl_FMOfficeSection { get; set; }
     }

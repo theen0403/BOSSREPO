@@ -50,6 +50,7 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMOfficeSection> Tbl_FMOfficeSection { get; set; }
         public virtual DbSet<Tbl_FMPosition> Tbl_FMPosition { get; set; }
         public virtual DbSet<Tbl_FMRevisionOfCOA> Tbl_FMRevisionOfCOA { get; set; }
+        public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
         public virtual DbSet<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
     
         public virtual int SP_AppropriationSource(string sQLStatement)
@@ -86,6 +87,15 @@ namespace BOSS.Models
                 new ObjectParameter("SQLStatement", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_PositionSP", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Signatory(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Signatory", sQLStatementParameter);
         }
     }
 }

@@ -113,7 +113,7 @@ namespace BOSS.Controllers
             DepartmentModel model = new DepartmentModel();
 
             model.SubSectorList = new SelectList((from s in BOSSDB.SubSectors.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-
+            
             return PartialView("DepartmentTab/_AddDynamicSubSector", model);
         }
         //Get Dynamic SubSector For Update Partial View

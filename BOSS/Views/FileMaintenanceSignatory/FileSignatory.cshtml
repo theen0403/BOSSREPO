@@ -14,90 +14,14 @@
     </div>
 </div>
 @*BODY*@
-<div class="content-body" id="FMSignatoryController" ng-controller="FMSignatoryController" ng-init="GetSignatoryDTable();">
+<div class="content-body" id="FMSignatoryController" ng-controller="FMSignatoryController" ng-init="InitFunctions();">
     <div class="row">
         <div class="col-md-12">
             <div class="card box-shadow-3">
                 <div class="card-content collapse show">
                     <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-4 col-sm-4 mx-0">
-                                <div class="form-group">
-                                    <label style="margin-bottom:2px;">Employee Name</label>
-                                    <fieldset class="form-group">
-                                        <input type="text" class="form-control" />
-                                    </fieldset>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-5 mx-0">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label style="margin-bottom:2px;">Position</label>
-                                        <select class="form-control">
-                                            <option>Chief of Hospital</option>
-                                            <option>Chief of Hospital I</option>
-                                            <option>Chief Porbation & Parole Officer</option>
-                                            <option>Clerk of Court</option>
-                                            <option>District Public Attorney</option>
-                                            <option>Executive Judge</option>
-                                            <option>Local DRRM Officer IV</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-3 mx-0">
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <label style="margin-bottom:2px;">Dept. Head</label>
-                                        <select class="form-control">
-                                            <option>Yes</option>
-                                            <option>No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-7 col-sm-7 mx-0">
-                                <div class="form-group">
-                                    <label style="margin-bottom:2px;">Department</label>
-                                    <select class="form-control">
-                                        <option>REGIONAL TRIAL COURT - Branch V, 96 Office of the COC, Dinalupitan</option>
-                                        <option>EGIONAL TRIAL COURT - Branch IV, 94 and Office of the COC, Mariveles</option>
-                                        <option>REGIONAL TRAIL COURT - Branch I,II,III, 92 ,93 and Office od the COC Balangan</option>
-                                        <option>METRO BATAAN DEVELOPMENT AUTHORITY</option>
-                                        <option>SPECIAL EDUCATION FUND</option>
-                                        <option>PROVINCIAL DISASTER RISK REDUCTION MANAGEMENT OFFICE</option>
-                                        <option>PUBLIC EMPLOYMENT SERVICE OFFICE</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-5 mx-0">
-                                <div class="form-group">
-                                    <label style="margin-bottom:2px;">Function</label>
-                                    <select class="form-control">
-                                        <option>General Administration</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-1">
-                            <div class="col">
-                                <button type="button" class="btn btn-menuRed btn-min-width float-right"
-                                        data-toggle="modal"
-                                        data-target="#ViewPrintPreviewModal"
-                                        onclick="OpenViewUpdatePrintPreviewModal()">
-                                    Cancel
-                                </button>
-                                <button type="button" class="btn btn-btnbackcolor btn-min-width mr-1 float-right"
-                                        data-toggle="modal"
-                                        data-target="#ViewPrintPreviewModal"
-                                        onclick="OpenViewUpdatePrintPreviewModal()">
-                                    Add
-                                </button>
-                            </div>
+                        <div id="SignatoryTempID">
+
                         </div>
 
                         <div class="row m-0 mt-1" ng-bind-html="FMSignatoryID">
@@ -114,12 +38,62 @@
     app.controller('FMSignatoryController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
         //Get Signatory Datatable Partial View
+        F.InitFunctions = function () {
+            F.GetSignatoryDTable();
+        }//Get Table Appropriation Source Datatable Partial View
         F.GetSignatoryDTable = function () {
             F.FMSignatoryID = null;
             P({
                 url: '/FileMaintenanceSignatory/GetSignatoryDTable',
             }).then(function (response) {
                 F.FMSignatoryID = D(response.data);
+                F.GetAddSignatory();
+            });
+        }
+        F.GetAddSignatory = function () {
+            P({
+                url: '/FileMaintenanceSignatory/GetAddSignatory',
+            }).then(function (response) {
+                $('#SignatoryTempID').html(response.data);
+
+            });
+        }
+        F.GetAddDynamicFunction = function () {
+            var DeptID = $("#DeptID").val();
+            P({
+                url: '/FileMaintenanceSignatory/GetAddDynamicFunction',
+                params: { DeptID: DeptID }
+            }).then(function (response) {
+                $('#functionlistID').html(response.data);
+
+            });
+        }
+        F.GetUpdateDynamicFunction = function () {
+            var DeptID = $("#DeptID").val();
+            var FunctionID = $("#funcTempIDID").val();
+            P({
+                url: '/FileMaintenanceSignatory/GetUpdateDynamicFunction',
+                params: { DeptID: DeptID, FunctionID: FunctionID }
+            }).then(function (response) {
+                $('#functionlistID').html(response.data);
+
+            });
+        }
+        F.Get_UpdateSignatory = function (SignatoryID) {
+            P({
+                url: '/FileMaintenanceSignatory/Get_UpdateSignatory',
+                params: { SignatoryID: SignatoryID}
+            }).then(function (response) {
+                $('#SignatoryTempID').html(response.data);
+
+            });
+        }
+        F.DeleteSignatory = function (SignatoryID) {
+            P({
+                url: '/FileMaintenanceSignatory/DeleteSignatory',
+                params: { SignatoryID: SignatoryID }
+            }).then(function (response) {
+                F.GetSignatoryDTable();
             });
         }
     });

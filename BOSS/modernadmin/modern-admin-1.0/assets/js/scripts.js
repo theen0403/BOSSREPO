@@ -129,7 +129,11 @@ function LoadICheck() {
     });
     $(".select2").select2();
 }
-
+function select2nosearch() {
+    $(".select2nosearch").select2({
+       minimumResultsForSearch: Infinity
+    });
+}
 function PopoveLostFocus() {
     $('[data-toggle="popover"]').popover('hide');
 }

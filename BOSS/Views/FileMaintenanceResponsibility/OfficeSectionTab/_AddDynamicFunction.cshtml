@@ -5,19 +5,11 @@
 @using BOSS.Models;
 
 <div class="form-group ">
-    <label style="margin-bottom:2px;">Function</label>
-    @Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID", onchange = "LoadGetOfficeSecDT()" })
+    <label class="custom-form-margin">Function</label>
+    @Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID", onchange = "GetOfficeSecDT()" })
 </div>
 <script>
     $(function () {
-        $("#FuncID").select2();
-    })
-</script>
-<script>
-    $(function () {
-        LoadGetOfficeSecDT();
-    })
-    function LoadGetOfficeSecDT() {
         GetOfficeSecDT();
-    }
+    })
 </script>

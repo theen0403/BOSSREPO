@@ -9,57 +9,58 @@
 
 @using (Ajax.BeginForm("AddNewDepartment", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetDepartmentDT','Successfully Added!')", OnFailure = "", }))
 {
-    <div class="card-header bg-active">
-        <h4 class="card-title black ">Add Department</h4>
-    </div>
-    <div class="card-body card-body rounded box-shadow-4  px-0">
-        <div class="card-body py-0" action="index.html" novalidate>
+    @*<div class="card-header bg-active">
+            <h4 class="card-title black ">Add Department</h4>
+        </div>*@
+    <div class="card-body card-body rounded box-shadow-4 px-0">
+        <div class="card-body py-0">
             <div class="row">
-                <div class="col-md-6 col-sm-4 mx-0">
+                <div class="col-md-6 col-sm-4">
                     <div class="form-group">
                         <label class="custom-form-margin">Department</label>
                         @Html.TextAreaFor(m => m.getDeptColumns.DeptTitle, new { @class = "form-control", @rows = 1, id = "DeptTitle" })
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-4 mx-0">
+                <div class="col-md-3 col-sm-4">
                     <div class="form-group">
                         <label class="custom-form-margin">Department Abbreviation</label>
                         @Html.TextBoxFor(m => m.getDeptColumns.DeptAbbrv, new { @class = "form-control", type = "text", id = "DeptAbbrv" })
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-4 mx-0">
+                <div class="col-md-3 col-sm-4">
                     <div class="form-group">
                         <label class="custom-form-margin">Department/Office Code</label>
                         @Html.TextBoxFor(m => m.getDeptColumns.DeptOfficeCode, new { @class = "form-control", type = "text", id = "DeptOfficeCode" })
                     </div>
                 </div>
             </div>
-            <div class="row mt-0">
-                <div class="col-md-4 col-sm-4 mt-0">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
                     <div class="form-group ">
                         <label class="custom-form-margin">Sector</label>
                         @Html.DropDownListFor(m => m.SectorID, Model.SectorList, new { @class = "form-control select2", id = "SecID", onchange = "LoadGetDynamicSubSector()" })
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-4 mt-0" id="SubSectorID">
+                <div class="col-md-5 col-sm-4" id="SubSectorID">
 
                 </div>
-                <div class="col-md-3 col-sm-4 mt-0">
+                <div class="col-md-3 col-sm-4">
                     <div class="form-group ">
                         <label class="custom-form-margin">Fund</label>
-                        @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2" })
+                        @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
                     </div>
                 </div>
             </div>
-            @*BUTTON*@
-            <div class="row">
+            <div class="row mb-2">
                 <div class="col">
-                    <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetDepartmentDT()">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
-                        Add
-                    </button>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetDepartmentDT()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+                            Add
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,6 +69,8 @@
 
 <script>
     $(function () {
+        LoadICheck();
+        select2nosearch();
         LoadGetDynamicSubSector();
     })
     function LoadGetDynamicSubSector() {

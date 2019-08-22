@@ -6,10 +6,10 @@
 
 <div class="form-group">
     <label style="margin-bottom:2px;">Function</label>
-    @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control", id = "FunctionID" })
+    @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control select2nosearch", id = "FunctionID" })
 </div>
 <script>
     $(function () {
-        $("#FunctionID").select2();
+        select2nosearch();
     })
 </script>

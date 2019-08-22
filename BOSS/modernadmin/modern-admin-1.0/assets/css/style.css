@@ -214,11 +214,6 @@ table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
     border-right: 2px solid #1883AE;
 }*/
 
-.nav-pills .nav-pills .nav-link.active .show > .nav-link {
-    background-color: #E49B1F !important;
-}
-
-
 .select2-container {
     width: 100% !important;
 }
@@ -236,17 +231,44 @@ table.table-ledger thead tr:nth-child(2) th:nth-child(12) {
     font-weight: bold;
 }
 
+.nav-pills .nav-pills .nav-link.active .show > .nav-link {
+    background-color: #E49B1F !important;
+}
 .nav.nav-tabs .nav-item .nav-link.active {
     background-color: #fff;
     border-radius: 0.25rem 0.25rem 0 0;
     color: white;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
 }
-
 .nav.nav-tabs .nav-item .nav-link {
     padding: 0.5rem 0.7rem;
     display: inline-flex;
     color: white;
 }
+
+/*.nav.nav-tabs.nav-topline .nav-item a.nav-link.active {
+    background: none;
+    box-shadow: inset 0 3px 0 #FF4961;
+    color: black;
+    border-radius: 0;
+    border-top-color: #FF4961;
+    border-bottom: none;
+}
+
+.nav.nav-tabs.nav-topline .nav-item a.nav-link {
+    padding: 0.8rem 0.5rem;
+    background: rgba(40, 44, 42, 0.05);
+    color: white !important;
+    line-height: 1;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+}
+.nav-link.active {
+    background-color: #E49B1F !important;
+    border-radius: 0.25rem 0.25rem 0 0;
+    color: black;
+}*/
 .m-small{
     margin: 5px 0px;
 }
@@ -383,7 +405,7 @@ table thead tr th {
 }
 
 .custom-form-margin {
-    margin-bottom: 3px;
+    margin-bottom: 2px;
 }
 
 html body a:hover {

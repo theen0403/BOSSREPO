@@ -7,13 +7,12 @@
 
 <div class="form-group">
     <label style="margin-bottom:2px;">Allotment Type</label>
-    @Html.DropDownListFor(m => m.AllotmentID, Model.AllotmentClassList, new { @class = "form-control select2", id = "AllotmentID",
+    @Html.DropDownListFor(m => m.AllotmentID, Model.AllotmentClassList, new { @class = "form-control select2nosearch", id = "AllotmentID",
     onchange = "GetGeneralAccountDT()"
 })
 </div>
-
 <script>
     $(function () {
-        $("#AllotmentID").select2();
+        select2nosearch();
     })
 </script>

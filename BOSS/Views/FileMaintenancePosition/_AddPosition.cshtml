@@ -5,38 +5,40 @@
 @using BOSS.Models;
 @using (Ajax.BeginForm("AddNewPosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetPositionSPDTable','Successfully Saved!')", OnFailure = "", }))
 {
-    <div class="m-0 p-0 row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label style="margin-bottom:2px;">Position name</label>
-                <fieldset class="form-group">
-                    @Html.TextAreaFor(m => m.getPositionColumns.PositionTitle, new { @class = "form-control", @rows = 1, id = "PositionTitle" })
-                </fieldset>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <div class="form-group">
-                    <label style="margin-bottom:2px;">Permanent/Non-Permanent</label>
-                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2", id = "PSID", onchange = "LoadGetAddDynamicClassification()" })
+    <div class="card-body card-body rounded box-shadow-4">
+        <div class="card-body p-0">
+            <div class="row">
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Position name</label>
+                        <fieldset class="form-group">
+                            @Html.TextAreaFor(m => m.getPositionColumns.PositionTitle, new { @class = "form-control", @rows = 1, id = "PositionTitle" })
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Permanent/Non-Permanent</label>
+                        @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2nosearch", id = "PSID", onchange = "LoadGetAddDynamicClassification()" })
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div id="PositionClassificationID">
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div id="PositionClassificationID">
-
-            </div>
-        </div>
-    </div>
-    <div class="row mb-3">
-        <div class="col">
-            <div class="col">
-                <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetPositionSPDTable()">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
-                    Add
-                </button>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetPositionSPDTable()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+                            Add
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,6 +53,6 @@
     }
 
     $(function () {
-        $("#PSID").select2();
+        select2nosearch();
     })
 </script>

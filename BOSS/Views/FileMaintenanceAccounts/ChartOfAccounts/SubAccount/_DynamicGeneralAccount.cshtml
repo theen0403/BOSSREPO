@@ -8,19 +8,13 @@
 <div class="form-group">
     <label style="margin-bottom:2px;">General Account</label>
     @Html.DropDownListFor(m => m.GenAccountID, Model.GeneralAccntList, new { @class = "form-control select2", id = "GenAccountID",
-    onchange = "LoadGetSubAccountDT();GetGenAccntCodeField();"
+    onchange = "GetSubAccountDT(); GetGenAccntCodeField();"
 })
 </div>
 
 <script>
     $(function () {
-        $("#GenAccountID").select2();
-    })
-
-    $(function () {
-        LoadGetSubAccountDT();
-    })
-    function LoadGetSubAccountDT() {
         GetSubAccountDT();
-    }
+        LoadICheck();
+    })
 </script>

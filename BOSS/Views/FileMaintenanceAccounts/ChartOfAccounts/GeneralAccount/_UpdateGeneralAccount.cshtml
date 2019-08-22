@@ -40,8 +40,8 @@
     @Html.TextBoxFor(m => m.isReserve, new { id = "isReserveID", @class = "hidden" })
     <div class="col-md-2 col-sm-2 mt-0">
         <div class="form-group">
-            <label style="margin-bottom:2px;">With Reserve?</label>
-            <select class="form-control" id="isReserveIDD" onchange="isReserveOnChange()">
+            <label class="custom-form-margin">With Reserve?</label>
+            <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
                 <option value=True>Yes</option>
                 <option value=False>No</option>
             </select>
@@ -49,7 +49,7 @@
     </div>
     <div class="col-md-2 col-sm-2 mt-0">
         <div class="form-group">
-            <label style="margin-bottom:2px;">Reserved %</label>
+            <label class="custom-form-margin">Reserved %</label>
             <fieldset class="form-group">
                 @Html.TextBoxFor(m => m.getGenAcctColumns2.ReservePercent, new { @class = "form-control", type = "text", id = "ReservePercent" })
             </fieldset>
@@ -58,8 +58,8 @@
     @Html.TextBoxFor(m => m.isFullRelease, new { id = "isFullReleaseID", @class = "hidden" })
     <div class="col-md-2 col-sm-2 mt-0">
         <div class="form-group">
-            <label style="margin-bottom:2px;">For Full Release?</label>
-            <select class="form-control" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
+            <label class="custom-form-margin">For Full Release?</label>
+            <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
                 <option value=True>Yes</option>
                 <option value=False>No</option>
             </select>
@@ -68,8 +68,8 @@
     @Html.TextBoxFor(m => m.isContinuing, new { id = "isContinuingID", @class = "hidden" })
     <div class="col-md-2 col-sm-2 mt-0">
         <div class="form-group">
-            <label style="margin-bottom:2px;">For Continuing?</label>
-            <select class="form-control" id="isContinuingIDD" onchange="isContinuingOnChange()">
+            <label class="custom-form-margin">For Continuing?</label>
+            <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
                 <option value=True>Yes</option>
                 <option value=False>No</option>
             </select>
@@ -78,24 +78,26 @@
     @Html.TextBoxFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID", @class = "hidden" })
     <div class="col-md-2 col-sm-2 mt-0">
         <div class="form-group">
-            <label style="margin-bottom:2px;">OBR Cash Adv?</label>
-            <select class="form-control" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
+            <label class="custom-form-margin">OBR Cash Adv?</label>
+            <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
                 <option value=True>Yes</option>
                 <option value=False>No</option>
             </select>
         </div>
     </div>
 </div>
-    <div class="row mb-1">
-        <div class="col">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetAddGeneralAccount()">
+<div class="row mb-1">
+    <div class="col">
+        <div class="form-group">
+            <button type="button" class="btn btn-menuRed btn-min-width pull-right" onclick="GetAddGeneralAccount()">
                 Cancel
             </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
                 Update
             </button>
         </div>
     </div>
+</div>
 }
 @*Edit Account Details Modal*@
 <div class="col-lg-4 col-md-6 col-sm-12">
@@ -142,7 +144,6 @@
 <script>
     $(function () {
         GetDynamicAllotmentClassForUpdate();
-        //removesearchselect2();
     })
 </script>
 <script>
@@ -165,7 +166,6 @@
         $("#isFullReleaseID").val($("#isFullReleaseIDD").val());
     }
 </script>
-
 
 <script>
     $(document).ready(function () {

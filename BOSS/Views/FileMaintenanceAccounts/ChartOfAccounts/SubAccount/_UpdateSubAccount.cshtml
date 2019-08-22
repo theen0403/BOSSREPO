@@ -44,7 +44,7 @@
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
                 <label style="margin-bottom:2px;">With Reserve?</label>
-                <select class="form-control" id="isReserveIDD" onchange="isReserveOnChange()">
+                <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
                 </select>
@@ -63,7 +63,7 @@
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
                 <label style="margin-bottom:2px;">For Full Release?</label>
-                <select class="form-control" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
+                <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
                 </select>
@@ -73,7 +73,7 @@
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
                 <label style="margin-bottom:2px;">For Continuing?</label>
-                <select class="form-control" id="isContinuingIDD" onchange="isContinuingOnChange()">
+                <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
                 </select>
@@ -83,7 +83,7 @@
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
                 <label style="margin-bottom:2px;">OBR Cash Adv?</label>
-                <select class="form-control" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
+                <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
                 </select>
@@ -104,7 +104,6 @@
 
 <script>
     $(function () {
-       // removesearchselect2();
         $("#isReserveIDD").val($("#isReserveID").val());
         $("#isFullReleaseIDD").val($("#isFullReleaseID").val());
         $("#isContinuingIDD").val($("#isContinuingID").val());

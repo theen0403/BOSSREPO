@@ -5,13 +5,11 @@
 @using BOSS.Models;
 
 <div class="form-group">
-    <div class="form-group">
-        <label style="margin-bottom:2px;">Classification</label>
-        @Html.DropDownListFor(m => m.PCID, Model.PositionClassList, new { @class = "form-control", id = "PCID" })
-    </div>
+        <label class="custom-form-margin">Classification</label>
+        @Html.DropDownListFor(m => m.PCID, Model.PositionClassList, new { @class = "form-control select2nosearch", id = "PCID" })
 </div>
 <script>
     $(function () {
-        $("#PCID").select2();
+        select2nosearch();
     })
 </script>

@@ -7,9 +7,9 @@
 @using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('ApproSourceController', 'GetAppropriationSourceDT','Appropriation Updated!')", OnFailure = "OnFailure()", }))
 {
 
-<div class="card-header bg-active">
+@*<div class="card-header bg-active">
     <h4 class="card-title black">Update Appropriation Source</h4>
-</div>
+</div>*@
 <div>
 
     @Html.HiddenFor(m => m.FundSourceIDHidden, new { id = "FundSourceIDHidden" })

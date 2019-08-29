@@ -89,20 +89,6 @@ function Checkall() {
         }
     });
 }
-//function removesearchselect2(){
-//    $("#isReserveIDD").select2({
-//        minimumResultsForSearch: Infinity
-//    });
-//    $("#isFullReleaseIDD").select2({
-//        minimumResultsForSearch: Infinity
-//    });
-//    $("#isContinuingIDD").select2({
-//        minimumResultsForSearch: Infinity
-//    });
-//    $("#isOBRCashAdvanceIDD").select2({
-//        minimumResultsForSearch: Infinity
-//    });
-//}
 
 //Popover
 function LoadPopOver() {

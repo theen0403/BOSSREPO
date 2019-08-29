@@ -78,62 +78,78 @@
 
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-header bg-active rounded">
-                            <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class=" col-lg-4">
-                                    <h4 class="card-title black pull-right ">TOTAL COST (All Programs):</h4>
+                            <div class="card-header bg-active rounded">
+                                <div class="row">
+                                    <div class="col-lg-4"></div>
+                                    <div class=" col-lg-4">
+                                        <h4 class="card-title black pull-right ">TOTAL COST (All Programs):</h4>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <h4 class="card-title text-right pr-1 black">57,878,000.00</h4>
+                                    </div>
+                                    <div class="col-lg-1"></div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <h4 class="card-title text-right pr-1 black">160,717,000.00</h4>
-                                </div>
-                                <div class="col-lg-1"></div>
                             </div>
                         </div>
                         @*LIST OF PROJECT*@
-                        <div class="card-sm card-header bg-active mt-2 rounded" id="d-project">
-                            <h4 class="card-title black">List of Project for: <span></span></h4>
-                        </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-sm box-shadow-3 rounded">
-                                <div class="row m-0" ng-bind-html="ProjectListID">
-
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">List of Project for:</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements mt-0">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-header bg-active rounded">
-                            <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class=" col-lg-4">
-                                    <h4 class="card-title black pull-right">TOTAL COST (All Project):</h4>
+                            <div class="card-content collapse">
+                                <div class="card-body px-1 card-body rounded box-shadow-3">
+                                    <div class="row m-0" ng-bind-html="ProjectListID">
+
+                                    </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <h4 class="card-title text-right pr-1 black">40,161,000.00</h4>
+                                <div class="card-header bg-active rounded">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class=" col-lg-4">
+                                            <h4 class="card-title black pull-right">TOTAL COST (All Project):</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h4 class="card-title text-right pr-1 black">57,878,000.00</h4>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1"></div>
                             </div>
                         </div>
                         @*LIST OF ACTIVITIES*@
-                        <div class=" card-sm card-header bg-active rounded mt-2" id="d-activity">
-                            <h4 class="card-title black">List of Activities for: <span></span></h4>
-                        </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-sm box-shadow-3 rounded">
-                                <div class="row m-0" ng-bind-html="ActivityListID">
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">List of Activities for:</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements mt-0">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-plus black"></i></a></li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-header bg-active rounded">
-                            <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class=" col-lg-4">
-                                    <h4 class="card-title black pull-right">TOTAL COST (All Activities):</h4>
+                            <div class="card-content collapse">
+                                <div class="card-body card-sm box-shadow-3 rounded">
+                                    <div class="row m-0" ng-bind-html="ActivityListID">
+                                    </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <h4 class="card-title text-right pr-1 black">36,000.00</h4>
+                                <div class="card-header bg-active rounded">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class=" col-lg-4">
+                                            <h4 class="card-title black pull-right">TOTAL COST (All Activities):</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h4 class="card-title text-right pr-1 black">76,000‬.00</h4>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1"></div>
                             </div>
                         </div>
                     </div>
@@ -147,7 +163,7 @@
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="form-group">
             <div class="modal fade text-left" id="ViewProgramModal" role="dialog">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header
                              bg-active">
@@ -170,7 +186,7 @@
     @*VIEW PROJECT*@
     <div class="modal fade text-left" id="ViewProjectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header
                              bg-active">
@@ -190,10 +206,9 @@
     @*VIEW ACTIVITY*@
     <div class="modal fade text-left" id="ViewActivityModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header
-                             bg-active">
+                <div class="modal-header bg-active">
                     <h4 class="modal-title" id="myModalLabel1">Activity Details</h4>
                 </div>
                 <div class="modal-body skin skin-square">

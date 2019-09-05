@@ -18,48 +18,50 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="true">Revision Year</a>
+                                        <a class="nav-link active bg-backcolorheader" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab22" ng-click="COATab()" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Account Group</a>
+                                        <a class="nav-link bg-backcolorheader" id="base-tabAllotment" ng-click="AllotmentClassTab()" data-toggle="tab" aria-controls="tabAllotment" href="#tabAllotment" aria-expanded="false">Allotment Class</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Major Account Group</a>
+                                        <a class="nav-link bg-backcolorheader" id="base-tabAccntGroup" ng-click="AccountGroupTab()" data-toggle="tab" aria-controls="tabAccntGroup" href="#tabAccntGroup" aria-expanded="true">Account Group</a>
                                     </li>
                                     <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">Sub Major Account Group</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabGenAccnt" ng-click="COATab()" data-toggle="tab" aria-controls="tabGenAccnt" href="#tabGenAccnt" aria-expanded="false">General Account</a>
+                                    </li>
+                                    @**<li class="nav-item">
                                         <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Sub Major Account Group</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab25" ng-click="COATab()" data-toggle="tab" aria-controls="tab25" href="#tab25" aria-expanded="false">General Account</a>
-                                    </li>
+                                    </li>*@
+
                                 </ul>
-
-
-
-                                @*<ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader" id="base-tab21" ng-click="COATab()" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Charts of Accounts (2015-009)</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab22" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Revision for Chart of Accounts</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">PIN</a>
-                                    </li>
-                                </ul>*@
-                                @*TAB*@
                                 <div class="tab-content w-100" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
 
                                         <div class="tab-pane active" id="tabRevision" ng-bind-html="tabRevision">
 
                                         </div>
-                                        <div class="tab-pane" id="tab25" ng-bind-html="tab25">
+                                        <div class="tab-pane" id="tabAllotment" ng-bind-html="tabAllotment">
 
                                         </div>
-                                        <div class="tab-pane" id="tab23" ng-bind-html="tab23">
+                                        <div class="tab-pane" id="tabAccntGroup" ng-bind-html="tabAccntGroup">
 
                                         </div>
+                                        <div class="tab-pane" id="tabMajorAccnt" ng-bind-html="tabMajorAccnt">
+
+                                        </div>
+                                        <div class="tab-pane" id="tabSubMajorAccnt" ng-bind-html="tabSubMajorAccnt">
+
+                                        </div>
+                                        <div class="tab-pane" id="tabGenAccnt" ng-bind-html="tabGenAccnt">
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -82,22 +84,57 @@
                 F.tabRevision = D(response.data);
             });
         }
+        F.AllotmentClassTab = function () {
+            F.tabAllotment = null;
+            P({
+                url: '/FileMaintenanceAccounts/AllotmentClassTab',
+            }).then(function (response) {
+                F.tabAllotment = D(response.data);
+            });
+        }
+        
+        F.AccountGroupTab = function () {
+            F.tabAccntGroup = null;
+            P({
+                url: '/FileMaintenanceAccounts/AccountGroupTab',
+            }).then(function (response) {
+                F.tabAccntGroup = D(response.data);
+            });
+        }
+        
+        F.MajorAccountGroupTab = function () {
+            F.tabMajorAccnt = null;
+            P({
+                url: '/FileMaintenanceAccounts/MajorAccountGroupTab',
+            }).then(function (response) {
+                F.tabMajorAccnt = D(response.data);
+            });
+        }
+        F.SubMajorAccountGroupTab = function () {
+            F.tabSubMajorAccnt = null;
+            P({
+                url: '/FileMaintenanceAccounts/SubMajorAccountGroupTab',
+            }).then(function (response) {
+                F.tabSubMajorAccnt = D(response.data);
+            });
+        }
+        
         F.COATab = function () {
-            F.tab25 = null;
+            F.tabGenAccnt = null;
             P({
                 url: '/FileMaintenanceAccounts/COATab',
             }).then(function (response) {
-                F.tab25 = D(response.data);
+                F.tabGenAccnt = D(response.data);
             });
         }
        
-        F.PINTab = function () {
-            F.tab23 = null;
-            P({
-                url: '/FileMaintenanceAccounts/PINTab',
-            }).then(function (response) {
-                F.tab23 = D(response.data);
-            });
-        }
+        //F.PINTab = function () {
+        //    F.tab23 = null;
+        //    P({
+        //        url: '/FileMaintenanceAccounts/PINTab',
+        //    }).then(function (response) {
+        //        F.tab23 = D(response.data);
+        //    });
+        //}
     });
 </script> 

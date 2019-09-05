@@ -88,6 +88,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     border-bottom: none;
 }
 
+
 /* End Edited*/
 .main-menu.menu-light .navigation > li ul .open > ul li > a {
     padding: 8px 18px 8px 64px !important;
@@ -530,4 +531,9 @@ form .form-control {
     top: 35%;
     outline: none;
     overflow: hidden;
+}
+
+.input-group-addon {
+    background-color: #FFFFFF !important;
+    border-color: #FFFFFF !important;
 }

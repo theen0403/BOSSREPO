@@ -9,22 +9,22 @@
     @Html.HiddenFor(m => m.AllotmentID, new { })
     @Html.HiddenFor(m => m.GenAccountID, new { })
 
-    <div class="row mt-0">
-        <div class="col-md-1 col-sm-1">
+<div class="row mt-0">
+    <div class="col-md-1 col-sm-1">
+    </div>
+    <div class="col-md-5 col-sm-5">
+        <div class="form-group">
+            <label class="custom-form-margin">Sub Account Title</label>
+            @Html.TextAreaFor(m => m.getSubAcctColumns.SubAccountTitle, new { @class = "form-control", @rows = 1, id = "SubAccountTitle" })
         </div>
-        <div class="col-md-5 col-sm-5">
-            <div class="form-group">
-                <label class="custom-form-margin">Sub Account Title</label>
-                @Html.TextAreaFor(m => m.getSubAcctColumns.SubAccountTitle, new { @class = "form-control", @rows = 1, id = "SubAccountTitle" })
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-6">
+    </div>
+    <div class="col-md-6 col-sm-6">
             <div class="form-group mb-0 pb-0" style="margin-top:-5px;">
                 <label>Sub Account Code</label>
             </div>
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-5 col-sm-1 p-0" id="GenAccntID">
-             
+
                 </div>
                 <div class="col-lg-1 col-md-1 p-0 col-sm-1">
                     <div class="ml-1" style="margin-top: 6px;">
@@ -38,7 +38,16 @@
                 </div>
             </div>
         </div>
-    </div>
+    @*<div class="col-md-4 col-sm-4">
+        <div class="form-group mb-0 pb-0" style="margin-top:-5px;">
+            <label>Sub Account Code</label>
+        </div>
+        <div class="input-group mt-0">
+            <span class="input-group-addon" id="basic-addon1"><b>1 -</b></span>
+            @Html.TextBoxFor(m => m.getSubAcctColumns.SubAccountCode, new { @class = "form-control", id = "SubAccountCode" })
+        </div>
+    </div>*@
+</div>
     <div class="row mt-0">
         <div class="col-md-1 col-sm-1">
         </div>

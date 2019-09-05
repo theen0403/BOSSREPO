@@ -5,13 +5,14 @@
 @using BOSS.Models;
 
 <div class="row">
-    <div class="col-md-6 mx-0">
+    <div class="col-md-1"></div>
+    <div class="col-md-5 mx-0">
         <div class="form-group">
             <label class="custom-form-margin">Department</label>
             @Html.DropDownListFor(m => m.DeptID, Model.DeptSelectionList2, new { @class = "form-control select2", id = "DeptID", onchange = "GetAddFunctionList();" })
         </div>
     </div>
-    <div class="col-md-6 mx-0">
+    <div class="col-md-5 mx-0">
         <div id="FunctionListID">
 
         </div>

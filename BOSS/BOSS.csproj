@@ -289,6 +289,7 @@
     <Compile Include="Models\BudgetYear.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FMAccounts\AllotmentClassModel.cs" />
     <Compile Include="Models\FMAccounts\GeneralAccountsModel.cs" />
     <Compile Include="Models\FMAccounts\RevisionOfCOAModel.cs" />
     <Compile Include="Models\FMAccounts\SubAccountsModel.cs" />
@@ -9114,6 +9115,10 @@
     <Content Include="Views\PreparationLBPF6\_ViewAddBudgetaryRequirement.cshtml" />
     <Content Include="Views\PreparationLBPF4\_ViewAddMandateAndOrganization.cshtml" />
     <Content Include="Views\PreparationLBPF4\_ViewVissionMission.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\AllotmentClassIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\IndexAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\IndexMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\IndexSubMajorAccountGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

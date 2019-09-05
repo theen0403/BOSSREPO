@@ -10,16 +10,18 @@
     @Html.HiddenFor(m => m.FuncID, new { id = "FuncUpdateID" })
     @Html.HiddenFor(m => m.OfficeSecID, new { })
 
-    <div class="row">
-        <div class="col-md-6 col-sm-6" id="UpdateDisplayDeptTitle">
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5 col-sm-5" id="UpdateDisplayDeptTitle">
 
-        </div>
-        <div class="col-md-6 col-sm-6" id="UpdateDisplayFunctionTitle">
-
-        </div>
     </div>
+    <div class="col-md-5 col-sm-5" id="UpdateDisplayFunctionTitle">
+
+    </div>
+</div>
     <div class="row">
-        <div class="col-md-6 col-sm-6">
+        <div class="col-md-1"></div>
+        <div class="col-md-5 col-sm-4">
             <div class="form-group">
                 <label class="custom-form-margin">Office Section</label>
                 @Html.TextAreaFor(m => m.getOfficeSecColumns2.OfficeSecTitle, new { @class = "form-control", @rows = 1, id = "OfficeSecTitle" })
@@ -28,7 +30,8 @@
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-1"></div>
+        <div class="col-10">
             <div class="form-group">
                 <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right" onclick="GetPartialIndex2()">
                     Cancel

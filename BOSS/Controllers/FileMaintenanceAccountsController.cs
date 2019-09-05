@@ -25,21 +25,44 @@ namespace BOSS.Controllers
             GeneralAccountsModel model = new GeneralAccountsModel();
             return View(model);
         }
-        public ActionResult COATab()
-        {
-            GeneralAccountsModel model = new GeneralAccountsModel();
-            return PartialView("ChartOfAccounts/IndexCOA", model);
-        }
         public ActionResult RevisionCOATab()
         {
             RevisionOfCOAModel model = new RevisionOfCOAModel();
             return PartialView("RevisionOfCOA/IndexRCOA", model);
         }
-        public ActionResult PINTab()
+
+        public ActionResult AllotmentClassTab()
+        {
+            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            return PartialView("AllotmentClass/AllotmentClassIndex", model);
+        }
+        public ActionResult AccountGroupTab()
+        {
+            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            return PartialView("AccountGroup/IndexAccountGroup", model);
+        }
+        public ActionResult MajorAccountGroupTab()
+        {
+            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            return PartialView("MajorAccountGroup/IndexMajorAccountGroup", model);
+        }
+        public ActionResult SubMajorAccountGroupTab()
+        {
+            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            return PartialView("SubMajorAccountGroup/IndexSubMajorAccountGroup", model);
+        }
+
+        public ActionResult COATab()
         {
             GeneralAccountsModel model = new GeneralAccountsModel();
-            return PartialView("PIN/IndexCOAPIN", model);
+            return PartialView("ChartOfAccounts/IndexCOA", model);
         }
+
+        //public ActionResult PINTab()
+        //{
+        //    GeneralAccountsModel model = new GeneralAccountsModel();
+        //    return PartialView("PIN/IndexCOAPIN", model);
+        //}
         //=======================================================================================
         //Get General Account Partial View
         public ActionResult GetGeneralAccountView()

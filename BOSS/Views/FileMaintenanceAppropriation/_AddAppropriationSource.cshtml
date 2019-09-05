@@ -17,80 +17,58 @@
     <div class="card-body card-body rounded box-shadow-4">
         <div class="card-body py-0" action="index.html" novalidate>
             <div class="row">
-                <div class="col-md-4 col-sm-6 mx-0">
+                <div class="col-xl-2 col-lg-1 col-md-1">
+
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
                     <div class="form-group">
-                        <label style="margin-bottom:2px;">Appropriation Source Type</label>
-                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2", id = "AppropriationSourceTypeID", onchange = "LoadGetDynamicFund()" })
+                        <label class="custom-form-margin ">Appropriation Source Type</label>
+                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropriationSourceTypeID", onchange = "LoadGetDynamicFund()" })
 
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-5 mx-0">
+                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
                     <div class="form-group">
-                        <label style="margin-bottom:2px;">Description</label>
+                        <label class="custom-form-margin">Description</label>
                         @Html.TextBoxFor(m => m.getAppropriationSourceColumns.Description, new { @class = "form-control", type = "text", id = "desc" })
                         @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-5 mx-0" id="FundSourceID">
-
-                </div>
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 mx-0">
-                    <div class="form-group">
-                        <label style="margin-bottom:2px;">Total Amount</label>
-                        @Html.TextBoxFor(m => m.getAppropriationSourceColumns.TotalAmount, new { @class = "form-control text-right", type = "currency", id = "total" })
-                        @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.TotalAmount, "", new { @class = "text-danger" })
+                <div class="col-xl-2 col-lg-1 col-md-1">
+                </div>
+                    <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0" id="FundSourceID">
+                    </div>
+                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 mx-0">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Budget Year</label>
+                            @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "budgetyrID" })
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-2 col-sm-6 mx-0">
-                    <div class="form-group">
-                        <label style="margin-bottom:2px;">Budget Year</label>
-                        @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control", id="budgetyrID" })
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col px-0">
-                    <button type="button" class="btn btn-danger btn-min-width pull-right" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
-                        Add
-                    </button>
+                <div class="row">
+                    <div class="col p-0 mb-0 form-group">
+                        <button type="button" class="btn btn-danger btn-min-width mr-1 pull-right" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                            Add
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 }
 
 <script>
     $(function () {
         LoadGetDynamicFund();
+        LoadICheck();
+        select2nosearch();
     })
     function LoadGetDynamicFund() {
         AngularGlobalFunctions('ApproSourceController', 'GetDynamicFund', '')
     }
-
-    $("input[type='currency']").on({
-        keyup: function () {
-            formatCurrency($(this));
-        },
-        blur: function () {
-            formatCurrency($(this), "blur");
-        }
-    });
-
-    formatCurrency();
-    formatNumber();
-</script>
-
-<script>
-    $(function () {
-        LoadICheck();
-        $("#budgetyrID").select2({
-            minimumResultsForSearch: Infinity
-        });
-    })
 </script>

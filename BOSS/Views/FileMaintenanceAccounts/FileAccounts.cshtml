@@ -7,7 +7,7 @@
     $("#FileMaintenanceAccountsID").addClass("active");
 </script>
 @*BODY*@
-<div class="content-body" id="FMAccountsController" ng-controller="FMAccountsController" ng-init="COATab()">
+<div class="content-body" id="FMAccountsController" ng-controller="FMAccountsController" ng-init="RevisionCOATab()">
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-3">
@@ -18,6 +18,26 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="true">Revision Year</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab22" ng-click="COATab()" data-toggle="tab" aria-controls="tab22" href="#tab22" aria-expanded="false">Account Group</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Major Account Group</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Sub Major Account Group</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tab25" ng-click="COATab()" data-toggle="tab" aria-controls="tab25" href="#tab25" aria-expanded="false">General Account</a>
+                                    </li>
+                                </ul>
+
+
+
+                                @*<ul class="nav nav-tabs">
+                                    <li class="nav-item">
                                         <a class="nav-link active bg-backcolorheader" id="base-tab21" ng-click="COATab()" data-toggle="tab" aria-controls="tab21" href="#tab21" aria-expanded="true">Charts of Accounts (2015-009)</a>
                                     </li>
                                     <li class="nav-item">
@@ -26,15 +46,15 @@
                                     <li class="nav-item">
                                         <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">PIN</a>
                                     </li>
-                                </ul>
+                                </ul>*@
                                 @*TAB*@
                                 <div class="tab-content w-100" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
 
-                                        <div class="tab-pane active" id="tab21" ng-bind-html="tab21">
+                                        <div class="tab-pane active" id="tabRevision" ng-bind-html="tabRevision">
 
                                         </div>
-                                        <div class="tab-pane" id="tab22" ng-bind-html="tab22">
+                                        <div class="tab-pane" id="tab25" ng-bind-html="tab25">
 
                                         </div>
                                         <div class="tab-pane" id="tab23" ng-bind-html="tab23">
@@ -53,23 +73,24 @@
 <script>
     app.controller('FMAccountsController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
-        //Chart of Accounts Tab
-        F.COATab = function () {
-            F.tab21 = null;
-            P({
-                url: '/FileMaintenanceAccounts/COATab',
-            }).then(function (response) {
-                F.tab21 = D(response.data);
-            });
-        }
+        
         F.RevisionCOATab = function () {
-            F.tab22 = null;
+            F.tabRevision = null;
             P({
                 url: '/FileMaintenanceAccounts/RevisionCOATab',
             }).then(function (response) {
-                F.tab22 = D(response.data);
+                F.tabRevision = D(response.data);
             });
         }
+        F.COATab = function () {
+            F.tab25 = null;
+            P({
+                url: '/FileMaintenanceAccounts/COATab',
+            }).then(function (response) {
+                F.tab25 = D(response.data);
+            });
+        }
+       
         F.PINTab = function () {
             F.tab23 = null;
             P({

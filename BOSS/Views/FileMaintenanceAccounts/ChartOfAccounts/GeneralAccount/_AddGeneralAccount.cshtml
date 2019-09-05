@@ -10,19 +10,19 @@
 {
     @Html.HiddenFor(m => m.allotTempID, new { id = "Tempallot" })
 <div class="row mt-1 ">
-    <div class="col-md-1">
+    <div class="col-xl-1 col-lg-1 col-md-1">
     </div>
-    <div class="col-md-4 col-sm-4" id="dynamicAllotmentID">
+    <div class="col-xl-4 col-lg-3 col-md-3" id="dynamicAllotmentID">
 
     </div>
-    <div class="col-md-2 col-sm-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         @*offset-md-4*@
         <div class="form-group ">
             <label class="custom-form-margin">Account Code</label>
             @Html.TextBoxFor(m => m.getGenAcctColumns.GenAccountCode, new { @class = "form-control", type = "text", id = "GenAccountCode" })
         </div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="col-xl-4 col-lg-4 col-md-4">
         <div class="form-group ">
             <label class="custom-form-margin">Account Title</label>
             @Html.TextAreaFor(m => m.getGenAcctColumns.GenAccountTitle, new { @class = "form-control", @rows = 1, type = "text", id = "GenAccountTitle" })
@@ -31,10 +31,10 @@
 </div>
 
 <div class="row">
-    <div class="col-md-1 col-sm-1">
+    <div class="col-lg-1 col-md-1">
     </div>
     @Html.TextBoxFor(m => m.isReserve, new { id = "isReserveID", @class = "hidden" })
-    <div class="col-md-2 col-sm-2 mt-0">
+    <div class="col-lg-2 col-md-2 mt-0">
         <div class="form-group">
             <label class="custom-form-margin">With Reserve?</label>
             <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
@@ -43,8 +43,7 @@
             </select>
         </div>
     </div>
-
-    <div class="col-md-2 col-sm-2">
+    <div class="col-lg-2 col-md-2">
         <div class="form-group">
             <label class="custom-form-margin">Reserved %</label>
             <fieldset>
@@ -53,7 +52,7 @@
         </div>
     </div>
     @Html.TextBoxFor(m => m.isFullRelease, new { id = "isFullReleaseID", @class = "hidden" })
-    <div class="col-md-2 col-sm-2">
+    <div class="col-lg-2 col-md-2">
         <div class="form-group">
             <label class="custom-form-margin">For Full Release?</label>
             <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
@@ -63,7 +62,7 @@
         </div>
     </div>
     @Html.TextBoxFor(m => m.isContinuing, new { id = "isContinuingID", @class = "hidden" })
-    <div class="col-md-2 col-sm-2">
+    <div class="col-lg-2 col-md-2">
         <div class="form-group">
             <label class="custom-form-margin">For Continuing?</label>
             <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
@@ -73,7 +72,7 @@
         </div>
     </div>
     @Html.TextBoxFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID", @class = "hidden" }) 
-    <div class="col-md-2 col-sm-2">
+    <div class="col-lg-2 col-md-2">
         <div class="form-group">
             <label class="custom-form-margin">OBR Cash Adv?</label>
             <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
@@ -86,7 +85,7 @@
 
     <div class="row mb-1">
         <div class="col form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetGeneralAccountDT()">
+            <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right" onclick="GetGeneralAccountDT()">
                 Cancel
             </button>
             <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">

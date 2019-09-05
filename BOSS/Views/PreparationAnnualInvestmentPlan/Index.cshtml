@@ -20,7 +20,7 @@
                 <div class="card-content collapse show">
                     <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
                         <div class="row mt-0">
-                            <div class="col-md-1"></div>
+                            <div class="col-md-2"></div>
                             <div class="col-md-2 col-sm-4">
                                 <div class="form-group ">
                                     <label>Budget Year</label>
@@ -53,45 +53,56 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row float-right">
-                            <a class="btn btn-btnbackcolor btn-min-width mr-1 button"
-                               data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
-                               target='_blank'>
-                                Print Preview
-                            </a>
-                            @{
-                                var ResetConfirmationMess = "Are you sure you want to reset the AIP Reference Code of these Programs/Projects/Activities??";
-                                var SuccesMess = "Reset of AIP Code was successful!";
-                                <button class="btn btn-btnbackcolor btn-min-width mr-1"
-                                        onclick="swalConfirmation('@ResetConfirmationMess' ,'', '@SuccesMess')">
-                                    Reset AIP Code
-                                </button>
-                            }
+                        <div class="row">
+                            <div class="col">
+                                <a class="btn btn-btnbackcolor btn-min-width mr-1 button pull-right"
+                                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                                   target='_blank'>
+                                    Print Preview
+                                </a>
+
+                                @{
+                                    var ResetConfirmationMess = "Are you sure you want to reset the AIP Reference Code of these Programs/Projects/Activities??";
+                                    var SuccesMess = "Reset of AIP Code was successful!";
+                                    <button class="btn btn-btnbackcolor btn-min-width mr-1 pull-right"
+                                            onclick="swalConfirmation('@ResetConfirmationMess' ,'', '@SuccesMess')">
+                                        Reset AIP Code
+                                    </button>
+                                }
+                            </div>
                         </div>
                         @*Table for LIST OF PROGRAM*@
-                        <div class="card-header bg-active mt-4 rounded">
-                            <h4 class="card-title black">List of Program for: <span id="dpValue"></span> (Total Cost: Php 160,717,000.00@*<span id="dpValue2"></span>*@)</h4>
-                        </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-sm box-shadow-3 rounded">
-                                <div class="row m-0" ng-bind-html="ProgramListID">
-
+                        <div class="card box-shadow-2 m-0 p-0">
+                            <div class="card-header bg-active mt-1">
+                                <h4 class="card-title black">
+                                    List of Program for: <span id="dpValue"></span> (Total Cost: Php 57,878,000.00<span id="dpValue2"></span>)</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                <div class="heading-elements mt-0">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="card-header bg-active rounded">
-                                <div class="row">
-                                    <div class="col-lg-4"></div>
-                                    <div class=" col-lg-4">
-                                        <h4 class="card-title black pull-right ">TOTAL COST (All Programs):</h4>
+                            <div class="card-content collapse show">
+                                <div class="card-body px-1 card-body rounded box-shadow-3">
+                                    <div class="row m-0" ng-bind-html="ProgramListID">
                                     </div>
-                                    <div class="col-lg-3">
-                                        <h4 class="card-title text-right pr-1 black">57,878,000.00</h4>
+                                </div>
+                                <div class="card-header bg-active rounded">
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class=" col-lg-4">
+                                            <h4 class="card-title black pull-right ">TOTAL COST (All Programs):</h4>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h4 class="card-title text-right pr-1 black">57,878,000.00</h4>
+                                        </div>
+                                        <div class="col-lg-1"></div>
                                     </div>
-                                    <div class="col-lg-1"></div>
                                 </div>
                             </div>
                         </div>
-                        @*LIST OF PROJECT*@
+                         @*LIST OF PROJECT*@
                         <div class="card box-shadow-2 m-0 p-0">
                             <div class="card-header bg-active mt-1">
                                 <h4 class="card-title black">List of Project for:</h4>

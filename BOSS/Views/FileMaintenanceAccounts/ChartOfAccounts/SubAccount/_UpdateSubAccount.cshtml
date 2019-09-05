@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-5 col-sm-5">
             <div class="form-group ">
-                <label style="margin-bottom:2px;">Sub Account Title</label>
+                <label class="custom-form-margin">Sub Account Title</label>
                 @Html.TextAreaFor(m => m.getSubAcctColumns2.SubAccountTitle, new { @class = "form-control", @rows = 1, id = "SubAccountTitle" })
             </div>
         </div>
@@ -24,12 +24,15 @@
                 <label>Sub Account Code</label>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-4">
-                    <div id="GenAccntID">
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-1 p-0" id="GenAccntID">
 
+                </div>
+                <div class="col-lg-1 col-md-1 p-0 col-sm-1">
+                    <div class="ml-1" style="margin-top: 6px;">
+                        <label>-</label>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-6">
+                <div class="col-xl-4 col-lg-5 col-md-4 col-xs-3 pl-0">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.getSubAcctColumns2.SubAccountCode, new { @class = "form-control", id = "SubAccountCode" })
                     </div>
@@ -43,7 +46,7 @@
         @Html.TextBoxFor(m => m.isReserve, new { id = "isReserveID", @class = "hidden" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">With Reserve?</label>
+                <label class="custom-form-margin">With Reserve?</label>
                 <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
@@ -53,7 +56,7 @@
 
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">Reserved %</label>
+                <label class="custom-form-margin">Reserved %</label>
                 <fieldset class="form-group">
                     @Html.TextBoxFor(m => m.getSubAcctColumns2.ReservePercent, new { @class = "form-control", type = "text", id = "ReservePercent" })
                 </fieldset>
@@ -62,7 +65,7 @@
         @Html.TextBoxFor(m => m.isFullRelease, new { id = "isFullReleaseID", @class = "hidden" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">For Full Release?</label>
+                <label class="custom-form-margin">For Full Release?</label>
                 <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
@@ -72,7 +75,7 @@
         @Html.TextBoxFor(m => m.isContinuing, new { id = "isContinuingID", @class = "hidden" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">For Continuing?</label>
+                <label class="custom-form-margin">For Continuing?</label>
                 <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>
@@ -82,7 +85,7 @@
         @Html.TextBoxFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID", @class = "hidden" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">OBR Cash Adv?</label>
+                <label class="custom-form-margin">OBR Cash Adv?</label>
                 <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
                     <option value=True>Yes</option>
                     <option value=False>No</option>

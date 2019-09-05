@@ -207,7 +207,7 @@
     <Compile Include="Controllers\PreparationLBPF4Controller.cs" />
     <Compile Include="Controllers\PreparationLBPF5Controller.cs" />
     <Compile Include="Controllers\PreparationLBPF6Controller.cs" />
-    <Compile Include="Controllers\PreparationLBPF9Controller.cs" />
+    <Compile Include="Controllers\PreparationLBPF8Controller.cs" />
     <Compile Include="Controllers\PreparationPerOfficeController.cs" />
     <Compile Include="Controllers\PreparationReportAIPController.cs" />
     <Compile Include="Controllers\PreparationReportBESFController.cs" />
@@ -321,12 +321,6 @@
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PIN_Accounts.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PositionClassification.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PositionStatu.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sector.cs">
@@ -8952,7 +8946,7 @@
     <Content Include="Views\PreparationLBPF4\LBPF4.cshtml" />
     <Content Include="Views\PreparationLBPF5\LBPF5.cshtml" />
     <Content Include="Views\PreparationLBPF6\LBPF6.cshtml" />
-    <Content Include="Views\PreparationLBPF9\LBPF9.cshtml" />
+    <Content Include="Views\PreparationLBPF8\LBPF8.cshtml" />
     <Content Include="Views\PreparationReportAIP\ReportAIP.cshtml" />
     <Content Include="Views\PreparationReportOtherAIP\ReportOtherAIP.cshtml" />
     <Content Include="Views\PreparationReportOtherAIPperOffice\ReportOtherAIPperOffice.cshtml" />
@@ -9116,6 +9110,10 @@
     <Content Include="Views\FileMaintenanceSignatory\_AddSignatory.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_AddDynamicFunctionList.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_UpdateSignatory.cshtml" />
+    <Content Include="Views\PreparationLBPF6\_ViewAddStatutoryContractualObligation.cshtml" />
+    <Content Include="Views\PreparationLBPF6\_ViewAddBudgetaryRequirement.cshtml" />
+    <Content Include="Views\PreparationLBPF4\_ViewAddMandateAndOrganization.cshtml" />
+    <Content Include="Views\PreparationLBPF4\_ViewVissionMission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

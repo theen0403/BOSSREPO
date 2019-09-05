@@ -6,60 +6,127 @@
 
 @using (Ajax.BeginForm("AddNewSignatory", "FileMaintenanceSignatory", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('FMSignatoryController', 'GetSignatoryDTable','Successfully Saved!')", OnFailure = "OnFailure()", }))
 {
-    <div class="card-body card-body rounded box-shadow-4">
-        <div class="card-body p-0">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-4 col-sm-4 mx-0">
-                    <div class="form-group">
-                        <label class="custom-form-margin">Employee Name</label>
-                        <fieldset>
-                            @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
-                        </fieldset>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-5">
-                    <div class="form-group">
-                        <label class="custom-form-margin">Position</label>
-                        @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-3">
-                    @Html.TextBoxFor(m => m.isHead, new { id = "isHeadID", @class = "hidden" })
-                    <div class="form-group">
-                        <label class="custom-form-margin">Dept. Head</label>
-                        <select class="form-control select2nosearch" id="isHeadIDD" onchange="isHeadOnChange()">
-                            <option value="0">Yes</option>
-                            <option value="1">No</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="row">
+        <div class="col-lg-1 col-md-1"></div>
+        <div class="col-lg-4 col-md-3 col-sm-4 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Employee Name</label>
+                <fieldset>
+                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                </fieldset>
             </div>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-7 col-sm-7">
-                    <div class="form-group">
-                        <label class="custom-form-margin">Department</label>
-                        @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-5">
-                    <div id="functionlistID">
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-5 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Preferred Name</label>
+                <fieldset>
+                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-3">
+            @Html.TextBoxFor(m => m.isHead, new { id = "isHeadID", @class = "hidden" })
+            <div class="form-group">
+                <label class="custom-form-margin">Dept. Head</label>
+                <select class="form-control select2nosearch" id="isHeadIDD" onchange="isHeadOnChange()">
+                    <option value="0">Yes</option>
+                    <option value="1">No</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-5">
+            <div class="form-group">
+                <label class="custom-form-margin">Position</label>
+                @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-7">
+            <div class="form-group">
+                <label class="custom-form-margin">Department</label>
+                @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
+            </div>
+        </div>
 
-                    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-5">
+            <div id="functionlistID">
+
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Division</label>
+                <fieldset>
+                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                </fieldset>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <fieldset class="form-group  mt-md-2">
+                <label>
+                    <input type="checkbox" name="RadioS" id="radioGeneral" onclick="GetGeneralAccountView()">
+                    Is Active
+                </label>
+            </fieldset>
+        </div>
+
+    </div>
+
+    @*<div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-4 col-sm-4 mx-0">
+                <div class="form-group">
+                    <label class="custom-form-margin">Employee Name</label>
+                    <fieldset>
+                        @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                    </fieldset>
                 </div>
             </div>
-            <div class="row mt-1">
-                <div class="col">
-                    <div class="form-group">
-                        <button type="button" class="btn btn-menuRed btn-min-width pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
-                            Cancel
-                        </button>
-                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
-                            Add
-                        </button>
-                    </div>
+            <div class="col-md-4 col-sm-5">
+                <div class="form-group">
+                    <label class="custom-form-margin">Position</label>
+                    @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
                 </div>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                @Html.TextBoxFor(m => m.isHead, new { id = "isHeadID", @class = "hidden" })
+                <div class="form-group">
+                    <label class="custom-form-margin">Dept. Head</label>
+                    <select class="form-control select2nosearch" id="isHeadIDD" onchange="isHeadOnChange()">
+                        <option value="0">Yes</option>
+                        <option value="1">No</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-7 col-sm-7">
+                <div class="form-group">
+                    <label class="custom-form-margin">Department</label>
+                    @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-5">
+                <div id="functionlistID">
+
+                </div>
+            </div>
+        </div>*@
+    <div class="row mt-1">
+        <div class="col">
+            <div class="form-group">
+                <button type="button" class="btn btn-menuRed btn-min-width mr-1 pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                    Add
+                </button>
             </div>
         </div>
     </div>

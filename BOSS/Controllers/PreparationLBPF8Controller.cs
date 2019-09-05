@@ -6,11 +6,10 @@ using System.Web.Mvc;
 
 namespace BOSS.Controllers
 {
-    public class PreparationLBPF9Controller : Controller
+    public class PreparationLBPF8Controller : Controller
     {
-        // GET: PreparationLBPF9
-        [Authorize]
-        public ActionResult LBPF9()
+        // GET: PreparationLBPF8
+        public ActionResult LBPF8()
         {
             return View();
         }

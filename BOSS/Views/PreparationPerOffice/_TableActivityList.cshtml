@@ -18,17 +18,17 @@
             var EditActivity = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewEditActivity','" + 1 + "')\"> <i class='la la-edit'></i> Edit/View</button>";
             var ViewAttachment = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetviewAttachment','" + 1 + "')\"><i class='la la-paperclip'></i> View Attachment</button>";
             var AddAttachment = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewAddAttachment','" + 1 + "')\"><i class='la la-paperclip'></i> Add Attachment</button>";
-            var RemoveActivity = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Remove</button>";
+            var DeleteActivity = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button>";
 
-            var ActionContentActivity = ActivityDetails + Submit + EditActivity + ViewAttachment + AddAttachment + RemoveActivity;
+            var ActionContentActivity = ActivityDetails + Submit + EditActivity + ViewAttachment + AddAttachment + DeleteActivity;
 
             <tr>
                 <td class="text-center">1</td>
-                <td class="text-center">1000-1-2-1</td>
-                <td>Procurement of Helicopter</td>
-                <td class="text-right">200,000,000.00</td>
+                <td class="text-center">8000-1-2-3</td>
+                <td>Plant Material Production Distribution (Provincial Plant Nursery)</td>
+                <td class="text-right">60,000.00</td>
                 <td class="text-center">
-                    <button type="button" onfocusout="PopoveLostFocus()" 
+                    <button type="button" onfocusout="PopoveLostFocus()"
                             class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
                             data-toggle="popover" data-content="@ActionContentActivity"
                             data-original-title="" data-html="true" data-placement="left">
@@ -39,11 +39,67 @@
 
             <tr>
                 <td class="text-center">2</td>
-                <td class="text-center">1000-1-2-2</td>
+                <td class="text-center">1000-1-2-4</td>
                 <td>Rice/Seed Production</td>
-                <td class="text-right">0.00</td>
+                <td class="text-right">16,000.00</td>
                 <td class="text-center">
-                    <button type="button" onfocusout="PopoveLostFocus()" 
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">3</td>
+                <td class="text-center">1000-1-2-5</td>
+                <td>Crop Protection</td>
+                <td class="text-right">1,251,000.00	</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">3</td>
+                <td class="text-center">1000-1-2-6</td>
+                <td>Corn Development Program</td>
+                <td class="text-right">3,100,000.00	</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">4</td>
+                <td class="text-center">1000-1-2-7</td>
+                <td>High Value Commercial Development Program</td>
+                <td class="text-right">8,100,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentActivity"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">5</td>
+                <td class="text-center">1000-1-2-8</td>
+                <td>Engineering</td>
+                <td class="text-right">13,750,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
                             class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
                             data-toggle="popover" data-content="@ActionContentActivity"
                             data-original-title="" data-html="true" data-placement="left">

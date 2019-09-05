@@ -3,5 +3,9 @@
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
-        @Html.TextBoxFor(m => m.GenAccountCode, new { @class = "accntCode", type = "text", id = "GenAccountCode", disabled = "disabled" })
+
+<div>
+    @Html.TextBoxFor(m => m.GenAccountCode, new { @class = "accntCode text-center col-xs-1", type = "text", id = "GenAccountCode", disabled = "disabled" })
+</div>
+
  

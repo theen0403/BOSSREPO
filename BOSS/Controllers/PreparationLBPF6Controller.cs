@@ -14,5 +14,13 @@ namespace BOSS.Controllers
         {
             return View();
         }
+        public ActionResult GetViewAddStatutory(int ID)
+        {
+            return PartialView("_ViewAddStatutoryContractualObligation");
+        }
+        public ActionResult GetViewAddBudgetary(int ID)
+        {
+            return PartialView("_ViewAddBudgetaryRequirement");
+        }
     }
 }

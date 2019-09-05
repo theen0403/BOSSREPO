@@ -16,7 +16,7 @@ namespace BOSS.Controllers
         }
         public ActionResult GetViewAddAccount(int ID)
         {
-            return PartialView("_ViewAddAccount");
+            return PartialView("LBPF2View");
         }
         public ActionResult GetViewUpdateSignatory(int ID)
         {

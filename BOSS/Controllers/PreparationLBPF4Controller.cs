@@ -14,5 +14,13 @@ namespace BOSS.Controllers
         {
             return View();
         }
+        public ActionResult GetViewMandate(int ID)
+        {
+            return PartialView("_ViewAddMandateAndOrganization");
+        }
+        public ActionResult GetViewVissionMission(int ID)
+        {
+            return PartialView("_ViewVissionMission");
+        }
     }
 }

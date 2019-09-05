@@ -121,21 +121,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="IsPermanent" Type="int" />
           <Property Name="Classification" Type="varchar" MaxLength="50" />
         </EntityType>-->
-        <EntityType Name="PositionClassification">
-          <Key>
-            <PropertyRef Name="PCID" />
-          </Key>
-          <Property Name="PCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PCTitle" Type="varchar" MaxLength="50" />
-          <Property Name="PSID" Type="int" />
-        </EntityType>
-        <EntityType Name="PositionStatus">
-          <Key>
-            <PropertyRef Name="PSID" />
-          </Key>
-          <Property Name="PSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PSTitle" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Sector">
           <Key>
             <PropertyRef Name="SectorID" />
@@ -158,7 +143,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="AppropriationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="FundSourceID" Type="int" />
-          <Property Name="TotalAmount" Type="varchar" MaxLength="50" />
           <Property Name="BudgetYearID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMDepartment">
@@ -213,7 +197,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="PositionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PositionTitle" Type="varchar" MaxLength="50" />
-          <Property Name="PCID" Type="int" />
+          <Property Name="PositionCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tbl_FMRevisionOfCOA">
           <Key>
@@ -333,18 +317,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PositionClassification_PositionStatus">
-          <End Role="PositionStatus" Type="Self.PositionStatus" Multiplicity="0..1" />
-          <End Role="PositionClassification" Type="Self.PositionClassification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PositionStatus">
-              <PropertyRef Name="PSID" />
-            </Principal>
-            <Dependent Role="PositionClassification">
-              <PropertyRef Name="PSID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SubSector_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
           <End Role="SubSector" Type="Self.SubSector" Multiplicity="*" />
@@ -402,18 +374,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Tbl_FMGeneralAccount">
               <PropertyRef Name="AllotmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMPosition_PositionClassification">
-          <End Role="PositionClassification" Type="Self.PositionClassification" Multiplicity="0..1" />
-          <End Role="Tbl_FMPosition" Type="Self.Tbl_FMPosition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PositionClassification">
-              <PropertyRef Name="PCID" />
-            </Principal>
-            <Dependent Role="Tbl_FMPosition">
-              <PropertyRef Name="PCID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -541,8 +501,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PIN_Accounts" EntityType="Self.PIN_Accounts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PositionClassification" EntityType="Self.PositionClassification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PositionStatus" EntityType="Self.PositionStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubSector" EntityType="Self.SubSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="Self.Tbl_FMAppropriationSource" Schema="dbo" store:Type="Tables" />
@@ -582,10 +540,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
           </AssociationSet>
-          <AssociationSet Name="FK_PositionClassification_PositionStatus" Association="Self.FK_PositionClassification_PositionStatus">
-            <End Role="PositionStatus" EntitySet="PositionStatus" />
-            <End Role="PositionClassification" EntitySet="PositionClassification" />
-          </AssociationSet>
           <AssociationSet Name="FK_SubSector_Sector" Association="Self.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sector" />
             <End Role="SubSector" EntitySet="SubSector" />
@@ -605,10 +559,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <AssociationSet Name="FK_Tbl_FMGeneralAccount_AllotmentClass" Association="Self.FK_Tbl_FMGeneralAccount_AllotmentClass">
             <End Role="AllotmentClass" EntitySet="AllotmentClass" />
             <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMPosition_PositionClassification" Association="Self.FK_Tbl_FMPosition_PositionClassification">
-            <End Role="PositionClassification" EntitySet="PositionClassification" />
-            <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMFunction" Association="Self.FK_Tbl_FMSignatory_Tbl_FMFunction">
             <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
@@ -675,8 +625,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySet Name="ParentModules" EntityType="BOSSModel.ParentModule" />
           <EntitySet Name="PersonalInformations" EntityType="BOSSModel.PersonalInformation" />
           <EntitySet Name="PIN_Accounts" EntityType="BOSSModel.PIN_Accounts" />
-          <EntitySet Name="PositionClassifications" EntityType="BOSSModel.PositionClassification" />
-          <EntitySet Name="PositionStatus" EntityType="BOSSModel.PositionStatu" />
           <EntitySet Name="Sectors" EntityType="BOSSModel.Sector" />
           <EntitySet Name="SubSectors" EntityType="BOSSModel.SubSector" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="BOSSModel.Tbl_FMAppropriationSource" />
@@ -731,14 +679,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <AssociationSet Name="FK_Level3Modules_Level2Modules" Association="BOSSModel.FK_Level3Modules_Level2Modules">
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PositionClassification_PositionStatus" Association="BOSSModel.FK_PositionClassification_PositionStatus">
-            <End Role="PositionStatu" EntitySet="PositionStatus" />
-            <End Role="PositionClassification" EntitySet="PositionClassifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMPosition_PositionClassification" Association="BOSSModel.FK_Tbl_FMPosition_PositionClassification">
-            <End Role="PositionClassification" EntitySet="PositionClassifications" />
-            <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
           </AssociationSet>
           <AssociationSet Name="FK_SubSector_Sector" Association="BOSSModel.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sectors" />
@@ -902,24 +842,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="PinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Pin_Acct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="PositionClassification">
-          <Key>
-            <PropertyRef Name="PCID" />
-          </Key>
-          <Property Name="PCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PCTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PSID" Type="Int32" />
-          <NavigationProperty Name="PositionStatu" Relationship="BOSSModel.FK_PositionClassification_PositionStatus" FromRole="PositionClassification" ToRole="PositionStatu" />
-          <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMPosition_PositionClassification" FromRole="PositionClassification" ToRole="Tbl_FMPosition" />
-        </EntityType>
-        <EntityType Name="PositionStatu">
-          <Key>
-            <PropertyRef Name="PSID" />
-          </Key>
-          <Property Name="PSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PSTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="PositionClassifications" Relationship="BOSSModel.FK_PositionClassification_PositionStatus" FromRole="PositionStatu" ToRole="PositionClassification" />
-        </EntityType>
         <EntityType Name="Sector">
           <Key>
             <PropertyRef Name="SectorID" />
@@ -946,7 +868,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="AppropriationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundSourceID" Type="Int32" />
-          <Property Name="TotalAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BudgetYearID" Type="Int32" />
           <NavigationProperty Name="BudgetYear" Relationship="BOSSModel.FK_AppropriationSource_BudgetYear1" FromRole="Tbl_FMAppropriationSource" ToRole="BudgetYear" />
           <NavigationProperty Name="FundSource" Relationship="BOSSModel.FK_AppropriationSource_FundSource1" FromRole="Tbl_FMAppropriationSource" ToRole="FundSource" />
@@ -1016,8 +937,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PositionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PCID" Type="Int32" />
-          <NavigationProperty Name="PositionClassification" Relationship="BOSSModel.FK_Tbl_FMPosition_PositionClassification" FromRole="Tbl_FMPosition" ToRole="PositionClassification" />
+          <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMPosition" ToRole="Tbl_FMSignatory" />
         </EntityType>
         <EntityType Name="Tbl_FMRevisionOfCOA">
@@ -1187,30 +1107,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Level3Modules">
               <PropertyRef Name="Level2ModuleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PositionClassification_PositionStatus">
-          <End Type="BOSSModel.PositionStatu" Role="PositionStatu" Multiplicity="0..1" />
-          <End Type="BOSSModel.PositionClassification" Role="PositionClassification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PositionStatu">
-              <PropertyRef Name="PSID" />
-            </Principal>
-            <Dependent Role="PositionClassification">
-              <PropertyRef Name="PSID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMPosition_PositionClassification">
-          <End Type="BOSSModel.PositionClassification" Role="PositionClassification" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMPosition" Role="Tbl_FMPosition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PositionClassification">
-              <PropertyRef Name="PCID" />
-            </Principal>
-            <Dependent Role="Tbl_FMPosition">
-              <PropertyRef Name="PCID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1454,23 +1350,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PositionClassifications">
-            <EntityTypeMapping TypeName="BOSSModel.PositionClassification">
-              <MappingFragment StoreEntitySet="PositionClassification">
-                <ScalarProperty Name="PSID" ColumnName="PSID" />
-                <ScalarProperty Name="PCTitle" ColumnName="PCTitle" />
-                <ScalarProperty Name="PCID" ColumnName="PCID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PositionStatus">
-            <EntityTypeMapping TypeName="BOSSModel.PositionStatu">
-              <MappingFragment StoreEntitySet="PositionStatus">
-                <ScalarProperty Name="PSTitle" ColumnName="PSTitle" />
-                <ScalarProperty Name="PSID" ColumnName="PSID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Sectors">
             <EntityTypeMapping TypeName="BOSSModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
@@ -1492,7 +1371,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMAppropriationSource">
               <MappingFragment StoreEntitySet="Tbl_FMAppropriationSource">
                 <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
                 <ScalarProperty Name="FundSourceID" ColumnName="FundSourceID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AppropriationID" ColumnName="AppropriationID" />
@@ -1552,7 +1430,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySetMapping Name="Tbl_FMPosition">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMPosition">
               <MappingFragment StoreEntitySet="Tbl_FMPosition">
-                <ScalarProperty Name="PCID" ColumnName="PCID" />
+                <ScalarProperty Name="PositionCode" ColumnName="PositionCode" />
                 <ScalarProperty Name="PositionTitle" ColumnName="PositionTitle" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
               </MappingFragment>

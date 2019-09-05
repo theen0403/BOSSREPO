@@ -15,17 +15,17 @@
 
             var ActivityList2 = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\"> <i class='la la-clipboard'></i> Activity List</button>";
             var EditProject = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"AngularGlobalView('PerOfficeController','GetViewEditProject','" + 1 + "')\"> <i class='la la-edit'></i> Edit/View</button>";
-            var RemoveProject = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Remove</button>";
+            var DeleteProject = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button>";
 
-            var ActionContentProject = ActivityList2 + EditProject + RemoveProject;
+            var ActionContentProject = ActivityList2 + EditProject + DeleteProject;
             <tr>
                 <td class="text-center">1</td>
-                <td class="text-center">1000-1-1</td>
-                <td>Development Direction; policy Formulation and General Supervision and Control of PPAs</td>
-                <td class="text-right">37,876,000.00</td>
+                <td class="text-center">8000-1-1</td>
+                <td>Promotion, development, extension services, information, dissemination on agriculture & fishery</td>
+                <td class="text-right">39,904,000.00</td>
                 <td class="text-center">
-                    <button type="button" onfocusout="PopoveLostFocus()" 
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
                             data-toggle="popover" data-content="@ActionContentProject"
                             data-original-title="" data-html="true" data-placement="left">
                         <i class="la la-bars"></i>
@@ -35,11 +35,53 @@
 
             <tr>
                 <td class="text-center">2</td>
-                <td class="text-center">1000-1-2</td>
-                <td>Land Acquisition for Development Projects (Province Wide)</td>
+                <td class="text-center">8000-1-2</td>
+                <td>Agricultural Production</td>
+                <td class="text-right">37,876,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentProject"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">3</td>
+                <td class="text-center">8000-1-14</td>
+                <td>Extension, Research & Training Support Services	</td>
                 <td class="text-right">2,285,000.00</td>
                 <td class="text-center">
-                    <button type="button" onfocusout="PopoveLostFocus()" 
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentProject"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">4</td>
+                <td class="text-center">8000-1-27</td>
+                <td>Provincial Achievement Day</td>
+                <td class="text-right">650,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                            data-toggle="popover" data-content="@ActionContentProject"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">5</td>
+                <td class="text-center">8000-1-28</td>
+                <td>Philippine Rural Development Program</td>
+                <td class="text-right">60,000,000.00</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
                             class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
                             data-toggle="popover" data-content="@ActionContentProject"
                             data-original-title="" data-html="true" data-placement="left">

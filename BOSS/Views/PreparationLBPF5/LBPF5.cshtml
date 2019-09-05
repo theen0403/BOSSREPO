@@ -62,7 +62,7 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th rowspan="2">Creditor</th>
-                                                <th rowspan="2">Date Contact</th>
+                                                <th rowspan="2">Date Contacted</th>
                                                 <th rowspan="2">Term (mos.)</th>
                                                 <th rowspan="2">Principal Amount</th>
                                                 <th colspan="3">Previous Payments Made As of 2018</th>
@@ -73,10 +73,10 @@
                                             <tr>
                                                 <th>Principal</th>
                                                 <th>Interest</th>
-                                                <th>SG/Total</th>
+                                                <th>Total</th>
                                                 <th>Principal</th>
                                                 <th>Interest</th>
-                                                <th>SG/Total</th>
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -128,12 +128,15 @@
                                                     <td></td>
                                                     <td class="text-right">12,000,000.00</td>
                                                     <td class="text-center">
-                                                        <button type="button" onfocusout="PopoveLostFocus()" style="padding:8px;"
-                                                                class="btn btn-m btn-btnbackcolor popover-trigger"
-                                                                data-toggle="popover" data-content="@UpdateState"
-                                                                data-original-title="" data-html="true" data-placement="left">
-                                                            <i class="la la-bars"></i>
-                                                        </button>
+                                                        @{
+                                                            var SuccessMess = "Updated Successfully!";
+
+                                                            <button onfocusout="PopoveLostFocus()" style="padding:5px;"
+                                                                    class="btn btn-m btn-btnbackcolor popover-trigger round btn-sm btn-min-width"
+                                                                    onclick="swalSuccess('@SuccessMess')">
+                                                                Edit
+                                                            </button>
+                                                        }
                                                     </td>
                                                 </tr>
                                             }

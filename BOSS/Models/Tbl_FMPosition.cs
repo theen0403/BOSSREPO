@@ -22,9 +22,8 @@ namespace BOSS.Models
     
         public int PositionID { get; set; }
         public string PositionTitle { get; set; }
-        public Nullable<int> PCID { get; set; }
+        public string PositionCode { get; set; }
     
-        public virtual PositionClassification PositionClassification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
     }

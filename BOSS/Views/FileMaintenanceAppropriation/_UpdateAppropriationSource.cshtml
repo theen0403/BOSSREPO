@@ -18,30 +18,29 @@
     <div class="card-body card-body rounded box-shadow-4">
         <div class="card-body py-0">
             <div class="row">
-                <div class="col-md-4 col-sm-6 mx-0">
+                <div class="col-xl-2 col-lg-1 col-md-1">
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
                     <div class="form-group">
                         <label style="margin-bottom:2px;">Appropriation Source Type</label>
-                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2", id = "AppropriationSourceTypeID2", onchange = "LoadGetDynamicFund3()" })
+                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropriationSourceTypeID2", onchange = "LoadGetDynamicFund3()" })
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 mx-0">
+                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
                     <div class="form-group">
                         <label style="margin-bottom:2px;">Description</label>
                         @Html.TextBoxFor(m => m.getAppropriationSourceColumns2.Description, new { @class = "form-control", type = "text", id = "desc" })
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 mx-0" id="FundSourceID2">
-
-                </div>
+               
             </div>
             <div class="row">
-                <div class="col-md-4 col-sm-6 mx-0">
-                    <div class="form-group">
-                        <label style="margin-bottom:2px;">Total Amount</label>
-                        @Html.TextBoxFor(m => m.getAppropriationSourceColumns2.TotalAmount, new { @class = "form-control text-right", type = "currency", id = "total" })
-                    </div>
+                <div class="col-xl-2 col-lg-1 col-md-1">
                 </div>
-                <div class="col-md-2 col-sm-5 mx-0">
+                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0" id="FundSourceID2">
+
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 mx-0">
                     <div class="form-group">
                         <label style="margin-bottom:2px;">Budget Year</label>
                         @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2" })
@@ -50,8 +49,8 @@
             </div>
 
             <div class="row">
-                <div class="col p-0">
-                    <button type="button" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')" class="btn btn-danger btn-min-width pull-right">
+                <div class="col p-0 mb-0 form-group">
+                    <button type="button" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')" class="btn btn-danger btn-min-width pull-right mr-1">
                         Cancel
                     </button>
                     <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
@@ -67,32 +66,15 @@
 <script>
     $(function () {
         LoadGetDynamicFund2();
+        LoadICheck();
+        select2nosearch();
     })
     function LoadGetDynamicFund2() {
         var FundSourceIDHidden = $("#FundSourceIDHidden").val();
         var ApproIDHidden = $("#ApproIDHidden").val();
-
         AngularGlobalFunctionsTwoParams('ApproSourceController', 'GetDynamicFund2', FundSourceIDHidden, ApproIDHidden);
     }
-
     function LoadGetDynamicFund3() {
         AngularGlobalFunctions('ApproSourceController', 'GetDynamicFund3', '')
     }
-
-    $("input[type='currency']").on({
-        keyup: function () {
-            formatCurrency($(this));
-        },
-        blur: function () {
-            formatCurrency($(this), "blur");
-        }
-    });
-
-    formatCurrency();
-    formatNumber();
-</script>
-<script>
-    $(function () {
-        LoadICheck();
-    })
 </script>

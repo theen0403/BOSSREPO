@@ -45,7 +45,7 @@ namespace BOSS.Controllers
                         {
                             AppropriationID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             Description = GlobalFunction.ReturnEmptyString(dr[1]),
-                            AppropriationSourceType = GlobalFunction.ReturnEmptyString(dr[9])
+                            AppropriationSourceType = GlobalFunction.ReturnEmptyString(dr[8])
                         });
                     }
                 }
@@ -82,7 +82,6 @@ namespace BOSS.Controllers
 
             tbl_AppropriationSource.AppropriationID = GlobalFunction.ReturnEmptyInt(model.AppropriationID);
             tbl_AppropriationSource.FundSourceID = GlobalFunction.ReturnEmptyInt(model.FundSourceID);
-            tbl_AppropriationSource.TotalAmount = GlobalFunction.ReturnEmptyString(model.getAppropriationSourceColumns.TotalAmount);
             tbl_AppropriationSource.Description = GlobalFunction.ReturnEmptyString(model.getAppropriationSourceColumns.Description);
             tbl_AppropriationSource.BudgetYearID = GlobalFunction.ReturnEmptyInt(model.BudgetYearID);
             BOSSDB.Tbl_FMAppropriationSource.Add(tbl_AppropriationSource);
@@ -96,7 +95,6 @@ namespace BOSS.Controllers
         {
             Tbl_FMAppropriationSource tblAP = (from e in BOSSDB.Tbl_FMAppropriationSource where e.AppropriationID == AppropSourceID select e).FirstOrDefault();
            
-            model.getAppropriationSourceColumns2.TotalAmount = tblAP.TotalAmount;
             model.getAppropriationSourceColumns2.Description = tblAP.Description;
             model.BudgetYearID = Convert.ToInt32(tblAP.BudgetYearID);
             model.AppropriationSourceID = Convert.ToInt32(tblAP.FundSource.AppropriationSourceID);
@@ -111,7 +109,6 @@ namespace BOSS.Controllers
             Tbl_FMAppropriationSource tbl_AppropriationSource = (from e in BOSSDB.Tbl_FMAppropriationSource where e.AppropriationID == model.getAppropriationSourceColumns2.AppropriationID select e).FirstOrDefault();
 
             tbl_AppropriationSource.FundSourceID = GlobalFunction.ReturnEmptyInt(model.FundSourceID);
-            tbl_AppropriationSource.TotalAmount = GlobalFunction.ReturnEmptyString(model.getAppropriationSourceColumns2.TotalAmount);
             tbl_AppropriationSource.Description = GlobalFunction.ReturnEmptyString(model.getAppropriationSourceColumns2.Description);
             tbl_AppropriationSource.BudgetYearID = GlobalFunction.ReturnEmptyInt(model.BudgetYearID);
             BOSSDB.Entry(tbl_AppropriationSource);

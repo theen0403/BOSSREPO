@@ -23,6 +23,7 @@
                         @*First Panel*@
                         <div class="content-body rounded box-shadow-3">
                             <div class="row mx-1 pt-md-1">
+                                <div class="col-md-1"></div>
                                 <div class="col-md-2 col-sm-4">
                                     <div class="form-group">
                                         <label>Budget Year</label>
@@ -53,33 +54,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mx-1">
-                                <div class="col-md-4 col-sm-6">
+                            <div class="row m-1">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 col-sm-6">
                                     <div class="form-group">
-                                        <label>Office Section</label>
+                                        <label>Section</label>
                                         <select class="form-control">
                                             <option></option>
                                             <option></option>
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-5 col-sm-6">
-                                    <div class="form-group">
-                                        <fieldset class="checkboxsas mt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group mt-1">
+                                        <fieldset>
                                             <label>
-                                                <input type="checkbox" value="">
+                                                <input type="radio" name="radio">
                                                 View all personnel in the selected department
                                             </label>
                                         </fieldset>
                                     </div>
-                                </div>
-
-                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <fieldset class="checkboxsas mt-3">
+                                        <fieldset>
                                             <label>
-                                                <input type="checkbox" value="">
+                                                <input type="radio" name="radio">
                                                 Add PS w/o Office Section
                                             </label>
                                         </fieldset>
@@ -91,53 +89,53 @@
                                     <button type="button" class="btn btn-btnbackcolor btn-min-width mr-0 mb-0 float-right">View</button>
                                 </div>
                             </div>
+
                             <div class="card-header bg-active">
                                 <h4 class="card-title black">LGU Information</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             </div>
+
                             <div class="card-content collapse show  my-0 py-0">
                                 <div class="card-body  rounded box box-shadow-3">
-
                                     <div class="row">
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Province</label>
-                                                <fieldset class="form-group">
-                                                    <input type="text" class="form-control" id="basicInput">
-                                                </fieldset>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <label class="col-md-3"><b>Province</b></label>
+                                                <label class="pull-right">:</label>
+                                                <div class="col-sm-6 pr-0">
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <label class="col-md-3"><b>Zip Code</b></label>
+                                                <label class="pull-right">:</label>
+                                                <div class="col-sm-6 pr-0">
+                                                    <p></p>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-md-2 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Zip Code</label>
-                                                <fieldset class="form-group">
-                                                    <input type="text" class="form-control" id="basicInput">
-                                                </fieldset>
+                                        <div class="col-md-6 col-sm-6">
+                                            <div class="row">
+                                                <label class="col-md-3"><b>Region</b></label>
+                                                <label class="pull-right">:</label>
+                                                <div class="col-sm-6 pr-0">
+                                                    <p></p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Region</label>
-                                                <select class="form-control">
-                                                    <option></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6">
-                                            <div class="form-group">
-                                                <label>Country</label>
-                                                <select class="form-control">
-                                                    <option>Philippines</option>
-                                                </select>
+                                            <div class="row">
+                                                <label class="col-md-3"><b>Country</b></label>
+                                                <label class="pull-right">:</label>
+                                                <div class="col-sm-6 pr-0">
+                                                    <p>Philippines</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                         @*Second Panel*@
                         <div class="content-body rounded mt-1 box-shadow-3">
                             <div class="row">
@@ -161,10 +159,10 @@
                                                             Print Preview
                                                         </button>
                                                         <button id="btnAdd" type="button" class="button-add btn btn-btnbackcolor btn-min-width ml-1"
-                                                                onclick="insertRow();">
+                                                                onclick="">
                                                             Add Row
                                                         </button>
-                                                   }
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -172,6 +170,12 @@
                                         <div class="card box-shadow-2">
                                             <div class="card-content collapse show">
                                                 <div class="card-body mt-0 pt-0">
+                                                    @{
+                                                        var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" > <i class='la la-edit'></i> Edit</button></div>";
+                                                        var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                                        var ActionAS = Update + Remove;
+                                                    }
                                                     <table id="myTable" class="table table-responsive table-bordered zero-configuration w-100">
                                                         <thead class="text-center">
                                                             <tr>
@@ -182,6 +186,7 @@
                                                                 <th colspan="2">Current Year(2017) Authorized Rate/Annum</th>
                                                                 <th colspan="2">Budget Year(2018) Proposed Rate/Annum</th>
                                                                 <th style="border:1px solid; border-color:gray;" rowspan="2" width="15%">Increase / Decrease</th>
+                                                                <th rowspan="2">Action</th>
                                                             </tr>
                                                             <tr>
                                                                 <th>SG/Step</th>
@@ -201,6 +206,16 @@
                                                                 <td class="text-center">G-22/2</td>
                                                                 <td class="text-right">715,164.00</td>
                                                                 <td class="text-right">73,128.00</td>
+                                                                <td class="text-center">
+                                                                    @{
+                                                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                                data-toggle="popover" data-content="@ActionAS"
+                                                                                data-html="true" data-placement="left">
+                                                                            <i class="la la-bars"></i>
+                                                                        </button>
+                                                                    }
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="text-center">04</td>
@@ -212,6 +227,16 @@
                                                                 <td class="text-center">G-22/2</td>
                                                                 <td class="text-right">715,164.00</td>
                                                                 <td class="text-right">73,128.00</td>
+                                                                <td class="text-center">
+                                                                    @{
+                                                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                                data-toggle="popover" data-content="@ActionAS"
+                                                                                data-html="true" data-placement="left">
+                                                                            <i class="la la-bars"></i>
+                                                                        </button>
+                                                                    }
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                         <tfoot class="bg-active text-white">
@@ -221,6 +246,7 @@
                                                                 <th></th>
                                                                 <th class="text-right">1,430,328.00</th>
                                                                 <th class="text-right">146,256.00</th>
+                                                                <th></th>
                                                             </tr>
                                                         </tfoot>
                                                     </table>
@@ -229,7 +255,7 @@
                                                             <div class="form-group">
                                                                 <label>Prepared By:</label>
                                                                 <select class="form-control">
-                                                                    <option>Albert S. Garcia</option>
+                                                                    <option>Juan Dela Cruz</option>
                                                                 </select>
                                                                 <label><i> Staff</i></label>
                                                             </div>
@@ -278,10 +304,7 @@
         </div>
     </div>
 </div>
-
-
-@*MODALS==============================================================================*@
-
+@*Modal==================================================================================*@
 @*Print Preview*@
 <div class="modal animated zoomIn text-left" id="ViewPrintPreviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
      aria-hidden="true">
@@ -292,27 +315,27 @@
             </div>
             <div class="modal-body m-0" id="ViewPrintPreview">
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <fieldset class="radio">
-                            <label>
-                                <input type="checkbox" name="checkbox">
-                                With Footer?
-                            </label>
-                        </fieldset>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <fieldset class="radio">
+                                <label>
+                                    <input type="checkbox" name="checkbox">
+                                    With Footer?
+                                </label>
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             </div>
             <div class="modal-footer m-0 p-1">
                 @{
-                <a class="btn bg-active2 btn-min-width black button"
-                   data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
-                   target='_blank' onclick="CloseModal()">
-                    Ok
-                </a>
+                    <a class="btn bg-active2 btn-min-width black button"
+                       data-caption="01/01/19" href="~/Resources/PDF/blank.pdf"
+                       target='_blank' onclick="CloseModal()">
+                        Ok
+                    </a>
                 }
                 <button type="button" class="btn bg-danger btn-min-width white" data-dismiss="modal">Cancel</button>
             </div>

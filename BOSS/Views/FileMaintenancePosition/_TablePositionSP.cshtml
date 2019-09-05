@@ -9,8 +9,7 @@
     <thead class="text-center">
         <tr>
             <th>Position Name</th>
-            <th>Permanent/Non-Permanent</th>
-            <th>Classification</th>
+            <th>Position Code</th>
             <th width="5%">Action</th>
         </tr>
     </thead>
@@ -27,8 +26,8 @@
                 var ActionPos = UpdatePos + RemovePos;
                 <tr>
                     <td>@Items.PositionTitle</td>
-                    <td>@Items.PSTitle</td>
-                    <td>
+                    <td>@Items.PositionCode</td>
+                    @*<td>
                         @{
                             var PClassID = Items.PCID;
                             var PositionClass = (from e in BOSSDB.PositionClassifications where e.PCID == PClassID select e).FirstOrDefault();
@@ -43,7 +42,7 @@
                             }
                         }
                         @TDValue
-                    </td>
+                    </td>*@
                     <td>
                         <button type="button" onfocusout="PopoveLostFocus()"
                                 class="btn btn-m btn-btnbackcolor popover-trigger"

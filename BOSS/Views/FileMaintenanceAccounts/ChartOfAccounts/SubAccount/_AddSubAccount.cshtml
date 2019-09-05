@@ -13,8 +13,8 @@
         <div class="col-md-1 col-sm-1">
         </div>
         <div class="col-md-5 col-sm-5">
-            <div class="form-group ">
-                <label style="margin-bottom:2px;">Sub Account Title</label>
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Account Title</label>
                 @Html.TextAreaFor(m => m.getSubAcctColumns.SubAccountTitle, new { @class = "form-control", @rows = 1, id = "SubAccountTitle" })
             </div>
         </div>
@@ -23,16 +23,19 @@
                 <label>Sub Account Code</label>
             </div>
             <div class="row">
-                <div class="col-md-3 col-sm-4">
-                    <div id="GenAccntID">
-
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-1 p-0" id="GenAccntID">
+             
+                </div>
+                <div class="col-lg-1 col-md-1 p-0 col-sm-1">
+                    <div class="ml-1" style="margin-top: 6px;">
+                        <label>-</label>
                     </div>
                 </div>
-                    <div class="col-md-5 col-sm-6">
-                        <div class="form-group">
-                            @Html.TextBoxFor(m => m.getSubAcctColumns.SubAccountCode, new { @class = "form-control", id = "SubAccountCode" })
-                        </div>
+                <div class="col-xl-4 col-lg-5 col-md-4 col-xs-3 pl-0">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.getSubAcctColumns.SubAccountCode, new { @class = "form-control", id = "SubAccountCode" })
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,7 +45,7 @@
         @Html.HiddenFor(m => m.isReserve, new { id = "isReserveID" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">With Reserve?</label>
+                <label class="custom-form-margin">With Reserve?</label>
                 <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
                     <option value="0">Yes</option>
                     <option value="1">No</option>
@@ -52,7 +55,7 @@
 
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">Reserved %</label>
+                <label class="custom-form-margin">Reserved %</label>
                 <fieldset class="form-group">
                     @Html.TextBoxFor(m => m.getSubAcctColumns.ReservePercent, new { @class = "form-control", type = "text", id = "ReservePercent" })
                 </fieldset>
@@ -61,7 +64,7 @@
         @Html.HiddenFor(m => m.isFullRelease, new { id = "isFullReleaseID" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">For Full Release?</label>
+                <label class="custom-form-margin">For Full Release?</label>
                 <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
                     <option value="0">Yes</option>
                     <option value="1">No</option>
@@ -71,7 +74,7 @@
         @Html.HiddenFor(m => m.isContinuing, new { id = "isContinuingID" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">For Continuing?</label>
+                <label class="custom-form-margin">For Continuing?</label>
                 <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
                     <option value="0">Yes</option>
                     <option value="1">No</option>
@@ -81,7 +84,7 @@
         @Html.HiddenFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID" })
         <div class="col-md-2 col-sm-2 mt-0">
             <div class="form-group">
-                <label style="margin-bottom:2px;">OBR Cash Adv?</label>
+                <label class="custom-form-margin">OBR Cash Adv?</label>
                 <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">
                     <option value="0">Yes</option>
                     <option value="1">No</option>
@@ -91,7 +94,7 @@
     </div>
     <div class="row mb-1">
         <div class="col form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetSubAccountDT()">
+            <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right" onclick="GetSubAccountDT()">
                 Cancel
             </button>
             <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">

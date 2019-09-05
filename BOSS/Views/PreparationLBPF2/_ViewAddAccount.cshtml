@@ -1,79 +1,186 @@
-﻿<div class="card-sm card-content collapse show">
-
-
-    <div class="card-body mt-0 p-1">
-
-        <div class="row mt-0">
-            <div class="col-md-5  mt-0">
-                <div class="form-group">
-                    <label>Allotment Class</label>
-                    <select class="form-control">
-                        <option>Personal Services</option>
-                        <option>Maintenance and Other Operating Expenses</option>
-                        <option>Capital Outlay</option>
-                        <option>Other Financial Expense</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3 mt-3">
-                <fieldset class="form-group radio">
-                    <label>
-                        <input type="radio" name="radio" value="" checked>
-                        General Account
-                    </label>
-                </fieldset>
-            </div>
-            <div class="col-md-3 mt-3">
-                <fieldset class="form-group radio">
-                    <label>
-                        <input type="radio" name="radio" value="">
-                        Sub Account
-                    </label>
-                </fieldset>
-            </div>
+﻿
+<div class="row mt-0">
+    <div class="col-md-1"></div>
+    <div class="col-md-5  mt-0">
+        <div class="form-group">
+            <label>Allotment Class</label>
+            <select class="form-control">
+                <option>Personal Services</option>
+                <option>Maintenance and Other Operating Expenses</option>
+                <option>Capital Outlay</option>
+                <option>Other Financial Expense</option>
+            </select>
         </div>
-
-        <table id="table-program" class="table table-striped table-bordered zero-configuration table-smss-hover">
-            <thead>
-                <tr class="text-center">
-                    <th width="20px"><input id="checkedAll" type="checkbox"> All</th>
-                    <th width="90px">Object Of Expenditure</th>
-                    <th width="20px">Account Code</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center"><input type="checkbox" class="cb-element"></td>
-                    <td>Cash Local Treasury</td>
-                    <td>1-02-03-020</td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" class="cb-element"></td>
-                    <td>Petty Cash</td>
-                    <td>1-02-03-020</td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" class="cb-element"></td>
-                    <td>Cash in Bank</td>
-                    <td>1-02-03-020</td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" class="cb-element"></td>
-                    <td>Treasury Bills</td>
-                    <td>1-02-03-020</td>
-                </tr>
-                <tr>
-                    <td class="text-center"><input type="checkbox" class="cb-element"></td>
-                    <td>Investment in Stock</td>
-                    <td>1-02-03-020</td>
-                </tr>
-            </tbody>
-        </table>
-        
+    </div>
+    <div class="col-md-3 mt-3">
+        <fieldset class="form-group radio">
+            <label>
+                <input type="radio" name="radio" value="" checked>
+                General Account
+            </label>
+        </fieldset>
+    </div>
+    <div class="col-md-3 mt-3">
+        <fieldset class="form-group radio">
+            <label>
+                <input type="radio" name="radio" value="">
+                Sub Account
+            </label>
+        </fieldset>
     </div>
 </div>
+<table class="table zero-configuration table-bordered table-smss-hover w-100">
+    <thead>
+        <tr class="text-center">
+            <th><input id="checkedAll" type="checkbox"> All</th>
+            <th width="70%">Object Of Expenditure</th>
+            <th width="20%">Account Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Cash Gift</td>
+            <td>5-01-02-150</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Clothing/Uniform Allowance</td>
+            <td>5-01-02-040</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Employees Compensation Insurance Premiums</td>
+            <td>5-01-03-040</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Hazard Pay</td>
+            <td>5-01-02-110</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Honoraria</td>
+            <td>5-01-02-100</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Laundry  Allowance</td>
+            <td>5-01-02-060</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Longevity Pay</td>
+            <td>5-01-02-120</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Other Bonuses and Allowances</td>
+            <td>5-01-02-990</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Other Personnel Benefits</td>
+            <td>5-01-04-990</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Overseas Allowance</td>
+            <td>5-01-02-090</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Overtime and Night Pay</td>
+            <td>5-01-02-130</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Pag-IBIG Contributions</td>
+            <td>5-01-03-020</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Pension Benefits</td>
+            <td>5-01-04-010</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Personal Economic Relief Allowance (PERA)</td>
+            <td>5-01-02-010</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>PhilHealth Contributions</td>
+            <td>5-01-03-030</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Productivity Incentive Allowance</td>
+            <td>5-01-02-080</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Provident/Welfare Fund Contributions</td>
+            <td>5-01-03-050</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Quarters Allowance</td>
+            <td>5-01-02-070</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Representation Allowance (RA)</td>
+            <td>5-01-02-020</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Retirement and Life Insurance Premiums</td>
+            <td>5-01-03-010</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Retirement Gratuity</td>
+            <td>5-01-04-020</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Salaries and Wages - Casual/Contractual</td>
+            <td>5-01-01-020</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Salaries and Wages - Regular</td>
+            <td>5-01-01-010</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Subsistence Allowance</td>
+            <td>5-01-02-050</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Terminal Leave Benefits</td>
+            <td>5-01-04-030</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Transportation Allowance (TA)</td>
+            <td>5-01-02-030</td>
+        </tr>
+        <tr>
+            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+            <td>Year End Bonus</td>
+            <td>5-01-02-140</td>
+        </tr>
+
+    </tbody>
+</table>
 
 <script>
+    $(function () {
+        LoadDataTable();
+    })
     $('#checkedAll').change(function () {
         $('.cb-element').prop('checked', this.checked);
     });
@@ -86,10 +193,4 @@
             $('#checkedAll').prop('checked', false);
         }
     });
-</script>
-
-<script>
-    $(function () {
-        LoadDataTable();
-    })
 </script>

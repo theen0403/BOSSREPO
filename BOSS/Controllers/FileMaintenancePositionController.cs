@@ -29,7 +29,7 @@ namespace BOSS.Controllers
 
             List<PositionList> getPositionList = new List<PositionList>();
 
-            var SQLQuery = "SELECT [PositionID], [PositionTitle], [PSTitle], [Tbl_FMPosition].[PCID] FROM [Tbl_FMPosition], [PositionStatus], [PositionClassification] where [PositionClassification].[PCID]=[Tbl_FMPosition].[PCID] and [PositionStatus].PSID = [PositionClassification].PSID";
+            var SQLQuery = "SELECT * FROM [Tbl_FMPosition]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -44,8 +44,7 @@ namespace BOSS.Controllers
                         {
                             PositionID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             PositionTitle = GlobalFunction.ReturnEmptyString(dr[1]),
-                            PSTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            PCID = GlobalFunction.ReturnEmptyInt(dr[3])
+                            PositionCode = GlobalFunction.ReturnEmptyString(dr[2])
                         });
                     }
                 }
@@ -60,29 +59,31 @@ namespace BOSS.Controllers
             PositionforSPModel model = new PositionforSPModel();
             return PartialView("_AddPosition", model);
         }
-        public ActionResult GetAddDynamicClassification(int PSID)
-        {
-            PositionforSPModel model = new PositionforSPModel();
+        //public ActionResult GetAddDynamicClassification(int PSID)
+        //{
+        //    PositionforSPModel model = new PositionforSPModel();
 
-            model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
+        //    model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
 
-            return PartialView("_AddDynamicClassification", model);
-        }
-        public ActionResult GetUpdateDynamicClassification(int PSID,int PCID)
-        {
-            PositionforSPModel model = new PositionforSPModel();
+        //    return PartialView("_AddDynamicClassification", model);
+        //}
+        //public ActionResult GetUpdateDynamicClassification(int PSID,int PCID)
+        //{
+        //    PositionforSPModel model = new PositionforSPModel();
 
-            model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
-            model.PCID = PCID;
-            return PartialView("_UpdateDynamicClassification", model);
-        }
+        //    model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
+        //    model.PCID = PCID;
+        //    return PartialView("_UpdateDynamicClassification", model);
+        //}
         public JsonResult AddNewPosition(PositionforSPModel model)
         {
             Tbl_FMPosition PositionTBL = new Tbl_FMPosition();
 
             PositionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionTitle);
-            PositionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
+            PositionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionCode);
             BOSSDB.Tbl_FMPosition.Add(PositionTBL);
+            //PositionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
+
 
             BOSSDB.SaveChanges();
             return Json(PositionTBL);
@@ -92,18 +93,22 @@ namespace BOSS.Controllers
             Tbl_FMPosition tblposition = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == PositionID select e).FirstOrDefault();
 
             model.getPositionColumns2.PositionTitle = tblposition.PositionTitle;
-            model.PSID = Convert.ToInt32(tblposition.PositionClassification.PSID);
-            model.PCIDTemp =Convert.ToInt32(tblposition.PCID) ;
+            model.getPositionColumns2.PositionCode = tblposition.PositionCode;
+
+            //model.PSID = Convert.ToInt32(tblposition.PositionClassification.PSID);
+            //model.PCIDTemp = Convert.ToInt32(tblposition.PCID);
             model.PositionID = PositionID;
             return PartialView("_UpdatePosition", model);
         }
         public ActionResult UpdatePosition(PositionforSPModel model)
         {
             Tbl_FMPosition positionTBL = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == model.PositionID select e).FirstOrDefault();
-            
+
             positionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionTitle);
-            positionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
-            
+            positionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionCode);
+
+            //positionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
+
             BOSSDB.Entry(positionTBL);
             BOSSDB.SaveChanges();
 

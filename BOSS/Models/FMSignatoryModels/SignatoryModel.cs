@@ -27,6 +27,9 @@ namespace BOSS.Models.FMSignatoryModels
         public bool isHead { get; set; }
         public int DeptID { get; set; }
         public int funcTempID { get; set; }
+        public string PreferredName { get; set; }
+        public string Division { get; set; }
+        public int isActive { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> PositionList
         {
             get
@@ -55,6 +58,8 @@ namespace BOSS.Models.FMSignatoryModels
         public int FunctionID { get; set; }
         public int isHead { get; set; }
         public int DeptID { get; set; }
-
+        public string PreferredName { get; set; }
+        public string Division { get; set; }
+        public int isActive { get; set; }
     }
 }

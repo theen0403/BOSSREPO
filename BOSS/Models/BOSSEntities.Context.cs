@@ -39,8 +39,6 @@ namespace BOSS.Models
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
         public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
-        public virtual DbSet<PositionClassification> PositionClassifications { get; set; }
-        public virtual DbSet<PositionStatu> PositionStatus { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<SubSector> SubSectors { get; set; }
         public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }

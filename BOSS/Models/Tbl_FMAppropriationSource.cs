@@ -17,7 +17,6 @@ namespace BOSS.Models
         public int AppropriationID { get; set; }
         public string Description { get; set; }
         public Nullable<int> FundSourceID { get; set; }
-        public string TotalAmount { get; set; }
         public Nullable<int> BudgetYearID { get; set; }
     
         public virtual BudgetYear BudgetYear { get; set; }

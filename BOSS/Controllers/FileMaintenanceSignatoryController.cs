@@ -30,7 +30,7 @@ namespace BOSS.Controllers
 
             List<SignatoryDTList> getSignatoryList = new List<SignatoryDTList>();
 
-            var SQLQuery = "  SELECT [SignatoryID], [SignatoryName], Tbl_FMPosition.PositionTitle, [Tbl_FMDepartment].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead] FROM [Tbl_FMSignatory], [Tbl_FMFunction], [Tbl_FMPosition], [Tbl_FMDepartment] where [Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and [Tbl_FMSignatory].FunctionID = [Tbl_FMFunction].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
+            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMDepartment].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead], [isActive]  FROM[Tbl_FMSignatory], [Tbl_FMFunction], [Tbl_FMPosition], [Tbl_FMDepartment] where[Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMFunction].FunctionID and[Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -45,10 +45,14 @@ namespace BOSS.Controllers
                         {
                             SignatoryID = GlobalFunction.ReturnEmptyInt(dr[0]),
                             SignatoryName = GlobalFunction.ReturnEmptyString(dr[1]),
-                            PositionTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[3]),
-                            FunctionID = GlobalFunction.ReturnEmptyInt(dr[4]),
-                            isHead = GlobalFunction.ReturnEmptyInt(dr[5])
+                            PreferredName = GlobalFunction.ReturnEmptyString(dr[2]),
+                            PositionTitle = GlobalFunction.ReturnEmptyString(dr[4]),
+                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[5]),
+                            isHead = GlobalFunction.ReturnEmptyInt(dr[7]),
+                            FunctionID = GlobalFunction.ReturnEmptyInt(dr[6]),
+                            Division = GlobalFunction.ReturnEmptyString(dr[3]),
+                            isActive = GlobalFunction.ReturnEmptyInt(dr[8]),
+
                         });
                     }
                 }

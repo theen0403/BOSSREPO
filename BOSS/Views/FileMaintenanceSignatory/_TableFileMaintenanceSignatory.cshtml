@@ -7,12 +7,22 @@
 <table class="table table-responsive table-bordered table-smss-hover zero-configuration w-100">
     <thead class="text-center">
         <tr>
-            <th width="30%">Full Name</th>
+            @*<th width="30%">Full Name</th>
+        <th>Position</th>
+        <th>Department</th>
+        <th>Function</th>
+        <th width="5%">Department Head</th>
+        <th width="5%">Action</th>*@
+
+            <th>Employee Name</th>
+            <th>Preferred Name</th>
             <th>Position</th>
             <th>Department</th>
+            <th>Dept.Head</th>
             <th>Function</th>
-            <th width="5%">Department Head</th>
-            <th width="5%">Action</th>
+            <th>Division</th>
+            <th>Is Active</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -26,11 +36,22 @@
                 var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.SignatoryName + "','" + @DeleteSuccesMess + "','AngularGlobalDelete(" + @Items.SignatoryID + ",&quot;DeleteSignatory&quot;,&quot;FMSignatoryController&quot;)')\"><i class='la la-trash'></i> Delete</button></div>";
 
                 var ActionFM = Update + Remove;
-                
+
         <tr>
             <td>@Items.SignatoryName</td>
+            <td>@Items.PreferredName</td>
             <td>@Items.PositionTitle</td>
             <td>@Items.DeptTitle</td>
+            <td>
+                @{
+                    var isHeadValue = "Yes";
+                    if (Items.isHead != 1)
+                    {
+                        isHeadValue = "No";
+                    }
+                }
+                @isHeadValue
+            </td>
             <td>
                 @{
                     var FUncID = Items.FunctionID;
@@ -48,17 +69,8 @@
                 @TDValue
 
             </td>
-            <td>
-                @{
-                    var isHeadValue = "Yes";
-                    if (Items.isHead != 1)
-                    {
-                        isHeadValue = "No";
-                    }
-                }
-                @isHeadValue
-            </td>
-
+            <td>@Items.Division</td>
+            <td></td>
             <td class="text-center">
                 <button type="button" onfocusout="PopoveLostFocus()"
                         class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -68,6 +80,46 @@
                 </button>
             </td>
         </tr>
+                @*<td>@Items.SignatoryName</td>
+                <td>@Items.PositionTitle</td>
+                <td>@Items.DeptTitle</td>
+                <td>
+                    @{
+                        var FUncID = Items.FunctionID;
+                        var FunctionName = (from e in BOSSDB.Tbl_FMFunction where e.FunctionID == FUncID select e).FirstOrDefault();
+                        var TDValue = "";
+                        if (FunctionName == null)
+                        {
+                            TDValue = "N/A";
+                        }
+                        else
+                        {
+                            TDValue = FunctionName.FunctionTitle;
+                        }
+                    }
+                    @TDValue
+
+                </td>
+                <td>
+                    @{
+                        var isHeadValue = "Yes";
+                        if (Items.isHead != 1)
+                        {
+                            isHeadValue = "No";
+                        }
+                    }
+                    @isHeadValue
+                </td>
+
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionFM"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+                </tr>*@
             }
         }
     </tbody>

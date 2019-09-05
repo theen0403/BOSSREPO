@@ -195,6 +195,14 @@
                                     }
                                 </div>
                             </div>
+                            <div>
+                                @{
+                                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" > <i class='la la-edit'></i> Edit</button></div>";
+                                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                    var ActionAS = Update + Remove;
+                                    }
+                                </div>
                             @*First Table*@
                             <div class="card box-shadow-2 m-0 p-0">
                                 <div class="card-header bg-active mt-1">
@@ -209,92 +217,78 @@
                                 <div class="card-content collapse">
                                     <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
                                         <div class="card-body m-0 p-0">
-
                                             <div class="row m-0">
-                                                <div class="table-responsive">
-
-                                                    <table id="SuppliesDT" class="table table-bordered zero-configuration table-smss-hover w-100">
-
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Particular</th>
-                                                                <th width="10%">Account Code</th>
-                                                                <th>Income Classification</th>
-                                                                <th>Past Year (Actual)</th>
-                                                                <th>1st Semester (Actual)</th>
-                                                                <th>2nd Semester (Actual)</th>
-                                                                <th>Current Year (Total 2016)</th>
-                                                                <th>Budget Year (Proposed 2017)</th>
-                                                                <th width="5%">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;"
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;"
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot class="bg-active black">
-                                                            <tr>
-                                                                <th colspan="3" class="text-center">Total</th>
-                                                                <th class="text-right">200,000.00</th>
-                                                                <th class="text-right">100,000.00</th>
-                                                                <th class="text-right">120,000.00</th>
-                                                                <th class="text-right">22,000.00</th>
-                                                                <th class="text-right">240,000.00</th>
-                                                                <td></td>
-                                                            </tr>
-
-
-                                                        </tfoot>
-
-                                                    </table>
-                                                </div>
+                                                <table class="table table-responsive table-bordered zero-configuration table-smss-hover w-100">
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>Particular</th>
+                                                            <th width="10%">Account Code</th>
+                                                            @*<th>Income Classification</th>*@
+                                                            <th>Past Year (Actual)</th>
+                                                            <th>1st Semester (Actual)</th>
+                                                            <th>2nd Semester (Actual)</th>
+                                                            <th>Current Year (Total 2016)</th>
+                                                            <th>Budget Year (Proposed 2017)</th>
+                                                            <th width="5%">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                    <button type="button" onfocusout="PopoveLostFocus()"
+                                                                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                            data-toggle="popover" data-content="@ActionAS"
+                                                                            data-html="true" data-placement="left">
+                                                                        <i class="la la-bars"></i>
+                                                                    </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                    <button type="button" onfocusout="PopoveLostFocus()"
+                                                                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                            data-toggle="popover" data-content="@ActionAS"
+                                                                            data-html="true" data-placement="left">
+                                                                        <i class="la la-bars"></i>
+                                                                    </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-active black">
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">Total</th>
+                                                            <th class="text-right">200,000.00</th>
+                                                            <th class="text-right">100,000.00</th>
+                                                            <th class="text-right">120,000.00</th>
+                                                            <th class="text-right">22,000.00</th>
+                                                            <th class="text-right">240,000.00</th>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
-
-
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                             @*Second table*@
@@ -313,88 +307,78 @@
                                         <div class="card-body m-0 p-0">
 
                                             <div class="row m-0">
-                                                <div class="table-responsive">
+                                                <table class="table table-responsive table-bordered table-smss-hover zero-configuration w-100">
 
-                                                    <table id="SuppliesDT" class="table table-bordered table-smss-hover zero-configuration w-100">
-
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Particular</th>
-                                                                <th width="10%">Account Code</th>
-                                                                <th>Income Classification</th>
-                                                                <th>Past Year (Actual)</th>
-                                                                <th>1st Semester (Actual)</th>
-                                                                <th>2nd Semester (Actual)</th>
-                                                                <th>Current Year (Total 2016)</th>
-                                                                <th>Budget Year (Proposed 2017)</th>
-                                                                <th width="5px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" data-toggle="popoverStateReceipt"
-                                                                                data-placement="left" data-conztainer="body" style="padding: 10px;"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor" data-toggle="popoverStateReceipt"
-                                                                                data-placement="left" data-conztainer="body" style="padding: 10px;"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot class="bg-active black">
-                                                            <tr>
-                                                                <th colspan="3" class="text-center">Total</th>
-                                                                <th class="text-right">200,000.00</th>
-                                                                <th class="text-right">100,000.00</th>
-                                                                <th class="text-right">120,000.00</th>
-                                                                <th class="text-right">22,000.00</th>
-                                                                <th class="text-right">240,000.00</th>
-                                                                <td></td>
-                                                            </tr>
-
-
-                                                        </tfoot>
-
-                                                    </table>
-                                                </div>
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>Particular</th>
+                                                            <th width="10%">Account Code</th>
+                                                            @*<th>Income Classification</th>*@
+                                                            <th>Past Year (Actual)</th>
+                                                            <th>1st Semester (Actual)</th>
+                                                            <th>2nd Semester (Actual)</th>
+                                                            <th>Current Year (Total 2016)</th>
+                                                            <th>Budget Year (Proposed 2017)</th>
+                                                            <th width="5px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-active black">
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">Total</th>
+                                                            <th class="text-right">200,000.00</th>
+                                                            <th class="text-right">100,000.00</th>
+                                                            <th class="text-right">120,000.00</th>
+                                                            <th class="text-right">22,000.00</th>
+                                                            <th class="text-right">240,000.00</th>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
-
-
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                             @*Third table*@
@@ -413,90 +397,78 @@
                                         <div class="card-body m-0 p-0">
 
                                             <div class="row m-0">
-                                                <div class="table-responsive">
+                                                <table class="table table-responsive table-bordered table-smss-hover zero-configuration w-100">
 
-                                                    <table id="SuppliesDT" class="table table-bordered table-smss-hover zero-configuration w-100">
-
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Particular</th>
-                                                                <th width="10%">Account Code</th>
-                                                                <th>Income Classification</th>
-                                                                <th>Past Year (Actual)</th>
-                                                                <th>1st Semester (Actual)</th>
-                                                                <th>2nd Semester (Actual)</th>
-                                                                <th>Current Year (Total 2016)</th>
-                                                                <th>Budget Year (Proposed 2017)</th>
-                                                                <th width="5px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;"
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;"
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot class="bg-active black">
-                                                            <tr>
-                                                                <th colspan="3" class="text-center">Total</th>
-                                                                <th class="text-right">200,000.00</th>
-                                                                <th class="text-right">100,000.00</th>
-                                                                <th class="text-right">120,000.00</th>
-                                                                <th class="text-right">22,000.00</th>
-                                                                <th class="text-right">240,000.00</th>
-                                                                <td></td>
-                                                            </tr>
-
-
-                                                        </tfoot>
-
-                                                    </table>
-                                                </div>
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>Particular</th>
+                                                            <th width="10%">Account Code</th>
+                                                            @*<th>Income Classification</th>*@
+                                                            <th>Past Year (Actual)</th>
+                                                            <th>1st Semester (Actual)</th>
+                                                            <th>2nd Semester (Actual)</th>
+                                                            <th>Current Year (Total 2016)</th>
+                                                            <th>Budget Year (Proposed 2017)</th>
+                                                            <th width="5px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-active black">
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">Total</th>
+                                                            <th class="text-right">200,000.00</th>
+                                                            <th class="text-right">100,000.00</th>
+                                                            <th class="text-right">120,000.00</th>
+                                                            <th class="text-right">22,000.00</th>
+                                                            <th class="text-right">240,000.00</th>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
-
-
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                             @*Fourth Table*@
@@ -515,104 +487,94 @@
                                         <div class="card-body m-0 p-0">
 
                                             <div class="row m-0">
-                                                <div class="table-responsive">
+                                                <table class="table table-bordered table-smss-hover zero-configuration w-100">
 
-                                                    <table id="SuppliesDT" class="table table-bordered table-smss-hover zero-configuration w-100">
-
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Particular</th>
-                                                                <th width="10%">Account Code</th>
-                                                                <th>Income Classification</th>
-                                                                <th>Past Year (Actual)</th>
-                                                                <th>1st Semester (Actual)</th>
-                                                                <th>2nd Semester (Actual)</th>
-                                                                <th>Current Year (Total 2016)</th>
-                                                                <th>Budget Year (Proposed 2017)</th>
-                                                                <th width="5px">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;"
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Cash in Bank - Local Currency, Current Account</td>
-                                                                <td>1-01-02-010</td>
-                                                                <td>R</td>
-                                                                <td class="text-right">100,000.00</td>
-                                                                <td class="text-right">50,000.00</td>
-                                                                <td class="text-right">60,000.00</td>
-                                                                <td class="text-right">11,000.00</td>
-                                                                <td class="text-right">120,000.00</td>
-                                                                <td class="text-center">
-                                                                    @{
-                                                                        <button type="button" class="btn btn-icon btn-btnbackcolor"
-                                                                                data-toggle="popoverStateReceipt" style="padding: 10px;" s
-                                                                                data-placement="left" data-conztainer="body"
-                                                                                onfocusout="ClosePopOverSOR()">
-                                                                            <i class="la la-reorder"></i>
-                                                                        </button>
-                                                                    }
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        <tfoot class="bg-active black">
-                                                            <tr>
-                                                                <th colspan="3" class="text-center">Total</th>
-                                                                <th class="text-right">200,000.00</th>
-                                                                <th class="text-right">100,000.00</th>
-                                                                <th class="text-right">120,000.00</th>
-                                                                <th class="text-right">22,000.00</th>
-                                                                <th class="text-right">240,000.00</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </tfoot>
-
-                                                    </table>
-                                                </div>
+                                                    <thead class="text-center">
+                                                        <tr>
+                                                            <th>Particular</th>
+                                                            <th width="10%">Account Code</th>
+                                                            @*<th>Income Classification</th>*@
+                                                            <th>Past Year (Actual)</th>
+                                                            <th>1st Semester (Actual)</th>
+                                                            <th>2nd Semester (Actual)</th>
+                                                            <th>Current Year (Total 2016)</th>
+                                                            <th>Budget Year (Proposed 2017)</th>
+                                                            <th width="5px">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Cash in Bank - Local Currency, Current Account</td>
+                                                            <td>1-01-02-010</td>
+                                                            @*<td>R</td>*@
+                                                            <td class="text-right">100,000.00</td>
+                                                            <td class="text-right">50,000.00</td>
+                                                            <td class="text-right">60,000.00</td>
+                                                            <td class="text-right">11,000.00</td>
+                                                            <td class="text-right">120,000.00</td>
+                                                            <td class="text-center">
+                                                                @{
+                                                                <button type="button" onfocusout="PopoveLostFocus()"
+                                                                        class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                                        data-toggle="popover" data-content="@ActionAS"
+                                                                        data-html="true" data-placement="left">
+                                                                    <i class="la la-bars"></i>
+                                                                </button>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="bg-active black">
+                                                        <tr>
+                                                            <th colspan="2" class="text-center">Total</th>
+                                                            <th class="text-right">200,000.00</th>
+                                                            <th class="text-right">100,000.00</th>
+                                                            <th class="text-right">120,000.00</th>
+                                                            <th class="text-right">22,000.00</th>
+                                                            <th class="text-right">240,000.00</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
                                             </div>
-
-
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
                             </div>
                             @*Total Table*@
                             <div class="row m-0">
                                 <div class="table-responsive  mt-1">
-                                    <table id="SuppliesDT" class="table table-bordered  w-100">
+                                    <table id="SuppliesDT" class="table zero-configuration table-bordered  w-100">
 
                                         <tfoot class="bg-active black text-right">
                                             <tr>
-                                                <th class="text-center" colspan="3">GRAND TOTAL</th>
-                                                <th width="9%">800,000.00</th>
-                                                <th width="10%">400,000.00</th>
-                                                <th width="9%">480,000.00</th>
+                                                <th class="text-center" colspan="2">GRAND TOTAL</th>
+                                                <th width="11%">800,000.00</th>
+                                                <th width="12%">400,000.00</th>
+                                                <th width="12%">480,000.00</th>
                                                 <th width="11%">66,000.00</th>
-                                                <th width="12%">960,000.00</th>
-                                                <th width="10%"></th>
+                                                <th width="13%">960,000.00</th>
+                                                <th width="11%"></th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -658,9 +620,184 @@
             <div class="modal-header bg-active">
                 <h4 class="modal-title black" id="myModalLabel2">Add New Account/s</h4>
             </div>
-            <div class="modal-body m-0" id="ViewAddAccount">
+            <div class="modal-body m-0" @*id="ViewAddAccount"*@>
+                <div class="row mt-0">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5  mt-0">
+                        <div class="form-group">
+                            <label>Allotment Class</label>
+                            <select class="form-control">
+                                <option>Personal Services</option>
+                                <option>Maintenance and Other Operating Expenses</option>
+                                <option>Capital Outlay</option>
+                                <option>Other Financial Expense</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <fieldset class="form-group radio">
+                            <label>
+                                <input type="radio" name="radio" value="" checked>
+                                General Account
+                            </label>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <fieldset class="form-group radio">
+                            <label>
+                                <input type="radio" name="radio" value="">
+                                Sub Account
+                            </label>
+                        </fieldset>
+                    </div>
+                </div>
+                <table class="table zero-configuration table-bordered table-smss-hover w-100">
+                    <thead>
+                        <tr class="text-center">
+                            <th><input id="checkedAll" type="checkbox"> All</th>
+                            <th width="70%">Object Of Expenditure</th>
+                            <th width="20%">Account Code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Cash Gift</td>
+                            <td>5-01-02-150</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Clothing/Uniform Allowance</td>
+                            <td>5-01-02-040</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Employees Compensation Insurance Premiums</td>
+                            <td>5-01-03-040</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Hazard Pay</td>
+                            <td>5-01-02-110</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Honoraria</td>
+                            <td>5-01-02-100</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Laundry  Allowance</td>
+                            <td>5-01-02-060</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Longevity Pay</td>
+                            <td>5-01-02-120</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Other Bonuses and Allowances</td>
+                            <td>5-01-02-990</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Other Personnel Benefits</td>
+                            <td>5-01-04-990</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Overseas Allowance</td>
+                            <td>5-01-02-090</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Overtime and Night Pay</td>
+                            <td>5-01-02-130</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Pag-IBIG Contributions</td>
+                            <td>5-01-03-020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Pension Benefits</td>
+                            <td>5-01-04-010</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Personal Economic Relief Allowance (PERA)</td>
+                            <td>5-01-02-010</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>PhilHealth Contributions</td>
+                            <td>5-01-03-030</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Productivity Incentive Allowance</td>
+                            <td>5-01-02-080</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Provident/Welfare Fund Contributions</td>
+                            <td>5-01-03-050</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Quarters Allowance</td>
+                            <td>5-01-02-070</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Representation Allowance (RA)</td>
+                            <td>5-01-02-020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Retirement and Life Insurance Premiums</td>
+                            <td>5-01-03-010</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Retirement Gratuity</td>
+                            <td>5-01-04-020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Salaries and Wages - Casual/Contractual</td>
+                            <td>5-01-01-020</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Salaries and Wages - Regular</td>
+                            <td>5-01-01-010</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Subsistence Allowance</td>
+                            <td>5-01-02-050</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Terminal Leave Benefits</td>
+                            <td>5-01-04-030</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Transportation Allowance (TA)</td>
+                            <td>5-01-02-030</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="cb-element"></td>
+                            <td>Year End Bonus</td>
+                            <td>5-01-02-140</td>
+                        </tr>
 
-
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer m-0 p-1">
                 @{
@@ -722,13 +859,13 @@
 <script>
     //ADD NEW ACCOUNT
     function OpenViewAddAccountModal() {
-        //var ID = $("#SupplyAccountCodeList").val();
         var IDTemp = "1";
         $.ajax({
             url: '/PreparationLBPF2/GetViewAddAccount',
             data: { ID: IDTemp },
             success: function (result) {
-                $('#ViewAddAccount').html(result);
+                //$('#ViewAddAccount').html(result);
+                //$('#ViewAddAccountModal').html(result);
             }
         })
     }
@@ -861,8 +998,10 @@
 
 @*Close modal*@
 <script>
+    $(function () {
+        LoadDataTable();
+    })
     function CloseModal() {
         $('#ViewPrintPreviewModal').modal('toggle');
     }
 </script>
-

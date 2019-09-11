@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label class="custom-form-margin">Employee Name</label>
                 <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                    @Html.TextBoxFor(m => m.getSignatoryColumns2.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
                 </fieldset>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label class="custom-form-margin">Preferred Name</label>
                 <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                    @Html.TextBoxFor(m => m.getSignatoryColumns2.PreferredName, new { @class = "form-control", id = "SignatoryName" })
                 </fieldset>
             </div>
         </div>
@@ -32,8 +32,8 @@
             <div class="form-group">
                 <label class="custom-form-margin">Dept. Head</label>
                 <select class="form-control select2nosearch" id="isHeadIDD" onchange="isHeadOnChange()">
-                    <option value="0">Yes</option>
-                    <option value="1">No</option>
+                    <option value=True>Yes</option>
+                    <option value=False>No</option>
                 </select>
             </div>
         </div>
@@ -65,67 +65,31 @@
             <div class="form-group">
                 <label class="custom-form-margin">Division</label>
                 <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                    @Html.TextBoxFor(m => m.getSignatoryColumns2.Division, new { @class = "form-control", id = "SignatoryName" })
                 </fieldset>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-4">
-            <fieldset class="form-group  mt-2">
+        @*<div class="col-md-3 col-sm-3">
+            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID" })
+            <fieldset class="form-group  mt-md-2">
                 <label>
-                    <input type="checkbox" name="RadioS" id="radioGeneral" onclick="GetGeneralAccountView()">
+                    @Html.CheckBox("IsChecked", new { @class = "form-control", id = "IsChecked" })
+
+                    Is Active
+                </label>
+            </fieldset>
+        </div>*@
+        <div class="col-md-3 col-sm-3">
+            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID" })
+            <fieldset class="form-group">
+                <label class=" mt-md-2">
+                    <input type="checkbox" id="IsChecked" onchange="isActiveonChange()">
                     Is Active
                 </label>
             </fieldset>
         </div>
 
     </div>
-
-
-
-    @*<div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label class="custom-form-margin">Employee Name</label>
-                    <fieldset>
-                        @Html.TextBoxFor(m => m.getSignatoryColumns2.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
-                    </fieldset>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-5">
-                <div class="form-group">
-                    <label class="custom-form-margin">Position</label>
-                    @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-3">
-                @Html.TextBoxFor(m => m.isHead, new { id = "isHeadID", @class = "hidden" })
-                <div class="form-group">
-                    <label class="custom-form-margin">Dept. Head</label>
-                    <select class="form-control select2nosearch" id="isHeadIDD" onchange="isHeadOnChange()">
-                        <option value=True>Yes</option>
-                        <option value=False>No</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-7 col-sm-7">
-                <div class="form-group">
-                    <label class="custom-form-margin">Department</label>
-                    @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-5">
-                <div id="functionlistID">
-
-                </div>
-            </div>
-        </div>*@
-
-
-
     <div class="row mt-1">
         <div class="col">
             <button type="button" class="btn btn-menuRed btn-min-width pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
@@ -141,13 +105,27 @@
     $(function () {
         LoadGetAddDynamicFunction();
         $("#isHeadIDD").val($("#isHeadID").val());
+        $("#IsChecked").val($("#isActiveID").val());
         LoadICheck();
         select2nosearch();
+        isActiveonChange();
     })
     function isHeadOnChange() {
         $("#isHeadID").val($("#isHeadIDD").val());
     }
     function LoadGetAddDynamicFunction() {
         AngularGlobalFunctions('FMSignatoryController', 'GetAddDynamicFunction', '')
+    }
+    //function isActiveonChange() {
+    //    var isActiveValue = $("#isActiveID").val();
+
+    //    if (isActiveValue == "True") {
+    //        $("#IsChecked").attr("checked", true);
+    //    } else {
+    //        $("#IsChecked").attr("checked", false);
+    //    }
+    //}
+    function isActiveonChange() {
+        $('#isActiveID').val($('#IsChecked').is(':checked'));
     }
 </script>

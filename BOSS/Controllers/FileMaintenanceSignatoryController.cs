@@ -51,8 +51,7 @@ namespace BOSS.Controllers
                             isHead = GlobalFunction.ReturnEmptyInt(dr[7]),
                             FunctionID = GlobalFunction.ReturnEmptyInt(dr[6]),
                             Division = GlobalFunction.ReturnEmptyString(dr[3]),
-                            isActive = GlobalFunction.ReturnEmptyInt(dr[8]),
-
+                            isActive = GlobalFunction.ReturnEmptyInt(dr[8])
                         });
                     }
                 }
@@ -79,9 +78,12 @@ namespace BOSS.Controllers
             Tbl_FMSignatory signatorytbl = new Tbl_FMSignatory();
 
             signatorytbl.SignatoryName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.SignatoryName);
+            signatorytbl.PreferredName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.PreferredName);
+            signatorytbl.isHead = model.isHead;
             signatorytbl.PositionID = GlobalFunction.ReturnEmptyInt(model.PositionID);
             signatorytbl.FunctionID = GlobalFunction.ReturnEmptyInt(model.FunctionID);
-            signatorytbl.isHead = model.isHead;
+            signatorytbl.Division = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.Division);
+            signatorytbl.isActive = model.isActive;
             BOSSDB.Tbl_FMSignatory.Add(signatorytbl);
 
             BOSSDB.SaveChanges();
@@ -100,10 +102,13 @@ namespace BOSS.Controllers
             Tbl_FMSignatory signatoryTable = (from e in BOSSDB.Tbl_FMSignatory where e.SignatoryID == SignatoryID select e).FirstOrDefault();
 
             model.getSignatoryColumns2.SignatoryName = signatoryTable.SignatoryName;
-            model.PositionID = Convert.ToInt32(signatoryTable.PositionID);
+            model.getSignatoryColumns2.PreferredName = signatoryTable.PreferredName;
             model.isHead = Convert.ToBoolean(signatoryTable.isHead);
+            model.PositionID = Convert.ToInt32(signatoryTable.PositionID);
             model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
+            model.getSignatoryColumns2.Division = signatoryTable.Division;
             model.funcTempID = Convert.ToInt32(signatoryTable.FunctionID);
+            model.isActive = Convert.ToBoolean(signatoryTable.isActive);
             return PartialView("_UpdateSignatory", model);
         }
         public ActionResult UpdateSignatory(SignatoryModel model)
@@ -113,8 +118,10 @@ namespace BOSS.Controllers
             signatorytbl.SignatoryName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.SignatoryName);
             signatorytbl.PositionID = GlobalFunction.ReturnEmptyInt(model.PositionID);
             signatorytbl.isHead = model.isHead;
+            signatorytbl.PreferredName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.PreferredName);
             signatorytbl.FunctionID = GlobalFunction.ReturnEmptyInt(model.FunctionID);
-
+            signatorytbl.Division = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.Division);
+            signatorytbl.isActive = model.isActive;
             BOSSDB.Entry(signatorytbl);
             BOSSDB.SaveChanges();
 

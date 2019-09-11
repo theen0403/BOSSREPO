@@ -29,21 +29,6 @@
                             <div class="mt-2" id="FMPositionSPID">
 
                             </div>
-                            @*<div class="content-body rounded mt-1 box-shadow-3">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card box-shadow-2">
-                                            <div class="card-content collapse show px-1">
-                                                <div class="card-body pb-0">
-                                                    <div class="row" id="FMPositionSPID">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -74,28 +59,6 @@
             }
         })
     }
-    //function GetAddDynamicClassification() {
-    //    var PSID = $("#PSID").val();
-    //    $.ajax({
-    //        url: '/FileMaintenancePosition/GetAddDynamicClassification',
-    //        data: { PSID: PSID },
-    //        success: function (result) {
-    //            $("#PositionClassificationID").html(result);
-    //        }
-    //    })
-    //}
-    //function GetUpdateDynamicClassification() {
-    //    var PSID = $("#PSID").val();
-    //    var PCID = $("#PCIDTempID").val();
-       
-    //    $.ajax({
-    //        url: '/FileMaintenancePosition/GetUpdateDynamicClassification',
-    //        data: { PSID: PSID, PCID: PCID },
-    //        success: function (result) {
-    //            $("#PositionClassificationID").html(result);
-    //        }
-    //    })
-    //}
     function Get_UpdatePosition(PositionID) {
         $.ajax({
             url: '/FileMaintenancePosition/Get_UpdatePosition',
@@ -114,11 +77,7 @@
             }
         })
     }
-
-
-
-
-
+    
     //app.controller('FMPositionSPController', function ($scope, $http, $sce) {
     //    var F = $scope, P = $http, D = $sce.trustAsHtml;
     //    Calling all Init Function

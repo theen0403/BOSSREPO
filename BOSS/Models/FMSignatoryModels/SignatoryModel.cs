@@ -29,7 +29,7 @@ namespace BOSS.Models.FMSignatoryModels
         public int funcTempID { get; set; }
         public string PreferredName { get; set; }
         public string Division { get; set; }
-        public int isActive { get; set; }
+        public bool isActive { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> PositionList
         {
             get

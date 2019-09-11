@@ -214,9 +214,12 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SignatoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SignatoryName" Type="varchar" MaxLength="50" />
+          <Property Name="PreferredName" Type="varchar" MaxLength="50" />
           <Property Name="PositionID" Type="int" />
           <Property Name="FunctionID" Type="int" />
+          <Property Name="Division" Type="varchar" MaxLength="50" />
           <Property Name="isHead" Type="bit" />
+          <Property Name="isActive" Type="bit" />
         </EntityType>
         <EntityType Name="Tbl_FMSubAccount">
           <Key>
@@ -955,9 +958,12 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SignatoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SignatoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PreferredName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PositionID" Type="Int32" />
           <Property Name="FunctionID" Type="Int32" />
+          <Property Name="Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isHead" Type="Boolean" />
+          <Property Name="isActive" Type="Boolean" />
           <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMFunction" />
           <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMPosition" />
         </EntityType>
@@ -1449,9 +1455,12 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySetMapping Name="Tbl_FMSignatory">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSignatory">
               <MappingFragment StoreEntitySet="Tbl_FMSignatory">
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="isHead" ColumnName="isHead" />
+                <ScalarProperty Name="Division" ColumnName="Division" />
                 <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
+                <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
                 <ScalarProperty Name="SignatoryName" ColumnName="SignatoryName" />
                 <ScalarProperty Name="SignatoryID" ColumnName="SignatoryID" />
               </MappingFragment>
@@ -1487,7 +1496,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

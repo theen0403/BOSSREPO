@@ -1,8 +1,10 @@
 ﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
 @{
-    /**/
+                /**/
 
-    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+                /**/
+
+                BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
@@ -11,54 +13,47 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    @*<div class="card-header bg-active">
-        <h4 class="card-title black">Add Appropriation Source</h4>
-    </div>*@
-    <div class="card-body card-body rounded box-shadow-4">
-        <div class="card-body py-0" action="index.html" novalidate>
-            <div class="row">
-                <div class="col-xl-2 col-lg-1 col-md-1">
+    <div class="row">
+        <div class="col-xl-2 col-lg-1 col-md-1">
 
-                </div>
-                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
-                    <div class="form-group">
-                        <label class="custom-form-margin ">Appropriation Source Type</label>
-                        @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropriationSourceTypeID", onchange = "LoadGetDynamicFund()" })
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin ">Appropriation Source Type</label>
+                @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropriationSourceTypeID", onchange = "LoadGetDynamicFund()" })
 
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
-                    <div class="form-group">
-                        <label class="custom-form-margin">Description</label>
-                        @Html.TextBoxFor(m => m.getAppropriationSourceColumns.Description, new { @class = "form-control", type = "text", id = "desc" })
-                        @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-xl-2 col-lg-1 col-md-1">
-                </div>
-                    <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0" id="FundSourceID">
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 mx-0">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Budget Year</label>
-                            @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "budgetyrID" })
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col p-0 mb-0 form-group">
-                        <button type="button" class="btn btn-danger btn-min-width mr-1 pull-right" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')">
-                            Cancel
-                        </button>
-                        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
-                            Add
-                        </button>
-                    </div>
-                </div>
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Description</label>
+                @Html.TextBoxFor(m => m.getAppropriationSourceColumns.Description, new { @class = "form-control", type = "text", id = "desc" })
+                @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.Description, "", new { @class = "text-danger" })
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2 col-lg-1 col-md-1">
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0" id="FundSourceID">
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Budget Year</label>
+                @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "budgetyrID" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col p-0 mb-0 form-group">
+            <button type="button" class="btn btn-danger btn-min-width mr-1 pull-right" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                Add
+            </button>
+        </div>
     </div>
 }
 

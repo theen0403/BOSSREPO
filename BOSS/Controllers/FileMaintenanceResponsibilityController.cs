@@ -255,6 +255,32 @@ namespace BOSS.Controllers
             model.SubSectorTitle = subsect;
             return PartialView("FunctionTab/_SectorSubsectorFields", model);
         }
+        //Viewing of Department for Update function
+        public ActionResult GetDepartmentforUpdate(int DeptID2)
+        {
+            FunctionModel model = new FunctionModel();
+            var departmentTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID2 select e).FirstOrDefault();
+            model.DeptTitle = departmentTable.DeptTitle;
+            
+            return PartialView("FunctionTab/_DepartmentforUpdate", model);
+        }
+        //Viewing of Sector and Subsector fields for Update function
+        public ActionResult GetSectorSubsectorforUpdate(int DeptID2)
+        {
+            FunctionModel model = new FunctionModel();
+            var departmentTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID2 select e).FirstOrDefault();
+            model.SectorTitle = departmentTable.Sector.SectorTitle;
+
+            var departmentSubsector = (from e in BOSSDB.SubSectors where e.SubSectorID == departmentTable.SubSectorID select e).FirstOrDefault();
+
+            var subsect = "N/A";
+            if (departmentSubsector != null)
+            {
+                subsect = departmentSubsector.SubSectorTitle;
+            }
+            model.SubSectorTitle = subsect;
+            return PartialView("FunctionTab/_SectorSubsectorFields", model);
+        }
         //Add Function
         public ActionResult AddNewFunction(FunctionModel model)
         {
@@ -294,7 +320,7 @@ namespace BOSS.Controllers
             functionTBL.FunctionAbbrv = GlobalFunction.ReturnEmptyString(model.getFunctionColumns2.FunctionAbbrv);
             functionTBL.FunctionCode = GlobalFunction.ReturnEmptyString(model.getFunctionColumns2.FunctionCode);
             functionTBL.FundID = GlobalFunction.ReturnEmptyInt(model.FundID);
-            functionTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID2);
+            //functionTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID2);
 
             BOSSDB.Entry(functionTBL);
             BOSSDB.SaveChanges();
@@ -302,10 +328,10 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetPartialIndexFunction2(int deptID)
+        public ActionResult GetPartialIndexFunction2(int DeptID2)
         {
             FunctionModel model = new FunctionModel();
-            model.DeptID2 = deptID;
+            model.DeptID2 = DeptID2;
             return PartialView("FunctionTab/_PartialIndexFunction", model);
         }
         //Delete Function

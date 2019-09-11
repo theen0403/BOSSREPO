@@ -7,7 +7,6 @@
 @using (Ajax.BeginForm("UpdatePosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetPositionSPDTable','Successfully Updated!')", OnFailure = "", }))
 {
     @Html.HiddenFor(m => m.PositionID, new { })
-    @*@Html.HiddenFor(m => m.PCIDTemp, new { id = "PCIDTempID" })*@
 
     <div class="row">
         <div class="col-md-2"></div>
@@ -27,17 +26,6 @@
                 </fieldset>
             </div>
         </div>
-        @*<div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label class="custom-form-margin">Permanent/Non-Permanent</label>
-                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2nosearch", id = "PSID", onchange = "GetUpdateDynamicClassification()" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div id="PositionClassificationID">
-
-                </div>
-            </div>*@
     </div>
     <div class="row">
         <div class="col-1"></div>
@@ -58,8 +46,4 @@
     $(function () {
         select2nosearch();
     })
-    //$(function () {
-    //    GetUpdateDynamicClassification()
-    //})
-
 </script>

@@ -8,13 +8,13 @@
     <div class="col-md-5 col-sm-4 mt-0">
         <div class="form-group ">
             <label class="custom-form-margin">Sector</label>
-            @Html.TextBoxFor(m => m.SectorTitle, new { @class = "form-control", id = "SecTitleID", @readonly = "readonly" })
+            @Html.TextAreaFor(m => m.SectorTitle, new { @class = "form-control", id = "SecTitleID", @rows = "1", @readonly = "readonly" })
         </div>
     </div>
     <div class="col-md-7 col-sm-4 mt-0">
         <div class="form-group ">
             <label class="custom-form-margin">SubSector</label>
-            @Html.TextBoxFor(m => m.SubSectorTitle, new { @class = "form-control", id = "SubSectorTitleID", @readonly = "readonly" })
+            @Html.TextAreaFor(m => m.SubSectorTitle, new { @class = "form-control", id = "SubSectorTitleID", @rows="1", @readonly = "readonly" })
         </div>
     </div>
 </div>

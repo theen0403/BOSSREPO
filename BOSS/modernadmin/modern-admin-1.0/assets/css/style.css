@@ -21,15 +21,17 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     width: 50px !important;
 }
 
+.main-menu.menu-dark .navigation li a span {
+    display: inline !important;
+}
+
 .bg-info {
 
     background-color: #1883AE !important;
 }
 
 /*Start Edited*/
-/*.form-control:disabled, .form-control[readonly] {
-    background-color: #FFFFFF !important;
-}*/
+
 .bg-backcolorheadertitle { 
     background-color: #6DAD4B !important;
 }

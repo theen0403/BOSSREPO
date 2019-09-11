@@ -23,18 +23,7 @@
                 </fieldset>
             </div>
         </div>
-        @*<div class="col-md-4 col-sm-4">
-                <div class="form-group">
-                    <label class="custom-form-margin">Permanent/Non-Permanent</label>
-                    @Html.DropDownListFor(m => m.PSID, Model.PositionStatusList, new { @class = "form-control select2nosearch", id = "PSID", onchange = "LoadGetAddDynamicClassification()" })
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-4">
-                <div id="PositionClassificationID">
-
-                </div>
-            </div>*@
-    </div>
+       </div>
     <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
@@ -51,13 +40,6 @@
 }
 
 <script>
-    //$(function () {
-    //    LoadGetAddDynamicClassification();
-    //})
-    //function LoadGetAddDynamicClassification() {
-    //    GetAddDynamicClassification();
-    //}
-
     $(function () {
         select2nosearch();
     })

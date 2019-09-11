@@ -28,6 +28,7 @@ namespace BOSS.Models.FMResponsibilityModels
 
         public string SubSectorTitle { get; set; }
         public string SectorTitle { get; set; }
+        public string DeptTitle { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FundTypeList
         {
             get
@@ -58,6 +59,7 @@ namespace BOSS.Models.FMResponsibilityModels
         public string FundTitle { get; set; }
         public int DeptID { get; set; }
         public string SectorTitle { get; set; }
+        public string DeptTitle { get; set; }
         public string SubSectorTitle { get; set; }
         public int SubSectorID { get; set; }
     }

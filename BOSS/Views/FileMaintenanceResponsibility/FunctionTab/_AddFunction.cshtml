@@ -7,31 +7,18 @@
 @using BOSS.Models;
 
 
-@using (Ajax.BeginForm("AddNewFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetFunctionDT','Successfully Added!')", OnFailure = "", }))
-{
+@*@using (Ajax.BeginForm("AddNewFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetFunctionDT','Successfully Added!')", OnFailure = "", }))
+{*@
     @Html.HiddenFor(m => m.DeptID2, new { })
+   
     <div class="row">
-        <div class="col-md-6 col-sm-4">
-            <div class="form-group">
-                <label class="custom-form-margin">Function</label>
-                @Html.TextAreaFor(m => m.getFunctionColumns.FunctionTitle, new { @class = "form-control", @rows = 1, id = "FunctionTitle" })
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-4">
-            <div class="form-group">
-                <label class="custom-form-margin">Function Abbreviation</label>
-                @Html.TextBoxFor(m => m.getFunctionColumns.FunctionAbbrv, new { @class = "form-control", type = "text", id = "FunctionAbbrv" })
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-4">
+        <div class="col-md-2 col-sm-4">
             <div class="form-group">
                 <label class="custom-form-margin">Function Code</label>
                 @Html.TextBoxFor(m => m.getFunctionColumns.FunctionCode, new { @class = "form-control", type = "text", id = "FunctionCode" })
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-9" id="sectorSubsectorID">
+        <div class="col-md-7" id="sectorSubsectorID">
 
         </div>
         <div class="col-md-3 col-sm-4 mt-0">
@@ -54,11 +41,11 @@
             </div>
         </div>
     </div>
-}
+    @*}*@
 
-<script>
-    $(function () {
-        LoadICheck();
-        select2nosearch();
-    })
-</script>
+    <script>
+        $(function () {
+            LoadICheck();
+            select2nosearch();
+        })
+    </script>

@@ -55,7 +55,7 @@ namespace BOSS.Controllers
         public ActionResult COATab()
         {
             GeneralAccountsModel model = new GeneralAccountsModel();
-            return PartialView("ChartOfAccounts/IndexCOA", model);
+            return PartialView("GeneralAccount/IndexGeneralAccount", model);
         }
 
         //public ActionResult PINTab()

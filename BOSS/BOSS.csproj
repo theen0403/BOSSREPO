@@ -192,8 +192,10 @@
     <Compile Include="Controllers\ExecutionReportSummaryofOBRController.cs" />
     <Compile Include="Controllers\FileMaintenanceAccountsController.cs" />
     <Compile Include="Controllers\FileMaintenanceAppropriationController.cs" />
+    <Compile Include="Controllers\FileMaintenanceFundController.cs" />
     <Compile Include="Controllers\FileMaintenancePositionController.cs" />
     <Compile Include="Controllers\FileMaintenanceResponsibilityController.cs" />
+    <Compile Include="Controllers\FileMaintenanceSectorController.cs" />
     <Compile Include="Controllers\FileMaintenanceSignatoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -9119,6 +9121,15 @@
     <Content Include="Views\FileMaintenanceAccounts\AccountGroup\IndexAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\IndexMajorAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\IndexSubMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\FileFund.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\FundTab\IndexFundTab.cshtml" />
+    <Content Include="Views\FileMaintenanceFund\SubFundTab\IndexSubFundTab.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\FileSector.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SectorTab\IndexSectorTab.cshtml" />
+    <Content Include="Views\FileMaintenanceSector\SubSectorTab\IndexSubSectorTab.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\IndexGeneralAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DepartmentforUpdate.cshtml" />
+    <Content Include="Views\FileMaintenanceModals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

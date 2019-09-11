@@ -1,0 +1,10 @@
+﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group ">
+    <label class="custom-form-margin">Department</label>
+    @Html.TextAreaFor(m => m.DeptTitle, new { @class = "form-control", id = "DeptTitleID", @rows = "1", @readonly = "readonly" })
+</div>

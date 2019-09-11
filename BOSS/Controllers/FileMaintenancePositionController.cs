@@ -59,22 +59,6 @@ namespace BOSS.Controllers
             PositionforSPModel model = new PositionforSPModel();
             return PartialView("_AddPosition", model);
         }
-        //public ActionResult GetAddDynamicClassification(int PSID)
-        //{
-        //    PositionforSPModel model = new PositionforSPModel();
-
-        //    model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
-
-        //    return PartialView("_AddDynamicClassification", model);
-        //}
-        //public ActionResult GetUpdateDynamicClassification(int PSID,int PCID)
-        //{
-        //    PositionforSPModel model = new PositionforSPModel();
-
-        //    model.PositionClassList = new SelectList((from s in BOSSDB.PositionClassifications.Where(a => a.PSID == PSID).ToList() select new { PCID = s.PCID, PCTitle = s.PCTitle }), "PCID", "PCTitle");
-        //    model.PCID = PCID;
-        //    return PartialView("_UpdateDynamicClassification", model);
-        //}
         public JsonResult AddNewPosition(PositionforSPModel model)
         {
             Tbl_FMPosition PositionTBL = new Tbl_FMPosition();
@@ -82,7 +66,6 @@ namespace BOSS.Controllers
             PositionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionTitle);
             PositionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionCode);
             BOSSDB.Tbl_FMPosition.Add(PositionTBL);
-            //PositionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
 
 
             BOSSDB.SaveChanges();
@@ -94,9 +77,6 @@ namespace BOSS.Controllers
 
             model.getPositionColumns2.PositionTitle = tblposition.PositionTitle;
             model.getPositionColumns2.PositionCode = tblposition.PositionCode;
-
-            //model.PSID = Convert.ToInt32(tblposition.PositionClassification.PSID);
-            //model.PCIDTemp = Convert.ToInt32(tblposition.PCID);
             model.PositionID = PositionID;
             return PartialView("_UpdatePosition", model);
         }
@@ -106,9 +86,6 @@ namespace BOSS.Controllers
 
             positionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionTitle);
             positionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionCode);
-
-            //positionTBL.PCID = GlobalFunction.ReturnEmptyInt(model.PCID);
-
             BOSSDB.Entry(positionTBL);
             BOSSDB.SaveChanges();
 

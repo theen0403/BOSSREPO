@@ -1,0 +1,173 @@
+﻿<div class="row">
+    <div class="col-md-5 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Department</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Dept Abbreviation</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Dept/Office Code</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-sm-4">
+        <div class="form-group ">
+            <label class="custom-form-margin">Sector</label>
+                <select class="form-control">
+                    <option>Economic Services</option>
+                    <option>General Public Services</option>
+                    <option>Other Services</option>
+                    <option>Social Services</option>
+                </select>
+        </div>
+    </div>
+    <div class="col-md-5 col-sm-4">
+        <div class="form-group ">
+            <label class="custom-form-margin">Sub Sector</label>
+            <select class="form-control">
+                <option>Economic Services</option>
+                <option>General Public Services</option>
+                <option>Other Services</option>
+                <option>Social Services</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4">
+        <div class="form-group ">
+            <label class="custom-form-margin">Fund</label>
+                <select class="form-control">
+                    <option>General Fund</option>
+                    <option>Calamity Fund</option>
+                    <option>Development Fund</option>
+                    <option>Special Education Fund</option>
+                    <option>Trust Fund</option>
+                </select>
+        </div>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col">
+        <div class="form-group">
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th width="20%">Department</th>
+            <th width="5%">Department Abbreviation</th>
+            <th width="5%">Office Code</th>
+            <th width="20%">Sector</th>
+            <th width="20%">Sub Sector</th>
+            <th width="15%">Fund</th>
+            <th width="5%">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+            var successUpdate = "Successfully Updated!";
+
+            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+            var ActionAS = Update + Remove;
+            <tr>
+                <td>HOSPITAL</td>
+                <td>HOSP</td>
+                <td>4421-3</td>
+                <td>General Public Services</td>
+                <td>N/A</td>
+                <td>20% Development Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>OFFICE of the LOCAL ACCOUNTANT</td>
+                <td>ACCTG</td>
+                <td>1081</td>
+                <td>General Public Services</td>
+                <td>N/A</td>
+                <td>General Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>OFFICE of the LOCAL ADJUDICATOR</td>
+                <td>PARAD</td>
+                <td>1154</td>
+                <td>General Public Services</td>
+                <td>N/A</td>
+                <td>General Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>OFFICE of the LOCAL ADMINISTRATOR</td>
+                <td>ADMIN</td>
+                <td>1031</td>
+                <td>General Public Services</td>
+                <td>N/A</td>
+                <td>General Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>OFFICE of the LOCAL AGRICULTURIST</td>
+                <td>AGRI</td>
+                <td>8711</td>
+                <td>Economic Services</td>
+                <td>N/A</td>
+                <td>General Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

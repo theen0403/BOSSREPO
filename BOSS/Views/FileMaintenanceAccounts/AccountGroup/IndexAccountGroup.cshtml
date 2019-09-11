@@ -4,23 +4,29 @@
     <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4">
         <div class="form-group">
             <label class="custom-form-margin">Revision Year</label>
-            <select class="form-control">
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-            </select>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddRevYearAllotModal" onclick="GetAddAddRevYearAllot()"><strong>+</strong></button>
+            </span>
         </div>
     </div>
     <div class="col-xl-3 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin">Allotment Class</label>
-            <select class="form-control">
-                <option>Personal Services</option>
-                <option>Capital Outlay</option>
-                <option>Maintenance and Other Operating Expenses</option>
-                <option>Other Operating Expenses</option>
-            </select>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>Personal Services</option>
+                    <option>Capital Outlay</option>
+                    <option>Maintenance and Other Operating Expenses</option>
+                    <option>Other Operating Expenses</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddAllomentModal" onclick="GetAddAddAllomentClassAllot()"><strong>+</strong></button>
+            </span>
         </div>
     </div>
     <div class="col-xl-2 col-lg-3 col-md-3">
@@ -156,9 +162,68 @@
     </div>
 </div>
 
-
+@*Get Revition Year Modal*@
+<div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="form-group">
+        <div class="modal fade text-left" id="ViewAddRevYearAllotModal" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header
+                             bg-active">
+                        <h4 class="modal-title"><strong>Add Revision Year</strong></h4>
+                    </div>
+                    <div class="modal-body skin skin-square">
+                        <div class="card-body p-0">
+                            <div id="ViewAddRevYearAllotID"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Get Alloment Class Modal*@
+<div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="form-group">
+        <div class="modal fade text-left" id="ViewAddAllomentModal" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header
+                             bg-active">
+                        <h4 class="modal-title"><strong>Add Allotment Class</strong></h4>
+                    </div>
+                    <div class="modal-body skin skin-square">
+                        <div class="card-body p-0">
+                            <div id="ViewAddAllomentID"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(function () {
         LoadDataTable();
     })
+    //REVISION YEAR
+    function GetAddAddRevYearAllot() {
+        $.ajax({
+            url: "/FileMaintenanceAccounts/GetAddAddRevYearAllot",
+            success: function (result) {
+                $("#ViewAddRevYearAllotID").html(result);
+                $('#ViewAddRevYearAllotModal').modal('toggle');
+            }
+        });
+    }
+    //Allotment Class
+    function GetAddAddAllomentClassAllot() {
+        $.ajax({
+            url: "/FileMaintenanceAccounts/GetAddAddAllomentClassAllot",
+            success: function (result) {
+                $("#ViewAddAllomentID").html(result);
+                $('#ViewAddAllomentModal').modal('toggle');
+            }
+        });
+    }
 </script>

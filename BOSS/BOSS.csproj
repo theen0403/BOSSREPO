@@ -9129,7 +9129,14 @@
     <Content Include="Views\FileMaintenanceSector\SubSectorTab\IndexSubSectorTab.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\IndexGeneralAccount.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DepartmentforUpdate.cshtml" />
-    <Content Include="Views\FileMaintenanceModals.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddSectorModal.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddSubSectorModal.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddFundModal.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddDepartmentModal.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddFunctionModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddRevisionYearModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddAllotmentClassModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddAccoountGroupModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

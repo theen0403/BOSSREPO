@@ -5,7 +5,10 @@
 @using BOSS.Models;
 <div class="form-group">
     <label class="custom-form-margin">Sub Sector</label>
-    @Html.DropDownListFor(m => m.SubSectorID, Model.SubSectorList, new { @class = "form-control select2", id = "SubSecID" })
+    <span class="input-group-append">
+        @Html.DropDownListFor(m => m.SubSectorID, Model.SubSectorList, new { @class = "form-control select2", id = "SubSecID" })
+        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddSubSectorDeptModal" onclick="GetAddSubSectorModalDept()"><strong>+</strong></button>
+    </span>
 </div>
 
 <script>

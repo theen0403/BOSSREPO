@@ -21,5 +21,9 @@ namespace BOSS.Controllers
         {
             return PartialView("SubSectorTab/IndexSubSectorTab");
         }
+        public ActionResult GetAddSectorModal()
+        {
+            return PartialView("SectorTab/IndexSectorTab");
+        }
     }
 }

@@ -488,6 +488,47 @@ namespace BOSS.Controllers
             return RedirectToAction("FileResponsibility");
         }
 
+
+
+
+
+        //CALLING MODALS ======================================================================
+
+        //SECTOR for Dept TAB
+        public ActionResult GetAddSectorModalDept()
+        {
+            return PartialView("Modals/_AddSectorModal");
+        }
+        //SUB SECTOR for Dept TAB
+        public ActionResult GetAddSubSectorModalDept()
+        {
+            return PartialView("Modals/_AddSubSectorModal");
+        }
+        //FUND for Dept TAB
+        public ActionResult GetAddFundModalDept()
+        {
+            return PartialView("Modals/_AddFundModal");
+        }
+        //FUND for Function TAB
+        public ActionResult GetAddFundModalFunc()
+        {
+            return PartialView("Modals/_AddFundModal");
+        }
+        //Department for Function Tab
+        public ActionResult GetAddDeptModalFunc()
+        {
+            return PartialView("Modals/_AddDepartmentModal");
+        }
+        //Department for Section Tab
+        public ActionResult GetAddDeptModalSec()
+        {
+            return PartialView("Modals/_AddDepartmentModal");
+        }
+        //Function for Section Tab
+        public ActionResult GetAddFuncModalSec()
+        {
+            return PartialView("Modals/_AddFunctionModal");
+        }
     }
 }
 

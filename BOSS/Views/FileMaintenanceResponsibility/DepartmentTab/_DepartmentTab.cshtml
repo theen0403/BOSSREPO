@@ -27,6 +27,63 @@
         </div>
     </div>*@
 
+@*Add Sector Modal*@
+<div class="form-group">
+    <div class="modal fade text-left" id="ViewAddSectorDeptModal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Sector</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddSectorDeptID"></div>
+                    </div>
+                </div>
+                @*<div class="modal-footer">
+                            <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+@*Add SubSector Modal*@
+<div class="form-group">
+    <div class="modal fade text-left" id="ViewAddSubSectorDeptModal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Sub-Sector</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddSubSectorDeptID"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Fund Modal*@
+<div class="form-group">
+    <div class="modal fade text-left" id="ViewAddFundDeptModal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Fund</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddFundDeptID"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 
@@ -43,7 +100,6 @@
             }
         })
     }
-
     function GetAddDepartment() {
         $.ajax({
             url: '/FileMaintenanceResponsibility/GetAddDepartment',
@@ -52,7 +108,6 @@
             }
         })
     }
-
     function Get_UpdateDepartment(DeptID) {
         $.ajax({
             url: '/FileMaintenanceResponsibility/Get_UpdateDepartment',
@@ -91,5 +146,31 @@
             }
         })
     }
-
+    function GetAddSectorModalDept() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddSectorModalDept",
+            success: function (result) {
+                $("#ViewAddSectorDeptID").html(result);
+                $('#ViewAddSectorDeptModal').modal('toggle');
+            }
+        });
+    }
+    function GetAddSubSectorModalDept() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddSubSectorModalDept",
+            success: function (result) {
+                $("#ViewAddSubSectorDeptID").html(result);
+                $('#ViewAddSubSectorDeptModal').modal('toggle');
+            }
+        });
+    }
+    function GetAddFundModalDept() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddFundModalDept",
+            success: function (result) {
+                $("#ViewAddFundDeptID").html(result);
+                $('#ViewAddFundDeptModal').modal('toggle');
+            }
+        });
+    }
 </script>

@@ -1,0 +1,83 @@
+﻿<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4">
+        <div class="form-group ">
+            <label class="custom-form-margin">Revision Year</label>
+            <input type="text" name="name" value="" class="form-control"/>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-2 col-sm-4">
+        <div class="form-group ">
+            @*@Html.HiddenFor(m => m.isUsed, new { id = "isUsedID" })*@
+            <label class="custom-form-margin">Is Used?</label>
+            <select class="form-control" id="isUsedIDD" onchange="isUsedOnChange()">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-3 col-md-3 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Remarks</label>
+            <input type="text" name="name" value="" class="form-control" />
+        </div>
+    </div>
+</div>
+<div class="row mb-1">
+    <div class="col">
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+            Add
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+            <thead class="text-center">
+                <tr>
+                    <th width="20%">Revision Year</th>
+                    <th width="20%">Is Used</th>
+                    <th>Remarks</th>
+                    <th width="5%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Successfully Deleted";
+                    var successUpdate = "Successfully Updated!";
+
+                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                    var ActionAS = Update + Remove;
+
+                        <tr class="text-center">
+                            <td>2003</td>
+                            <td>No</td>
+                            <td>N/A</td>
+                            <td class="text-center">
+                                <button type="button" onfocusout="PopoveLostFocus()"
+                                        class="btn btn-m btn-btnbackcolor popover-trigger"
+                                        data-toggle="popover" data-content="@ActionAS">
+                                    <i class="la la-bars"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>2005</td>
+                            <td>No</td>
+                            <td>N/A</td>
+                            <td class="text-center">
+                                <button type="button" onfocusout="PopoveLostFocus()"
+                                        class="btn btn-m btn-btnbackcolor popover-trigger"
+                                        data-toggle="popover" data-content="@ActionAS">
+                                    <i class="la la-bars"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

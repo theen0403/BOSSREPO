@@ -21,5 +21,10 @@ namespace BOSS.Controllers
         {
             return PartialView("SubFundTab/IndexSubFundTab");
         }
+        //Get Add Fund Modal
+        public ActionResult GetAddFundModal()
+        {
+            return PartialView("FundTab/IndexFundTab");
+        }
     }
 }

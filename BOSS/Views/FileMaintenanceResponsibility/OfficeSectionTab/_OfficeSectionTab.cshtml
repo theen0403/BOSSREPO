@@ -11,21 +11,45 @@
 <div class="mt-2" id="DeptSectionID">
 
 </div>
-@*<div class="content-body rounded mt-1 box-shadow-3">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card box-shadow-2">
-                <div class="card-content collapse show px-1">
-                    <div class="card-body pb-0">
-                        <div class="row mt-1" id="DeptSectionID">
 
-                        </div>
+@*Add Dept Modal*@
+<div class="form-group">
+    <div class="modal fade text-left" id="ViewAddDeptSecModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Department</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddDeptSecID"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>*@
+</div>
+
+@*Add Function Modal*@
+<div class="form-group">
+    <div class="modal fade text-left" id="ViewAddFuncSecModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Function</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddFuncSecID"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(function () {
@@ -79,9 +103,9 @@
             data: { OfficeSecID: OfficeSecID },
             success: function (result) {
                 $('#PartialIndexID').html(result);
-    
-               GetDeptTitleDisplay();
-                
+
+                GetDeptTitleDisplay();
+
             }
         })
     }
@@ -89,7 +113,7 @@
         var DeptID = $("#DeptID").val();
         $.ajax({
             url: '/FileMaintenanceResponsibility/GetPartialIndex2',
-            data: { DeptID: DeptID},
+            data: { DeptID: DeptID },
             success: function (result) {
                 $('#PartialIndexID').html(result);
                 GetAddFunctionList2(DeptID)
@@ -102,7 +126,7 @@
         var FuncID = GlobalFuncID;
         $.ajax({
             url: '/FileMaintenanceResponsibility/GetAddFunctionList2',
-            data: { DeptID: DeptID, FuncID: FuncID},
+            data: { DeptID: DeptID, FuncID: FuncID },
             success: function (result) {
                 $('#FunctionListID').html(result);
             }
@@ -120,7 +144,7 @@
             }
         })
     }
-    
+
     function GetfunctionTitleDisplay() {
         var FuncID = $("#FuncUpdateID").val();
         GlobalFuncID = FuncID;
@@ -141,6 +165,24 @@
             }
         })
     }
-    
-   
+    //Get Add Department Modal
+    function GetAddDeptModalSec() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddDeptModalSec",
+            success: function (result) {
+                $("#ViewAddDeptSecID").html(result);
+                $('#ViewAddDeptSecModal').modal('toggle');
+            }
+        });
+    }
+    //Get Add Function Modal
+    function GetAddFuncModalSec() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddFuncModalSec",
+            success: function (result) {
+                $("#ViewAddFuncSecID").html(result);
+                $('#ViewAddFuncSecModal').modal('toggle');
+            }
+        });
+    }
 </script>

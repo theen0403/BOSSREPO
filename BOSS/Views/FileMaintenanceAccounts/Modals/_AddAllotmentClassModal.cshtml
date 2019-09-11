@@ -1,40 +1,33 @@
 ﻿<div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-2">
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4">
+    <div class="col-xl-4 col-lg-3 col-md-3 col-sm-4">
         <div class="form-group">
             <label class="custom-form-margin">Revision Year</label>
-            <span class="input-group-append">
                 <select class="form-control">
                     <option>2015</option>
                     <option>2016</option>
                     <option>2017</option>
                     <option>2018</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddRevYearModal" onclick="GetAddAddRevYear()"><strong>+</strong></button>
-            </span>
         </div>
     </div>
-    <div class="col-lg-5 col-md-5">
+    <div class="col-lg-8 col-md-5">
         <div class="form-group">
             <label class="custom-form-margin">Allotment Class</label>
-                <input type="text" class="form-control" />
+            <input type="text" class="form-control" />
+
         </div>
     </div>
 </div>
 
 <div class="row mb-2">
-    <div class="offset-md-1 col-md-10">
-        <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right" onclick="GetRevisionCOADT()">
-            Cancel
-        </button>
-        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+    <div class="col">
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
             Add
         </button>
     </div>
 </div>
 <div class="row">
-    <div class="offset-md-1 col-md-10">
+    <div class="col">
         <table id="myTable" class="table table-bordered zero-configuration w-100">
             <thead class="text-center">
                 <tr>
@@ -116,45 +109,9 @@
     </div>
 </div>
 
-
-@*Get Revition Year Modal*@
-<div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="form-group">
-        <div class="modal fade text-left" id="ViewAddRevYearModal" role="dialog">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header
-                             bg-active">
-                        <h4 class="modal-title"><strong>Add Revision Year</strong></h4>
-                    </div>
-                    <div class="modal-body skin skin-square">
-                        <div class="card-body p-0">
-                            <div id="ViewAddRevYearID"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
 <script>
     $(function () {
         LoadDataTable();
     })
-
-    //REVISION YEAR
-    function GetAddAddRevYear() {
-        $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAddRevYear",
-            success: function (result) {
-                $("#ViewAddRevYearID").html(result);
-                $('#ViewAddRevYearModal').modal('toggle');
-            }
-        });
-    }
-   
-
+    
 </script>

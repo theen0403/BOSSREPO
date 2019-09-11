@@ -24,7 +24,10 @@
         <div class="col-md-3 col-sm-4 mt-0">
             <div class="form-group ">
                 <label class="custom-form-margin">Fund</label>
-                @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundFuncModal" onclick="GetAddFundModalFunc()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
     </div>

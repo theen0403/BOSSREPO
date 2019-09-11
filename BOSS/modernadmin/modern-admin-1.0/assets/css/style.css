@@ -539,3 +539,7 @@ form .form-control {
     background-color: #FFFFFF !important;
     border-color: #FFFFFF !important;
 }
+
+.m-left {
+    margin-left: 3px;
+}

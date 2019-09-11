@@ -6,7 +6,10 @@
 
 <div class="form-group ">
     <label class="custom-form-margin">Function</label>
-    @Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID", onchange = "GetOfficeSecDT()" })
+    <span class="input-group-append">
+        @Html.DropDownListFor(m => m.FuncID, Model.FunctionList, new { @class = "form-control select2", id = "FuncID", onchange = "GetOfficeSecDT()" })
+        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFuncSecModal" onclick="GetAddFuncModalSec()"><strong>+</strong></button>
+    </span>
 </div>
 <script>
     $(function () {

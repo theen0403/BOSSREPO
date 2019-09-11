@@ -6,12 +6,14 @@
 
 @using (Ajax.BeginForm("AddNewFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetFunctionDT','Successfully Added!')", OnFailure = "", }))
 {
-
     <div class="row">
         <div class="col-md-5">
             <div class="form-group">
                 <label class="custom-form-margin">Department</label>
-                @Html.DropDownListFor(m => m.DeptID2, Model.DeptSelectionList, new{@class = "form-control select2",id = "deptID",onchange = "GetFunctionDT()"})
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.DeptID2, Model.DeptSelectionList, new { @class = "form-control select2", id = "deptID", onchange = "GetFunctionDT()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddDeptFuncModal" onclick="GetAddDeptModalFunc()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
         <div class="col-md-4 col-sm-4">

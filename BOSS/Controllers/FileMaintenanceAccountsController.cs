@@ -425,6 +425,24 @@ namespace BOSS.Controllers
         }
 
 
-
+        //========================
+        //Revision Year
+        public ActionResult GetAddAddRevYear()
+        {
+            return PartialView("Modals/_AddRevisionYearModal");
+        }
+        //RevisionYEar For Allotment tab
+        public ActionResult GetAddAddRevYearAllot()
+        {
+            return PartialView("Modals/_AddRevisionYearModal");
+        }
+        public ActionResult GetAddAddAllomentClassAllot()
+        {
+            return PartialView("Modals/_AddAllotmentClassModal");
+        }
+        public ActionResult GetAddAddAccntClass()
+        {
+            return PartialView("Modals/_AddAccoountGroupModal");
+        }
     }
 }

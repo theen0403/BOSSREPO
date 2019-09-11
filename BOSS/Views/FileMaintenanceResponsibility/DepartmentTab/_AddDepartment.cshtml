@@ -33,7 +33,10 @@
         <div class="col-md-4 col-sm-4">
             <div class="form-group ">
                 <label class="custom-form-margin">Sector</label>
-                @Html.DropDownListFor(m => m.SectorID, Model.SectorList, new { @class = "form-control select2", id = "SecID", onchange = "LoadGetDynamicSubSector()" })
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.SectorID, Model.SectorList, new { @class = "form-control select2", id = "SecID", onchange = "LoadGetDynamicSubSector()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddSectorDeptModal" onclick="GetAddSectorModalDept()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
         <div class="col-md-5 col-sm-4" id="SubSectorID">
@@ -42,7 +45,10 @@
         <div class="col-md-3 col-sm-4">
             <div class="form-group ">
                 <label class="custom-form-margin">Fund</label>
-                @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundDeptModal" onclick="GetAddFundModalDept()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
     </div>

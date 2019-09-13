@@ -4,7 +4,7 @@
 }
 @using BOSS.Models;
 
-@using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('ApproSourceController', 'GetAppropriationSourceDT','Appropriation Updated!')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetAppropriationSourceDT','Appropriation Successfully Updated!')", OnFailure = "OnFailure()", }))
 {
 
 @*<div class="card-header bg-active">

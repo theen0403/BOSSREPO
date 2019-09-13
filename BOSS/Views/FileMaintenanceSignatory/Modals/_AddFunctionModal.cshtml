@@ -1,0 +1,116 @@
+﻿<div class="row">
+    <div class="col-md-5 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Department</label>
+            <select class="form-control">
+                <option>HOSPITAL</option>
+                <option>OFFICE of the LOCAL ACCOUNTANT</option>
+                <option>OFFICE of the LOCAL ADJUDICATOR</option>
+                <option>OFFICE of the LOCAL ADMINISTRATOR</option>
+                <option>OFFICE of the LOCAL AGRICULTURIST</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Function</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Function Abbreviation</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Function Code</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Sector</label>
+            <input type="text" value="General Public Services" class="form-control" disabled />
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Sub Sector</label>
+            <input type="text" value="N/A" class="form-control" disabled />
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Fund</label>
+            <select class="form-control">
+                <option>Calamity Fund</option>
+                <option>Development Fund</option>
+                <option>General Fund</option>
+                <option>Special Education Fund</option>
+                <option>Trust Fund</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col">
+        <div class="form-group">
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th>Function</th>
+            <th>Function Abbreviation</th>
+            <th>Function Code</th>
+            <th>Sector</th>
+            <th>Sub Sector</th>
+            <th>Fund</th>
+            <th width="5%">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+            var DeleteSuccesMess = "Successfully Deleted";
+            var successUpdate = "Successfully Updated!";
+
+            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+            var ActionAS = Update + Remove;
+            <tr>
+                <td>General Administration</td>
+                <td>AdminStaff</td>
+                <td>4421-3</td>
+                <td>General Public Services</td>
+                <td>N/A</td>
+                <td>General Fund</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@ActionAS"
+                            data-original-title="" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>
+

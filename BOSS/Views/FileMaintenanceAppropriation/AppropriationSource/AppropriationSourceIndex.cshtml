@@ -1,0 +1,91 @@
+﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<div id="AppropSoureIDTemp">
+
+</div>
+<div id="ApproSourceID">
+
+</div>
+<script>
+    $(function () {
+        GetAppropriationSourceDT();
+    })
+    function GetAppropriationSourceDT() {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
+            success: function (result) {
+                $("#ApproSourceID").html(result);
+                GetAddAppropSource();
+            }
+        })
+    }
+    function GetAddAppropSource() {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+            success: function (result) {
+                $("#AppropSoureIDTemp").html(result);
+            }
+        })
+    }
+     //Get GetAppropriation Source Add Partial View
+    function GetAddAppropSource() {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+            success: function (result) {
+                $("#AppropSoureIDTemp").html(result);
+            }
+        })
+    }
+     ////Get GetAppropriation Source Update Partial View
+    function Get_UpdateAppropSource(AppropriationID) {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
+            data: { AppropriationID: AppropriationID },
+            success: function (result) {
+                $("#AppropSoureIDTemp").html(result);
+            }
+        })
+    }
+       //Delete AppropriationSource
+    function _DeleteAppropriationSource() {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/_DeleteAppropriationSource',
+            success: function (result) {
+                GetAppropriationSourceDT();
+            }
+        })
+    }
+    function GetDynamicFund() {
+        var AppropriationSourceID = $("#AppropriationSourceTypeID").val();
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetDynamicFund',
+            data: { AppropriationSourceID: AppropriationSourceID },
+            success: function (result) {
+                $("#FundSourceID").html(result);
+            }
+        })
+    }
+     //Calling Dynamic Fund Source Partial View
+    function GetDynamicFund2(FundSourceIDHidden, ApproIDHidden) {
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetDynamicFund2',
+            data: { FundSourceIDHidden: FundSourceIDHidden, ApproIDHidden: ApproIDHidden },
+            success: function (result) {
+                $("#FundSourceID2").html(result);
+            }
+        })
+    }  
+    function GetDynamicFund3() {
+        var AppropriationSourceID = $("#AppropriationSourceTypeID2").val();
+        $.ajax({
+            url: '/FileMaintenanceAppropriation/GetDynamicFund',
+            data: { AppropriationSourceID: AppropriationSourceID },
+            success: function (result) {
+                $("#FundSourceID2").html(result);
+            }
+        })
+    }     
+</script>

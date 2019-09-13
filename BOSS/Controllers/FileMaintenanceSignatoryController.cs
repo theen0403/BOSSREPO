@@ -135,5 +135,24 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return RedirectToAction("FileSignatory");
         }
+
+
+
+        //======================================
+        //Department
+        public ActionResult GetAddDeptModal()
+        {
+            return PartialView("Modals/_AddDepartmentModal");
+        }
+        //Department
+        public ActionResult GetAddFuncModal()
+        {
+            return PartialView("Modals/_AddFunctionModal");
+        }
+        //Position
+        public ActionResult GetAddPositionModal()
+        {
+            return PartialView("Modals/_AddPositionModal");
+        }
     }
 }

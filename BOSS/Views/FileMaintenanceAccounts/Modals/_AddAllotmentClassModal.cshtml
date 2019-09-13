@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<div class="row mb-2">
+<div class="row mb-1">
     <div class="col">
         <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
             Add
@@ -28,7 +28,7 @@
 </div>
 <div class="row">
     <div class="col">
-        <table id="myTable" class="table table-bordered zero-configuration w-100">
+        <table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
             <thead class="text-center">
                 <tr>
                     <th width="20%">Revision Year</th>
@@ -67,12 +67,12 @@
                     <td>Maintenance and Other Operating Expenses</td>
                     <td class="text-center">
                         @{
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                data-toggle="popover" data-content="@ActionAS"
+                                data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
                         }
                     </td>
                 </tr>
@@ -98,7 +98,7 @@
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
                                     data-toggle="popover" data-content="@ActionAS"
-                                    data-html="true" data-placement="left">
+                                    data-html="true">
                                 <i class="la la-bars"></i>
                             </button>
                         }
@@ -113,5 +113,4 @@
     $(function () {
         LoadDataTable();
     })
-    
 </script>

@@ -2,7 +2,7 @@
     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4">
         <div class="form-group ">
             <label class="custom-form-margin">Revision Year</label>
-            <input type="text" name="name" value="" class="form-control"/>
+            <input type="text" name="name" value="" class="form-control" />
         </div>
     </div>
     <div class="col-lg-3 col-md-2 col-sm-4">
@@ -52,32 +52,37 @@
 
                     var ActionAS = Update + Remove;
 
-                        <tr class="text-center">
-                            <td>2003</td>
-                            <td>No</td>
-                            <td>N/A</td>
-                            <td class="text-center">
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger"
-                                        data-toggle="popover" data-content="@ActionAS">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr class="text-center">
-                            <td>2005</td>
-                            <td>No</td>
-                            <td>N/A</td>
-                            <td class="text-center">
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger"
-                                        data-toggle="popover" data-content="@ActionAS">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            </td>
-                        </tr>
+                    <tr class="text-center">
+                        <td>2003</td>
+                        <td>No</td>
+                        <td>N/A</td>
+                        <td class="text-center">
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger"
+                                    data-toggle="popover" data-content="@ActionAS">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>2005</td>
+                        <td>No</td>
+                        <td>N/A</td>
+                        <td class="text-center">
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger"
+                                    data-toggle="popover" data-content="@ActionAS">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

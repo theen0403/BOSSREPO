@@ -6,7 +6,10 @@
 
 <div class="form-group">
     <label style="margin-bottom:2px;">Fund Source</label>
-  @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2", id="FundID" })
+    <span class="input-group-append">
+        @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2", id = "FundID" })
+        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick=""><strong>+</strong></button>
+    </span>
 </div>
 
 <script>

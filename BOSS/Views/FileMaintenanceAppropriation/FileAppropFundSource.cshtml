@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "FileAppropriation";
+}
+
+<script>
+    $("#FileMaintenanceAppropriationID").addClass("active");
+</script>
+
+@*Header*@
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Appropriation and Fund Source</strong></h3>
+    </div>
+</div>
+@*BODY*@
+<div class="content-body" id="FMAppFundSourceController" ng-controller="FMAppFundSourceController" ng-init="FundSourceTab();">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-3">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                        @*NAV TAB*@
+                        <div class="card box-shadow-2">
+                            <div class="row m-0">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active bg-backcolorheader" id="base-tabFund" ng-click="FundSourceTab()" data-toggle="tab" aria-controls="tabFund" href="#tabFund" aria-expanded="false">Fund Source</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader" id="base-tabApp" ng-click="AppSourceTab()" data-toggle="tab" aria-controls="tabApp" href="#tabApp" aria-expanded="false">Appropriation Source</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content w-100 skin skin-square" id="nav-tabContent">
+                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                        <div class="tab-pane active" id="tabFund" ng-bind-html="tabFund">
+
+                                        </div>
+                                        <div class="tab-pane" id="tabApp" ng-bind-html="tabApp">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    app.controller('FMAppFundSourceController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+
+        F.FundSourceTab = function () {
+            F.tabFund = null;
+            P({
+                url: '/FileMaintenanceAppropriation/FundSourceTab',
+            }).then(function (response) {
+                F.tabFund = D(response.data);
+            });
+        }
+        F.AppSourceTab = function () {
+            F.tabApp = null;
+            P({
+                url: '/FileMaintenanceAppropriation/AppSourceTab',
+            }).then(function (response) {
+                F.tabApp = D(response.data);
+            });
+        }
+
+
+        ////=========================
+        //F.GetAppropriationSourceDT = function () {
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
+        //    }).then(function (response) {
+        //        $('#TableApproSourceID').html(response.data);
+        //        F.GetAddAppropSource();
+        //    });
+        //}
+        ////Get GetAppropriation Source Add Partial View
+        //F.GetAddAppropSource = function () {
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+        //    }).then(function (response) {
+        //        $('#AppropSoureIDTemp').html(response.data);
+        //    });
+        //}
+        //////Get GetAppropriation Source Update Partial View
+        //F.Get_UpdateAppropSource = function (AppropSourceID) {
+
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
+        //        params: { AppropSourceID: AppropSourceID }
+        //    }).then(function (response) {
+        //        $('#AppropSoureIDTemp').html(response.data);
+
+        //    });
+        //}
+        ////Delete AppropriationSource
+        //F._DeleteAppropriationSource = function (AppropSourceID) {
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/DeleteAppropriationSource',
+        //        params: { AppropriationID: AppropSourceID }
+        //    }).then(function (response) {
+        //        F.GetAppropriationSourceDT();
+        //    });
+        //}
+        //F.GetDynamicFund = function () {
+        //    var AppropriationSourceID = $("#AppropriationSourceTypeID").val();
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/GetDynamicFund',
+        //        params: { AppropriationSourceID: AppropriationSourceID }
+        //    }).then(function (response) {
+        //        $('#FundSourceID').html(response.data);
+        //    });
+        //}
+        ////Calling Dynamic Fund Source Partial View
+        //F.GetDynamicFund2 = function (FundSourceIDHidden, ApproIDHidden) {
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/GetDynamicFund2',
+        //        params: { FundSourceIDHidden: FundSourceIDHidden, ApproIDHidden: ApproIDHidden }
+        //    }).then(function (response) {
+        //        $('#FundSourceID2').html(response.data);
+        //    });
+        //}
+        //F.GetDynamicFund3 = function () {
+        //    var AppropriationSourceID = $("#AppropriationSourceTypeID2").val();
+        //    P({
+        //        url: '/FileMaintenanceAppropriation/GetDynamicFund',
+        //        params: { AppropriationSourceID: AppropriationSourceID }
+        //    }).then(function (response) {
+        //        $('#FundSourceID2').html(response.data);
+        //    });
+        //}
+    });
+</script>

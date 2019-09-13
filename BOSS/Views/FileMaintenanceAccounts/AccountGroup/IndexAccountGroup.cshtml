@@ -11,11 +11,11 @@
                     <option>2017</option>
                     <option>2018</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddRevYearAllotModal" onclick="GetAddAddRevYearAllot()"><strong>+</strong></button>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddRevYearAccntGrpModal" onclick="GetAddAddRevYearAccntGrp()"><strong>+</strong></button>
             </span>
         </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3">
+    <div class="col-xl-4 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin">Allotment Class</label>
             <span class="input-group-append">
@@ -25,7 +25,7 @@
                     <option>Maintenance and Other Operating Expenses</option>
                     <option>Other Operating Expenses</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddAllomentModal" onclick="GetAddAddAllomentClassAllot()"><strong>+</strong></button>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddAllomentAccntGrpModal" onclick="GetAddAllomentClassAccntGrp()"><strong>+</strong></button>
             </span>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <input type="text" class="form-control" />
         </div>
     </div>
-    <div class="col-xl-3 col-lg-3 col-md-3">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin">Account Code</label>
             <input type="text" class="form-control" />
@@ -55,7 +55,7 @@
 
 <div class="row">
     <div class="offset-xl-1 col-xl-10">
-        <table id="myTable" class="table table-bordered zero-configuration w-100">
+        <table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
             <thead class="text-center">
                 <tr>
                     <th width="20%">Revision Year</th>
@@ -162,42 +162,30 @@
     </div>
 </div>
 
-@*Get Revition Year Modal*@
-<div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="form-group">
-        <div class="modal fade text-left" id="ViewAddRevYearAllotModal" role="dialog">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header
-                             bg-active">
-                        <h4 class="modal-title"><strong>Add Revision Year</strong></h4>
-                    </div>
-                    <div class="modal-body skin skin-square">
-                        <div class="card-body p-0">
-                            <div id="ViewAddRevYearAllotID"></div>
-                        </div>
-                    </div>
+@*Get Revesion Year Modal*@
+<div class="modal fade text-left" id="ViewAddRevYearAccntGrpModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Revision Year</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="card-body p-0" id="ViewAddRevYearAccntGrpID">
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-@*Get Alloment Class Modal*@
-<div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="form-group">
-        <div class="modal fade text-left" id="ViewAddAllomentModal" role="dialog">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header
-                             bg-active">
-                        <h4 class="modal-title"><strong>Add Allotment Class</strong></h4>
-                    </div>
-                    <div class="modal-body skin skin-square">
-                        <div class="card-body p-0">
-                            <div id="ViewAddAllomentID"></div>
-                        </div>
-                    </div>
-                </div>
+@*Get Alloment Class Modal*@ 
+<div class="modal fade text-left" id="ViewAddAllomentAccntGrpModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Allotment Class</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="card-body p-0" id="ViewAddAllomentID"></div>
             </div>
         </div>
     </div>
@@ -207,22 +195,22 @@
         LoadDataTable();
     })
     //REVISION YEAR
-    function GetAddAddRevYearAllot() {
+    function GetAddAddRevYearAccntGrp() {
         $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAddRevYearAllot",
+            url: "/FileMaintenanceAccounts/GetAddAddRevYear",
             success: function (result) {
-                $("#ViewAddRevYearAllotID").html(result);
-                $('#ViewAddRevYearAllotModal').modal('toggle');
+                $("#ViewAddRevYearAccntGrpID").html(result);
+                $('#ViewAddRevYearAccntGrpModal').modal('toggle');
             }
         });
     }
     //Allotment Class
-    function GetAddAddAllomentClassAllot() {
+    function GetAddAllomentClassAccntGrp() {
         $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAddAllomentClassAllot",
+            url: "/FileMaintenanceAccounts/GetAddAllomentClass",
             success: function (result) {
                 $("#ViewAddAllomentID").html(result);
-                $('#ViewAddAllomentModal').modal('toggle');
+                $('#ViewAddAllomentAccntGrpModal').modal('toggle');
             }
         });
     }

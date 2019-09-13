@@ -26,21 +26,52 @@
                         <div class="mt-2" ng-bind-html="FMSignatoryID">
 
                         </div>
-                        @*<div class="content-body rounded mt-1 box-shadow-3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card box-shadow-2">
-                                        <div class="card-content collapse show px-1">
-                                            <div class="card-body pb-0">
-                                                <div class="row m-0 mt-1" ng-bind-html="FMSignatoryID">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Add Dept Modal*@
+    <div class="modal fade text-left" id="ViewAddDeptFuncModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Department</strong></h4>
+                </div>
+                <div class="modal-body">
+                    <div id="ViewAddDeptFuncID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Add Function Modal*@
+    <div class="modal fade text-left" id="ViewAddFuncSecModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Function</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddFuncSecID"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Add Position Modal*@
+    <div class="modal fade text-left" id="ViewAddPositionModal" role="dialog">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header
+                             bg-active">
+                    <h4 class="modal-title"><strong>Add Position</strong></h4>
+                </div>
+                <div class="modal-body skin skin-square">
+                    <div class="card-body p-0">
+                        <div id="ViewAddPositionID"></div>
                     </div>
                 </div>
             </div>
@@ -96,7 +127,7 @@
         F.Get_UpdateSignatory = function (SignatoryID) {
             P({
                 url: '/FileMaintenanceSignatory/Get_UpdateSignatory',
-                params: { SignatoryID: SignatoryID}
+                params: { SignatoryID: SignatoryID }
             }).then(function (response) {
                 $('#SignatoryTempID').html(response.data);
 
@@ -108,6 +139,33 @@
                 params: { SignatoryID: SignatoryID }
             }).then(function (response) {
                 F.GetSignatoryDTable();
+            });
+        }
+        //Get Add Department Modal
+        F.GetAddDeptModal = function () {
+            P({
+                url: '/FileMaintenanceSignatory/GetAddDeptModal',
+            }).then(function (response) {
+                $('#ViewAddDeptFuncID').html(response.data);
+                $('#ViewAddDeptFuncModal').modal('toggle');
+            });
+        }
+        //Get Function Modal
+        F.GetAddFuncModal = function () {
+            P({
+                url: '/FileMaintenanceSignatory/GetAddFuncModal',
+            }).then(function (response) {
+                $('#ViewAddFuncSecID').html(response.data);
+                $('#ViewAddFuncSecModal').modal('toggle');
+            });
+        }
+        //Get Position Modal
+        F.GetAddPositionModal = function () {
+            P({
+                url: '/FileMaintenanceSignatory/GetAddPositionModal',
+            }).then(function (response) {
+                $('#ViewAddPositionID').html(response.data);
+                $('#ViewAddPositionModal').modal('toggle');
             });
         }
     });

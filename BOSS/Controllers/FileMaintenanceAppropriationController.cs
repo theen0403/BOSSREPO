@@ -18,7 +18,7 @@ namespace BOSS.Controllers
 
         // GET: FileMaintenanceAppropriation
         [Authorize]
-        public ActionResult FileAppropriation()
+        public ActionResult FileAppropFundSource()
         {
             FMAppropriationSourceModel model = new FMAppropriationSourceModel();
             return View(model);
@@ -30,7 +30,7 @@ namespace BOSS.Controllers
 
             List<AppropriationSourceList> getAppropriationSourceList = new List<AppropriationSourceList>();
 
-            var SQLQuery = "SELECT * FROM [BOSS].[dbo].[Tbl_FMAppropriationSource],[BOSS].[dbo].[FundSource],[BOSS].[dbo].[AppropriationSourceType] where [BOSS].[dbo].[Tbl_FMAppropriationSource].FundSourceID=[BOSS].[dbo].[FundSource].FundSourceID and [BOSS].[dbo].[FundSource].AppropriationSourceID=[BOSS].[dbo].[AppropriationSourceType].AppropriationSourceID";
+            var SQLQuery = "SELECT [AppropriationID], [AppropriationSourceType].[AppropriationSourceType], [FundSource].[FundSourceTitle], [BudgetYear].[BudgetYearTitle], [Description] FROM[dbo].[Tbl_FMAppropriationSource], [dbo].[FundSource], [dbo].[AppropriationSourceType], [dbo].[BudgetYear] where [dbo].[FundSource].AppropriationSourceID= [dbo].AppropriationSourceType.AppropriationSourceID and[dbo].[FundSource].FundSourceID=[dbo].Tbl_FMAppropriationSource.FundSourceID and[dbo].[BudgetYear].BudgetYearID= [dbo].Tbl_FMAppropriationSource.BudgetYearID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -44,15 +44,17 @@ namespace BOSS.Controllers
                         getAppropriationSourceList.Add(new AppropriationSourceList()
                         {
                             AppropriationID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            Description = GlobalFunction.ReturnEmptyString(dr[1]),
-                            AppropriationSourceType = GlobalFunction.ReturnEmptyString(dr[8])
-                        });
+                            AppropriationSourceType = GlobalFunction.ReturnEmptyString(dr[1]),
+                            FundSourceTitle = GlobalFunction.ReturnEmptyString(dr[2]),
+                            Description = GlobalFunction.ReturnEmptyString(dr[4]),
+                            BudgetYearTitle = GlobalFunction.ReturnEmptyString(dr[3])
+                        }); 
                     }
                 }
                 Connection.Close();
             }
             model.getAppropriationSourceList = getAppropriationSourceList.ToList();
-            return PartialView("_TableAppropriationSource", model.getAppropriationSourceList);
+            return PartialView("AppropriationSource/_TableAppropriationSource", model.getAppropriationSourceList);
         }
         public ActionResult GetDynamicFund(int AppropriationSourceID)
         {
@@ -60,20 +62,20 @@ namespace BOSS.Controllers
 
             model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == AppropriationSourceID).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
             
-            return PartialView("_DynamicFundSource", model);
+            return PartialView("AppropriationSource/_DynamicFundSource", model);
         }
         public ActionResult GetDynamicFund2(FMAppropriationSourceModel model, int FundSourceIDHidden, int ApproIDHidden)
         {
             model.FundSourceList = new SelectList((from s in BOSSDB.FundSources.Where(a => a.AppropriationSourceID == ApproIDHidden).ToList() select new { FundSourceID = s.FundSourceID, FundSourceTitle = s.FundSourceTitle }), "FundSourceID", "FundSourceTitle");
             model.FundSourceID = FundSourceIDHidden;
 
-            return PartialView("_DynamicFundSource", model);
+            return PartialView("AppropriationSource/_DynamicFundSource", model);
         }
         //Get AppropriationSource Partial View
         public ActionResult GetAddAppropSource()
         {
             FMAppropriationSourceModel model = new FMAppropriationSourceModel();
-            return PartialView("_AddAppropriationSource", model);
+            return PartialView("AppropriationSource/_AddAppropriationSource", model);
         }
         ////Add AppropriationSource
         public JsonResult AddNewAppropSoure(FMAppropriationSourceModel model)
@@ -91,9 +93,9 @@ namespace BOSS.Controllers
             return Json(tbl_AppropriationSource);
         }
         //Get AppropriationSource Update Partial View
-        public ActionResult Get_UpdateAppropSource(FMAppropriationSourceModel model, int AppropSourceID)
+        public ActionResult Get_UpdateAppropSource(FMAppropriationSourceModel model, int AppropriationID)
         {
-            Tbl_FMAppropriationSource tblAP = (from e in BOSSDB.Tbl_FMAppropriationSource where e.AppropriationID == AppropSourceID select e).FirstOrDefault();
+            Tbl_FMAppropriationSource tblAP = (from e in BOSSDB.Tbl_FMAppropriationSource where e.AppropriationID == AppropriationID select e).FirstOrDefault();
            
             model.getAppropriationSourceColumns2.Description = tblAP.Description;
             model.BudgetYearID = Convert.ToInt32(tblAP.BudgetYearID);
@@ -101,7 +103,7 @@ namespace BOSS.Controllers
             model.FundSourceIDHidden= Convert.ToInt32(tblAP.FundSourceID);
             model.ApproIDHidden = Convert.ToInt32(tblAP.FundSource.AppropriationSourceID);
             model.getAppropriationSourceColumns2.AppropriationID = tblAP.AppropriationID;
-            return PartialView("_UpdateAppropriationSource", model);
+            return PartialView("AppropriationSource/_UpdateAppropriationSource", model);
         }
         //Update AppropriationSource
         public ActionResult UpdateAppropSource(FMAppropriationSourceModel model)
@@ -113,7 +115,7 @@ namespace BOSS.Controllers
             tbl_AppropriationSource.BudgetYearID = GlobalFunction.ReturnEmptyInt(model.BudgetYearID);
             BOSSDB.Entry(tbl_AppropriationSource);
             BOSSDB.SaveChanges();
-            return PartialView("_AddAppropriationSource", model);
+            return PartialView("AppropriationSource/_AddAppropriationSource", model);
         }
         //Delete AppropriationSource
         public ActionResult DeleteAppropriationSource(FMAppropriationSourceModel model, int AppropriationID)
@@ -121,7 +123,20 @@ namespace BOSS.Controllers
             Tbl_FMAppropriationSource tbl_AppropriationSource = (from e in BOSSDB.Tbl_FMAppropriationSource where e.AppropriationID == AppropriationID select e).FirstOrDefault();
             BOSSDB.Tbl_FMAppropriationSource.Remove(tbl_AppropriationSource);
             BOSSDB.SaveChanges();
-            return RedirectToAction("FileAppropriation");
+            return RedirectToAction("FileAppropFundSource");
+        }
+
+
+        //=======================================================
+        public ActionResult FundSourceTab()
+        {
+            return PartialView("FundSource/FundSourceIndex");
+        }
+
+        public ActionResult AppSourceTab()
+        {
+            FMAppropriationSourceModel model = new FMAppropriationSourceModel();
+            return PartialView("AppropriationSource/AppropriationSourceIndex", model);
         }
 
     }

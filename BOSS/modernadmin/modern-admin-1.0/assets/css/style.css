@@ -26,7 +26,6 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 
 .bg-info {
-
     background-color: #1883AE !important;
 }
 
@@ -39,7 +38,6 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .bg-backcolorheader {
     background-color: #388E3C !important;
 }
-
 
 .btn-success {
     background-color: #6DAD4B !important;
@@ -121,7 +119,6 @@ div.dataTables_wrapper div.dataTables_filter label {
     border: 1px solid #BABFC7;
 }
 
-
 .custom-div
 {
     padding:5px;
@@ -168,7 +165,6 @@ div.dataTables_wrapper div.dataTables_filter label {
     font-size: 14px !important;
     margin-top: 5px;
 }
-
 
 table.table {
     border-left: 1px solid black;

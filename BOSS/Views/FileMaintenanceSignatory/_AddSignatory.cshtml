@@ -40,13 +40,19 @@
         <div class="col-md-4 col-sm-5">
             <div class="form-group">
                 <label class="custom-form-margin">Position</label>
-                @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMSignatoryController','GetAddPositionModal','')"><strong>+</strong></button>
+                </span>
             </div>
         </div>
         <div class="col-md-6 col-sm-7">
             <div class="form-group">
                 <label class="custom-form-margin">Department</label>
-                @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMSignatoryController','GetAddDeptModal','')" ><strong>+</strong></button>
+                </span>
             </div>
         </div>
 
@@ -67,14 +73,14 @@
             </div>
         </div>
         @*<div class="col-md-3 col-sm-3">
-            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID", @class="hidden" })
-            <fieldset class="form-group">
-                <label class="custom-form-margin"> Is Active</label>
-                @Html.CheckBox("IsChecked", new { @class = "form-control", onchange = "isActiveonChange()" })
-            </fieldset>
-        </div>*@
+                @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID", @class="hidden" })
+                <fieldset class="form-group">
+                    <label class="custom-form-margin"> Is Active</label>
+                    @Html.CheckBox("IsChecked", new { @class = "form-control", onchange = "isActiveonChange()" })
+                </fieldset>
+            </div>*@
         <div class="col-md-3 col-sm-3">
-            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID", @class="hidden" })
+            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID", @class = "hidden" })
             <fieldset class="form-group">
                 <label class=" mt-md-2">
                     <input type="checkbox" id="IsChecked" onchange="isActiveonChange()">

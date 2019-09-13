@@ -25,6 +25,10 @@ namespace BOSS.Models.FMAppropriationSourceModels
         public int FundSourceID2 { get; set; }
         public int FundSourceIDHidden { get; set; }
         public int ApproIDHidden { get; set; }
+
+        public string AppropriationSourceType { get; set; }
+        public string FundSourceTitle { get; set; }
+
         public IEnumerable<System.Web.Mvc.SelectListItem> FundSourceList { get; set; }
         public int BudgetYearID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> BudgetYearList
@@ -55,6 +59,8 @@ namespace BOSS.Models.FMAppropriationSourceModels
         public int AppropriationID { get; set; }
         public string Description { get; set; }
         public string AppropriationSourceType { get; set; }
+        public string FundSourceTitle { get; set; }
+        public string BudgetYearTitle { get; set; }
     }
 }
    

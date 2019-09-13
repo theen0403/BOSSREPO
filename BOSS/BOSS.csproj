@@ -193,6 +193,8 @@
     <Compile Include="Controllers\FileMaintenanceAccountsController.cs" />
     <Compile Include="Controllers\FileMaintenanceAppropriationController.cs" />
     <Compile Include="Controllers\FileMaintenanceFundController.cs" />
+    <Compile Include="Controllers\FileMaintenanceOfficeTypeController.cs" />
+    <Compile Include="Controllers\FileMaintenancePayeeController.cs" />
     <Compile Include="Controllers\FileMaintenancePositionController.cs" />
     <Compile Include="Controllers\FileMaintenanceResponsibilityController.cs" />
     <Compile Include="Controllers\FileMaintenanceSectorController.cs" />
@@ -9010,7 +9012,7 @@
     <Content Include="Views\FileMaintenancePosition\FilePosition.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FileResponsibility.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\FileAccounts.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\FileAppropriation.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\FileAppropFundSource.cshtml" />
     <Content Include="Views\AccountabilityLBAFQuarterlyReport\LBAFQuarterlyReport.cshtml" />
     <Content Include="Views\AccountabilityLBAFQuarterlyFinancial\LBAFQuarterlyFinancial.cshtml" />
     <Content Include="Views\AccountabilityLBAFPhysical\LBAFPhysical.cshtml" />
@@ -9063,10 +9065,10 @@
     <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_TableDepartmentList.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_TableFunctionList.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\OfficeSectionTab\_TableOfficeSectionList.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\_TableAppropriationSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\_AddAppropriationSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\_DynamicFundSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\_UpdateAppropriationSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_TableAppropriationSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_AddAppropriationSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_DynamicFundSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_UpdateAppropriationSource.cshtml" />
     <Content Include="Views\Profile\ProfileView.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewAttachment.cshtml" />
     <Content Include="Views\AccountabilityLBAFDashboard\LBAFDashboard.cshtml" />
@@ -9136,7 +9138,17 @@
     <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddFunctionModal.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\Modals\_AddRevisionYearModal.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\Modals\_AddAllotmentClassModal.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddAccoountGroupModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddAccountGroupModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddMajorAccountModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\Modals\_AddSubMajorAccountModal.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\Modals\_AddDepartmentModal.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\Modals\_AddFunctionModal.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\Modals\_AddPositionModal.cshtml" />
+    <Content Include="Views\FileMaintenanceOfficeType\FileOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\FilePayee.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\Modals\_AddDepartmentModal.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\FundSource\FundSourceIndex.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\AppropriationSourceIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

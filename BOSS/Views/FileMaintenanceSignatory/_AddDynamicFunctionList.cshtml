@@ -6,7 +6,10 @@
 
 <div class="form-group">
     <label style="margin-bottom:2px;">Function</label>
-    @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control select2nosearch", id = "FunctionID" })
+    <span class="input-group-append">
+        @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control select2nosearch", id = "FunctionID" })
+        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMSignatoryController','GetAddFuncModal','')"><strong>+</strong></button>
+    </span>
 </div>
 <script>
     $(function () {

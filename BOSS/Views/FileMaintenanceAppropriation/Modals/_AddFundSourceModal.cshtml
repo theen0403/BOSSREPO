@@ -1,52 +1,38 @@
-﻿
-@{
-    ViewBag.Title = "IndexSubFund";
-}
-<div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-4 col-lg-5 col-md-6">
+﻿<div class="row">
+    <div class="col-md-6 col-sm-4">
         <div class="form-group">
-            <label class="custom-form-margin">Fund</label>
-            <span class="input-group-append">
-                <select class="form-control">
-                    <option>General Fund</option>
-                    <option>Calamity Fund</option>
-                    <option>Development Fund</option>
-                    <option>Special Education Fund</option>
-                    <option>Trust Fund</option>
-                </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundModal" onclick="GetAddFundModal()"><strong>+</strong></button>
-            </span>
+            <label class="custom-form-margin">Appropriation Source Type</label>
+            <select class="form-control">
+                <option>Annual Budget</option>
+                <option>Continuing Appropirations</option>
+                <option>Supplemental Budget</option>
+            </select>
         </div>
     </div>
-    <div class="col-xl-4 col-lg-3 col-md-4">
+    <div class="col-md-6 col-sm-4">
         <div class="form-group">
-            <label class="custom-form-margin">Sub Fund</label>
+            <label class="custom-form-margin">Fund Source</label>
             <input type="text" id="fundCodeID" value="" class="form-control" />
         </div>
     </div>
 </div>
-<div class="row mb-2">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-8 col-lg-8 col-md-10">
-        <div class="form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetDepartmentDT()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Add
-            </button>
-        </div>
+<div class="row mb-1">
+    <div class="col">
+        <button type="button" class="btn btn-menuRed btn-min-width float-right">
+            Clear
+        </button>
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right mr-1 ">
+            Add
+        </button>
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-8 col-lg-8 col-md-10">
+    <div class="col">
         <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
             <thead class="text-center">
                 <tr>
-                    <th>Fund</th>
-                    <th>Sub Fund</th>
+                    <th>Appropriation Source Type</th>
+                    <th>Fund Source</th>
                     <th width="5%" class="text-center">Action</th>
 
                 </tr>
@@ -62,9 +48,10 @@
 
                     var ActionAS = Update + Remove;
 
+
                     <tr>
-                        <td>General Fund</td>
-                        <td>Bus Terminal</td>
+                        <td>Annual Budget</td>
+                        <td>Annual Budget</td>
                         <td class="text-center">
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -75,8 +62,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>General Fund</td>
-                        <td>Hospital</td>
+                        <td>Continuing Appropirations</td>
+                        <td>Continuing Budget</td>
                         <td class="text-center">
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -87,8 +74,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>General Fund</td>
-                        <td>Market</td>
+                        <td>Supplemental Budget</td>
+                        <td>New Revenue Sources</td>
                         <td class="text-center">
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -99,8 +86,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>General Fund</td>
-                        <td>Proper</td>
+                        <td>Supplemental Budget</td>
+                        <td>Realignment / Reversion</td>
                         <td class="text-center">
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -111,8 +98,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>General Fund</td>
-                        <td>Slaughterhouse</td>
+                        <td>Supplemental Budget</td>
+                        <td>Lumpsum Appropriations</td>
                         <td class="text-center">
                             <button type="button" onfocusout="PopoveLostFocus()"
                                     class="btn btn-m btn-btnbackcolor popover-trigger"
@@ -122,43 +109,16 @@
                             </button>
                         </td>
                     </tr>
+
                 }
             </tbody>
         </table>
     </div>
 </div>
-@*Modal*@
-<div class="modal fade text-left" id="ViewAddFundModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Fund</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
 
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddFundID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     $(function () {
         LoadDataTable();
     })
-    //Get Add Fund Modal
-    function GetAddFundModal() {
-        $.ajax({
-            url: "/FileMaintenanceFund/GetAddFundModal",
-            success: function (result) {
-                $("#ViewAddFundID").html(result);
-                $('#ViewAddFundModal').modal('toggle');
-            }
-        });
-    }
 </script>
-
-

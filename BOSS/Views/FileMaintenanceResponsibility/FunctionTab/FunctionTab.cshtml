@@ -1,0 +1,408 @@
+﻿
+
+<div class="row mt-1">
+    <div class="col-xl-3 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Department</label>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>General Services Office</option>
+                    <option>Office of the Local Accountant</option>
+                    <option>Office of the Local Budget Office</option>
+                    <option>Office of the Local Chief Executive</option>
+                    <option>Office of the Local Engineering and Maintenance</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddDeptFuncModal" onclick="GetAddDeptModalFunc()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Function</label>
+            <textarea type="text" class="form-control" rows="1" name="name" value="" />
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Function Abbreviation</label>
+            <input type="text" class="form-control" name="name" value="0000" />
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Function Code</label>
+            <input type="text" class="form-control" name="name" value="1011-1" />
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Fund</label>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>General Fund</option>
+                    <option>Calamity Fund</option>
+                    <option>Development Fund</option>
+                    <option>Special Education Fund</option>
+                    <option>Trust Fund</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundFuncModal" onclick="GetAddFundModalFunc()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-lg-5 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Sector</label>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>Social Services</option>
+                    <option>Economic Services</option>
+                    <option>General Public Services</option>
+                    <option>Other Public Services</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddSectorModal()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-7 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Sub Sector</label>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>Social Security, Social Services and Welfare</option>
+                    <option>Health and Nutrition</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddSubSectorModal()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-5 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-md-2">Office Type</label>
+            <span class="input-group-append">
+                <select class="form-control">
+                    <option>Mandatory</option>
+                    <option>Optional</option>
+                </select>
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddOfficeTypeModalFunc()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-4 col-md-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Department / Office Code</label>
+            <input type="text" class="form-control" name="name" value="00" />
+        </div>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col">
+        <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right">
+            Cancel
+        </button>
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+            Add
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+            <thead class="text-center">
+                <tr>
+                    <th>Department</th>
+                    <th>Function</th>
+                    <th>Function Abbreviation</th>
+                    <th>Function Code</th>
+                    <th>Fund</th>
+                    <th>Sector</th>
+                    <th>Sub Sector</th>
+                    <th>Office Type</th>
+                    <th>Department / Office Code</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Successfully Deleted";
+                    var successUpdate = "Successfully Updated!";
+
+                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                    var ActionAS = Update + Remove;
+                }
+                <tr>
+                    <td>Office of the Local Chief Executive</td>
+                    <td>General Administration</td>
+                    <td>GA</td>
+                    <td  class="text-center">1011-1</td>
+                    <td>General Fund</td>
+                    <td>Social Services</td>
+                    <td>Health and Nutrition</td>
+                    <td>Mandatory</td>
+                    <td class="text-center">01</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Office of the Local Budget Office</td>
+                    <td>General Administration</td>
+                    <td>GA</td>
+                    <td class="text-center">1021-1</td>
+                    <td>General Fund</td>
+                    <td>General Public Services</td>
+                    <td>N/A</td>
+                    <td>Mandatory</td>
+                    <td class="text-center">02</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>General Services Office</td>
+                    <td>General Administration</td>
+                    <td>GA</td>
+                    <td class="text-center">1031-1</td>
+                    <td>General Fund</td>
+                    <td>General Public Services</td>
+                    <td>N/A</td>
+                    <td>Mandatory</td>
+                    <td class="text-center">05</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Office of the Local Accountant</td>
+                    <td>General Administration</td>
+                    <td>GA</td>
+                    <td class="text-center">1081-1</td>
+                    <td>General Fund</td>
+                    <td>General Public Services</td>
+                    <td>N/A</td>
+                    <td>MAndatory</td>
+                    <td class="text-center">03</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Office of the Local Engineering and Maintenance</td>
+                    <td>General Administration</td>
+                    <td>GA</td>
+                    <td class="text-center">1071-1</td>
+                    <td>General Fund</td>
+                    <td>Economic Services</td>
+                    <td>N/A</td>
+                    <td>Mandatory</td>
+                    <td class="text-center">04</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+@*Add Sector Modal*@
+<div class="modal fade text-left" id="ViewAddSectorDeptModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <<div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Sector</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddSectorDeptID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Dept Modal*@
+<div class="modal fade text-left" id="ViewAddDeptFuncModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Department</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddDeptFuncID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Sector Modal*@
+<div class="modal fade text-left" id="ViewAddSectorModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Sector</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddSectorID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add SubSector Modal*@
+<div class="modal fade text-left" id="ViewAddSubSectorModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Sub-Sector</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddSubSectorID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Fund Modal*@
+<div class="modal fade text-left" id="ViewAddFundFuncModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Fund</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddFundFuncID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Office Type Modal*@
+<div class="modal fade text-left" id="ViewAddOfficeTypeFuncModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Office Type</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddOfficeTypeFuncID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script> 
+    $(function () {
+        LoadDataTable();
+    })
+    //Get Add Department Modal
+    function GetAddDeptModalFunc() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddDeptModalFunc",
+            success: function (result) {
+                $("#ViewAddDeptFuncID").html(result);
+                $('#ViewAddDeptFuncModal').modal('toggle');
+            }
+        });
+    }
+    //Get Add Sector Modal
+    function GetAddSectorModal() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddSectorModalDept",
+            success: function (result) {
+                $("#ViewAddSectorID").html(result);
+                $('#ViewAddSectorModal').modal('toggle');
+            }
+        });
+    }
+    //Get Add Sub Sector Modal
+    function GetAddSubSectorModal() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddSubSectorModalDept",
+            success: function (result) {
+                $("#ViewAddSubSectorID").html(result);
+                $('#ViewAddSubSectorModal').modal('toggle');
+            }
+        });
+    }
+    //Get ADD FUND Modal
+    function GetAddFundModalFunc() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddFundModalFunc",
+            success: function (result) {
+                $("#ViewAddFundFuncID").html(result);
+                $('#ViewAddFundFuncModal').modal('toggle');
+            }
+        });
+    }
+    //Get ADD Office Type Modal
+    function GetAddOfficeTypeModalFunc() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddOfficeTypeModal",
+            success: function (result) {
+                $("#ViewAddOfficeTypeFuncID").html(result);
+                $('#ViewAddOfficeTypeFuncModal').modal('toggle');
+            }
+        });
+    }
+</script>
+
+
+
+
+

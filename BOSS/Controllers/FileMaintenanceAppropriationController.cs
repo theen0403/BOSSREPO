@@ -138,6 +138,10 @@ namespace BOSS.Controllers
             FMAppropriationSourceModel model = new FMAppropriationSourceModel();
             return PartialView("AppropriationSource/AppropriationSourceIndex", model);
         }
-
+        //Calling Fund Source Modal for adding
+        public ActionResult GetAddFundSourceModal()
+        {
+            return PartialView("Modals/_AddFundSourceModal");
+        }
     }
 }

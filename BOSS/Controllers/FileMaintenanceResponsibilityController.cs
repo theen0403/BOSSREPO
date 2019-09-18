@@ -27,18 +27,18 @@ namespace BOSS.Controllers
         public ActionResult DepartmentTab()
         {
             DepartmentModel model = new DepartmentModel();
-            return PartialView("DepartmentTab/_DepartmentTab", model);
+            return PartialView("DepartmentTab/DepartmentTab", model);
         }
 
         public ActionResult FunctionTab()
         {
             FunctionModel model = new FunctionModel();
-            return PartialView("FunctionTab/_FunctionTab", model);
+            return PartialView("FunctionTab/FunctionTab", model);
         }
         public ActionResult OfficeSectionTab()
         {
             OfficeSectionModel model = new OfficeSectionModel();
-            return PartialView("OfficeSectionTab/_OfficeSectionTab", model);
+            return PartialView("OfficeSectionTab/SectionTab", model);
         }
 
         //===============================================================================================
@@ -529,6 +529,11 @@ namespace BOSS.Controllers
         {
             return PartialView("Modals/_AddFunctionModal");
         }
+        public ActionResult GetAddOfficeTypeModal()
+        {
+            return PartialView("Modals/_AddOfficeTypeModal");
+        }
+        
     }
 }
 

@@ -1,49 +1,25 @@
-﻿<div class="row">
-    <div class="col-md-5 col-sm-4">
+﻿<div class="row mt-1">
+    <div class="col-xl-4 col-lg-3 col-md-6">
         <div class="form-group">
-            <label class="custom-form-margin">Department</label>
-            <input type="text" class="form-control" />
+            <label class="custom-form-margin mt-xl-2">Department</label>
+            <textarea type="text" class="form-control" rows="1" name="name" value="" />
         </div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="col-xl-2 col-lg-2 col-md-6">
         <div class="form-group">
-            <label class="custom-form-margin">Dept Abbreviation</label>
-            <input type="text" class="form-control" />
+            <label class="custom-form-margin">Department Abbreviation</label>
+            <input type="text" class="form-control" name="name" value="" />
         </div>
     </div>
-    <div class="col-md-3 col-sm-4">
+    <div class="col-xl-3 col-lg-3 col-md-6">
         <div class="form-group">
-            <label class="custom-form-margin">Dept/Office Code</label>
-            <input type="text" class="form-control" />
+            <label class="custom-form-margin">Responsibility Center Code</label>
+            <input type="text" class="form-control" name="name" value="0000" />
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-4 col-sm-4">
-        <div class="form-group ">
-            <label class="custom-form-margin">Sector</label>
-                <select class="form-control">
-                    <option>Economic Services</option>
-                    <option>General Public Services</option>
-                    <option>Other Services</option>
-                    <option>Social Services</option>
-                </select>
-        </div>
-    </div>
-    <div class="col-md-5 col-sm-4">
-        <div class="form-group ">
-            <label class="custom-form-margin">Sub Sector</label>
-            <select class="form-control">
-                <option>Economic Services</option>
-                <option>General Public Services</option>
-                <option>Other Services</option>
-                <option>Social Services</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3 col-sm-4">
-        <div class="form-group ">
-            <label class="custom-form-margin">Fund</label>
+    <div class="col-xl-3 col-lg-3 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Fund</label>
                 <select class="form-control">
                     <option>General Fund</option>
                     <option>Calamity Fund</option>
@@ -54,17 +30,55 @@
         </div>
     </div>
 </div>
-<div class="row mb-2">
-    <div class="col">
+<div class="row">
+    <div class="col-xl-3 col-lg-4 col-md-6">
         <div class="form-group">
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Add
-            </button>
+            <label class="custom-form-margin mt-xl-2">Sector</label>
+                <select class="form-control">
+                    <option>Social Services</option>
+                    <option>Economic Services</option>
+                    <option>General Public Services</option>
+                    <option>Other Public Services</option>
+                </select>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Sub Sector</label>
+                <select class="form-control">
+                    <option>Social Security, Social Services and Welfare</option>
+                    <option>Health and Nutrition</option>
+                </select>
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2">Office Type</label>
+                <select class="form-control">
+                    <option>Mandatory</option>
+                    <option>Optional</option>
+                </select>
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">Department / Office Code</label>
+            <input type="text" class="form-control" name="name" value="00" />
         </div>
     </div>
 </div>
+<div class="row mb-1">
+    <div class="col">
+        <button type="button" class="btn btn-menuRed btn-min-width float-right">
+            Clear
+        </button>
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right mr-1 ">
+            Add
+        </button>
+    </div>
+</div>
 
-<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+<table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
     <thead class="text-center">
         <tr>
             <th width="20%">Department</th>
@@ -171,3 +185,8 @@
         }
     </tbody>
 </table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

@@ -4,7 +4,6 @@
 }
 @using BOSS.Models;
 
-
 <table class="table table-responsive table-striped table-bordered zero-configuration table-smss-hover w-100">
     <thead class="text-center">
         <tr>
@@ -31,7 +30,7 @@
             <td>@Items.AppropriationSourceType</td>
             <td>@Items.FundSourceTitle</td>
             <td>@Items.Description</td>
-            <td>@Items.BudgetYearTitle</td>
+            <td class="text-center">@Items.BudgetYearTitle</td>
             <td class="text-center">
                 <button type="button" onfocusout="PopoveLostFocus()"
                         class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"

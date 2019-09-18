@@ -4,7 +4,7 @@
 }
 
 <div class="row">
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-4">
         <div class="form-group">
             <label class="custom-form-margin">Sector</label>
                 <select class="form-control">
@@ -15,13 +15,13 @@
                 </select>
         </div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-6 col-sm-4">
         <div class="form-group">
             <label class="custom-form-margin">Sub Sector</label>
             <input type="text" id="SectorCodeID" value="" class="form-control" />
         </div>
     </div>
-    <div class="col-md-4 col-sm-4">
+    <div class="col-md-5 col-sm-4">
         <div class="form-group">
             <label class="custom-form-margin">Code</label>
             <div class="input-group mt-0">
@@ -31,14 +31,14 @@
         </div>
     </div>
 </div>
-
-<div class="row mb-2">
+<div class="row mb-1">
     <div class="col">
-        <div class="form-group">
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Add
-            </button>
-        </div>
+        <button type="button" class="btn btn-menuRed btn-min-width float-right">
+            Clear
+        </button>
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right mr-1 ">
+            Add
+        </button>
     </div>
 </div>
 <div class="row">
@@ -135,42 +135,10 @@
     </div>
 </div>
 
-@*<div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="form-group">
-        <div class="modal fade text-left" id="ViewAddSectorModal" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header
-                             bg-active">
-                        <h4 class="modal-title"><strong>Add Sector</strong></h4>
-                    </div>
-                    <div class="modal-body skin skin-square">
-                        <div class="card-body p-0">
-                            <div id="ViewAddSectorID"></div>
-                        </div>
-                    </div>
-                    @*<div class="modal-footer">
-                                <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
-
 <script>
     $(function () {
         LoadDataTable();
     })
-    //function GetAddSectorModal() {
-    //    $.ajax({
-    //        url: "/FileMaintenanceSector/GetAddSectorModal",
-    //        success: function (result) {
-    //            $("#ViewAddSectorID").html(result);
-    //            $('#ViewAddSectorModal').modal('toggle');
-    //        }
-    //    });
-    //}
 </script>
 
 

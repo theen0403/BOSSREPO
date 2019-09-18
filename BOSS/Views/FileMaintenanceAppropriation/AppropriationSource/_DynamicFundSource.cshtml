@@ -8,7 +8,7 @@
     <label style="margin-bottom:2px;">Fund Source</label>
     <span class="input-group-append">
         @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2", id = "FundID" })
-        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick=""><strong>+</strong></button>
+        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddFundSourceModal()"><strong>+</strong></button>
     </span>
 </div>
 

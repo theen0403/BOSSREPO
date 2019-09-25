@@ -30,8 +30,6 @@ namespace BOSS.Models
         public Nullable<int> SubSectorID { get; set; }
     
         public virtual FundType FundType { get; set; }
-        public virtual Sector Sector { get; set; }
-        public virtual SubSector SubSector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,0 +1,9 @@
+﻿@model BOSS.Models.FMmodels.FMSectorModels.SubSectorModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div>
+    @Html.TextBoxFor(m => m.SectorCode, new { @class = "accntCode text-center", type = "text", id = "SectorCode", disabled = "disabled" })
+</div>

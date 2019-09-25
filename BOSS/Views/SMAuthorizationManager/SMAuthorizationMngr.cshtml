@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "SMAuthorizationManager";
+}
+
+<script>
+    $("#SMAuthorizationMngrID").addClass("active");
+</script>
+
+
+<div class="content-header row">
+    <div class=" content-header-left col-md-12 mb-0">
+        <h3 class="content-header-title"><strong>Authorization Manager</strong></h3>
+    </div>
+</div>
+
+<div class="content-body" id="SMAuthorizationMngrController" ng-controller="SMAuthorizationMngrController" ng-init="">
+    <div class="row">
+        <div class="content-header-left col-md-12">
+            <div class="card box-shadow-4">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">First Name</label>
+                                    <input type="text" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">Last Name</label>
+                                    <input type="text" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">User Name</label>
+                                    <input type="text" value="" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">Password Name</label>
+                                    <input type="text" value="" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-4 col-md-4 px-0 text-center">
+                                <div class="form-group">
+                                    <label class="custom-form-margin mt-xl-1 mt-lg-3 mt-md-3">Sub Account?</label>
+                                    <fieldset class=" skin skin-square">
+                                        <input type="checkbox" class="form-control icheckbox_square-green" />
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">Department</label>
+                                    <span class="input-group-append">
+                                        <select class="form-control">
+                                            <option>OFFICE of the LOCAL ACCOUNTANT</option>
+                                            <option>OFFICE of the LOCAL ADJUDICATOR</option>
+                                            <option>OFFICE of the LOCAL ADMINISTRATOR</option>
+                                            <option>OFFICE of the LOCAL AGRICULTURIST</option>
+                                            <option>HOSPITAL</option>
+                                        </select>
+                                        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMPayeeController','GetAddDeptModal','')"><strong>+</strong></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label class="custom-form-margin">Position</label>
+                                    <span class="input-group-append">
+                                        <select class="form-control">
+                                            <option>Administrative Officer</option>
+                                        </select>
+                                        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMPayeeController','GetAddDeptModal','')"><strong>+</strong></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetDepartmentDT()">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>User Name</th>
+                                            <th>Password</th>
+                                            <th>Authorized?</th>
+                                            <th>Department</th>
+                                            <th>Position</th>
+                                            <th width="5%">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                                            var DeleteSuccesMess = "Successfully Deleted";
+                                            var successUpdate = "Successfully Updated!";
+
+                                            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                            var ActionAS = Update + Remove;
+                                            <tr>
+                                                <td>Jessica</td>
+                                                <td>Dolfo</td>
+                                                <td>JDolfo</td>
+                                                <td>******</td>
+                                                <td>Yes</td>
+                                                <td>Office of the Local Chief Executive</td>
+                                                <td>Administrative Office V</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Muriel</td>
+                                                <td>Tiglao</td>
+                                                <td>mtiglao</td>
+                                                <td>*****</td>
+                                                <td>Yes</td>
+                                                <td>Office of the Local Accountant</td>
+                                                <td>Accounting Office</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kristel</td>
+                                                <td>Mantos</td>
+                                                <td>kmantos</td>
+                                                <td>********</td>
+                                                <td>Yes</td>
+                                                <td>General Services Office</td>
+                                                <td>Supply Office</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jonalyn</td>
+                                                <td>Cruz</td>
+                                                <td>jcruz</td>
+                                                <td>**********</td>
+                                                <td>Yes</td>
+                                                <td>Office of the Local Budget</td>
+                                                <td>Budget Officer IV</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dianne</td>
+                                                <td>Santos</td>
+                                                <td>dsantos</td>
+                                                <td>*****</td>
+                                                <td>Yes</td>
+                                                <td>General Services Office</td>
+                                                <td>Administrative Officer V</td>
+                                                <td></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(function () {
+                                LoadDataTable();
+                            })
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

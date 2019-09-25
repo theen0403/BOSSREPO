@@ -69,49 +69,55 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xl-5 col-lg-4 col-md-4">
+<div class="row skin skin-square">
+    <div class="col-xl-3 col-lg-3 col-md-3">
         <div class="form-group">
-            <label class="custom-form-margin">General Ledger Account/Contra Account/Sub Account</label>
-            <input type="text" class="form-control" value="Land"/>
+            <label class="custom-form-margin">General Ledger Account / Contra Account / Sub Account</label>
+            <input type="text" class="form-control" value="Land" />
         </div>
     </div>
-    <div class="col-xl-1 col-lg-2 col-md-2 px-0 text-center">
+    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-2 text-center">
         <div class="form-group">
-            <label class="custom-form-margin mt-xl-0 mt-lg-2 mt-md-2">Contra Account?</label>
-            <fieldset class=" skin skin-square">
-                <input type="checkbox" class="form-control icheckbox_square-green" />
+            <label class="custom-form-margin mt-xl-3 mt-lg-3 mt-md-3">Miscellaneous Account?</label>
+            <fieldset>
+                <input type="checkbox" class="form-control icheckbox_square-red" />
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-1 text-center">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-3 mt-lg-3 mt-md-3">Contra Account?</label>
+            <fieldset>
+                <input type="checkbox" class="form-control icheckbox_square-red" />
             </fieldset>
         </div>
     </div>
     <div class="col-xl-1 col-lg-2 col-md-2 px-0 text-center">
         <div class="form-group">
-            <label class="custom-form-margin mt-xl-0 mt-lg-3 mt-md-3">Sub Account?</label>
+            <label class="custom-form-margin mt-xl-3 mt-lg-5 mt-md-5">Sub Account?</label>
             <fieldset class=" skin skin-square">
                 <input type="checkbox" class="form-control icheckbox_square-green" />
             </fieldset>
         </div>
     </div>
-    <div class="col-xl-5 col-lg-4 col-md-4">
+    <div class="col-xl-3 col-lg-3 col-md-3">
         <div class="form-group">
-            <label class="custom-form-margin mt-xl-1 mt-lg-2 mt-md-3">General Ledger Account</label>
+            <label class="custom-form-margin mt-xl-3 mt-lg-2 mt-md-2">General Ledger Account</label>
             <select class="form-control">
                 <option></option>
             </select>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-12">
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
         <div class="form-group">
-            <label class="custom-form-margin mt-xl-2">Account Code</label>
+            <label class="custom-form-margin mt-xl-3">Account Code</label>
             <div class="input-group mt-0">
                 <span class="input-group-addon" id="basic-addon1">1-07-01-</span>
-                <input type="text" class="form-control"/>
+                <input type="text" class="form-control less-padding" />
             </div>
         </div>
     </div>
-    <div class="col-xl-2 col-lg-4 col-md-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin mt-xl-2">With Reserve?</label>
             <select class="form-control">
@@ -119,13 +125,13 @@
             </select>
         </div>
     </div>
-    <div class="col-xl-2 col-lg-4 col-md-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin mt-xl-2">Reserve %?</label>
             <input type="text" class="form-control" disabled />
         </div>
     </div>
-    <div class="col-xl-2 col-lg-4 col-md-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin mt-xl-2">Full Release?</label>
             <select class="form-control">
@@ -133,15 +139,15 @@
             </select>
         </div>
     </div>
-    <div class="col-xl-2 col-lg-4 col-md-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
-            <label class="custom-form-margin mt-xl-2">For Continuing?</label>
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">For Continuing?</label>
             <select class="form-control">
                 <option>No</option>
             </select>
         </div>
     </div>
-    <div class="col-xl-2 col-lg-4 col-md-4">
+    <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin">OBR Cash Advance?</label>
             <select class="form-control">
@@ -149,13 +155,25 @@
             </select>
         </div>
     </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Normal Balance</label>
+            <select class="form-control">
+                <option>Debit</option>
+                <option>Credit</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    
 </div>
 <div class="row mb-2">
     <div class="col">
-        <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetRevisionCOADT()">
+        <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetRevisionCOADT()">
             Cancel
         </button>
-        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
             Add
         </button>
     </div>
@@ -333,7 +351,7 @@
     </div>
 </div>
 @*Get Major Account Group Modal*@
-<div class="modal fade text-left" id="ViewAddMajorAccntSubMajorModal" role="dialog">
+<div class="modal fade text-left" id="ViewAddMAGenAcctModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-active">
@@ -342,7 +360,7 @@
             </div>
             <div class="modal-body skin skin-square">
                 <div class="card-body p-0">
-                    <div id="ViewAddMajorAccntSubMajorID"></div>
+                    <div id="ViewAddMAGenAcctID"></div>
                 </div>
             </div>
         </div>
@@ -404,8 +422,8 @@
         $.ajax({
             url: "/FileMaintenanceAccounts/GetAddMajorAccntGroup",
             success: function (result) {
-                $("#ViewAddMajorAccntSubMajorID").html(result);
-                $('#ViewAddMajorAccntSubMajorModal').modal('toggle');
+                $("#ViewAddMAGenAcctID").html(result);
+                $('#ViewAddMAGenAcctModal').modal('toggle');
             }
         });
     }

@@ -8,20 +8,16 @@
 {
     <div class="row">
         <div class="col-lg-1 col-md-1"></div>
-        <div class="col-lg-4 col-md-3 col-sm-4 mx-0">
+        <div class="col-lg-4 col-md-3 col-sm-4">
             <div class="form-group">
                 <label class="custom-form-margin">Employee Name</label>
-                <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
-                </fieldset>
+                @Html.TextBoxFor(m => m.getSignatoryColumns.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-5 mx-0">
             <div class="form-group">
                 <label class="custom-form-margin">Preferred Name</label>
-                <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.PreferredName, new { @class = "form-control", id = "PreferredName" })
-                </fieldset>
+                @Html.TextBoxFor(m => m.getSignatoryColumns.PreferredName, new { @class = "form-control", id = "PreferredName" })
             </div>
         </div>
         <div class="col-lg-2 col-md-3 col-sm-3">
@@ -47,15 +43,14 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-7">
-            <div class="form-group">
+            <div class="form-group">*
                 <label class="custom-form-margin">Department</label>
                 <span class="input-group-append">
                     @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptID", onchange = "LoadGetAddDynamicFunction()" })
-                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMSignatoryController','GetAddDeptModal','')" ><strong>+</strong></button>
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="AngularGlobalFunctions('FMSignatoryController','GetAddDeptModal','')"><strong>+</strong></button>
                 </span>
             </div>
         </div>
-
     </div>
     <div class="row">
         <div class="col-md-1"></div>
@@ -67,9 +62,7 @@
         <div class="col-md-4 col-sm-4 mx-0">
             <div class="form-group">
                 <label class="custom-form-margin">Division</label>
-                <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns.Division, new { @class = "form-control", id = "Division" })
-                </fieldset>
+                @Html.TextBoxFor(m => m.getSignatoryColumns.Division, new { @class = "form-control", id = "Division" })
             </div>
         </div>
         @*<div class="col-md-3 col-sm-3">
@@ -89,13 +82,13 @@
             </fieldset>
         </div>
     </div>
-    <div class="row mt-1">
+    <div class="row">
         <div class="col">
             <div class="form-group">
-                <button type="button" class="btn btn-menuRed btn-min-width mr-1 pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
+                <button type="button" class="btn btn-menuRed btn-min-width ml-1 pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
                     Cancel
                 </button>
-                <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width pull-right">
                     Add
                 </button>
             </div>

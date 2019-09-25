@@ -12,103 +12,19 @@
         <h3 class="content-header-title"><strong>Office Type</strong></h3>
     </div>
 </div>
-
-<div class="content-body" id="FMOfficeTypeController" ng-controller="FMOfficeTypeController" ng-init="">
+<div class="content-body" id="FMOfficeTypeController" ng-controller="FMOfficeTypeController" ng-init="InitFunctions();">
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-4">
                 <div class="card-content collapse show">
                     <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
 
-                        <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-4 col-sm-4">
-                                <div class="form-group">
-                                    <label class="custom-form-margin">Office Type</label>
-                                    <input type="text" id="Office TypeID" value="" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-4">
-                                <div class="form-group">
-                                    <label class="custom-form-margin">Code</label>
-                                    <input type="text" id="Office TypeCodeID" value="" class="form-control" />
-                                </div>
-                            </div>
+                        <div id="officetypeTempID">
+
                         </div>
+                        <div id="officetypeTableID">
 
-                        <div class="row mb-2">
-                            <div class="col-md-10">
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetDepartmentDT()">
-                                        Cancel
-                                    </button>
-                                    <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
-                                        Add
-                                    </button>
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-8">
-                                <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Office Type</th>
-                                            <th width="20%">Code</th>
-                                            <th width="5%">Action</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                                            var DeleteSuccesMess = "Successfully Deleted";
-                                            var successUpdate = "Successfully Updated!";
-
-                                            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
-                                            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
-
-                                            var ActionAS = Update + Remove;
-
-                                            
-                                            <tr>
-                                                <td>Mandatory</td>
-                                                <td class="text-center">1</td>
-                                                <td class="text-center">
-                                                    <button type="button" onfocusout="PopoveLostFocus()"
-                                                            class="btn btn-m btn-btnbackcolor popover-trigger"
-                                                            data-toggle="popover" data-content="@ActionAS"
-                                                            data-original-title="" data-html="true" data-placement="left">
-                                                        <i class="la la-bars"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Optional</td>
-                                                <td class="text-center">2</td>
-                                                <td class="text-center">
-                                                    <button type="button" onfocusout="PopoveLostFocus()"
-                                                            class="btn btn-m btn-btnbackcolor popover-trigger"
-                                                            data-toggle="popover" data-content="@ActionAS"
-                                                            data-original-title="" data-html="true" data-placement="left">
-                                                        <i class="la la-bars"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-                        <script>
-                            $(function () {
-                                LoadDataTable();
-                            })
-                        </script>
-
 
                     </div>
                 </div>
@@ -116,3 +32,45 @@
         </div>
     </div>
 </div>
+<script>
+    app.controller('FMOfficeTypeController', function ($scope, $http, $sce) {
+        var F = $scope, P = $http, D = $sce.trustAsHtml;
+        //Get Signatory Datatable Partial View
+        F.InitFunctions = function () {
+            F.GetOfficeTypeDTable();
+        }//Get Datatable Partial View
+        F.GetOfficeTypeDTable = function () {
+            P({
+                url: '/FileMaintenanceOfficeType/GetOfficeTypeDTable',
+            }).then(function (response) {
+                $('#officetypeTableID').html(response.data);
+                F.Get_AddOfficeType();
+            });
+        }
+        F.Get_AddOfficeType = function () {
+            P({
+                url: '/FileMaintenanceOfficeType/Get_AddOfficeType',
+            }).then(function (response) {
+                $('#officetypeTempID').html(response.data);
+
+            });
+        }
+        F.Get_UpdateOfficeType = function (OfficeTypeID) {
+            P({
+                url: '/FileMaintenanceOfficeType/Get_UpdateOfficeType',
+                params: { OfficeTypeID: OfficeTypeID }
+            }).then(function (response) {
+                $('#officetypeTempID').html(response.data);
+
+            });
+        }
+        F.DeleteOfficeType = function (OfficeTypeID) {
+            P({
+                url: '/FileMaintenanceOfficeType/DeleteOfficeType',
+                params: { OfficeTypeID: OfficeTypeID }
+            }).then(function (response) {
+                F.GetOfficeTypeDTable();
+            });
+        }
+    });
+</script>

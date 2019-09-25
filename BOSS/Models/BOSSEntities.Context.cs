@@ -31,15 +31,18 @@ namespace BOSS.Models
         public virtual DbSet<AllotmentClass> AllotmentClasses { get; set; }
         public virtual DbSet<AppropriationSourceType> AppropriationSourceTypes { get; set; }
         public virtual DbSet<BudgetYear> BudgetYears { get; set; }
+        public virtual DbSet<Fund> Funds { get; set; }
         public virtual DbSet<FundSource> FundSources { get; set; }
         public virtual DbSet<FundType> FundTypes { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
         public virtual DbSet<Level2Modules> Level2Modules { get; set; }
         public virtual DbSet<Level3Modules> Level3Modules { get; set; }
+        public virtual DbSet<OfficeType> OfficeTypes { get; set; }
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
         public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
+        public virtual DbSet<SubFund> SubFunds { get; set; }
         public virtual DbSet<SubSector> SubSectors { get; set; }
         public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
         public virtual DbSet<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
@@ -94,6 +97,33 @@ namespace BOSS.Models
                 new ObjectParameter("SQLStatement", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Signatory", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Fund(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Fund", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Sector(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Sector", sQLStatementParameter);
+        }
+    
+        public virtual int SP_OfficeType(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_OfficeType", sQLStatementParameter);
         }
     }
 }

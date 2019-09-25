@@ -1,0 +1,69 @@
+﻿@model BOSS.Models.FMmodels.FMSectorModels.SubSectorModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("UpdateSubSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetSubSectorDTable','Successfully Updated!')", OnFailure = "", }))
+{
+    @Html.HiddenFor(m => m.SubSectorID, new { })
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Sector</label>
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.SectorID, Model.SectorSelectionList, new { @class = "form-control select2", id = "SectorID", onchange = "GetSectorCodeField()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddSectorModal" onclick="GetAddSectorModal()"><strong>+</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Sector</label>
+                @Html.TextAreaFor(m => m.getSubSectorColumns.SubSectorTitle, new { @class = "form-control", @rows = 1, id = "SubSectorTitle" })
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4">
+            <div class="form-group mb-0 pb-0" style="margin-top:-5px;">
+                <label class="custom-form-margin">Code</label>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-2 col-md-5 col-sm-1 p-0" id="sectorcodeID">
+
+                </div>
+                <div class="col-lg-1 col-md-1 p-0 col-sm-1">
+                    <div class="mx-1" style="margin-top: 7px;">
+                        <label>-</label>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-5 col-xs-3 pl-0">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.getSubSectorColumns.SubSectorCode, new { @class = "form-control", id = "SubSectorCode" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-md-2 col-sm-4">
+                <div class="form-group">
+                    <label class="custom-form-margin">Code</label>
+                    <span class="input-group-append">
+                        <label class="col-sm-1 text-right"  id="sectorcodeID"></label>
+                        @Html.TextBoxFor(m => m.getSubSectorColumns.SubSectorCode, new { @class = "form-control", id = "SubSectorCode" })
+                    </span>
+                </div>
+            </div>*@
+    </div>
+    <div class="row mb-2">
+        <div class="col-11">
+            <div class="form-group">
+                <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetSubSectorDTable()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+}

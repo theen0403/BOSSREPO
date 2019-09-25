@@ -2,131 +2,15 @@
 @{
     ViewBag.Title = "IndexSubFund";
 }
-<div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-4 col-lg-5 col-md-6">
-        <div class="form-group">
-            <label class="custom-form-margin">Fund</label>
-            <span class="input-group-append">
-                <select class="form-control">
-                    <option>General Fund</option>
-                    <option>Calamity Fund</option>
-                    <option>Development Fund</option>
-                    <option>Special Education Fund</option>
-                    <option>Trust Fund</option>
-                </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundModal" onclick="GetAddFundModal()"><strong>+</strong></button>
-            </span>
-        </div>
-    </div>
-    <div class="col-xl-4 col-lg-3 col-md-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Sub Fund</label>
-            <input type="text" id="fundCodeID" value="" class="form-control" />
-        </div>
-    </div>
+
+<div id="subfundTempID">
+
 </div>
-<div class="row mb-2">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-8 col-lg-8 col-md-10">
-        <div class="form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetDepartmentDT()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Add
-            </button>
-        </div>
-    </div>
+<div id="subfundTableID">
+
 </div>
-<div class="row">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-8 col-lg-8 col-md-10">
-        <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
-            <thead class="text-center">
-                <tr>
-                    <th>Fund</th>
-                    <th>Sub Fund</th>
-                    <th width="5%" class="text-center">Action</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                    var DeleteSuccesMess = "Successfully Deleted";
-                    var successUpdate = "Successfully Updated!";
 
-                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
-                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
-
-                    var ActionAS = Update + Remove;
-
-                    <tr>
-                        <td>General Fund</td>
-                        <td>Bus Terminal</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>General Fund</td>
-                        <td>Hospital</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>General Fund</td>
-                        <td>Market</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>General Fund</td>
-                        <td>Proper</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>General Fund</td>
-                        <td>Slaughterhouse</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
 @*Modal*@
 <div class="modal fade text-left" id="ViewAddFundModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
@@ -147,17 +31,43 @@
 
 <script>
     $(function () {
-        LoadDataTable();
+        GetSubFundDTable();
     })
-    //Get Add Fund Modal
-    function GetAddFundModal() {
+    function GetSubFundDTable() {
         $.ajax({
-            url: "/FileMaintenanceFund/GetAddFundModal",
+            url: '/FileMaintenanceFund/GetSubFundDTable',
             success: function (result) {
-                $("#ViewAddFundID").html(result);
-                $('#ViewAddFundModal').modal('toggle');
+                $("#subfundTableID").html(result);
+                Get_AddSubFund();
             }
-        });
+        })
+    }
+    function Get_AddSubFund() {
+        $.ajax({
+            url: '/FileMaintenanceFund/Get_AddSubFund',
+            success: function (result) {
+                $("#subfundTempID").html(result);
+            }
+        })
+    }
+
+    function Get_UpdateSubFund(SubFundID) {
+        $.ajax({
+            url: '/FileMaintenanceFund/Get_UpdateSubFund',
+            data: { SubFundID: SubFundID },
+            success: function (result) {
+                $("#subfundTempID").html(result);
+            }
+        })
+    }
+    function DeleteSubFund(SubFundID) {
+        $.ajax({
+            url: '/FileMaintenanceFund/DeleteSubFund',
+            data: { SubFundID: SubFundID },
+            success: function (result) {
+                GetSubFundDTable();
+            }
+        })
     }
 </script>
 

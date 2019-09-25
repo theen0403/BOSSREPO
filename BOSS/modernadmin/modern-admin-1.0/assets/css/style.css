@@ -122,7 +122,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 .custom-div
 {
     padding:5px;
-    margin:10px;
+    margin:5px;
 }
 
 .RecordsFileUploadImageSmall
@@ -181,7 +181,6 @@ table.table {
 table thead tr th {
    white-space: normal;
 }
-
 /*table.table-ledger thead tr:nth-child(2) th:nth-child(1),
 table.table-ledger thead tr:nth-child(2) th:nth-child(2),
 table.table-ledger thead tr:nth-child(2) th:nth-child(3),
@@ -403,10 +402,6 @@ table thead tr th {
     background: #6DAD4B !important;
 }
 
-.custom-form-margin {
-    margin-bottom: 2px;
-}
-
 html body a:hover {
     color: white !important;
 }
@@ -522,6 +517,9 @@ form .form-control {
     margin-top: 8px;
     border: 0px white;
     background-color: white;
+    width:80px;
+    padding-left:0px;
+    margin-left:0px;
 }
 
 /*Modal center-position input windows*/
@@ -539,3 +537,16 @@ form .form-control {
 .m-left {
     margin-left: 3px;
 }
+.custom-form-margin {
+    margin-bottom: 2px;
+}
+/*table.table th {
+    width: auto !important;
+}*/
+
+/*.dataTables_wrapper table {
+    
+    width: 100%;
+    min-height: .01%;
+    overflow-x: auto;
+}*/

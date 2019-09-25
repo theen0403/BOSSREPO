@@ -37,6 +37,14 @@
           <Property Name="BudgetYearID" Type="int" Nullable="false" />
           <Property Name="BudgetYearTitle" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundTitle" Type="varchar" MaxLength="50" />
+          <Property Name="FundCode" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="FundSource">
           <Key>
             <PropertyRef Name="FundSourceID" />
@@ -85,6 +93,14 @@
           <Property Name="ActionName" Type="varchar" MaxLength="50" />
           <Property Name="JSID" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="OfficeType">
+          <Key>
+            <PropertyRef Name="OfficeTypeID" />
+          </Key>
+          <Property Name="OfficeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfficeTypeTitle" Type="varchar" MaxLength="50" />
+          <Property Name="OfficeTypeCode" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ParentModules">
           <Key>
             <PropertyRef Name="ModuleParentID" />
@@ -127,6 +143,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SectorTitle" Type="varchar" MaxLength="50" />
+          <Property Name="SectorCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubFundTitle" Type="varchar" MaxLength="50" />
+          <Property Name="FundID" Type="int" />
         </EntityType>
         <EntityType Name="SubSector">
           <Key>
@@ -134,6 +159,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SubSectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubSectorTitle" Type="varchar" MaxLength="100" />
+          <Property Name="SubSectorCode" Type="varchar" MaxLength="50" />
           <Property Name="SectorID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMAppropriationSource">
@@ -320,6 +346,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubFund_Fund">
+          <End Role="Fund" Type="Self.Fund" Multiplicity="0..1" />
+          <End Role="SubFund" Type="Self.SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="SubFund">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubSector_Sector">
           <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
           <End Role="SubSector" Type="Self.SubSector" Multiplicity="*" />
@@ -341,30 +379,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Tbl_FMDepartment">
               <PropertyRef Name="FundID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Department_Sector">
-          <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Department_SubSector">
-          <End Role="SubSector" Type="Self.SubSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,7 +499,16 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
         <Function Name="SP_FMResponsibility" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="SP_Fund" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_OfficeType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="SP_PositionSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Sector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SP_Signatory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -496,15 +519,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySet Name="AllotmentClass" EntityType="Self.AllotmentClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppropriationSourceType" EntityType="Self.AppropriationSourceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BudgetYear" EntityType="Self.BudgetYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fund" EntityType="Self.Fund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FundSource" EntityType="Self.FundSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FundType" EntityType="Self.FundType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level3Modules" EntityType="Self.Level3Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfficeType" EntityType="Self.OfficeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PIN_Accounts" EntityType="Self.PIN_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sector" EntityType="Self.Sector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubFund" EntityType="Self.SubFund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SubSector" EntityType="Self.SubSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="Self.Tbl_FMAppropriationSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMDepartment" EntityType="Self.Tbl_FMDepartment" Schema="dbo" store:Type="Tables" />
@@ -543,20 +569,16 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubFund_Fund" Association="Self.FK_SubFund_Fund">
+            <End Role="Fund" EntitySet="Fund" />
+            <End Role="SubFund" EntitySet="SubFund" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubSector_Sector" Association="Self.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sector" />
             <End Role="SubSector" EntitySet="SubSector" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Department_FundType" Association="Self.FK_Tbl_Department_FundType">
             <End Role="FundType" EntitySet="FundType" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_Sector" Association="Self.FK_Tbl_Department_Sector">
-            <End Role="Sector" EntitySet="Sector" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_SubSector" Association="Self.FK_Tbl_Department_SubSector">
-            <End Role="SubSector" EntitySet="SubSector" />
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMGeneralAccount_AllotmentClass" Association="Self.FK_Tbl_FMGeneralAccount_AllotmentClass">
@@ -616,19 +638,31 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <FunctionImport Name="SP_Signatory">
           <Parameter Name="SQLStatement" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_Fund">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Sector">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_OfficeType">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="Accounts" EntityType="BOSSModel.Account" />
           <EntitySet Name="AllotmentClasses" EntityType="BOSSModel.AllotmentClass" />
           <EntitySet Name="AppropriationSourceTypes" EntityType="BOSSModel.AppropriationSourceType" />
           <EntitySet Name="BudgetYears" EntityType="BOSSModel.BudgetYear" />
+          <EntitySet Name="Funds" EntityType="BOSSModel.Fund" />
           <EntitySet Name="FundSources" EntityType="BOSSModel.FundSource" />
           <EntitySet Name="FundTypes" EntityType="BOSSModel.FundType" />
           <EntitySet Name="Level1Modules" EntityType="BOSSModel.Level1Modules" />
           <EntitySet Name="Level2Modules" EntityType="BOSSModel.Level2Modules" />
           <EntitySet Name="Level3Modules" EntityType="BOSSModel.Level3Modules" />
+          <EntitySet Name="OfficeTypes" EntityType="BOSSModel.OfficeType" />
           <EntitySet Name="ParentModules" EntityType="BOSSModel.ParentModule" />
           <EntitySet Name="PersonalInformations" EntityType="BOSSModel.PersonalInformation" />
           <EntitySet Name="PIN_Accounts" EntityType="BOSSModel.PIN_Accounts" />
           <EntitySet Name="Sectors" EntityType="BOSSModel.Sector" />
+          <EntitySet Name="SubFunds" EntityType="BOSSModel.SubFund" />
           <EntitySet Name="SubSectors" EntityType="BOSSModel.SubSector" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="BOSSModel.Tbl_FMAppropriationSource" />
           <EntitySet Name="Tbl_FMDepartment" EntityType="BOSSModel.Tbl_FMDepartment" />
@@ -659,6 +693,10 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="BudgetYear" EntitySet="BudgetYears" />
             <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
           </AssociationSet>
+          <AssociationSet Name="FK_SubFund_Fund" Association="BOSSModel.FK_SubFund_Fund">
+            <End Role="Fund" EntitySet="Funds" />
+            <End Role="SubFund" EntitySet="SubFunds" />
+          </AssociationSet>
           <AssociationSet Name="FK_AppropriationSource_FundSource1" Association="BOSSModel.FK_AppropriationSource_FundSource1">
             <End Role="FundSource" EntitySet="FundSources" />
             <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
@@ -686,14 +724,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <AssociationSet Name="FK_SubSector_Sector" Association="BOSSModel.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sectors" />
             <End Role="SubSector" EntitySet="SubSectors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_Sector" Association="BOSSModel.FK_Tbl_Department_Sector">
-            <End Role="Sector" EntitySet="Sectors" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_SubSector" Association="BOSSModel.FK_Tbl_Department_SubSector">
-            <End Role="SubSector" EntitySet="SubSectors" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Function_Tbl_Department" Association="BOSSModel.FK_Tbl_Function_Tbl_Department">
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
@@ -757,6 +787,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="BudgetYearTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMAppropriationSource" Relationship="BOSSModel.FK_AppropriationSource_BudgetYear1" FromRole="BudgetYear" ToRole="Tbl_FMAppropriationSource" />
         </EntityType>
+        <EntityType Name="Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SubFunds" Relationship="BOSSModel.FK_SubFund_Fund" FromRole="Fund" ToRole="SubFund" />
+        </EntityType>
         <EntityType Name="FundSource">
           <Key>
             <PropertyRef Name="FundSourceID" />
@@ -814,6 +853,14 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="JSID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Level2Modules" Relationship="BOSSModel.FK_Level3Modules_Level2Modules" FromRole="Level3Modules" ToRole="Level2Modules" />
         </EntityType>
+        <EntityType Name="OfficeType">
+          <Key>
+            <PropertyRef Name="OfficeTypeID" />
+          </Key>
+          <Property Name="OfficeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfficeTypeTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="ParentModule">
           <Key>
             <PropertyRef Name="ModuleParentID" />
@@ -851,8 +898,17 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SectorTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubSectors" Relationship="BOSSModel.FK_SubSector_Sector" FromRole="Sector" ToRole="SubSector" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_Department_Sector" FromRole="Sector" ToRole="Tbl_FMDepartment" />
+        </EntityType>
+        <EntityType Name="SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubFundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundID" Type="Int32" />
+          <NavigationProperty Name="Fund" Relationship="BOSSModel.FK_SubFund_Fund" FromRole="SubFund" ToRole="Fund" />
         </EntityType>
         <EntityType Name="SubSector">
           <Key>
@@ -860,9 +916,9 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="SubSectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SubSectorTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubSectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorID" Type="Int32" />
           <NavigationProperty Name="Sector" Relationship="BOSSModel.FK_SubSector_Sector" FromRole="SubSector" ToRole="Sector" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_Department_SubSector" FromRole="SubSector" ToRole="Tbl_FMDepartment" />
         </EntityType>
         <EntityType Name="Tbl_FMAppropriationSource">
           <Key>
@@ -887,8 +943,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="FundID" Type="Int32" />
           <Property Name="SubSectorID" Type="Int32" />
           <NavigationProperty Name="FundType" Relationship="BOSSModel.FK_Tbl_Department_FundType" FromRole="Tbl_FMDepartment" ToRole="FundType" />
-          <NavigationProperty Name="Sector" Relationship="BOSSModel.FK_Tbl_Department_Sector" FromRole="Tbl_FMDepartment" ToRole="Sector" />
-          <NavigationProperty Name="SubSector" Relationship="BOSSModel.FK_Tbl_Department_SubSector" FromRole="Tbl_FMDepartment" ToRole="SubSector" />
           <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_Function_Tbl_Department" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMFunction" />
           <NavigationProperty Name="Tbl_FMOfficeSection" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMOfficeSection" />
         </EntityType>
@@ -1044,6 +1098,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SubFund_Fund">
+          <End Type="BOSSModel.Fund" Role="Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.SubFund" Role="SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="SubFund">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AppropriationSource_FundSource1">
           <End Type="BOSSModel.FundSource" Role="FundSource" Multiplicity="0..1" />
           <End Type="BOSSModel.Tbl_FMAppropriationSource" Role="Tbl_FMAppropriationSource" Multiplicity="*" />
@@ -1125,30 +1191,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="SubSector">
               <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Department_Sector">
-          <End Type="BOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Department_SubSector">
-          <End Type="BOSSModel.SubSector" Role="SubSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1235,6 +1277,9 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <FunctionImportMapping FunctionImportName="SP_FMAccounts" FunctionName="BOSSModel.Store.SP_FMAccounts" />
           <FunctionImportMapping FunctionImportName="SP_PositionSP" FunctionName="BOSSModel.Store.SP_PositionSP" />
           <FunctionImportMapping FunctionImportName="SP_Signatory" FunctionName="BOSSModel.Store.SP_Signatory" />
+          <FunctionImportMapping FunctionImportName="SP_Fund" FunctionName="BOSSModel.Store.SP_Fund" />
+          <FunctionImportMapping FunctionImportName="SP_Sector" FunctionName="BOSSModel.Store.SP_Sector" />
+          <FunctionImportMapping FunctionImportName="SP_OfficeType" FunctionName="BOSSModel.Store.SP_OfficeType" />
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="BOSSModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -1268,6 +1313,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
               <MappingFragment StoreEntitySet="BudgetYear">
                 <ScalarProperty Name="BudgetYearTitle" ColumnName="BudgetYearTitle" />
                 <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funds">
+            <EntityTypeMapping TypeName="BOSSModel.Fund">
+              <MappingFragment StoreEntitySet="Fund">
+                <ScalarProperty Name="FundCode" ColumnName="FundCode" />
+                <ScalarProperty Name="FundTitle" ColumnName="FundTitle" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1324,6 +1378,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="OfficeTypes">
+            <EntityTypeMapping TypeName="BOSSModel.OfficeType">
+              <MappingFragment StoreEntitySet="OfficeType">
+                <ScalarProperty Name="OfficeTypeCode" ColumnName="OfficeTypeCode" />
+                <ScalarProperty Name="OfficeTypeTitle" ColumnName="OfficeTypeTitle" />
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ParentModules">
             <EntityTypeMapping TypeName="BOSSModel.ParentModule">
               <MappingFragment StoreEntitySet="ParentModules">
@@ -1359,8 +1422,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySetMapping Name="Sectors">
             <EntityTypeMapping TypeName="BOSSModel.Sector">
               <MappingFragment StoreEntitySet="Sector">
+                <ScalarProperty Name="SectorCode" ColumnName="SectorCode" />
                 <ScalarProperty Name="SectorTitle" ColumnName="SectorTitle" />
                 <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubFunds">
+            <EntityTypeMapping TypeName="BOSSModel.SubFund">
+              <MappingFragment StoreEntitySet="SubFund">
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="SubFundTitle" ColumnName="SubFundTitle" />
+                <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1368,6 +1441,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <EntityTypeMapping TypeName="BOSSModel.SubSector">
               <MappingFragment StoreEntitySet="SubSector">
                 <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="SubSectorCode" ColumnName="SubSectorCode" />
                 <ScalarProperty Name="SubSectorTitle" ColumnName="SubSectorTitle" />
                 <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
               </MappingFragment>

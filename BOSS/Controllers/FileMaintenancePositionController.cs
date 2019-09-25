@@ -66,8 +66,7 @@ namespace BOSS.Controllers
             PositionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionTitle);
             PositionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionCode);
             BOSSDB.Tbl_FMPosition.Add(PositionTBL);
-
-
+            
             BOSSDB.SaveChanges();
             return Json(PositionTBL);
         }

@@ -3,146 +3,14 @@
     ViewBag.Title = "IndexSubSectorTab";
 }
 
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-4 col-sm-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Sector</label>
-            <span class="input-group-append">
-                <select class="form-control">
-                    <option>Economic Services</option>
-                    <option>General Public Services</option>
-                    <option>Other Services</option>
-                    <option>Social Services</option>
-                </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddSectorModal" onclick="GetAddSectorModal()"><strong>+</strong></button>
-            </span>
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Sub Sector</label>
-            <input type="text" id="SectorCodeID" value="" class="form-control" />
-        </div>
-    </div>
-    <div class="col-md-2 col-sm-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Code</label>
-            <div class="input-group mt-0">
-                <span class="input-group-addon" id="basic-addon1">1000 -</span>
-                <input type="text" class="form-control" name="name" value="" />
-            </div>
-        </div>
-    </div>
+<div id="subsectortempID">
+
+</div>
+<div id="subsectorTableID">
+
 </div>
 
-<div class="row mb-2">
-    <div class="col-md-10">
-        <div class="form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetDepartmentDT()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
-                Add
-            </button>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
-            <thead class="text-center">
-                <tr>
-                    <th>Sector</th>
-                    <th>Sub Sector</th>
-                    <th width="15%">Code</th>
-                    <th width="5%" class="text-center">Action</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                    var DeleteSuccesMess = "Successfully Deleted";
-                    var successUpdate = "Successfully Updated!";
-
-                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
-                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
-
-                    var ActionAS = Update + Remove;
-
-                <tr>
-                    <td>Economic Services</td>
-                    <td>N/A</td>
-                    <td class="text-center">8000-000</td>
-                    <td class="text-center">
-                        <button type="button" onfocusout="PopoveLostFocus()"
-                                class="btn btn-m btn-btnbackcolor popover-trigger"
-                                data-toggle="popover" data-content="@ActionAS"
-                                data-original-title="" data-html="true" data-placement="left">
-                            <i class="la la-bars"></i>
-                        </button>
-                    </td>
-                </tr>
-                    <tr>
-                        <td>General Public Services</td>
-                        <td>N/A</td>
-                        <td class="text-center">1000-000</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Other Services</td>
-                        <td>N/A</td>
-                        <td class="text-center">9000-000</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Social Services</td>
-                        <td>Health and Nutrition</td>
-                        <td class="text-center">3000-100</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Social Services</td>
-                        <td>Social Security, Social Services and Welfare</td>
-                        <td class="text-center">3000-200</td>
-                        <td class="text-center">
-                            <button type="button" onfocusout="PopoveLostFocus()"
-                                    class="btn btn-m btn-btnbackcolor popover-trigger"
-                                    data-toggle="popover" data-content="@ActionAS"
-                                    data-original-title="" data-html="true" data-placement="left">
-                                <i class="la la-bars"></i>
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-</div>
-
+@*Modal*@
 <div class="modal fade text-left" id="ViewAddSectorModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -156,17 +24,63 @@
                     <div id="ViewAddSectorID"></div>
                 </div>
             </div>
-            @*<div class="modal-footer">
-                <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
-        </div>*@
         </div>
     </div>
 </div>
-
 <script>
     $(function () {
-        LoadDataTable();
+        GetSubSectorDTable();
     })
+    function GetSubSectorDTable() {
+        $.ajax({
+            url: '/FileMaintenanceSector/GetSubSectorDTable',
+            success: function (result) {
+                $("#subsectorTableID").html(result);
+                Get_AddSubSector();
+            }
+        })
+    }
+    function Get_AddSubSector() {
+        $.ajax({
+            url: '/FileMaintenanceSector/Get_AddSubSector',
+            success: function (result) {
+                $("#subsectortempID").html(result);
+                GetSectorCodeField();
+            }
+        })
+    }
+    function GetSectorCodeField() {
+        var SectorID = $("#SectorID").val();
+        $.ajax({
+            url: '/FileMaintenanceSector/GetSectorCodeField',
+            data: { SectorID: SectorID },
+            success: function (result) {
+                $('#sectorcodeID').html(result);
+            }
+        })
+    }
+    function Get_UpdateSubSector(SubSectorID) {
+        $.ajax({
+            url: '/FileMaintenanceSector/Get_UpdateSubSector',
+            data: { SubSectorID: SubSectorID },
+            success: function (result) {
+                $("#subsectortempID").html(result);
+                GetSectorCodeField();
+            }
+        })
+    }
+    function DeleteSubSector(SubSectorID) {
+        $.ajax({
+            url: '/FileMaintenanceSector/DeleteSubSector',
+            data: { SubSectorID: SubSectorID },
+            success: function (result) {
+                GetSubSectorDTable();
+            }
+        })
+    }
+
+
+
     function GetAddSectorModal() {
         $.ajax({
             url: "/FileMaintenanceSector/GetAddSectorModal",

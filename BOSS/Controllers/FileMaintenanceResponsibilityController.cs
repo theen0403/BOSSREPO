@@ -243,7 +243,7 @@ namespace BOSS.Controllers
         {
             FunctionModel model = new FunctionModel();
             var departmentTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == deptID select e).FirstOrDefault();
-            model.SectorTitle = departmentTable.Sector.SectorTitle;
+            //model.SectorTitle = departmentTable.Sector.SectorTitle;
 
             var departmentSubsector = (from e in BOSSDB.SubSectors where e.SubSectorID == departmentTable.SubSectorID select e).FirstOrDefault();
 
@@ -269,7 +269,7 @@ namespace BOSS.Controllers
         {
             FunctionModel model = new FunctionModel();
             var departmentTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID2 select e).FirstOrDefault();
-            model.SectorTitle = departmentTable.Sector.SectorTitle;
+           // model.SectorTitle = departmentTable.Sector.SectorTitle;
 
             var departmentSubsector = (from e in BOSSDB.SubSectors where e.SubSectorID == departmentTable.SubSectorID select e).FirstOrDefault();
 

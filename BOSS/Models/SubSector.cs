@@ -14,18 +14,11 @@ namespace BOSS.Models
     
     public partial class SubSector
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubSector()
-        {
-            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
-        }
-    
         public int SubSectorID { get; set; }
         public string SubSectorTitle { get; set; }
+        public string SubSectorCode { get; set; }
         public Nullable<int> SectorID { get; set; }
     
         public virtual Sector Sector { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
     }
 }

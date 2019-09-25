@@ -35,10 +35,10 @@
 </div>
 <div class="row mb-2">
     <div class="col">
-        <button type="button" class="btn btn-menuRed btn-min-width mr-1 float-right">
+        <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right">
             Cancel
         </button>
-        <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
+        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
             Add
         </button>
     </div>
@@ -181,7 +181,7 @@
     </div>
 </div>
 @*Add Dept Modal*@
-<div class="modal fade text-left" id="ViewAddDeptFuncModal" role="dialog">
+<div class="modal fade text-left" id="ViewAddDeptsecModal" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header bg-active">
@@ -191,7 +191,7 @@
 
             <div class="modal-body skin skin-square">
                 <div class="card-body p-0">
-                    <div id="ViewAddDeptFuncID"></div>
+                    <div id="ViewAddDeptsecID"></div>
                 </div>
             </div>
         </div>
@@ -224,8 +224,8 @@
         $.ajax({
             url: "/FileMaintenanceResponsibility/GetAddDeptModalSec",
             success: function (result) {
-                $("#ViewAddDeptFuncID").html(result);
-                $('#ViewAddDeptFuncModal').modal('toggle');
+                $("#ViewAddDeptsecID").html(result);
+                $('#ViewAddDeptsecModal').modal('toggle');
             }
         });
     }

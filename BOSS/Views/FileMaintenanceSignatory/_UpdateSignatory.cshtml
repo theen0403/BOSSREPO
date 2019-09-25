@@ -14,17 +14,13 @@
         <div class="col-md-4 col-sm-4 mx-0">
             <div class="form-group">
                 <label class="custom-form-margin">Employee Name</label>
-                <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns2.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
-                </fieldset>
+                @Html.TextBoxFor(m => m.getSignatoryColumns2.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
             </div>
         </div>
         <div class="col-md-4 col-sm-4 mx-0">
             <div class="form-group">
                 <label class="custom-form-margin">Preferred Name</label>
-                <fieldset>
-                    @Html.TextBoxFor(m => m.getSignatoryColumns2.PreferredName, new { @class = "form-control", id = "SignatoryName" })
-                </fieldset>
+                @Html.TextBoxFor(m => m.getSignatoryColumns2.PreferredName, new { @class = "form-control", id = "SignatoryName" })
             </div>
         </div>
         <div class="col-md-2 col-sm-3">
@@ -80,7 +76,7 @@
             </fieldset>
         </div>*@
         <div class="col-md-3 col-sm-3">
-            @Html.TextBoxFor(m => m.isActive, new { id = "isActiveID" })
+            @Html.HiddenFor(m => m.isActive, new { id = "isActiveID" })
             <fieldset class="form-group">
                 <label class=" mt-md-2">
                     <input type="checkbox" id="IsChecked" onchange="isActiveonChange()">
@@ -90,42 +86,14 @@
         </div>
 
     </div>
-    <div class="row mt-1">
+    <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-menuRed btn-min-width pull-right" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
+            <button type="button" class="btn btn-menuRed btn-min-width pull-right ml-1" onclick="AngularGlobalFunctions('FMSignatoryController','GetSignatoryDTable','')">
                 Cancel
             </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width pull-right">
                 Update
             </button>
         </div>
     </div>
-}
-<script>
-    $(function () {
-        LoadGetAddDynamicFunction();
-        $("#isHeadIDD").val($("#isHeadID").val());
-        $("#IsChecked").val($("#isActiveID").val());
-        LoadICheck();
-        select2nosearch();
-        isActiveonChange();
-    })
-    function isHeadOnChange() {
-        $("#isHeadID").val($("#isHeadIDD").val());
-    }
-    function LoadGetAddDynamicFunction() {
-        AngularGlobalFunctions('FMSignatoryController', 'GetAddDynamicFunction', '')
-    }
-    //function isActiveonChange() {
-    //    var isActiveValue = $("#isActiveID").val();
-
-    //    if (isActiveValue == "True") {
-    //        $("#IsChecked").attr("checked", true);
-    //    } else {
-    //        $("#IsChecked").attr("checked", false);
-    //    }
-    //}
-    function isActiveonChange() {
-        $('#isActiveID').val($('#IsChecked').is(':checked'));
-    }
-</script>
+} 

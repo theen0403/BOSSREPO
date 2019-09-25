@@ -1,0 +1,40 @@
+﻿@model BOSS.Models.FMmodels.FMFundModels.SubFundModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("UpdateSubFund", "FileMaintenanceFund", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetSubFundDTable','Successfully Updated!')", OnFailure = "", }))
+{
+    @Html.HiddenFor(m => m.SubFundID, new { })
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-4 col-lg-5 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Fund</label>
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.FundID, Model.FundSelectionList, new { @class = "form-control select2", id = "FundID" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddFundModal" onclick="GetAddFundModal()"><strong>+</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-3 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Fund</label>
+                @Html.TextBoxFor(m => m.getSubFundColumns.SubFundTitle, new { @class = "form-control", id = "SubFundTitle" })
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="form-group">
+                <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetSubFundDTable()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+}

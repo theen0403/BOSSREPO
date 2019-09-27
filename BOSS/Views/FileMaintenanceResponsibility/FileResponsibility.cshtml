@@ -1,10 +1,9 @@
-﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.FunctionModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
     ViewBag.Title = "FileResponsibility";
 }
 @using BOSS.Models;
-
 
 <script>
     $("#FileMaintenanceResponsibilityID").addClass("active");
@@ -33,7 +32,7 @@
                                         <a class="nav-link bg-backcolorheader" id="base-tab2" ng-click="FunctionTab()" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false">Function</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab3" ng-click="OfficeSectionTab()" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false">Section</a>
+                                        <a class="nav-link bg-backcolorheader" id="base-tab3" ng-click="SectionTab()" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false">Section</a>
                                     </li>
                                 </ul>
                                 @*TAB*@
@@ -85,10 +84,10 @@
             });
         }
         //Office Section Tab
-        F.OfficeSectionTab = function () {
+        F.SectionTab = function () {
             F.tab3 = null;
             P({
-                url: '/FileMaintenanceResponsibility/OfficeSectionTab',
+                url: '/FileMaintenanceResponsibility/SectionTab',
             }).then(function (response) {
                 F.tab3 = D(response.data);
             });

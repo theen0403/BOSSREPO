@@ -1,64 +1,91 @@
-﻿@model BOSS.Models.FMResponsibilityModels.FunctionModel
+﻿
+@model BOSS.Models.FMmodels.FMResCenterModels.FunctionModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
-@using (Ajax.BeginForm("UpdateFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetPartialIndexFunction2','Successfully Updated!')", OnFailure = "", }))
+
+@using (Ajax.BeginForm("UpdateFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetFunctionDT','Successfully Updated!')", OnFailure = "", }))
 {
     @Html.HiddenFor(m => m.FunctionID, new { })
-    @Html.HiddenFor(m => m.DeptID2, new { })
-   
-    <div class="row">
-        <div class="col-md-5" id="DeptforUpdateID">
-        </div>
-        <div class="col-md-4 col-sm-4">
+    
+    <div class="row mt-1">
+        <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="form-group">
-                <label class="custom-form-margin">Function</label>
-                @Html.TextAreaFor(m => m.getFunctionColumns2.FunctionTitle, new { @class = "form-control", @rows = 1, id = "FunctionTitle" })
+                <label class="custom-form-margin mt-xl-2 mt-lg-2">Department</label>
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.DeptID, Model.DeptSelectionListfunc, new { @class = "form-control select2", id = "DeptID", onchange = "GetFund()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddDeptFuncModal" onclick="GetAddDeptModalFunc()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
-        <div class="col-md-3 col-sm-4">
+        <div class="col-xl-3 col-lg-3 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2">Function</label>
+                @Html.TextAreaFor(m => m.getFunctionColumns.FunctionTitle, new { @class = "form-control", @rows = 1, id = "FunctionTitle" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
             <div class="form-group">
                 <label class="custom-form-margin">Function Abbreviation</label>
-                @Html.TextBoxFor(m => m.getFunctionColumns2.FunctionAbbrv, new { @class = "form-control", type = "text", id = "FunctionAbbrv" })
+                @Html.TextBoxFor(m => m.getFunctionColumns.FunctionAbbrv, new { @class = "form-control", type = "text", id = "FunctionAbbrv" })
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2 col-sm-4">
+        <div class="col-xl-2 col-lg-3 col-md-3">
             <div class="form-group">
-                <label class="custom-form-margin">Function Code</label>
-                @Html.TextBoxFor(m => m.getFunctionColumns2.FunctionCode, new { @class = "form-control", type = "text", id = "FunctionCode" })
+                <label class="custom-form-margin mt-xl-2 mt-lg-0 mt-md-2">Function Code</label>
+                @Html.TextBoxFor(m => m.getFunctionColumns.FunctionCode, new { @class = "form-control", type = "text", id = "FunctionCode" })
             </div>
         </div>
-        <div class="col-md-7" id="sectorSubsectorID">
+        <div class="col-xl-2 col-lg-4 col-md-6 mt-xl-2 mt-lg-0 mt-md-2" id="fundTitleID">
 
         </div>
-        <div class="col-md-3 col-sm-4 mt-0">
-            <div class="form-group ">
-                <label class="custom-form-margin">Fund</label>
-                @Html.DropDownListFor(m => m.FundID, Model.FundTypeList, new { @class = "form-control select2nosearch" })
+        <div class="col-xl-3 col-lg-5 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2">Sector</label>
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.SectorID, Model.SectorListfunc, new { @class = "form-control select2", id = "SectorID", onchange = "GetDynamicSubSectorfunc()" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddSectorModal()"><strong>+</strong></button>
+                </span>
             </div>
         </div>
-    </div>
+        <div class="col-xl-4 col-lg-5 col-md-6 mt-xl-2 mt-lg-2" id="SubSectorfuncID">
 
-    @*BUTTON*@
-    <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right" onclick="GetPartialIndexFunction2()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 float-right">
-                Update
-            </button>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Office Type</label>
+                <span class="input-group-append">
+                    @Html.DropDownListFor(m => m.OfficeTypeID, Model.officeTypeListfunc, new { @class = "form-control select2", id = "OfficeTypeIDfunc" })
+                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddOfficeTypeModalFunc()"><strong>+</strong></button>
+                </span>
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin">Department / Office Code</label>
+                @Html.TextBoxFor(m => m.getFunctionColumns.DeptOfficeCodefunc, new { @class = "form-control", type = "text", id = "DeptOfficeCodefunc" })
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-6">
+            <div class="form-group mt-lg-0 mt-md-3">
+                <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetFunctionDT()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                    Update
+                </button>
+            </div>
         </div>
     </div>
 }
-
 <script>
     $(function () {
-        select2nosearch();
+        GetFund();
+        LoadICheck();
+        GetDynamicSubSectorfunc();
     })
 </script>
+
 

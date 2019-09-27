@@ -3500,7 +3500,7 @@ table.dataTable {
 
 @media (max-width: 991.98px) {
   .dataTables_wrapper table {
-    /*display: block;*/
+    display: block;
     width: 100%;
     min-height: .01%;
     overflow-x: auto; } }

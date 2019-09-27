@@ -48,9 +48,9 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
         public virtual DbSet<Tbl_FMFunction> Tbl_FMFunction { get; set; }
         public virtual DbSet<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
-        public virtual DbSet<Tbl_FMOfficeSection> Tbl_FMOfficeSection { get; set; }
         public virtual DbSet<Tbl_FMPosition> Tbl_FMPosition { get; set; }
         public virtual DbSet<Tbl_FMRevisionOfCOA> Tbl_FMRevisionOfCOA { get; set; }
+        public virtual DbSet<Tbl_FMSection> Tbl_FMSection { get; set; }
         public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
         public virtual DbSet<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
     

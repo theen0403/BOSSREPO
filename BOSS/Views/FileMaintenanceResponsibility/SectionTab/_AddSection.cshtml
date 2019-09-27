@@ -1,0 +1,51 @@
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.SectionModel
+@{
+    /**/
+
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+@using (Ajax.BeginForm("AddNewSection", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetSectionDT','Successfully Added!')", OnFailure = "", }))
+{
+<div class="row">
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">Department</label>
+            <span class="input-group-append">
+                @Html.DropDownListFor(m => m.DeptID, Model.DeptSelectionList2, new { @class = "form-control select2", id = "DeptIDsec", onchange = "LoadGetDynamicFunction();" })
+                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddDeptModalSec()"><strong>+</strong></button>
+            </span>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6" id="FunctionListID">
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">Section</label>
+            @Html.TextAreaFor(m => m.getSectionColumns.SectionTitle, new { @class = "form-control", @rows = 1, id = "OfficeSecTitle" })
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group mt-xl-0 mt-lg-2 mt-md-2">
+            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetSectionDT()">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                Add
+            </button>
+        </div>
+    </div>
+</div>
+
+}
+<script>
+    $(function () {
+        LoadICheck();
+        LoadGetDynamicFunction();
+    })
+    function LoadGetDynamicFunction() {
+        GetDynamicFunction();
+    }
+</script>

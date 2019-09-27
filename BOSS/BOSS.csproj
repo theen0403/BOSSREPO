@@ -302,12 +302,12 @@
     <Compile Include="Models\FMmodels\FMFundModels\FundModel.cs" />
     <Compile Include="Models\FMmodels\FMFundModels\SubFundModel.cs" />
     <Compile Include="Models\FMmodels\FMOfficeTypeModels\OfficeTypeModel.cs" />
+    <Compile Include="Models\FMmodels\FMResCenterModels\DepartmentModel.cs" />
+    <Compile Include="Models\FMmodels\FMResCenterModels\FunctionModel.cs" />
+    <Compile Include="Models\FMmodels\FMResCenterModels\SectionModel.cs" />
     <Compile Include="Models\FMmodels\FMSectorModels\SectorModel.cs" />
     <Compile Include="Models\FMmodels\FMSectorModels\SubSectorModel.cs" />
     <Compile Include="Models\FMPositionforSPModels\PositionforSPModel.cs" />
-    <Compile Include="Models\FMResponsibilityModels\DepartmentModel.cs" />
-    <Compile Include="Models\FMResponsibilityModels\FunctionModel.cs" />
-    <Compile Include="Models\FMResponsibilityModels\OfficeSectionModel.cs" />
     <Compile Include="Models\FMSignatoryModels\SignatoryModel.cs" />
     <Compile Include="Models\Fund.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
@@ -361,13 +361,13 @@
     <Compile Include="Models\Tbl_FMGeneralAccount.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMOfficeSection.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Tbl_FMPosition.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMRevisionOfCOA.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMSection.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMSignatory.cs">
@@ -9125,9 +9125,6 @@
     <Content Include="Views\FileMaintenanceAppropriation\FundSource\FundSourceIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\AppropriationSourceIndex.cshtml" />
     <Content Include="Views\FileMaintenanceAppropriation\Modals\_AddFundSourceModal.cshtml" />
-    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\DepartmentTab.cshtml" />
-    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\FunctionTab.cshtml" />
-    <Content Include="Views\FileMaintenanceResponsibility\OfficeSectionTab\SectionTab.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\Modals\_AddOfficeTypeModal.cshtml" />
     <Content Include="Views\FileMaintenanceFund\FundTab\_AddFund.cshtml" />
     <Content Include="Views\FileMaintenanceFund\FundTab\_TableFund.cshtml" />
@@ -9162,6 +9159,22 @@
     <Content Include="Views\FileMaintenanceOfficeType\_AddOfficeType.cshtml" />
     <Content Include="Views\FileMaintenanceOfficeType\_TableOfficeType.cshtml" />
     <Content Include="Views\FileMaintenanceOfficeType\_UpdateOfficeType.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_AddDepartment.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_DynamicSubSector.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_DepartmentTab.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_TableDepartmentList.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\DepartmentTab\_UpdateDepartment.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_AddFunction.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_FunctionTab.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_TableFunctionList.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_UpdateFunction.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DynamicFundTitle.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\SectionTab\_DynamicFunction.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\SectionTab\_AddSection.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\SectionTab\_SectionTab.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\SectionTab\_TableSectionList.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\SectionTab\_UpdateSection.cshtml" />
+    <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DynamicSubSectorfunc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

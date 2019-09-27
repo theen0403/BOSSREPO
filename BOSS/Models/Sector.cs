@@ -18,6 +18,8 @@ namespace BOSS.Models
         public Sector()
         {
             this.SubSectors = new HashSet<SubSector>();
+            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
+            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
         }
     
         public int SectorID { get; set; }
@@ -26,5 +28,9 @@ namespace BOSS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubSector> SubSectors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
     }
 }

@@ -14,8 +14,20 @@ namespace BOSS.Models
     
     public partial class OfficeType
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OfficeType()
+        {
+            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
+            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
+        }
+    
         public int OfficeTypeID { get; set; }
         public string OfficeTypeTitle { get; set; }
         public string OfficeTypeCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
     }
 }

@@ -1,18 +1,21 @@
-﻿@model IEnumerable<BOSS.Models.FMResponsibilityModels.FunctionList>
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMResCenterModels.FunctionList>
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
-<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+<table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
     <thead class="text-center">
         <tr>
+            <th>Department</th>
             <th>Function</th>
             <th>Function Abbreviation</th>
             <th>Function Code</th>
+            <th>Fund</th>
             <th>Sector</th>
             <th>Sub Sector</th>
-            <th>Fund</th>
+            <th>Office Type</th>
+            <th>Department / Office Code</th>
             <th width="5%">Action</th>
 
         </tr>
@@ -29,10 +32,11 @@
 
                 var ActionFunction = UpdateFunction + RemoveFunction;
         <tr>
-
+            <td>@Items.DeptTitle</td>
             <td>@Items.FunctionTitle</td>
             <td>@Items.FunctionAbbrv</td>
-            <td>@Items.FunctionCode</td>
+            <td class="text-center">@Items.FunctionCode</td>
+            <td>@Items.FundTitle</td>
             <td> @Items.SectorTitle</td>
             <td>
                 @{ 
@@ -46,7 +50,8 @@
                 }
              @SubsectorTitleValue
             </td>
-            <td>@Items.FundTitle</td>
+            <td>@Items.OfficeTypeTitle</td>
+            <td  class="text-center">@Items.DeptOfficeCodefunc</td>
             <td class="text-center">
                 <button type="button" onfocusout="PopoveLostFocus()"
                         class="btn btn-m btn-btnbackcolor popover-trigger"

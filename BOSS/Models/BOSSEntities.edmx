@@ -178,10 +178,12 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DeptTitle" Type="varchar" MaxLength="100" />
           <Property Name="DeptAbbrv" Type="varchar" MaxLength="50" />
-          <Property Name="DeptOfficeCode" Type="varchar" MaxLength="50" />
-          <Property Name="SectorID" Type="int" />
+          <Property Name="RCcode" Type="varchar" MaxLength="50" />
           <Property Name="FundID" Type="int" />
+          <Property Name="SectorID" Type="int" />
           <Property Name="SubSectorID" Type="int" />
+          <Property Name="OfficeTypeID" Type="int" />
+          <Property Name="DeptOfficeCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tbl_FMFunction">
           <Key>
@@ -191,7 +193,10 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="FunctionTitle" Type="varchar" MaxLength="50" />
           <Property Name="FunctionAbbrv" Type="varchar" MaxLength="50" />
           <Property Name="FunctionCode" Type="varchar" MaxLength="50" />
-          <Property Name="FundID" Type="int" />
+          <Property Name="SectorID" Type="int" />
+          <Property Name="SubSectorID" Type="int" />
+          <Property Name="OfficeTypeID" Type="int" />
+          <Property Name="DeptOfficeCodefunc" Type="varchar" MaxLength="50" />
           <Property Name="DeptID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMGeneralAccount">
@@ -207,15 +212,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="isContinuing" Type="bit" />
           <Property Name="isOBRCashAdvance" Type="bit" />
           <Property Name="AllotmentID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMOfficeSection">
-          <Key>
-            <PropertyRef Name="OfficeSecID" />
-          </Key>
-          <Property Name="OfficeSecID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OfficeSecTitle" Type="varchar" MaxLength="50" />
-          <Property Name="DeptID" Type="int" />
-          <Property Name="FunctionID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMPosition">
           <Key>
@@ -233,6 +229,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="RevYEar" Type="int" />
           <Property Name="isUsed" Type="bit" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSection">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionTitle" Type="varchar" MaxLength="50" />
+          <Property Name="DeptID" Type="int" />
+          <Property Name="FunctionID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMSignatory">
           <Key>
@@ -370,15 +375,87 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_Department_FundType">
-          <End Role="FundType" Type="Self.FundType" Multiplicity="0..1" />
+        <Association Name="FK_Tbl_FMDepartment_Fund">
+          <End Role="Fund" Type="Self.Fund" Multiplicity="0..1" />
           <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FundType">
+            <Principal Role="Fund">
               <PropertyRef Name="FundID" />
             </Principal>
             <Dependent Role="Tbl_FMDepartment">
               <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMDepartment_OfficeType">
+          <End Role="OfficeType" Type="Self.OfficeType" Multiplicity="0..1" />
+          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMDepartment_Sector">
+          <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
+          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMDepartment_SubSector">
+          <End Role="SubSector" Type="Self.SubSector" Multiplicity="0..1" />
+          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_OfficeType">
+          <End Role="OfficeType" Type="Self.OfficeType" Multiplicity="0..1" />
+          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_Sector">
+          <End Role="Sector" Type="Self.Sector" Multiplicity="0..1" />
+          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_SubSector">
+          <End Role="SubSector" Type="Self.SubSector" Multiplicity="0..1" />
+          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -391,30 +468,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Tbl_FMGeneralAccount">
               <PropertyRef Name="AllotmentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMFunction">
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="0..1" />
-          <End Role="Tbl_FMSignatory" Type="Self.Tbl_FMSignatory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
-              <PropertyRef Name="FunctionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="FunctionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMPosition">
-          <End Role="Tbl_FMPosition" Type="Self.Tbl_FMPosition" Multiplicity="0..1" />
-          <End Role="Tbl_FMSignatory" Type="Self.Tbl_FMSignatory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMPosition">
-              <PropertyRef Name="PositionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="PositionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -442,18 +495,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_Function_FundType">
-          <End Role="FundType" Type="Self.FundType" Multiplicity="0..1" />
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FundType">
-              <PropertyRef Name="FundID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="FundID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_Function_Tbl_Department">
           <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="0..1" />
           <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
@@ -468,24 +509,24 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
         </Association>
         <Association Name="FK_Tbl_OfficeSection_Tbl_Department">
           <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Role="Tbl_FMOfficeSection" Type="Self.Tbl_FMOfficeSection" Multiplicity="*" />
+          <End Role="Tbl_FMSection" Type="Self.Tbl_FMSection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMDepartment">
               <PropertyRef Name="DeptID" />
             </Principal>
-            <Dependent Role="Tbl_FMOfficeSection">
+            <Dependent Role="Tbl_FMSection">
               <PropertyRef Name="DeptID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_OfficeSection_Tbl_Function">
           <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="0..1" />
-          <End Role="Tbl_FMOfficeSection" Type="Self.Tbl_FMOfficeSection" Multiplicity="*" />
+          <End Role="Tbl_FMSection" Type="Self.Tbl_FMSection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFunction">
               <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="Tbl_FMOfficeSection">
+            <Dependent Role="Tbl_FMSection">
               <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -536,9 +577,9 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySet Name="Tbl_FMDepartment" EntityType="Self.Tbl_FMDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMFunction" EntityType="Self.Tbl_FMFunction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMGeneralAccount" EntityType="Self.Tbl_FMGeneralAccount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMOfficeSection" EntityType="Self.Tbl_FMOfficeSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMPosition" EntityType="Self.Tbl_FMPosition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMRevisionOfCOA" EntityType="Self.Tbl_FMRevisionOfCOA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMSection" EntityType="Self.Tbl_FMSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="Self.Tbl_FMSignatory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSubAccount" EntityType="Self.Tbl_FMSubAccount" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
@@ -577,21 +618,37 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Sector" EntitySet="Sector" />
             <End Role="SubSector" EntitySet="SubSector" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_FundType" Association="Self.FK_Tbl_Department_FundType">
-            <End Role="FundType" EntitySet="FundType" />
+          <AssociationSet Name="FK_Tbl_FMDepartment_Fund" Association="Self.FK_Tbl_FMDepartment_Fund">
+            <End Role="Fund" EntitySet="Fund" />
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_OfficeType" Association="Self.FK_Tbl_FMDepartment_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeType" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_Sector" Association="Self.FK_Tbl_FMDepartment_Sector">
+            <End Role="Sector" EntitySet="Sector" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_SubSector" Association="Self.FK_Tbl_FMDepartment_SubSector">
+            <End Role="SubSector" EntitySet="SubSector" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_OfficeType" Association="Self.FK_Tbl_FMFunction_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeType" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_Sector" Association="Self.FK_Tbl_FMFunction_Sector">
+            <End Role="Sector" EntitySet="Sector" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_SubSector" Association="Self.FK_Tbl_FMFunction_SubSector">
+            <End Role="SubSector" EntitySet="SubSector" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMGeneralAccount_AllotmentClass" Association="Self.FK_Tbl_FMGeneralAccount_AllotmentClass">
             <End Role="AllotmentClass" EntitySet="AllotmentClass" />
             <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMFunction" Association="Self.FK_Tbl_FMSignatory_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMPosition" Association="Self.FK_Tbl_FMSignatory_Tbl_FMPosition">
-            <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSubAccount_AllotmentClass" Association="Self.FK_Tbl_FMSubAccount_AllotmentClass">
             <End Role="AllotmentClass" EntitySet="AllotmentClass" />
@@ -601,21 +658,17 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
             <End Role="Tbl_FMSubAccount" EntitySet="Tbl_FMSubAccount" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Function_FundType" Association="Self.FK_Tbl_Function_FundType">
-            <End Role="FundType" EntitySet="FundType" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_Function_Tbl_Department" Association="Self.FK_Tbl_Function_Tbl_Department">
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
             <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_OfficeSection_Tbl_Department" Association="Self.FK_Tbl_OfficeSection_Tbl_Department">
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMOfficeSection" EntitySet="Tbl_FMOfficeSection" />
+            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_OfficeSection_Tbl_Function" Association="Self.FK_Tbl_OfficeSection_Tbl_Function">
             <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMOfficeSection" EntitySet="Tbl_FMOfficeSection" />
+            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -668,9 +721,9 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySet Name="Tbl_FMDepartment" EntityType="BOSSModel.Tbl_FMDepartment" />
           <EntitySet Name="Tbl_FMFunction" EntityType="BOSSModel.Tbl_FMFunction" />
           <EntitySet Name="Tbl_FMGeneralAccount" EntityType="BOSSModel.Tbl_FMGeneralAccount" />
-          <EntitySet Name="Tbl_FMOfficeSection" EntityType="BOSSModel.Tbl_FMOfficeSection" />
           <EntitySet Name="Tbl_FMPosition" EntityType="BOSSModel.Tbl_FMPosition" />
           <EntitySet Name="Tbl_FMRevisionOfCOA" EntityType="BOSSModel.Tbl_FMRevisionOfCOA" />
+          <EntitySet Name="Tbl_FMSection" EntityType="BOSSModel.Tbl_FMSection" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="BOSSModel.Tbl_FMSignatory" />
           <EntitySet Name="Tbl_FMSubAccount" EntityType="BOSSModel.Tbl_FMSubAccount" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="BOSSModel.FK_Accounts_PersonalInformation">
@@ -697,17 +750,13 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Fund" EntitySet="Funds" />
             <End Role="SubFund" EntitySet="SubFunds" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_Fund" Association="BOSSModel.FK_Tbl_FMDepartment_Fund">
+            <End Role="Fund" EntitySet="Funds" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
           <AssociationSet Name="FK_AppropriationSource_FundSource1" Association="BOSSModel.FK_AppropriationSource_FundSource1">
             <End Role="FundSource" EntitySet="FundSources" />
             <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Department_FundType" Association="BOSSModel.FK_Tbl_Department_FundType">
-            <End Role="FundType" EntitySet="FundTypes" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_Function_FundType" Association="BOSSModel.FK_Tbl_Function_FundType">
-            <End Role="FundType" EntitySet="FundTypes" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_ParentModules" Association="BOSSModel.FK_Level1Modules_ParentModules">
             <End Role="ParentModule" EntitySet="ParentModules" />
@@ -721,9 +770,33 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_OfficeType" Association="BOSSModel.FK_Tbl_FMDepartment_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeTypes" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_OfficeType" Association="BOSSModel.FK_Tbl_FMFunction_OfficeType">
+            <End Role="OfficeType" EntitySet="OfficeTypes" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
+          </AssociationSet>
           <AssociationSet Name="FK_SubSector_Sector" Association="BOSSModel.FK_SubSector_Sector">
             <End Role="Sector" EntitySet="Sectors" />
             <End Role="SubSector" EntitySet="SubSectors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_Sector" Association="BOSSModel.FK_Tbl_FMDepartment_Sector">
+            <End Role="Sector" EntitySet="Sectors" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_Sector" Association="BOSSModel.FK_Tbl_FMFunction_Sector">
+            <End Role="Sector" EntitySet="Sectors" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMDepartment_SubSector" Association="BOSSModel.FK_Tbl_FMDepartment_SubSector">
+            <End Role="SubSector" EntitySet="SubSectors" />
+            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFunction_SubSector" Association="BOSSModel.FK_Tbl_FMFunction_SubSector">
+            <End Role="SubSector" EntitySet="SubSectors" />
+            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_Function_Tbl_Department" Association="BOSSModel.FK_Tbl_Function_Tbl_Department">
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
@@ -731,23 +804,15 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_OfficeSection_Tbl_Department" Association="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department">
             <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMOfficeSection" EntitySet="Tbl_FMOfficeSection" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMFunction" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
+            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_OfficeSection_Tbl_Function" Association="BOSSModel.FK_Tbl_OfficeSection_Tbl_Function">
             <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMOfficeSection" EntitySet="Tbl_FMOfficeSection" />
+            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" Association="BOSSModel.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount">
             <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
             <End Role="Tbl_FMSubAccount" EntitySet="Tbl_FMSubAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMPosition" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition">
-            <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Account">
@@ -795,6 +860,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubFunds" Relationship="BOSSModel.FK_SubFund_Fund" FromRole="Fund" ToRole="SubFund" />
+          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Fund" FromRole="Fund" ToRole="Tbl_FMDepartment" />
         </EntityType>
         <EntityType Name="FundSource">
           <Key>
@@ -812,8 +878,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           </Key>
           <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_Department_FundType" FromRole="FundType" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_Function_FundType" FromRole="FundType" ToRole="Tbl_FMFunction" />
         </EntityType>
         <EntityType Name="Level1Modules">
           <Key>
@@ -860,6 +924,8 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="OfficeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OfficeTypeTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OfficeTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_OfficeType" FromRole="OfficeType" ToRole="Tbl_FMDepartment" />
+          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_OfficeType" FromRole="OfficeType" ToRole="Tbl_FMFunction" />
         </EntityType>
         <EntityType Name="ParentModule">
           <Key>
@@ -900,6 +966,8 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="SectorTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SubSectors" Relationship="BOSSModel.FK_SubSector_Sector" FromRole="Sector" ToRole="SubSector" />
+          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Sector" FromRole="Sector" ToRole="Tbl_FMDepartment" />
+          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_Sector" FromRole="Sector" ToRole="Tbl_FMFunction" />
         </EntityType>
         <EntityType Name="SubFund">
           <Key>
@@ -919,6 +987,8 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="SubSectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorID" Type="Int32" />
           <NavigationProperty Name="Sector" Relationship="BOSSModel.FK_SubSector_Sector" FromRole="SubSector" ToRole="Sector" />
+          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_SubSector" FromRole="SubSector" ToRole="Tbl_FMDepartment" />
+          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_SubSector" FromRole="SubSector" ToRole="Tbl_FMFunction" />
         </EntityType>
         <EntityType Name="Tbl_FMAppropriationSource">
           <Key>
@@ -938,13 +1008,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DeptTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DeptAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeptOfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SectorID" Type="Int32" />
+          <Property Name="RCcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundID" Type="Int32" />
+          <Property Name="SectorID" Type="Int32" />
           <Property Name="SubSectorID" Type="Int32" />
-          <NavigationProperty Name="FundType" Relationship="BOSSModel.FK_Tbl_Department_FundType" FromRole="Tbl_FMDepartment" ToRole="FundType" />
+          <Property Name="OfficeTypeID" Type="Int32" />
+          <Property Name="DeptOfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fund" Relationship="BOSSModel.FK_Tbl_FMDepartment_Fund" FromRole="Tbl_FMDepartment" ToRole="Fund" />
+          <NavigationProperty Name="OfficeType" Relationship="BOSSModel.FK_Tbl_FMDepartment_OfficeType" FromRole="Tbl_FMDepartment" ToRole="OfficeType" />
+          <NavigationProperty Name="Sector" Relationship="BOSSModel.FK_Tbl_FMDepartment_Sector" FromRole="Tbl_FMDepartment" ToRole="Sector" />
+          <NavigationProperty Name="SubSector" Relationship="BOSSModel.FK_Tbl_FMDepartment_SubSector" FromRole="Tbl_FMDepartment" ToRole="SubSector" />
           <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_Function_Tbl_Department" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMFunction" />
-          <NavigationProperty Name="Tbl_FMOfficeSection" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMOfficeSection" />
+          <NavigationProperty Name="Tbl_FMSection" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMSection" />
         </EntityType>
         <EntityType Name="Tbl_FMFunction">
           <Key>
@@ -954,12 +1029,16 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="FunctionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FunctionAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FunctionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FundID" Type="Int32" />
+          <Property Name="SectorID" Type="Int32" />
+          <Property Name="SubSectorID" Type="Int32" />
+          <Property Name="OfficeTypeID" Type="Int32" />
+          <Property Name="DeptOfficeCodefunc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeptID" Type="Int32" />
-          <NavigationProperty Name="FundType" Relationship="BOSSModel.FK_Tbl_Function_FundType" FromRole="Tbl_FMFunction" ToRole="FundType" />
+          <NavigationProperty Name="OfficeType" Relationship="BOSSModel.FK_Tbl_FMFunction_OfficeType" FromRole="Tbl_FMFunction" ToRole="OfficeType" />
+          <NavigationProperty Name="Sector" Relationship="BOSSModel.FK_Tbl_FMFunction_Sector" FromRole="Tbl_FMFunction" ToRole="Sector" />
+          <NavigationProperty Name="SubSector" Relationship="BOSSModel.FK_Tbl_FMFunction_SubSector" FromRole="Tbl_FMFunction" ToRole="SubSector" />
           <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_Function_Tbl_Department" FromRole="Tbl_FMFunction" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSignatory" />
-          <NavigationProperty Name="Tbl_FMOfficeSection" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Function" FromRole="Tbl_FMFunction" ToRole="Tbl_FMOfficeSection" />
+          <NavigationProperty Name="Tbl_FMSection" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Function" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSection" />
         </EntityType>
         <EntityType Name="Tbl_FMGeneralAccount">
           <Key>
@@ -977,17 +1056,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <NavigationProperty Name="AllotmentClass" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_AllotmentClass" FromRole="Tbl_FMGeneralAccount" ToRole="AllotmentClass" />
           <NavigationProperty Name="Tbl_FMSubAccount" Relationship="BOSSModel.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMSubAccount" />
         </EntityType>
-        <EntityType Name="Tbl_FMOfficeSection">
-          <Key>
-            <PropertyRef Name="OfficeSecID" />
-          </Key>
-          <Property Name="OfficeSecID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OfficeSecTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeptID" Type="Int32" />
-          <Property Name="FunctionID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department" FromRole="Tbl_FMOfficeSection" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Function" FromRole="Tbl_FMOfficeSection" ToRole="Tbl_FMFunction" />
-        </EntityType>
         <EntityType Name="Tbl_FMPosition">
           <Key>
             <PropertyRef Name="PositionID" />
@@ -995,7 +1063,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="PositionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PositionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMPosition" ToRole="Tbl_FMSignatory" />
         </EntityType>
         <EntityType Name="Tbl_FMRevisionOfCOA">
           <Key>
@@ -1005,6 +1072,17 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="RevYEar" Type="Int32" />
           <Property Name="isUsed" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSection">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptID" Type="Int32" />
+          <Property Name="FunctionID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Department" FromRole="Tbl_FMSection" ToRole="Tbl_FMDepartment" />
+          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_OfficeSection_Tbl_Function" FromRole="Tbl_FMSection" ToRole="Tbl_FMFunction" />
         </EntityType>
         <EntityType Name="Tbl_FMSignatory">
           <Key>
@@ -1018,8 +1096,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <Property Name="Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isHead" Type="Boolean" />
           <Property Name="isActive" Type="Boolean" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMFunction" />
-          <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMPosition" />
         </EntityType>
         <EntityType Name="Tbl_FMSubAccount">
           <Key>
@@ -1110,6 +1186,18 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMDepartment_Fund">
+          <End Type="BOSSModel.Fund" Role="Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AppropriationSource_FundSource1">
           <End Type="BOSSModel.FundSource" Role="FundSource" Multiplicity="0..1" />
           <End Type="BOSSModel.Tbl_FMAppropriationSource" Role="Tbl_FMAppropriationSource" Multiplicity="*" />
@@ -1119,30 +1207,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Tbl_FMAppropriationSource">
               <PropertyRef Name="FundSourceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Department_FundType">
-          <End Type="BOSSModel.FundType" Role="FundType" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FundType">
-              <PropertyRef Name="FundID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="FundID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_Function_FundType">
-          <End Type="BOSSModel.FundType" Role="FundType" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FundType">
-              <PropertyRef Name="FundID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="FundID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1182,6 +1246,30 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMDepartment_OfficeType">
+          <End Type="BOSSModel.OfficeType" Role="OfficeType" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_OfficeType">
+          <End Type="BOSSModel.OfficeType" Role="OfficeType" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SubSector_Sector">
           <End Type="BOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
           <End Type="BOSSModel.SubSector" Role="SubSector" Multiplicity="*" />
@@ -1191,6 +1279,54 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="SubSector">
               <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMDepartment_Sector">
+          <End Type="BOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_Sector">
+          <End Type="BOSSModel.Sector" Role="Sector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMDepartment_SubSector">
+          <End Type="BOSSModel.SubSector" Role="SubSector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMDepartment">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFunction_SubSector">
+          <End Type="BOSSModel.SubSector" Role="SubSector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMFunction">
+              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1208,36 +1344,24 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
         </Association>
         <Association Name="FK_Tbl_OfficeSection_Tbl_Department">
           <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMOfficeSection" Role="Tbl_FMOfficeSection" Multiplicity="*" />
+          <End Type="BOSSModel.Tbl_FMSection" Role="Tbl_FMSection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMDepartment">
               <PropertyRef Name="DeptID" />
             </Principal>
-            <Dependent Role="Tbl_FMOfficeSection">
+            <Dependent Role="Tbl_FMSection">
               <PropertyRef Name="DeptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMFunction">
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSignatory" Role="Tbl_FMSignatory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
-              <PropertyRef Name="FunctionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_OfficeSection_Tbl_Function">
           <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMOfficeSection" Role="Tbl_FMOfficeSection" Multiplicity="*" />
+          <End Type="BOSSModel.Tbl_FMSection" Role="Tbl_FMSection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFunction">
               <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="Tbl_FMOfficeSection">
+            <Dependent Role="Tbl_FMSection">
               <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1251,18 +1375,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             </Principal>
             <Dependent Role="Tbl_FMSubAccount">
               <PropertyRef Name="GenAccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMPosition">
-          <End Type="BOSSModel.Tbl_FMPosition" Role="Tbl_FMPosition" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSignatory" Role="Tbl_FMSignatory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMPosition">
-              <PropertyRef Name="PositionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="PositionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1460,10 +1572,12 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
           <EntitySetMapping Name="Tbl_FMDepartment">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMDepartment">
               <MappingFragment StoreEntitySet="Tbl_FMDepartment">
-                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
-                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
                 <ScalarProperty Name="DeptOfficeCode" ColumnName="DeptOfficeCode" />
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="RCcode" ColumnName="RCcode" />
                 <ScalarProperty Name="DeptAbbrv" ColumnName="DeptAbbrv" />
                 <ScalarProperty Name="DeptTitle" ColumnName="DeptTitle" />
                 <ScalarProperty Name="DeptID" ColumnName="DeptID" />
@@ -1474,7 +1588,10 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFunction">
               <MappingFragment StoreEntitySet="Tbl_FMFunction">
                 <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="DeptOfficeCodefunc" ColumnName="DeptOfficeCodefunc" />
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
                 <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
                 <ScalarProperty Name="FunctionAbbrv" ColumnName="FunctionAbbrv" />
                 <ScalarProperty Name="FunctionTitle" ColumnName="FunctionTitle" />
@@ -1497,16 +1614,6 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMOfficeSection">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMOfficeSection">
-              <MappingFragment StoreEntitySet="Tbl_FMOfficeSection">
-                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
-                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-                <ScalarProperty Name="OfficeSecTitle" ColumnName="OfficeSecTitle" />
-                <ScalarProperty Name="OfficeSecID" ColumnName="OfficeSecID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_FMPosition">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMPosition">
               <MappingFragment StoreEntitySet="Tbl_FMPosition">
@@ -1523,6 +1630,16 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
                 <ScalarProperty Name="isUsed" ColumnName="isUsed" />
                 <ScalarProperty Name="RevYEar" ColumnName="RevYEar" />
                 <ScalarProperty Name="RevID" ColumnName="RevID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMSection">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSection">
+              <MappingFragment StoreEntitySet="Tbl_FMSection">
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="SectionTitle" ColumnName="SectionTitle" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

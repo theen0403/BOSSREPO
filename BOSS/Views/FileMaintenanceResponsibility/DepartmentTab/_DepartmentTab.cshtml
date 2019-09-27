@@ -1,4 +1,4 @@
-﻿@model BOSS.Models.FMResponsibilityModels.DepartmentModel
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.DepartmentModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -11,22 +11,21 @@
 <div class="mt-2" id="DepartmentID">
 
 </div>
+
 @*Add Sector Modal*@
 <div class="modal fade text-left" id="ViewAddSectorDeptModal" role="dialog">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-            <div class="modal-header
-                             bg-active">
+            <div class="modal-header bg-active">
                 <h4 class="modal-title"><strong>Add Sector</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
             </div>
+
             <div class="modal-body skin skin-square">
                 <div class="card-body p-0">
                     <div id="ViewAddSectorDeptID"></div>
                 </div>
             </div>
-            @*<div class="modal-footer">
-                        <button type="button" class="btn btn-menuRed btn-min-width" data-dismiss="modal">Close</button>
-                </div>*@
         </div>
     </div>
 </div>
@@ -34,10 +33,11 @@
 <div class="modal fade text-left" id="ViewAddSubSectorDeptModal" role="dialog">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-            <div class="modal-header
-                             bg-active">
+            <div class="modal-header bg-active">
                 <h4 class="modal-title"><strong>Add Sub-Sector</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
             </div>
+
             <div class="modal-body skin skin-square">
                 <div class="card-body p-0">
                     <div id="ViewAddSubSectorDeptID"></div>
@@ -50,13 +50,31 @@
 <div class="modal fade text-left" id="ViewAddFundDeptModal" role="dialog">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
-            <div class="modal-header
-                             bg-active">
+            <div class="modal-header bg-active">
                 <h4 class="modal-title"><strong>Add Fund</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
             </div>
+
             <div class="modal-body skin skin-square">
                 <div class="card-body p-0">
                     <div id="ViewAddFundDeptID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Office Type Modal*@
+<div class="modal fade text-left" id="ViewAddOfficeTypeModal" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Office Type</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddOfficeTypeID"></div>
                 </div>
             </div>
         </div>
@@ -113,16 +131,7 @@
             }
         })
     }
-    function GetUpdateDynamicSubSector() {
-        var SectorID = $("#SecID").val();
-        $.ajax({
-            url: '/FileMaintenanceResponsibility/GetUpdateDynamicSubSector',
-            data: { SectorID: SectorID },
-            success: function (result) {
-                $("#SubSectorID").html(result);
-            }
-        })
-    }
+    //Add Modal
     function GetAddSectorModalDept() {
         $.ajax({
             url: "/FileMaintenanceResponsibility/GetAddSectorModalDept",
@@ -147,6 +156,15 @@
             success: function (result) {
                 $("#ViewAddFundDeptID").html(result);
                 $('#ViewAddFundDeptModal').modal('toggle');
+            }
+        });
+    }
+    function GetAddOfficeTypeModal() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddOfficeTypeModal",
+            success: function (result) {
+                $("#ViewAddOfficeTypeID").html(result);
+                $('#ViewAddOfficeTypeModal').modal('toggle');
             }
         });
     }

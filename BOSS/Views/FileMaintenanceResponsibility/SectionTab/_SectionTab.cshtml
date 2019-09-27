@@ -1,0 +1,122 @@
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.SectionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<div class="mt-1" id="sectionTempID">
+
+</div>
+<div class="mt-2" id="sectionTableID">
+
+</div>
+
+@*Add Dept Modal*@
+<div class="modal fade text-left" id="ViewAddDeptsecModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Department</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewAddDeptsecID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Add Function Modal*@
+<div class="modal fade text-left" id="ViewFunctionModal" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-active">
+                <h4 class="modal-title"><strong>Add Function</strong></h4>
+                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
+            </div>
+
+            <div class="modal-body skin skin-square">
+                <div class="card-body p-0">
+                    <div id="ViewFunctionID"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        GetSectionDT();
+    })
+    function GetSectionDT() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetSectionDT',
+            success: function (result) {
+                $("#sectionTableID").html(result);
+                GetAddSection();
+            }
+        })
+    }
+    //Add Section
+    function GetAddSection() {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetAddSection',
+            success: function (result) {
+                $('#sectionTempID').html(result);
+            }
+        })
+    }
+    function GetDynamicFunction() {
+        var DeptID = $("#DeptIDsec").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDynamicFunction',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#FunctionListID').html(result);
+            }
+        })
+    }
+    //Upadate Office Section
+    function Get_UpdateSection(SectionID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/Get_UpdateSection',
+            data: { SectionID: SectionID },
+            success: function (result) {
+                $('#sectionTempID').html(result);
+            }
+        })
+    }
+    function DeleteSection(SectionID) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/DeleteSection',
+            data: { SectionID: SectionID },
+            success: function (result) {
+                GetSectionDT();
+            }
+        })
+    }
+    //Get Department Modal
+    function GetAddDeptModalSec() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddDeptModalSec",
+            success: function (result) {
+                $("#ViewAddDeptsecID").html(result);
+                $('#ViewAddDeptsecModal').modal('toggle');
+            }
+        });
+    }
+   //Get Function Modal
+    function GetAddFuncModalSec() {
+        $.ajax({
+            url: "/FileMaintenanceResponsibility/GetAddFuncModalSec",
+            success: function (result) {
+                $("#ViewFunctionID").html(result);
+                $('#ViewFunctionModal').modal('toggle');
+            }
+        });
+    }
+</script>

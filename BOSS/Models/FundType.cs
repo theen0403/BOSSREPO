@@ -14,19 +14,7 @@ namespace BOSS.Models
     
     public partial class FundType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FundType()
-        {
-            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
-            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
-        }
-    
         public int FundID { get; set; }
         public string FundTitle { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
     }
 }

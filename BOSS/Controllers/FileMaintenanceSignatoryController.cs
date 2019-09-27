@@ -105,7 +105,7 @@ namespace BOSS.Controllers
             model.getSignatoryColumns2.PreferredName = signatoryTable.PreferredName;
             model.isHead = Convert.ToBoolean(signatoryTable.isHead);
             model.PositionID = Convert.ToInt32(signatoryTable.PositionID);
-            model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
+            //model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
             model.getSignatoryColumns2.Division = signatoryTable.Division;
             model.funcTempID = Convert.ToInt32(signatoryTable.FunctionID);
             model.isActive = Convert.ToBoolean(signatoryTable.isActive);

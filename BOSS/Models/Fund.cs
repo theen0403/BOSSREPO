@@ -18,6 +18,7 @@ namespace BOSS.Models
         public Fund()
         {
             this.SubFunds = new HashSet<SubFund>();
+            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
         }
     
         public int FundID { get; set; }
@@ -26,5 +27,7 @@ namespace BOSS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubFund> SubFunds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
     }
 }

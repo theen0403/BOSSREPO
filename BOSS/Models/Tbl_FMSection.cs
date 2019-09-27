@@ -12,10 +12,10 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMOfficeSection
+    public partial class Tbl_FMSection
     {
-        public int OfficeSecID { get; set; }
-        public string OfficeSecTitle { get; set; }
+        public int SectionID { get; set; }
+        public string SectionTitle { get; set; }
         public Nullable<int> DeptID { get; set; }
         public Nullable<int> FunctionID { get; set; }
     

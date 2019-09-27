@@ -22,8 +22,5 @@ namespace BOSS.Models
         public string Division { get; set; }
         public Nullable<bool> isHead { get; set; }
         public Nullable<bool> isActive { get; set; }
-    
-        public virtual Tbl_FMFunction Tbl_FMFunction { get; set; }
-        public virtual Tbl_FMPosition Tbl_FMPosition { get; set; }
     }
 }

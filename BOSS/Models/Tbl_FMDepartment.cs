@@ -18,6 +18,7 @@ namespace BOSS.Models
         public Tbl_FMDepartment()
         {
             this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
+            this.Tbl_FMPayee = new HashSet<Tbl_FMPayee>();
             this.Tbl_FMSection = new HashSet<Tbl_FMSection>();
         }
     
@@ -31,12 +32,14 @@ namespace BOSS.Models
         public Nullable<int> OfficeTypeID { get; set; }
         public string DeptOfficeCode { get; set; }
     
-        public virtual Fund Fund { get; set; }
-        public virtual OfficeType OfficeType { get; set; }
-        public virtual Sector Sector { get; set; }
-        public virtual SubSector SubSector { get; set; }
+        public virtual Tbl_FMFund Tbl_FMFund { get; set; }
+        public virtual Tbl_FMOfficeType Tbl_FMOfficeType { get; set; }
+        public virtual Tbl_FMSector Tbl_FMSector { get; set; }
+        public virtual Tbl_FMSubSector Tbl_FMSubSector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMPayee> Tbl_FMPayee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMSection> Tbl_FMSection { get; set; }
     }

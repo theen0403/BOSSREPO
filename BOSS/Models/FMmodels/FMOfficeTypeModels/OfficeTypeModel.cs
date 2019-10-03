@@ -12,10 +12,10 @@ namespace BOSS.Models.FMmodels.FMOfficeTypeModels
         public OfficeTypeModel()
         {
             getOfficeTypeList = new List<OfficeTypeList>();
-            getOfficeTypeColumns = new OfficeType();
+            getOfficeTypeColumns = new Tbl_FMOfficeType();
         }
         public List<OfficeTypeList> getOfficeTypeList { get; set; }
-        public OfficeType getOfficeTypeColumns { get; set; }
+        public Tbl_FMOfficeType getOfficeTypeColumns { get; set; }
         public int OfficeTypeID { get; set; }
         public string OfficeTypeTitle { get; set; }
         public string OfficeTypeCode { get; set; }

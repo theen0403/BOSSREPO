@@ -1,6 +1,6 @@
 ﻿using BOSS.GlobalFunctions;
 using BOSS.Models;
-using BOSS.Models.FMSignatoryModels;
+using BOSS.Models.FMmodels.FMSignatoryModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,7 +30,7 @@ namespace BOSS.Controllers
 
             List<SignatoryDTList> getSignatoryList = new List<SignatoryDTList>();
 
-            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMDepartment].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead], [isActive]  FROM[Tbl_FMSignatory], [Tbl_FMFunction], [Tbl_FMPosition], [Tbl_FMDepartment] where[Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMFunction].FunctionID and[Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
+            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMDepartment].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead], [isActive]  FROM [Tbl_FMSignatory], [Tbl_FMFunction], [Tbl_FMPosition], [Tbl_FMDepartment] where[Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMFunction].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -90,23 +90,22 @@ namespace BOSS.Controllers
 
             return Json(signatorytbl);
         }
-        public ActionResult GetUpdateDynamicFunction(int DeptID, int FunctionID)
+        public ActionResult GetUpdateDynamicFunction(SignatoryModel model, int DeptID, int funcTempID)
         {
-            SignatoryModel model = new SignatoryModel();
             model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMFunction.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
-            model.FunctionID = FunctionID;
-            return PartialView("_UpdateSignatory", model);
+            model.FunctionID = funcTempID;
+            return PartialView("_AddDynamicFunctionList", model);
         }
         public ActionResult Get_UpdateSignatory(SignatoryModel model, int SignatoryID)
         {
             Tbl_FMSignatory signatoryTable = (from e in BOSSDB.Tbl_FMSignatory where e.SignatoryID == SignatoryID select e).FirstOrDefault();
 
-            model.getSignatoryColumns2.SignatoryName = signatoryTable.SignatoryName;
-            model.getSignatoryColumns2.PreferredName = signatoryTable.PreferredName;
+            model.getSignatoryColumns.SignatoryName = signatoryTable.SignatoryName;
+            model.getSignatoryColumns.PreferredName = signatoryTable.PreferredName;
             model.isHead = Convert.ToBoolean(signatoryTable.isHead);
             model.PositionID = Convert.ToInt32(signatoryTable.PositionID);
-            //model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
-            model.getSignatoryColumns2.Division = signatoryTable.Division;
+            model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
+            model.getSignatoryColumns.Division = signatoryTable.Division;
             model.funcTempID = Convert.ToInt32(signatoryTable.FunctionID);
             model.isActive = Convert.ToBoolean(signatoryTable.isActive);
             return PartialView("_UpdateSignatory", model);
@@ -115,12 +114,12 @@ namespace BOSS.Controllers
         {
             Tbl_FMSignatory signatorytbl = (from e in BOSSDB.Tbl_FMSignatory where e.SignatoryID == model.SignatoryID select e).FirstOrDefault();
 
-            signatorytbl.SignatoryName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.SignatoryName);
+            signatorytbl.SignatoryName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.SignatoryName);
             signatorytbl.PositionID = GlobalFunction.ReturnEmptyInt(model.PositionID);
             signatorytbl.isHead = model.isHead;
-            signatorytbl.PreferredName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.PreferredName);
+            signatorytbl.PreferredName = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.PreferredName);
             signatorytbl.FunctionID = GlobalFunction.ReturnEmptyInt(model.FunctionID);
-            signatorytbl.Division = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns2.Division);
+            signatorytbl.Division = GlobalFunction.ReturnEmptyString(model.getSignatoryColumns.Division);
             signatorytbl.isActive = model.isActive;
             BOSSDB.Entry(signatorytbl);
             BOSSDB.SaveChanges();
@@ -134,25 +133,6 @@ namespace BOSS.Controllers
             BOSSDB.Tbl_FMSignatory.Remove(signatorytbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileSignatory");
-        }
-
-
-
-        //======================================
-        //Department
-        public ActionResult GetAddDeptModal()
-        {
-            return PartialView("Modals/_AddDepartmentModal");
-        }
-        //Department
-        public ActionResult GetAddFuncModal()
-        {
-            return PartialView("Modals/_AddFunctionModal");
-        }
-        //Position
-        public ActionResult GetAddPositionModal()
-        {
-            return PartialView("Modals/_AddPositionModal");
         }
     }
 }

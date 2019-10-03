@@ -41,7 +41,7 @@ namespace BOSS.Controllers
 
             List<SectorList> getSectorList = new List<SectorList>();
 
-            var SQLQuery = "SELECT * FROM [Sector]";
+            var SQLQuery = "SELECT * FROM [Tbl_FMSector]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -75,11 +75,11 @@ namespace BOSS.Controllers
         //Add Sector function
         public JsonResult AddNewSector(SectorModel model)
         {
-            Sector SectorTbl = new Sector();
+            Tbl_FMSector SectorTbl = new Tbl_FMSector();
 
             SectorTbl.SectorTitle = GlobalFunction.ReturnEmptyString(model.getSectorColumns.SectorTitle);
             SectorTbl.SectorCode = GlobalFunction.ReturnEmptyString(model.getSectorColumns.SectorCode);
-            BOSSDB.Sectors.Add(SectorTbl);
+            BOSSDB.Tbl_FMSector.Add(SectorTbl);
 
             BOSSDB.SaveChanges();
             return Json(SectorTbl);
@@ -87,7 +87,7 @@ namespace BOSS.Controllers
         //Get Update Partial View
         public ActionResult Get_UpdateSector(SectorModel model, int SectorID)
         {
-            Sector tblSector = (from e in BOSSDB.Sectors where e.SectorID == SectorID select e).FirstOrDefault();
+            Tbl_FMSector tblSector = (from e in BOSSDB.Tbl_FMSector where e.SectorID == SectorID select e).FirstOrDefault();
 
             model.getSectorColumns.SectorTitle = tblSector.SectorTitle;
             model.getSectorColumns.SectorCode = tblSector.SectorCode;
@@ -97,7 +97,7 @@ namespace BOSS.Controllers
         //Update Function
         public ActionResult UpdateSector(SectorModel model)
         {
-            Sector SectorTBL = (from e in BOSSDB.Sectors where e.SectorID == model.SectorID select e).FirstOrDefault();
+            Tbl_FMSector SectorTBL = (from e in BOSSDB.Tbl_FMSector where e.SectorID == model.SectorID select e).FirstOrDefault();
 
             SectorTBL.SectorTitle = GlobalFunction.ReturnEmptyString(model.getSectorColumns.SectorTitle);
             SectorTBL.SectorCode = GlobalFunction.ReturnEmptyString(model.getSectorColumns.SectorCode);
@@ -110,18 +110,18 @@ namespace BOSS.Controllers
         //Delete Function
         public ActionResult DeleteSector(SectorModel model, int SectorID)
         {
-            List<SubSector> subSector = (from e in BOSSDB.SubSectors where e.SectorID == SectorID select e).ToList();
+            List<Tbl_FMSubSector> subSector = (from e in BOSSDB.Tbl_FMSubSector where e.SectorID == SectorID select e).ToList();
             if (subSector != null)
             {
                 foreach (var items in subSector)
                 {
-                    BOSSDB.SubSectors.Remove(items);
+                    BOSSDB.Tbl_FMSubSector.Remove(items);
                     BOSSDB.SaveChanges();
                 }
             }
 
-            Sector Sectortbl = (from e in BOSSDB.Sectors where e.SectorID == SectorID select e).FirstOrDefault();
-            BOSSDB.Sectors.Remove(Sectortbl);
+            Tbl_FMSector Sectortbl = (from e in BOSSDB.Tbl_FMSector where e.SectorID == SectorID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMSector.Remove(Sectortbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileSector");
         }
@@ -134,7 +134,7 @@ namespace BOSS.Controllers
 
             List<SubSectorList> getSubSectorList = new List<SubSectorList>();
 
-            var SQLQuery = "SELECT [SubSectorID],[Sector].SectorTitle,[SubSectorTitle],[SectorCode]+ ' - '+[SubSectorCode] as SubSectorCode FROM[BOSS].[dbo].[SubSector],[dbo].[Sector] where [SubSector].SectorID = [Sector].SectorID";
+            var SQLQuery = "SELECT [SubSectorID],[Tbl_FMSector].SectorTitle,[SubSectorTitle],[SectorCode]+ ' - '+[SubSectorCode] as SubSectorCode FROM[BOSS].[dbo].[Tbl_FMSubSector],[dbo].[Tbl_FMSector] where [Tbl_FMSubSector].SectorID = [Tbl_FMSector].SectorID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -170,7 +170,7 @@ namespace BOSS.Controllers
         public ActionResult GetSectorCodeField(int SectorID)
         {
             SubSectorModel model = new SubSectorModel();
-            var SubSectorTbl = (from e in BOSSDB.Sectors where e.SectorID == SectorID select e).FirstOrDefault();
+            var SubSectorTbl = (from e in BOSSDB.Tbl_FMSector where e.SectorID == SectorID select e).FirstOrDefault();
             model.SectorCode = SubSectorTbl.SectorCode;
 
             return PartialView("SubSectorTab/_DynamicSectorCode", model);
@@ -178,12 +178,12 @@ namespace BOSS.Controllers
         //Add Function
         public JsonResult AddNewSubSector(SubSectorModel model)
         {
-            SubSector subSectorTbl = new SubSector();
+            Tbl_FMSubSector subSectorTbl = new Tbl_FMSubSector();
 
             subSectorTbl.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
             subSectorTbl.SubSectorTitle = GlobalFunction.ReturnEmptyString(model.getSubSectorColumns.SubSectorTitle);
             subSectorTbl.SubSectorCode = GlobalFunction.ReturnEmptyString(model.getSubSectorColumns.SubSectorCode);
-            BOSSDB.SubSectors.Add(subSectorTbl);
+            BOSSDB.Tbl_FMSubSector.Add(subSectorTbl);
 
             BOSSDB.SaveChanges();
             return Json(subSectorTbl);
@@ -191,7 +191,7 @@ namespace BOSS.Controllers
         //Get Update Partial View
         public ActionResult Get_UpdateSubSector(SubSectorModel model, int SubSectorID)
         {
-            SubSector tblsubSector = (from e in BOSSDB.SubSectors where e.SubSectorID == SubSectorID select e).FirstOrDefault();
+            Tbl_FMSubSector tblsubSector = (from e in BOSSDB.Tbl_FMSubSector where e.SubSectorID == SubSectorID select e).FirstOrDefault();
 
             model.SectorID = Convert.ToInt32(tblsubSector.SectorID);
             model.getSubSectorColumns.SubSectorTitle = tblsubSector.SubSectorTitle;
@@ -202,7 +202,7 @@ namespace BOSS.Controllers
         //Update Function
         public ActionResult UpdateSubSector(SubSectorModel model)
         {
-            SubSector subSectorTBL = (from e in BOSSDB.SubSectors where e.SubSectorID == model.SubSectorID select e).FirstOrDefault();
+            Tbl_FMSubSector subSectorTBL = (from e in BOSSDB.Tbl_FMSubSector where e.SubSectorID == model.SubSectorID select e).FirstOrDefault();
 
             subSectorTBL.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
             subSectorTBL.SubSectorTitle = GlobalFunction.ReturnEmptyString(model.getSubSectorColumns.SubSectorTitle);
@@ -216,8 +216,8 @@ namespace BOSS.Controllers
         ////Delete Function
         public ActionResult DeleteSubSector(SubSectorModel model, int SubSectorID)
         {
-            SubSector subSectortbl = (from e in BOSSDB.SubSectors where e.SubSectorID == SubSectorID select e).FirstOrDefault();
-            BOSSDB.SubSectors.Remove(subSectortbl);
+            Tbl_FMSubSector subSectortbl = (from e in BOSSDB.Tbl_FMSubSector where e.SubSectorID == SubSectorID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMSubSector.Remove(subSectortbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileSector");
         }

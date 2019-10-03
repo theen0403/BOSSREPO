@@ -14,8 +14,17 @@ namespace BOSS.Models
     
     public partial class Tbl_FMPosition
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tbl_FMPosition()
+        {
+            this.Tbl_FMSignatory = new HashSet<Tbl_FMSignatory>();
+        }
+    
         public int PositionID { get; set; }
         public string PositionTitle { get; set; }
         public string PositionCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
     }
 }

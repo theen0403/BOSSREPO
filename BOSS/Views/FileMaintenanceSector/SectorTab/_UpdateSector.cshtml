@@ -6,32 +6,34 @@
 @using (Ajax.BeginForm("UpdateSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetSectorDTable','Successfully Updated!')", OnFailure = "", }))
 {
     @Html.HiddenFor(m => m.SectorID, new { })
-<div class="row">
-    <div class="col-xl-3 col-lg-2 col-md-1"></div>
-    <div class="col-xl-4 col-lg-6 col-md-7">
-        <div class="form-group">
-            <label class="custom-form-margin">Sector</label>
-            @Html.TextAreaFor(m => m.getSectorColumns.SectorTitle, new { @class = "form-control", @rows = 1, id = "SectorTitle" })
+  
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-1"></div>
+            <div class="col-xl-8 col-lg-8 col-md-10">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Sector</label>
+                            @Html.TextAreaFor(m => m.getSectorColumns.SectorTitle, new { @class = "form-control", @rows = 1, id = "SectorTitle" })
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Code</label>
+                            @Html.TextBoxFor(m => m.getSectorColumns.SectorCode, new { @class = "form-control", id = "SectorCode" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetSectorDTable()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-xl-2 col-lg-2 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">Code</label>
-            @Html.TextBoxFor(m => m.getSectorColumns.SectorCode, new { @class = "form-control", id = "SectorCode" })
-        </div>
-    </div>
-</div>
-<div class="row mb-2">
-    <div class="col-xl-2 col-lg-2 col-md-1"></div>
-    <div class="col-xl-8 col-lg-8 col-md-10">
-        <div class="form-group">
-            <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetSectorDTable()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Update
-            </button>
-        </div>
-    </div>
-</div>
 }

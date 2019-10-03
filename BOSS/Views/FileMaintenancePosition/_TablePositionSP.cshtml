@@ -1,13 +1,13 @@
 ﻿
-@model IEnumerable<BOSS.Models.FMPositionforSPModels.PositionList>
+@model IEnumerable<BOSS.Models.FMmodels.FMPositionModels.PositionList>
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
 <div class="row">
-    <div class="col-1"></div>
-    <div class="col-10">
+    <div class="col-xl-2 col-lg-2 col-md-1"></div>
+    <div class="col-xl-8 col-lg-8 col-md-10">
         <table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
             <thead class="text-center">
                 <tr>
@@ -31,21 +31,21 @@
                             <td>@Items.PositionTitle</td>
                             <td>@Items.PositionCode</td>
                             @*<td>
-                                @{
-                                    var PClassID = Items.PCID;
-                                    var PositionClass = (from e in BOSSDB.PositionClassifications where e.PCID == PClassID select e).FirstOrDefault();
-                                    var TDValue = "";
-                                    if (PositionClass == null)
-                                    {
-                                        TDValue = "N/A";
+                                    @{
+                                        var PClassID = Items.PCID;
+                                        var PositionClass = (from e in BOSSDB.PositionClassifications where e.PCID == PClassID select e).FirstOrDefault();
+                                        var TDValue = "";
+                                        if (PositionClass == null)
+                                        {
+                                            TDValue = "N/A";
+                                        }
+                                        else
+                                        {
+                                            TDValue = PositionClass.PCTitle;
+                                        }
                                     }
-                                    else
-                                    {
-                                        TDValue = PositionClass.PCTitle;
-                                    }
-                                }
-                                @TDValue
-                            </td>*@
+                                    @TDValue
+                                </td>*@
                             <td class="text-center">
                                 <button type="button" onfocusout="PopoveLostFocus()"
                                         class="btn btn-m btn-btnbackcolor popover-trigger"

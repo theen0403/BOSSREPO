@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "FileSignatory";
 }
 
@@ -20,63 +19,16 @@
             <div class="card box-shadow-3">
                 <div class="card-content collapse show">
                     <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
-                        <div class="mt-1" id="SignatoryTempID">
+                            <div class="card-body px-1 card-body rounded menubackground">
+                                <div id="SignatoryTempID">
 
+                                </div>
+                            </div>
+                            <div class="mt-2" ng-bind-html="FMSignatoryID">
+
+                            </div>
                         </div>
-                        <div class="mt-2" ng-bind-html="FMSignatoryID">
-
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @*Add Dept Modal*@
-    <div class="modal fade text-left" id="ViewAddDeptFuncModal" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-active">
-                    <h4 class="modal-title"><strong>Add Department</strong></h4>
-                    <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-                </div>
-
-                <div class="modal-body">
-                    <div id="ViewAddDeptFuncID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @*Add Function Modal*@
-    <div class="modal fade text-left" id="ViewAddFuncSecModal" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-active">
-                    <h4 class="modal-title"><strong>Add Function</strong></h4>
-                    <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-                </div>
-
-                <div class="modal-body skin skin-square">
-                    <div class="card-body p-0">
-                        <div id="ViewAddFuncSecID"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @*Add Position Modal*@
-    <div class="modal fade text-left" id="ViewAddPositionModal" role="dialog">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-active">
-                    <h4 class="modal-title"><strong>Add Position</strong></h4>
-                    <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-                </div>
-
-                <div class="modal-body skin skin-square">
-                    <div class="card-body p-0">
-                        <div id="ViewAddPositionID"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -116,12 +68,20 @@
 
             });
         }
-        F.GetUpdateDynamicFunction = function () {
-            var DeptID = $("#DeptID").val();
-            var FunctionID = $("#funcTempIDID").val();
+        F.GetUpdateDynamicFunction = function (DeptID, funcTempID ) {
             P({
                 url: '/FileMaintenanceSignatory/GetUpdateDynamicFunction',
-                params: { DeptID: DeptID, FunctionID: FunctionID }
+                params: { DeptID: DeptID, funcTempID: funcTempID }
+            }).then(function (response) {
+                $('#functionlistID').html(response.data);
+
+            });
+        }
+        F.GetUpdateDynamicFunction3 = function (DeptID) {
+            var DeptID = $("#DeptID2").val();
+            P({
+                url: '/FileMaintenanceSignatory/GetAddDynamicFunction',
+                params: { DeptID: DeptID}
             }).then(function (response) {
                 $('#functionlistID').html(response.data);
 
@@ -133,7 +93,6 @@
                 params: { SignatoryID: SignatoryID }
             }).then(function (response) {
                 $('#SignatoryTempID').html(response.data);
-
             });
         }
         F.DeleteSignatory = function (SignatoryID) {
@@ -142,33 +101,6 @@
                 params: { SignatoryID: SignatoryID }
             }).then(function (response) {
                 F.GetSignatoryDTable();
-            });
-        }
-        //Get Add Department Modal
-        F.GetAddDeptModal = function () {
-            P({
-                url: '/FileMaintenanceSignatory/GetAddDeptModal',
-            }).then(function (response) {
-                $('#ViewAddDeptFuncID').html(response.data);
-                $('#ViewAddDeptFuncModal').modal('toggle');
-            });
-        }
-        //Get Function Modal
-        F.GetAddFuncModal = function () {
-            P({
-                url: '/FileMaintenanceSignatory/GetAddFuncModal',
-            }).then(function (response) {
-                $('#ViewAddFuncSecID').html(response.data);
-                $('#ViewAddFuncSecModal').modal('toggle');
-            });
-        }
-        //Get Position Modal
-        F.GetAddPositionModal = function () {
-            P({
-                url: '/FileMaintenanceSignatory/GetAddPositionModal',
-            }).then(function (response) {
-                $('#ViewAddPositionID').html(response.data);
-                $('#ViewAddPositionModal').modal('toggle');
             });
         }
     });

@@ -41,7 +41,7 @@
                     <td>
                         @{
                             var SubID = Items.SubSectorID;
-                            var SubSector = (from e in BOSSDB.SubSectors where e.SubSectorID == SubID select e).FirstOrDefault();
+                            var SubSector = (from e in BOSSDB.Tbl_FMSubSector where e.SubSectorID == SubID select e).FirstOrDefault();
                             var TDValue = "";
                             if (SubSector == null)
                             {

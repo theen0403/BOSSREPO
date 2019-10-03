@@ -50,7 +50,7 @@ namespace BOSS.Controllers
             List<DepartmentList> getDeptList = new List<DepartmentList>();
 
             //var SQLQuery = "SELECT [DeptID], [DeptTitle], [DeptAbbrv], [DeptOfficeCode], [SectorTitle], [FundTitle], [SubSectorID] FROM [Tbl_FMDepartment], [FundType], [Sector] where[FundType].FundID = [Tbl_FMDepartment].FundID and[Sector].SectorID = [Tbl_FMDepartment].SectorID";
-            var SQLQuery = "SELECT [DeptID], [DeptTitle], [DeptAbbrv], [RCcode], [FundTitle], [SectorTitle], [SubSectorID], [OfficeTypeTitle], [DeptOfficeCode] FROM [Tbl_FMDepartment], [Fund], [Sector] ,[OfficeType] where [Fund].FundID = [Tbl_FMDepartment].FundID and [Sector].SectorID = [Tbl_FMDepartment].SectorID and [OfficeType].OfficeTypeID = [Tbl_FMDepartment].OfficeTypeID";
+            var SQLQuery = "SELECT [DeptID], [DeptTitle], [DeptAbbrv], [RCcode], [FundTitle], [SectorTitle], [SubSectorID], [OfficeTypeTitle], [DeptOfficeCode] FROM [Tbl_FMDepartment], [Tbl_FMFund], [Tbl_FMSector] ,[Tbl_FMOfficeType] where [Tbl_FMFund].FundID = [Tbl_FMDepartment].FundID and [Tbl_FMSector].SectorID = [Tbl_FMDepartment].SectorID and [Tbl_FMOfficeType].OfficeTypeID = [Tbl_FMDepartment].OfficeTypeID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -113,12 +113,17 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return Json(DepartmentTable);
         }
-        public ActionResult GetAddDynamicSubSector(int SectorID)
+        public ActionResult GetDynamicSubSector(int SectorID)
         {
             DepartmentModel model = new DepartmentModel();
 
-            model.SubSectorList = new SelectList((from s in BOSSDB.SubSectors.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-            
+            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
+            return PartialView("DepartmentTab/_DynamicSubSector", model);
+        }
+        public ActionResult GetDynamicSubSector2(DepartmentModel model, int SectorID, int subsectorIDHidden)
+        {
+            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
+            model.SubSectorID = subsectorIDHidden;
             return PartialView("DepartmentTab/_DynamicSubSector", model);
         }
         //Get Department Update Partial View
@@ -131,7 +136,7 @@ namespace BOSS.Controllers
             model.getDeptColumns.RCcode = departmentTable.RCcode;
             model.FundID = Convert.ToInt32(departmentTable.FundID);
             model.SectorID = Convert.ToInt32(departmentTable.SectorID);
-            model.SubSectorID = Convert.ToInt32(departmentTable.SubSectorID);
+            model.subsectorIDHidden = Convert.ToInt32(departmentTable.SubSectorID);
             model.getDeptColumns.DeptOfficeCode = departmentTable.DeptOfficeCode;
             model.OfficeTypeID = Convert.ToInt32(departmentTable.OfficeTypeID);
             model.DeptID = DeptID;
@@ -205,7 +210,7 @@ namespace BOSS.Controllers
             List<FunctionList> getFuncList = new List<FunctionList>();
             var SQLQuery = "";
             //SQLQuery = "SELECT [FunctionID], [FunctionTitle], [FunctionAbbrv], [FunctionCode], [SectorTitle],[Tbl_FMDepartment].[SubSectorID],[FundTitle], [dbo].[Tbl_FMFunction].[DeptID]FROM [dbo].[Tbl_FMFunction], [dbo].[FundType],[dbo].[Tbl_FMDepartment] ,[dbo].[Sector] where[FundType].FundID = [Tbl_FMFunction].FundID and [Tbl_FMDepartment].[DeptID] = [Tbl_FMFunction].[DeptID] and [Sector].[SectorID] = [Tbl_FMDepartment].[SectorID] and [Tbl_FMFunction].[DeptID]=" + deptID;
-            SQLQuery = "SELECT [FunctionID], [DeptTitle], [FunctionTitle], [FunctionAbbrv], [FunctionCode], [FundTitle], [SectorTitle], [Tbl_FMFunction].[SubSectorID], [OfficeTypeTitle], [DeptOfficeCodefunc] FROM [BOSS].[dbo].[Tbl_FMFunction], [Sector], [Tbl_FMDepartment], [OfficeType], [Fund]where[Sector].SectorID = [Tbl_FMFunction].SectorID and [Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and [OfficeType].OfficeTypeID = [Tbl_FMFunction].OfficeTypeID and [Fund].FundID = [Tbl_FMDepartment].FundID";
+            SQLQuery = "SELECT [FunctionID], [DeptTitle], [FunctionTitle], [FunctionAbbrv], [FunctionCode], [FundTitle], [SectorTitle], [Tbl_FMFunction].[SubSectorID], [OfficeTypeTitle], [DeptOfficeCodefunc] FROM [BOSS].[dbo].[Tbl_FMFunction], [Tbl_FMSector], [Tbl_FMDepartment], [Tbl_FMOfficeType], [Tbl_FMFund] where [Tbl_FMSector].SectorID = [Tbl_FMFunction].SectorID and [Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and [Tbl_FMOfficeType].OfficeTypeID = [Tbl_FMFunction].OfficeTypeID and [Tbl_FMFund].FundID = [Tbl_FMDepartment].FundID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -250,7 +255,7 @@ namespace BOSS.Controllers
             var funcTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID select e).FirstOrDefault();
             //model.FundTitle = funcTable.Fund.FundTitle;
 
-            var departmentFund = (from e in BOSSDB.Funds where e.FundID == funcTable.FundID select e).FirstOrDefault();
+            var departmentFund = (from e in BOSSDB.Tbl_FMFund where e.FundID == funcTable.FundID select e).FirstOrDefault();
 
             var fundtitle = "N/A";
             if (departmentFund != null)
@@ -260,6 +265,35 @@ namespace BOSS.Controllers
             model.FundTitle = fundtitle;
             return PartialView("FunctionTab/_DynamicFundTitle", model);
         }
+        //Viewing of Department / Office Code
+        public ActionResult GetDeptOfficeCode(int DeptID)
+        {
+            FunctionModel model = new FunctionModel();
+            var deptTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID select e).FirstOrDefault();
+            model.DeptOfficeCodefunc = deptTable.DeptOfficeCode;
+            
+            return PartialView("FunctionTab/_DynamicDeptOfficeCode", model);
+        }
+        ////Viewing of Sector Code
+        //public ActionResult GetSectorfromDept(int DeptID)
+        //{
+        //    FunctionModel model = new FunctionModel();
+        //    var deptTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID select e).FirstOrDefault();
+           
+        //    model.SectorID = Convert.ToInt32(deptTable.SectorID);
+
+        //    return PartialView("FunctionTab/_DynamicSectorField", model);
+        //}
+        ////Viewing of SubSector Code
+        //public ActionResult GetSubSectorfromDept(int DeptID)
+        //{
+        //    FunctionModel model = new FunctionModel();
+        //    var deptTable = (from e in BOSSDB.Tbl_FMDepartment where e.DeptID == DeptID select e).FirstOrDefault();
+
+        //    model.SubSectorID = deptTable.SubSector.SubSectorID;
+
+        //    return PartialView("FunctionTab/_DynamicSubSectorfunc", model);
+        //}
         //Add Function
         public ActionResult AddNewFunction(FunctionModel model)
         {
@@ -279,7 +313,7 @@ namespace BOSS.Controllers
                 FunctionTable.SubSectorID = model.SubSectorID;
             }
             FunctionTable.OfficeTypeID = GlobalFunction.ReturnEmptyInt(model.OfficeTypeID);
-            FunctionTable.DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.DeptOfficeCodefunc);
+            FunctionTable.DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(model.DeptOfficeCodefunc);
             FunctionTable.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
             BOSSDB.Tbl_FMFunction.Add(FunctionTable);
             BOSSDB.SaveChanges();
@@ -291,9 +325,15 @@ namespace BOSS.Controllers
         {
             FunctionModel model = new FunctionModel();
 
-            model.SubSectorListfunc = new SelectList((from s in BOSSDB.SubSectors.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
+            model.SubSectorListfunc = new SelectList((from s in BOSSDB.Tbl_FMSubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
 
             return PartialView("FunctionTab/_DynamicSubSectorfunc", model);
+        }
+        public ActionResult GetDynamicSubSectorfunc2(FunctionModel model, int SectorID, int subsectorIDHiddenfunc)
+        {
+            model.SubSectorListfunc = new SelectList((from s in BOSSDB.Tbl_FMSubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
+            model.SubSectorID = subsectorIDHiddenfunc;
+            return PartialView("FunctionTab/_DynamicSubSector", model);
         }
         //Get Function Update Partial View
         public ActionResult Get_UpdateFunction(FunctionModel model, int FunctionID)
@@ -304,7 +344,7 @@ namespace BOSS.Controllers
             model.getFunctionColumns.FunctionAbbrv = functionTable.FunctionAbbrv;
             model.getFunctionColumns.FunctionCode = functionTable.FunctionCode;
             model.SectorID = Convert.ToInt32(functionTable.SectorID);
-            model.SubSectorID = Convert.ToInt32(functionTable.SubSectorID);
+            model.subsectorIDHiddenfunc = Convert.ToInt32(functionTable.SubSectorID);
             model.OfficeTypeID = Convert.ToInt32(functionTable.OfficeTypeID);
             model.getFunctionColumns.DeptOfficeCodefunc = functionTable.DeptOfficeCodefunc;
             model.DeptID = Convert.ToInt32(functionTable.DeptID);
@@ -316,7 +356,7 @@ namespace BOSS.Controllers
         {
             DepartmentModel model = new DepartmentModel();
 
-            model.SubSectorList = new SelectList((from s in BOSSDB.SubSectors.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
+            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
 
             return PartialView("DynamicFields/_UpdateDynamicSubSector", model);
         }
@@ -405,6 +445,13 @@ namespace BOSS.Controllers
 
             return PartialView("SectionTab/_DynamicFunction", model);
         }
+        public ActionResult GetDynamicFunction2(SectionModel model, int DeptID, int FunctionIDHidden)
+        {
+            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMFunction.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
+            model.FunctionID = FunctionIDHidden;
+
+            return PartialView("SectionTab/_DynamicFunction", model);
+        }
         public ActionResult GetAddSection()
         {
             SectionModel model = new SectionModel();
@@ -431,7 +478,7 @@ namespace BOSS.Controllers
            
             model.getSectionColumns.SectionTitle = officeSecTable.SectionTitle;
             model.DeptID = Convert.ToInt32(officeSecTable.DeptID);
-            model.FunctionID = Convert.ToInt32(officeSecTable.FunctionID);
+            model.FunctionIDHidden = Convert.ToInt32(officeSecTable.FunctionID);
 
             return PartialView("SectionTab/_UpdateSection", model);
         }
@@ -458,49 +505,6 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return RedirectToAction("FileResponsibility");
         }
-        
-        //CALLING MODALS ======================================================================
-
-        //SECTOR for Dept TAB
-        public ActionResult GetAddSectorModalDept()
-        {
-            return PartialView("Modals/_AddSectorModal");
-        }
-        //SUB SECTOR for Dept TAB
-        public ActionResult GetAddSubSectorModalDept()
-        {
-            return PartialView("Modals/_AddSubSectorModal");
-        }
-        //FUND for Dept TAB
-        public ActionResult GetAddFundModalDept()
-        {
-            return PartialView("Modals/_AddFundModal");
-        }
-        //FUND for Function TAB
-        public ActionResult GetAddFundModalFunc()
-        {
-            return PartialView("Modals/_AddFundModal");
-        }
-        //Department for Function Tab
-        public ActionResult GetAddDeptModalFunc()
-        {
-            return PartialView("Modals/_AddDepartmentModal");
-        }
-        //Department for Section Tab
-        public ActionResult GetAddDeptModalSec()
-        {
-            return PartialView("Modals/_AddDepartmentModal");
-        }
-        //Function for Section Tab
-        public ActionResult GetAddFuncModalSec()
-        {
-            return PartialView("Modals/_AddFunctionModal");
-        }
-        public ActionResult GetAddOfficeTypeModal()
-        {
-            return PartialView("Modals/_AddOfficeTypeModal");
-        }
-        
     }
 }
 

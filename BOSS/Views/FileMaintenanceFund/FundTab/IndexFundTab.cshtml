@@ -2,51 +2,52 @@
 @{
     ViewBag.Title = "IndexFund";
 }
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="fundTempID">
 
-<div id="fundTempID">
-
+    </div>
 </div>
-<div id="fundTableID">
+    <div class="mt-2" id="fundTableID">
 
-</div>
+    </div>
 
-<script>
-    $(function () {
-        GetFundDTable();
-    })
-    function GetFundDTable() {
-        $.ajax({
-            url: '/FileMaintenanceFund/GetFundDTable',
-            success: function (result) {
-                $("#fundTableID").html(result);
-                Get_AddFund();
-            }
+    <script>
+        $(function () {
+            GetFundDTable();
         })
-    }
-    function Get_AddFund() {
-        $.ajax({
-            url: '/FileMaintenanceFund/Get_AddFund',
-            success: function (result) {
-                $("#fundTempID").html(result);
-            }
-        })
-    }
-    function Get_UpdateFund(FundID) {
-        $.ajax({
-            url: '/FileMaintenanceFund/Get_UpdateFund',
-            data: { FundID: FundID },
-            success: function (result) {
-                $("#fundTempID").html(result);
-            }
-        })
-    }
-    function DeleteFund(FundID) {
-        $.ajax({
-            url: '/FileMaintenanceFund/DeleteFund',
-            data: { FundID: FundID },
-            success: function (result) {
-                GetFundDTable();
-            }
-        })
-    }
-</script>
+        function GetFundDTable() {
+            $.ajax({
+                url: '/FileMaintenanceFund/GetFundDTable',
+                success: function (result) {
+                    $("#fundTableID").html(result);
+                    Get_AddFund();
+                }
+            })
+        }
+        function Get_AddFund() {
+            $.ajax({
+                url: '/FileMaintenanceFund/Get_AddFund',
+                success: function (result) {
+                    $("#fundTempID").html(result);
+                }
+            })
+        }
+        function Get_UpdateFund(FundID) {
+            $.ajax({
+                url: '/FileMaintenanceFund/Get_UpdateFund',
+                data: { FundID: FundID },
+                success: function (result) {
+                    $("#fundTempID").html(result);
+                }
+            })
+        }
+        function DeleteFund(FundID) {
+            $.ajax({
+                url: '/FileMaintenanceFund/DeleteFund',
+                data: { FundID: FundID },
+                success: function (result) {
+                    GetFundDTable();
+                }
+            })
+        }
+    </script>

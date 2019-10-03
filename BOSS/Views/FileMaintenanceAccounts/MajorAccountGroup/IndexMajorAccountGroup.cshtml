@@ -5,35 +5,29 @@
     <div class="col-xl-2 col-lg-3 col-md-3">
         <div class="form-group">
             <label class="custom-form-margin">Revision Year</label>
-            <span class="input-group-append">
                 <select class="form-control">
                     <option>2015</option>
                     <option>2016</option>
                     <option>2017</option>
                     <option>2018</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddRevYearMajorModal" onclick="GetAddAddRevYearMajor()"><strong>+</strong></button>
-            </span>
+               
         </div>
     </div>
     <div class="col-xl-4 col-lg-5 col-md-5">
         <div class="form-group">
             <label class="custom-form-margin">Allotment Class</label>
-            <span class="input-group-append">
                 <select class="form-control">
                     <option>Personal Services</option>
                     <option>Capital Outlay</option>
                     <option>Maintenance and Other Operating Expenses</option>
                     <option>Other Operating Expenses</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddAllomentMajorModal" onclick="GetAddAddAllomentClassMajor()"><strong>+</strong></button>
-            </span>
         </div>
     </div>
     <div class="col-xl-4 col-lg-4 col-md-4">
         <div class="form-group">
             <label class="custom-form-margin">Accounts</label>
-            <span class="input-group-append">
                 <select class="form-control">
                     <option>Asset</option>
                     <option>Liabilities</option>
@@ -41,8 +35,6 @@
                     <option>Income</option>
                     <option>Expenses</option>
                 </select>
-                <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddAccntMajorModal" onclick="GetAddAddAccntClassMajor()"><strong>+</strong></button>
-            </span>
         </div>
     </div>
 </div>
@@ -194,86 +186,8 @@
     </div>
 </div>
 
-@*Get Revition Year Modal*@
-<div class="modal fade text-left" id="ViewAddRevYearMajorModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Revision Year</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddRevYearMajorID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Get Alloment Class Modal*@
-<div class="modal fade text-left" id="ViewAddAllomentMajorModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Allotment Class</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddAllomentMajorID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Get Account Group Modal*@
-<div class="modal fade text-left" id="ViewAddAccntMajorModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Account Group</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddAccntMajorID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     $(function () {
         LoadDataTable();
     })
-    //REVISION YEAR
-    function GetAddAddRevYearMajor() {
-        $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAddRevYear",
-            success: function (result) {
-                $("#ViewAddRevYearMajorID").html(result);
-                $('#ViewAddRevYearMajorModal').modal('toggle');
-            }
-        });
-    }
-    //Allotment Class
-    function GetAddAddAllomentClassMajor() {
-        $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAllomentClass",
-            success: function (result) {
-                $("#ViewAddAllomentMajorID").html(result);
-                $('#ViewAddAllomentMajorModal').modal('toggle');
-            }
-        });
-    }
-    //Account Group
-    function GetAddAddAccntClassMajor() {
-        $.ajax({
-            url: "/FileMaintenanceAccounts/GetAddAccntGroup",
-            success: function (result) {
-                $("#ViewAddAccntMajorID").html(result);
-                $('#ViewAddAccntMajorModal').modal('toggle');
-            }
-        });
-    }
 </script>

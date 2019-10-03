@@ -1,119 +1,87 @@
-﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+﻿@model BOSS.Models.FMmodels.FMAppropriarionSouceModels.AppropSourceModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
-<div id="AppropSoureIDTemp">
+    <div class="card-body px-1 card-body rounded menubackground">
+        <div id="AppropSoureIDTemp">
 
-</div>
-<div id="ApproSourceID">
-
-</div>
-@*Fund Source Modal*@
-<div class="modal fade text-left" id="ViewAddFundSourceModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Fund Source</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddFundSourceID"></div>
-                </div>
-            </div>
         </div>
     </div>
-</div>
+    <div class="mt-2" id="ApproSourceID">
 
-<script>
-    $(function () {
-        GetAppropriationSourceDT();
-    })
-    function GetAppropriationSourceDT() {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
-            success: function (result) {
-                $("#ApproSourceID").html(result);
-                GetAddAppropSource();
-            }
+    </div>
+
+    <script>
+        $(function () {
+            GetAppropriationSourceDT();
         })
-    }
-    function GetAddAppropSource() {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetAddAppropSource',
-            success: function (result) {
-                $("#AppropSoureIDTemp").html(result);
-            }
-        })
-    }
-    //Get GetAppropriation Source Add Partial View
-    function GetAddAppropSource() {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetAddAppropSource',
-            success: function (result) {
-                $("#AppropSoureIDTemp").html(result);
-            }
-        })
-    }
-    ////Get GetAppropriation Source Update Partial View
-    function Get_UpdateAppropSource(AppropriationID) {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
-            data: { AppropriationID: AppropriationID },
-            success: function (result) {
-                $("#AppropSoureIDTemp").html(result);
-            }
-        })
-    }
-    //Delete AppropriationSource
-    function _DeleteAppropriationSource() {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/_DeleteAppropriationSource',
-            success: function (result) {
-                GetAppropriationSourceDT();
-            }
-        })
-    }
-    function GetDynamicFund() {
-        var AppropriationSourceID = $("#AppropriationSourceTypeID").val();
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetDynamicFund',
-            data: { AppropriationSourceID: AppropriationSourceID },
-            success: function (result) {
-                $("#FundSourceID").html(result);
-            }
-        })
-    }
-    //Calling Dynamic Fund Source Partial View
-    function GetDynamicFund2(FundSourceIDHidden, ApproIDHidden) {
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetDynamicFund2',
-            data: { FundSourceIDHidden: FundSourceIDHidden, ApproIDHidden: ApproIDHidden },
-            success: function (result) {
-                $("#FundSourceID2").html(result);
-            }
-        })
-    }
-    function GetDynamicFund3() {
-        var AppropriationSourceID = $("#AppropriationSourceTypeID2").val();
-        $.ajax({
-            url: '/FileMaintenanceAppropriation/GetDynamicFund',
-            data: { AppropriationSourceID: AppropriationSourceID },
-            success: function (result) {
-                $("#FundSourceID2").html(result);
-            }
-        })
-    }
-    //Calling FundSource Modal for Adding
-    function GetAddFundSourceModal() {
-        $.ajax({
-            url: "/FileMaintenanceAppropriation/GetAddFundSourceModal",
-            success: function (result) {
-                $("#ViewAddFundSourceID").html(result);
-                $('#ViewAddFundSourceModal').modal('toggle');
-            }
-        });
-    }
-</script>
+        function GetAppropriationSourceDT() {
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/GetAppropriationSourceDT',
+                success: function (result) {
+                    $("#ApproSourceID").html(result);
+                    GetAddAppropSource();
+                }
+            })
+        }
+        //Get GetAppropriation Source Add Partial View
+        function GetAddAppropSource() {
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/GetAddAppropSource',
+                success: function (result) {
+                    $("#AppropSoureIDTemp").html(result);
+                }
+            })
+        }
+        function GetDynamicFund() {
+            var AppropSourceTypeID = $("#AppropSourceTypeIDAP").val();
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund',
+                data: { AppropSourceTypeID: AppropSourceTypeID },
+                success: function (result) {
+                    $("#FundSourcetempID").html(result);
+                }
+            })
+        }
+        function GetDynamicFund2(AppropSourceTypeID, FundSourceIDHidden) {
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund2',
+                data: { AppropSourceTypeID: AppropSourceTypeID, FundSourceIDHidden: FundSourceIDHidden },
+                success: function (result) {
+                    $("#FundSourcetempID").html(result);
+                }
+            })
+        }
+        function GetDynamicFund3() {
+            var AppropSourceTypeID = $("#AppropSourceTypeID2").val();
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/GetDynamicFund',
+                data: { AppropSourceTypeID: AppropSourceTypeID },
+                success: function (result) {
+                    $("#FundSourcetempID").html(result);
+                }
+            })
+        }
+        ////Get GetAppropriation Source Update Partial View
+        function Get_UpdateAppropSource(AppropriationID) {
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/Get_UpdateAppropSource',
+                data: { AppropriationID: AppropriationID },
+                success: function (result) {
+                    $("#AppropSoureIDTemp").html(result);
+                }
+            })
+        }
+        //Delete AppropriationSource
+        function DeleteAppropriationSource(AppropriationID) {
+            $.ajax({
+                url: '/FileMaintenanceAppropriation/DeleteAppropriationSource',
+                data: { AppropriationID: AppropriationID },
+                success: function (result) {
+                    GetAppropriationSourceDT();
+                }
+            })
+        }
+
+    </script>

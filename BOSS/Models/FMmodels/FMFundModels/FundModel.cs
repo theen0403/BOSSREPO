@@ -12,10 +12,10 @@ namespace BOSS.Models.FMmodels.FMFundModels
         public FundModel()
         {
             getFundList = new List<FundList>();
-            getFundColumns = new Fund();
+            getFundColumns = new Tbl_FMFund();
         }
         public List<FundList> getFundList { get; set; }
-        public Fund getFundColumns { get; set; }
+        public Tbl_FMFund getFundColumns { get; set; }
         //Fields
         public int FundID { get; set; }
         public string FundTitle { get; set; }

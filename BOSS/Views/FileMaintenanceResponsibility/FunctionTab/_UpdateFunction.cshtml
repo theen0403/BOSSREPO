@@ -9,15 +9,14 @@
 @using (Ajax.BeginForm("UpdateFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetFunctionDT','Successfully Updated!')", OnFailure = "", }))
 {
     @Html.HiddenFor(m => m.FunctionID, new { })
-    
-    <div class="row mt-1">
+    @Html.HiddenFor(m => m.subsectorIDHiddenfunc, new { id = "subsectorIDHiddenfunc" })
+
+    <div class="row">
         <div class="col-xl-3 col-lg-6 col-md-6">
             <div class="form-group">
                 <label class="custom-form-margin mt-xl-2 mt-lg-2">Department</label>
-                <span class="input-group-append">
-                    @Html.DropDownListFor(m => m.DeptID, Model.DeptSelectionListfunc, new { @class = "form-control select2", id = "DeptID", onchange = "GetFund()" })
-                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" data-target="#ViewAddDeptFuncModal" onclick="GetAddDeptModalFunc()"><strong>+</strong></button>
-                </span>
+                @Html.DropDownListFor(m => m.DeptID, Model.DeptSelectionListfunc, new { @class = "form-control select2", id = "DeptID2", onchange = "LoadDynamic2()" })
+
             </div>
         </div>
         <div class="col-xl-3 col-lg-3 col-md-6">
@@ -44,10 +43,8 @@
         <div class="col-xl-3 col-lg-5 col-md-6">
             <div class="form-group">
                 <label class="custom-form-margin mt-xl-2">Sector</label>
-                <span class="input-group-append">
-                    @Html.DropDownListFor(m => m.SectorID, Model.SectorListfunc, new { @class = "form-control select2", id = "SectorID", onchange = "GetDynamicSubSectorfunc()" })
-                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddSectorModal()"><strong>+</strong></button>
-                </span>
+                @Html.DropDownListFor(m => m.SectorID, Model.SectorListfunc, new { @class = "form-control select2", id = "SectorID2", onchange = "LoadGetDynamicSubSectorfunc3()" })
+
             </div>
         </div>
         <div class="col-xl-4 col-lg-5 col-md-6 mt-xl-2 mt-lg-2" id="SubSectorfuncID">
@@ -56,10 +53,8 @@
         <div class="col-xl-3 col-lg-4 col-md-3">
             <div class="form-group">
                 <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Office Type</label>
-                <span class="input-group-append">
-                    @Html.DropDownListFor(m => m.OfficeTypeID, Model.officeTypeListfunc, new { @class = "form-control select2", id = "OfficeTypeIDfunc" })
-                    <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddOfficeTypeModalFunc()"><strong>+</strong></button>
-                </span>
+                @Html.DropDownListFor(m => m.OfficeTypeID, Model.officeTypeListfunc, new { @class = "form-control select2", id = "OfficeTypeIDfunc" })
+
             </div>
         </div>
         <div class="col-xl-2 col-lg-3 col-md-3">
@@ -82,10 +77,22 @@
 }
 <script>
     $(function () {
-        GetFund();
+        LoadDynamic2();
         LoadICheck();
-        GetDynamicSubSectorfunc();
+        LoadGetDynamicSubSectorfunc2();
     })
+    function LoadDynamic2() {
+        GetFund2();
+        GetDeptOfficeCode2();
+    }
+    function LoadGetDynamicSubSectorfunc2() {
+        var SectorID = $("#SectorID2").val();
+        var subsectorIDHiddenfunc = $("#subsectorIDHiddenfunc").val();
+        GetDynamicSubSectorfunc2(SectorID, subsectorIDHiddenfunc);
+    }
+    function LoadGetDynamicSubSectorfunc3() {
+        GetDynamicSubSectorfunc3();
+    }
 </script>
 
 

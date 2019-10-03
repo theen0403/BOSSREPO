@@ -17,6 +17,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         public List<DepartmentList> getDeptList { get; set; }
         public Tbl_FMDepartment getDeptColumns { get; set; }
         public int DeptID { get; set; }
+        public int subsectorIDHidden { get; set; }
         public string DeptTitle { get; set; }
         public string DeptAbbrv { get; set; }
         public string DeptOfficeCode { get; set; }
@@ -29,7 +30,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         {
             get
             {
-                List<Fund> fundList = BOSSDB.Funds.ToList();
+                List<Tbl_FMFund> fundList = BOSSDB.Tbl_FMFund.ToList();
                 return new System.Web.Mvc.SelectList(fundList, "FundID", "FundTitle");
             }
         }
@@ -37,7 +38,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         {
             get
             {
-                List<Sector> SectorLists = BOSSDB.Sectors.ToList();
+                List<Tbl_FMSector> SectorLists = BOSSDB.Tbl_FMSector.ToList();
                 return new System.Web.Mvc.SelectList(SectorLists, "SectorID", "SectorTitle");
             }
         }
@@ -46,7 +47,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         {
             get
             {
-                List<OfficeType> officeTypeList = BOSSDB.OfficeTypes.ToList();
+                List<Tbl_FMOfficeType> officeTypeList = BOSSDB.Tbl_FMOfficeType.ToList();
                 return new System.Web.Mvc.SelectList(officeTypeList, "OfficeTypeID", "OfficeTypeTitle");
             }
         }

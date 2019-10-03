@@ -1,4 +1,4 @@
-﻿@model BOSS.Models.FMPositionforSPModels.PositionforSPModel
+﻿@model BOSS.Models.FMmodels.FMPositionModels.PositionModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -7,39 +7,40 @@
 @using (Ajax.BeginForm("UpdatePosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetPositionSPDTable','Successfully Updated!')", OnFailure = "", }))
 {
     @Html.HiddenFor(m => m.PositionID, new { })
-
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="custom-form-margin">Position</label>
-                <fieldset>
-                    @Html.TextAreaFor(m => m.getPositionColumns2.PositionTitle, new { @class = "form-control", @rows = 1, id = "PositionTitle" })
-                </fieldset>
+    
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-1"></div>
+            <div class="col-xl-8 col-lg-8 col-md-10">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-4">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Position</label>
+                            <fieldset>
+                                @Html.TextAreaFor(m => m.getPositionColumns.PositionTitle, new { @class = "form-control", @rows = 1, id = "PositionTitle" })
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Position Code</label>
+                            <fieldset class="form-group">
+                                @Html.TextBoxFor(m => m.getPositionColumns.PositionCode, new { @class = "form-control", id = "PositionCode" })
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetPositionSPDTable()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label class="custom-form-margin">Position Code</label>
-                <fieldset class="form-group">
-                    @Html.TextBoxFor(m => m.getPositionColumns2.PositionCode, new { @class = "form-control", id = "PositionCode" })
-                </fieldset>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-            <div class="form-group">
-                <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetPositionSPDTable()">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                    Update
-                </button>
-            </div>
-        </div>
-    </div>
 }
 <script>
     $(function () {

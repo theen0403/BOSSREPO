@@ -35,7 +35,7 @@ namespace BOSS.Models.FMAccounts
         {
             get
             {
-                List<AllotmentClass> allotmentClasses = BOSSDB.AllotmentClasses.ToList();
+                List<Tbl_FMAllotmentClass> allotmentClasses = BOSSDB.Tbl_FMAllotmentClass.ToList();
                 return new System.Web.Mvc.SelectList(allotmentClasses, "AllotmentID", "AllotmentClassTitle");
             }
         }

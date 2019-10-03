@@ -20,6 +20,6 @@ namespace BOSS.Models
         public Nullable<int> BudgetYearID { get; set; }
     
         public virtual BudgetYear BudgetYear { get; set; }
-        public virtual FundSource FundSource { get; set; }
+        public virtual Tbl_FMFundSource Tbl_FMFundSource { get; set; }
     }
 }

@@ -6,10 +6,13 @@
 
 <div class="form-group">
     <label class="custom-form-margin">Function</label>
-    <span class="input-group-append">
         @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control select2", id = "FunctionID" })
-        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddFuncModalSec()"><strong>+</strong></button>
-    </span>
+       
 </div>
 
 
+<script>
+    $(function () {
+        LoadICheck();
+    })
+</script>

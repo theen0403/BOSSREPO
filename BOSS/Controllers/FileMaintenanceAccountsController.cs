@@ -1,6 +1,6 @@
 ﻿using BOSS.GlobalFunctions;
 using BOSS.Models;
-using BOSS.Models.FMAccounts;
+using BOSS.Models.FMmodels.FMAccountsModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -22,81 +22,212 @@ namespace BOSS.Controllers
 
         public ActionResult FileAccounts()
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             return View(model);
         }
         public ActionResult RevisionCOATab()
         {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            RevisionYearModel model = new RevisionYearModel();
             return PartialView("RevisionOfCOA/IndexRCOA", model);
         }
 
         public ActionResult AllotmentClassTab()
         {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
-            return PartialView("AllotmentClass/AllotmentClassIndex", model);
+            RevisionYearModel model = new RevisionYearModel();
+            return PartialView("AllotmentClass/IndexAllotmentClass", model);
         }
         public ActionResult AccountGroupTab()
         {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            RevisionYearModel model = new RevisionYearModel();
             return PartialView("AccountGroup/IndexAccountGroup", model);
         }
         public ActionResult MajorAccountGroupTab()
         {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            RevisionYearModel model = new RevisionYearModel();
             return PartialView("MajorAccountGroup/IndexMajorAccountGroup", model);
         }
         public ActionResult SubMajorAccountGroupTab()
         {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
+            RevisionYearModel model = new RevisionYearModel();
             return PartialView("SubMajorAccountGroup/IndexSubMajorAccountGroup", model);
         }
-
         public ActionResult COATab()
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             return PartialView("GeneralAccount/IndexGeneralAccount", model);
         }
-
-        //public ActionResult PINTab()
-        //{
-        //    GeneralAccountsModel model = new GeneralAccountsModel();
-        //    return PartialView("PIN/IndexCOAPIN", model);
-        //}
+        public ActionResult SubsiLedgerTab()
+        {
+            GeneralAccountModel model = new GeneralAccountModel();
+            return PartialView("SubsidiaryLedger/_IndexSubsidiaryLedger", model);
+        }
         //=======================================================================================
+        //Revision Year
+        public ActionResult GetRevisionCOADT()
+        {
+            RevisionYearModel model = new RevisionYearModel();
+            List<RevisionList> getRevisionYearList = new List<RevisionList>();
+            var SQLQuery = "";
+            SQLQuery = "SELECT [RevID], [RevYEar], [isUsed], [Remarks] FROM [BOSS].[dbo].[Tbl_FMRevisionYear]";
+
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMAccounts]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        getRevisionYearList.Add(new RevisionList()
+                        {
+                            RevID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            RevYEar = GlobalFunction.ReturnEmptyInt(dr[1]),
+                            isUsed = GlobalFunction.ReturnEmptyInt(dr[2]),
+                            Remarks = GlobalFunction.ReturnEmptyString(dr[3])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getRevisionYearList = getRevisionYearList.ToList();
+            return PartialView("RevisionOfCOA/_TableRCOA", getRevisionYearList);
+        }
+        public ActionResult GetAddRevision()
+        {
+            RevisionYearModel model = new RevisionYearModel();
+            return PartialView("RevisionOfCOA/_AddRCOA", model);
+        }
+        public ActionResult AddNewRevisionCOA(RevisionYearModel model)
+        {
+            Tbl_FMRevisionYear RevCOATable = new Tbl_FMRevisionYear();
+
+            RevCOATable.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYEar);
+            RevCOATable.isUsed = model.isUsed;
+            RevCOATable.Remarks = GlobalFunction.ReturnEmptyString(model.getRevYearColumns.Remarks);
+
+            BOSSDB.Tbl_FMRevisionYear.Add(RevCOATable);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Get_UpdateRevCOA(RevisionYearModel model, int RevID)
+        {
+            Tbl_FMRevisionYear revCOATable = (from e in BOSSDB.Tbl_FMRevisionYear where e.RevID == RevID select e).FirstOrDefault();
+
+            model.getRevYearColumns.RevYEar = revCOATable.RevYEar;
+            model.isUsed = Convert.ToBoolean(revCOATable.isUsed);
+            model.getRevYearColumns.Remarks = revCOATable.Remarks;
+            model.RevID = RevID;
+            return PartialView("RevisionOfCOA/_UpdateRCOA", model);
+        }
+        public ActionResult UpdateRevCOA(RevisionYearModel model)
+        {
+            Tbl_FMRevisionYear revCOATbl = (from e in BOSSDB.Tbl_FMRevisionYear where e.RevID == model.RevID select e).FirstOrDefault();
+            revCOATbl.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYEar);
+            revCOATbl.isUsed = model.isUsed;
+            revCOATbl.Remarks = GlobalFunction.ReturnEmptyString(model.getRevYearColumns.Remarks);
+
+            BOSSDB.Entry(revCOATbl);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult DeleteRCOA(RevisionYearModel model, int RevID)
+        {
+            Tbl_FMRevisionYear RCOAtbl = (from e in BOSSDB.Tbl_FMRevisionYear where e.RevID == RevID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMRevisionYear.Remove(RCOAtbl);
+            BOSSDB.SaveChanges();
+            return RedirectToAction("FileAccounts");
+        }
+        //=======================================================================================
+        //Allotment Class
+        //Revision Year
+        public ActionResult GetAllotmentClassDT()
+        {
+            RevisionYearModel model = new RevisionYearModel();
+            List<RevisionList> getRevisionYearList = new List<RevisionList>();
+            var SQLQuery = "";
+            SQLQuery = "SELECT [RevID], [RevYEar], [isUsed], [Remarks] FROM [BOSS].[dbo].[Tbl_FMRevisionYear]";
+
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMAccounts]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        getRevisionYearList.Add(new RevisionList()
+                        {
+                            RevID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            RevYEar = GlobalFunction.ReturnEmptyInt(dr[1]),
+                            isUsed = GlobalFunction.ReturnEmptyInt(dr[2]),
+                            Remarks = GlobalFunction.ReturnEmptyString(dr[3])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getRevisionYearList = getRevisionYearList.ToList();
+            return PartialView("RevisionOfCOA/_TableRCOA", getRevisionYearList);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Get General Account Partial View
         public ActionResult GetGeneralAccountView()
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
 
             return PartialView("ChartOfAccounts/GeneralAccount/GeneralAccountTabIndex", model);
         }
         public ActionResult GetAddGeneralAccount()
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
 
             return PartialView("ChartOfAccounts/GeneralAccount/_AddGeneralAccount", model);
         }
         public ActionResult GetAddGeneralAccountforUpdate(int AllotmentID)
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             model.AllotmentID = AllotmentID;
             return PartialView("ChartOfAccounts/GeneralAccount/_AddGeneralAccount", model);
         }
         public ActionResult GetDynamicAllotmentClass()
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             return PartialView("ChartOfAccounts/GeneralAccount/_DynamicAllotmentClass", model);
         }
         public ActionResult GetDynamicAllotmentClassForUpdate(int AllotmentID)
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             model.AllotmentID = AllotmentID;
             return PartialView("ChartOfAccounts/GeneralAccount/_DynamicAllotmentClassForUpdate", model);
         }
         public ActionResult GetGeneralAccountDT(int AllotmentID)
         {
-            GeneralAccountsModel model = new GeneralAccountsModel();
+            GeneralAccountModel model = new GeneralAccountModel();
             List<GeneralAccountList> getGenAcctList = new List<GeneralAccountList>(); 
              var SQLQuery = "";
             SQLQuery = "SELECT [GenAccountID] ,[GenAccountCode], [GenAccountTitle] ,[isReserve] ,[ReservePercent] ,[isFullRelease] ,[isContinuing] ,[isOBRCashAdvance] ,[Tbl_FMGeneralAccount].[AllotmentID] FROM [dbo].[Tbl_FMGeneralAccount], [dbo].[AllotmentClass] WHERE [Tbl_FMGeneralAccount].AllotmentID = [AllotmentClass].AllotmentID and[Tbl_FMGeneralAccount].AllotmentID =" + AllotmentID;
@@ -129,7 +260,7 @@ namespace BOSS.Controllers
             model.getGenAcctList = getGenAcctList.ToList();
             return PartialView("ChartOfAccounts/GeneralAccount/_TableGeneralAccount", getGenAcctList);
         }
-        public ActionResult AddNewGenAcct(GeneralAccountsModel model)
+        public ActionResult AddNewGenAcct(GeneralAccountModel model)
         {
             Tbl_FMGeneralAccount GenAcctTable = new Tbl_FMGeneralAccount();
 
@@ -148,7 +279,7 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Get_UpdateGenAcct(GeneralAccountsModel model, int GenAccountID)
+        public ActionResult Get_UpdateGenAcct(GeneralAccountModel model, int GenAccountID)
         {
             Tbl_FMGeneralAccount GenAcctTable = (from e in BOSSDB.Tbl_FMGeneralAccount where e.GenAccountID == GenAccountID select e).FirstOrDefault();
 
@@ -163,7 +294,7 @@ namespace BOSS.Controllers
             model.GenAccountID = GenAccountID;
             return PartialView("ChartOfAccounts/GeneralAccount/_UpdateGeneralAccount", model);
         }
-        public ActionResult UpdateGenAcct(GeneralAccountsModel model)
+        public ActionResult UpdateGenAcct(GeneralAccountModel model)
         {
             Tbl_FMGeneralAccount genacctTBL = (from e in BOSSDB.Tbl_FMGeneralAccount where e.GenAccountID == model.GenAccountID select e).FirstOrDefault();
             genacctTBL.GenAccountTitle = GlobalFunction.ReturnEmptyString(model.getGenAcctColumns2.GenAccountTitle);
@@ -181,7 +312,7 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult DeleteGenAcct(GeneralAccountsModel model, int GenAccountID)
+        public ActionResult DeleteGenAcct(GeneralAccountModel model, int GenAccountID)
         {
             Tbl_FMGeneralAccount genacctTBL = (from e in BOSSDB.Tbl_FMGeneralAccount where e.GenAccountID == GenAccountID select e).FirstOrDefault();
             BOSSDB.Tbl_FMGeneralAccount.Remove(genacctTBL);
@@ -194,210 +325,130 @@ namespace BOSS.Controllers
         }
         //=======================
         //Get Sub Account Partial View
-        public ActionResult GetSubAccountView()
-        {
-            SubAccountsModel model = new SubAccountsModel();
-            return PartialView("ChartOfAccounts/SubAccount/SubAccountTabIndex", model);
-        }
-        public ActionResult GetDynamicGenAccnt(int AllotmentID)
-        {
-            SubAccountsModel model = new SubAccountsModel();
-            model.GeneralAccntList = new SelectList((from s in BOSSDB.Tbl_FMGeneralAccount.ToList() where s.AllotmentID == AllotmentID select new { GenAccountID = s.GenAccountID, GenAccountTitle =  s.GenAccountCode + " - " + s.GenAccountTitle   }), "GenAccountID", "GenAccountTitle");
-            return PartialView("ChartOfAccounts/SubAccount/_DynamicGeneralAccount", model);
-        }
-        public ActionResult GetSubAccountDT(int AllotmentID, int GenAccountID)
-        {
-            SubAccountsModel model = new SubAccountsModel();
-            List<SubAccountList> getSubAcctList = new List<SubAccountList>();
-            var SQLQuery = "SELECT [SubAccountID] ,[SubAccountCode] ,[SubAccountTitle] ,[Tbl_FMSubAccount].[isReserve] ,[Tbl_FMSubAccount].[ReservePercent] ,[Tbl_FMSubAccount].[isFullRelease] ,[Tbl_FMSubAccount].[isContinuing] ,[Tbl_FMSubAccount].[isOBRCashAdvance] ,[Tbl_FMSubAccount].[GenAccountID],(Tbl_FMGeneralAccount.GenAccountCode + ' - ' + [SubAccountCode]) as GenCode FROM[BOSS].[dbo].[Tbl_FMSubAccount], [BOSS].[dbo].AllotmentClass,Tbl_FMGeneralAccount where[dbo].[Tbl_FMSubAccount].AllotmentID = [dbo].AllotmentClass.AllotmentID and Tbl_FMGeneralAccount.GenAccountID=[Tbl_FMSubAccount].GenAccountID and [Tbl_FMSubAccount].AllotmentID = " + AllotmentID + " and[Tbl_FMSubAccount].GenAccountID = " + GenAccountID;
+        //public ActionResult GetSubAccountView()
+        //{
+        //    SubAccountsModel model = new SubAccountsModel();
+        //    return PartialView("ChartOfAccounts/SubAccount/SubAccountTabIndex", model);
+        //}
+        //public ActionResult GetDynamicGenAccnt(int AllotmentID)
+        //{
+        //    SubAccountsModel model = new SubAccountsModel();
+        //    model.GeneralAccntList = new SelectList((from s in BOSSDB.Tbl_FMGeneralAccount.ToList() where s.AllotmentID == AllotmentID select new { GenAccountID = s.GenAccountID, GenAccountTitle =  s.GenAccountCode + " - " + s.GenAccountTitle   }), "GenAccountID", "GenAccountTitle");
+        //    return PartialView("ChartOfAccounts/SubAccount/_DynamicGeneralAccount", model);
+        //}
+        //public ActionResult GetSubAccountDT(int AllotmentID, int GenAccountID)
+        //{
+        //    SubAccountsModel model = new SubAccountsModel();
+        //    List<SubAccountList> getSubAcctList = new List<SubAccountList>();
+        //    var SQLQuery = "SELECT [SubAccountID] ,[SubAccountCode] ,[SubAccountTitle] ,[Tbl_FMSubAccount].[isReserve] ,[Tbl_FMSubAccount].[ReservePercent] ,[Tbl_FMSubAccount].[isFullRelease] ,[Tbl_FMSubAccount].[isContinuing] ,[Tbl_FMSubAccount].[isOBRCashAdvance] ,[Tbl_FMSubAccount].[GenAccountID],(Tbl_FMGeneralAccount.GenAccountCode + ' - ' + [SubAccountCode]) as GenCode FROM[BOSS].[dbo].[Tbl_FMSubAccount], [BOSS].[dbo].AllotmentClass,Tbl_FMGeneralAccount where[dbo].[Tbl_FMSubAccount].AllotmentID = [dbo].AllotmentClass.AllotmentID and Tbl_FMGeneralAccount.GenAccountID=[Tbl_FMSubAccount].GenAccountID and [Tbl_FMSubAccount].AllotmentID = " + AllotmentID + " and[Tbl_FMSubAccount].GenAccountID = " + GenAccountID;
 
-            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
-            {
-                Connection.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMAccounts]", Connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
-                    SqlDataReader dr = command.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        getSubAcctList.Add(new SubAccountList()
-                        {
-                            SubAccountID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            SubAccountCode = GlobalFunction.ReturnEmptyString(dr[9]),
-                            SubAccountTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            isReserve = GlobalFunction.ReturnEmptyInt(dr[3]),
-                            ReservePercent = GlobalFunction.ReturnEmptyInt(dr[4]),
-                            isFullRelease = GlobalFunction.ReturnEmptyInt(dr[5]),
-                            isContinuing = GlobalFunction.ReturnEmptyInt(dr[6]),
-                            isOBRCashAdvance = GlobalFunction.ReturnEmptyInt(dr[7])
-                        });
-                    }
-                }
-                Connection.Close();
-            }
-            model.getSubAcctList = getSubAcctList.ToList();
+        //    using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+        //    {
+        //        Connection.Open();
+        //        using (SqlCommand command = new SqlCommand("[dbo].[SP_FMAccounts]", Connection))
+        //        {
+        //            command.CommandType = CommandType.StoredProcedure;
+        //            command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+        //            SqlDataReader dr = command.ExecuteReader();
+        //            while (dr.Read())
+        //            {
+        //                getSubAcctList.Add(new SubAccountList()
+        //                {
+        //                    SubAccountID = GlobalFunction.ReturnEmptyInt(dr[0]),
+        //                    SubAccountCode = GlobalFunction.ReturnEmptyString(dr[9]),
+        //                    SubAccountTitle = GlobalFunction.ReturnEmptyString(dr[2]),
+        //                    isReserve = GlobalFunction.ReturnEmptyInt(dr[3]),
+        //                    ReservePercent = GlobalFunction.ReturnEmptyInt(dr[4]),
+        //                    isFullRelease = GlobalFunction.ReturnEmptyInt(dr[5]),
+        //                    isContinuing = GlobalFunction.ReturnEmptyInt(dr[6]),
+        //                    isOBRCashAdvance = GlobalFunction.ReturnEmptyInt(dr[7])
+        //                });
+        //            }
+        //        }
+        //        Connection.Close();
+        //    }
+        //    model.getSubAcctList = getSubAcctList.ToList();
 
-            return PartialView("ChartOfAccounts/SubAccount/_TableSubAccount", model.getSubAcctList);
-        }
-        public ActionResult GetAddSubAccount(int AllotmentID, int GenAccountID)
-        {
-            SubAccountsModel model = new SubAccountsModel();
-            model.AllotmentID = AllotmentID;
-            model.GenAccountID = GenAccountID;
-            return PartialView("ChartOfAccounts/SubAccount/_AddSubAccount", model);
-        }
-        public ActionResult GetGenAccntCodeField(int GenAccountID)
-        {
-            SubAccountsModel model = new SubAccountsModel();
+        //    return PartialView("ChartOfAccounts/SubAccount/_TableSubAccount", model.getSubAcctList);
+        //}
+        //public ActionResult GetAddSubAccount(int AllotmentID, int GenAccountID)
+        //{
+        //    SubAccountsModel model = new SubAccountsModel();
+        //    model.AllotmentID = AllotmentID;
+        //    model.GenAccountID = GenAccountID;
+        //    return PartialView("ChartOfAccounts/SubAccount/_AddSubAccount", model);
+        //}
+        //public ActionResult GetGenAccntCodeField(int GenAccountID)
+        //{
+        //    SubAccountsModel model = new SubAccountsModel();
 
-            var SubAccntTable = (from e in BOSSDB.Tbl_FMGeneralAccount where e.GenAccountID == GenAccountID select e).FirstOrDefault();
-            model.GenAccountCode = SubAccntTable.GenAccountCode;
+        //    var SubAccntTable = (from e in BOSSDB.Tbl_FMGeneralAccount where e.GenAccountID == GenAccountID select e).FirstOrDefault();
+        //    model.GenAccountCode = SubAccntTable.GenAccountCode;
 
-            return PartialView("ChartOfAccounts/SubAccount/_GenAcctCodeView", model);
-        }
-        public ActionResult AddNewSubAccount(SubAccountsModel model)
-        {
-            Tbl_FMSubAccount subAcctTable = new Tbl_FMSubAccount();
+        //    return PartialView("ChartOfAccounts/SubAccount/_GenAcctCodeView", model);
+        //}
+        //public ActionResult AddNewSubAccount(SubAccountsModel model)
+        //{
+        //    Tbl_FMSubAccount subAcctTable = new Tbl_FMSubAccount();
 
-            subAcctTable.SubAccountCode =GlobalFunction.ReturnEmptyString(model.getSubAcctColumns.SubAccountCode);
-            subAcctTable.SubAccountTitle = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns.SubAccountTitle);
-            subAcctTable.isReserve = model.isReserve;
-            subAcctTable.ReservePercent = GlobalFunction.ReturnEmptyInt(model.getSubAcctColumns.ReservePercent);
-            subAcctTable.isFullRelease = model.isFullRelease;
-            subAcctTable.isContinuing = model.isContinuing;
-            subAcctTable.isOBRCashAdvance = model.isOBRCashAdvance;
-            subAcctTable.GenAccountID = GlobalFunction.ReturnEmptyInt(model.GenAccountID);
-            subAcctTable.AllotmentID = GlobalFunction.ReturnEmptyInt(model.AllotmentID);
-            BOSSDB.Tbl_FMSubAccount.Add(subAcctTable);
-            BOSSDB.SaveChanges();
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult Get_UpdateSubAcct(SubAccountsModel model, int SubAccountID)
-        {
-            Tbl_FMSubAccount SubAcctTable = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == SubAccountID select e).FirstOrDefault();
+        //    subAcctTable.SubAccountCode =GlobalFunction.ReturnEmptyString(model.getSubAcctColumns.SubAccountCode);
+        //    subAcctTable.SubAccountTitle = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns.SubAccountTitle);
+        //    subAcctTable.isReserve = model.isReserve;
+        //    subAcctTable.ReservePercent = GlobalFunction.ReturnEmptyInt(model.getSubAcctColumns.ReservePercent);
+        //    subAcctTable.isFullRelease = model.isFullRelease;
+        //    subAcctTable.isContinuing = model.isContinuing;
+        //    subAcctTable.isOBRCashAdvance = model.isOBRCashAdvance;
+        //    subAcctTable.GenAccountID = GlobalFunction.ReturnEmptyInt(model.GenAccountID);
+        //    subAcctTable.AllotmentID = GlobalFunction.ReturnEmptyInt(model.AllotmentID);
+        //    BOSSDB.Tbl_FMSubAccount.Add(subAcctTable);
+        //    BOSSDB.SaveChanges();
+        //    var result = "";
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
+        //public ActionResult Get_UpdateSubAcct(SubAccountsModel model, int SubAccountID)
+        //{
+        //    Tbl_FMSubAccount SubAcctTable = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == SubAccountID select e).FirstOrDefault();
 
-            model.getSubAcctColumns2.SubAccountTitle = SubAcctTable.SubAccountTitle;
-            model.getSubAcctColumns2.SubAccountCode = SubAcctTable.SubAccountCode;
-            model.isReserve = Convert.ToBoolean(SubAcctTable.isReserve);
-            model.getSubAcctColumns2.ReservePercent = SubAcctTable.ReservePercent;
-            model.isFullRelease = Convert.ToBoolean(SubAcctTable.isFullRelease);
-            model.isContinuing = Convert.ToBoolean(SubAcctTable.isContinuing);
-            model.isOBRCashAdvance = Convert.ToBoolean(SubAcctTable.isOBRCashAdvance);
-            model.AllotmentID = Convert.ToInt32(SubAcctTable.AllotmentID);
-            model.GenAccountID = Convert.ToInt32(SubAcctTable.GenAccountID);
-            model.SubAccountID = SubAccountID;
-            return PartialView("ChartOfAccounts/SubAccount/_UpdateSubAccount", model);
-        }
-        public ActionResult UpdateSubAcct(SubAccountsModel model)
-        {
-            Tbl_FMSubAccount subacctTable = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == model.SubAccountID select e).FirstOrDefault();
-           subacctTable.SubAccountTitle = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns2.SubAccountTitle);
-            subacctTable.SubAccountCode = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns2.SubAccountCode);
-            subacctTable.isReserve = model.isReserve;
-            subacctTable.ReservePercent = GlobalFunction.ReturnEmptyInt(model.getSubAcctColumns2.ReservePercent);
-            subacctTable.isFullRelease = model.isFullRelease;
-            subacctTable.isContinuing = model.isContinuing;
-            subacctTable.isOBRCashAdvance = model.isOBRCashAdvance;
-            subacctTable.AllotmentID = GlobalFunction.ReturnEmptyInt(model.AllotmentID);
-            subacctTable.GenAccountID = GlobalFunction.ReturnEmptyInt(model.GenAccountID);
+        //    model.getSubAcctColumns2.SubAccountTitle = SubAcctTable.SubAccountTitle;
+        //    model.getSubAcctColumns2.SubAccountCode = SubAcctTable.SubAccountCode;
+        //    model.isReserve = Convert.ToBoolean(SubAcctTable.isReserve);
+        //    model.getSubAcctColumns2.ReservePercent = SubAcctTable.ReservePercent;
+        //    model.isFullRelease = Convert.ToBoolean(SubAcctTable.isFullRelease);
+        //    model.isContinuing = Convert.ToBoolean(SubAcctTable.isContinuing);
+        //    model.isOBRCashAdvance = Convert.ToBoolean(SubAcctTable.isOBRCashAdvance);
+        //    model.AllotmentID = Convert.ToInt32(SubAcctTable.AllotmentID);
+        //    model.GenAccountID = Convert.ToInt32(SubAcctTable.GenAccountID);
+        //    model.SubAccountID = SubAccountID;
+        //    return PartialView("ChartOfAccounts/SubAccount/_UpdateSubAccount", model);
+        //}
+        //public ActionResult UpdateSubAcct(SubAccountsModel model)
+        //{
+        //    Tbl_FMSubAccount subacctTable = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == model.SubAccountID select e).FirstOrDefault();
+        //   subacctTable.SubAccountTitle = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns2.SubAccountTitle);
+        //    subacctTable.SubAccountCode = GlobalFunction.ReturnEmptyString(model.getSubAcctColumns2.SubAccountCode);
+        //    subacctTable.isReserve = model.isReserve;
+        //    subacctTable.ReservePercent = GlobalFunction.ReturnEmptyInt(model.getSubAcctColumns2.ReservePercent);
+        //    subacctTable.isFullRelease = model.isFullRelease;
+        //    subacctTable.isContinuing = model.isContinuing;
+        //    subacctTable.isOBRCashAdvance = model.isOBRCashAdvance;
+        //    subacctTable.AllotmentID = GlobalFunction.ReturnEmptyInt(model.AllotmentID);
+        //    subacctTable.GenAccountID = GlobalFunction.ReturnEmptyInt(model.GenAccountID);
 
-            BOSSDB.Entry(subacctTable);
-            BOSSDB.SaveChanges();
+        //    BOSSDB.Entry(subacctTable);
+        //    BOSSDB.SaveChanges();
 
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult DeleteSubAcct(SubAccountsModel model, int SubAccountID)
-        {
-            Tbl_FMSubAccount SubacctTBL = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == SubAccountID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMSubAccount.Remove(SubacctTBL);
-            BOSSDB.SaveChanges();
-            return RedirectToAction("FileAccounts");
-        }
+        //    var result = "";
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
+        //public ActionResult DeleteSubAcct(SubAccountsModel model, int SubAccountID)
+        //{
+        //    Tbl_FMSubAccount SubacctTBL = (from e in BOSSDB.Tbl_FMSubAccount where e.SubAccountID == SubAccountID select e).FirstOrDefault();
+        //    BOSSDB.Tbl_FMSubAccount.Remove(SubacctTBL);
+        //    BOSSDB.SaveChanges();
+        //    return RedirectToAction("FileAccounts");
+        //}
         //====================================
-        //Revision COA
-        public ActionResult GetRevisionCOADT()
-        {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
-            List<RevisionCOAList> getRevCOAList = new List<RevisionCOAList>();
-            var SQLQuery = "";
-            SQLQuery = "SELECT [RevID], [RevYEar], [isUsed], [Remarks] FROM [BOSS].[dbo].[Tbl_FMRevisionOfCOA]";
-
-            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
-            {
-                Connection.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMAccounts]", Connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
-                    SqlDataReader dr = command.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        getRevCOAList.Add(new RevisionCOAList()
-                        {
-                            RevID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            RevYEar = GlobalFunction.ReturnEmptyInt(dr[1]),
-                            isUsed = GlobalFunction.ReturnEmptyInt(dr[2]),
-                            Remarks = GlobalFunction.ReturnEmptyString(dr[3])
-                        });
-                    }
-                }
-                Connection.Close();
-            }
-            model.getRevCOAList = getRevCOAList.ToList();
-            return PartialView("RevisionOfCOA/_TableRCOA", getRevCOAList);
-        }
-        public ActionResult GetAddRevision()
-        {
-            RevisionOfCOAModel model = new RevisionOfCOAModel();
-            return PartialView("RevisionOfCOA/_AddRCOA",model);
-        }
-        public ActionResult AddNewRevisionCOA(RevisionOfCOAModel model)
-        {
-            Tbl_FMRevisionOfCOA RevCOATable = new Tbl_FMRevisionOfCOA();
-
-            RevCOATable.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevCOAColumns.RevYEar);
-            RevCOATable.isUsed = model.isUsed;
-            RevCOATable.Remarks = GlobalFunction.ReturnEmptyString(model.getRevCOAColumns.Remarks);
-
-            BOSSDB.Tbl_FMRevisionOfCOA.Add(RevCOATable);
-            BOSSDB.SaveChanges();
-
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult Get_UpdateRevCOA(RevisionOfCOAModel model, int RevID)
-        {
-            Tbl_FMRevisionOfCOA revCOATable = (from e in BOSSDB.Tbl_FMRevisionOfCOA where e.RevID == RevID select e).FirstOrDefault();
-
-            model.getRevCOAColumns2.RevYEar = revCOATable.RevYEar;
-            model.isUsed = Convert.ToBoolean(revCOATable.isUsed);
-            model.getRevCOAColumns2.Remarks = revCOATable.Remarks;
-            model.RevID = RevID;
-            return PartialView("RevisionOfCOA/_UpdateRCOA", model);
-        }
-        public ActionResult UpdateRevCOA(RevisionOfCOAModel model)
-        {
-            Tbl_FMRevisionOfCOA revCOATbl = (from e in BOSSDB.Tbl_FMRevisionOfCOA where e.RevID == model.RevID select e).FirstOrDefault();
-            revCOATbl.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevCOAColumns2.RevYEar);
-            revCOATbl.isUsed = model.isUsed;
-            revCOATbl.Remarks = GlobalFunction.ReturnEmptyString(model.getRevCOAColumns2.Remarks);
-            
-            BOSSDB.Entry(revCOATbl);
-            BOSSDB.SaveChanges();
-
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult DeleteRCOA(RevisionOfCOAModel model, int RevID)
-        {
-            Tbl_FMRevisionOfCOA RCOAtbl = (from e in BOSSDB.Tbl_FMRevisionOfCOA where e.RevID == RevID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMRevisionOfCOA.Remove(RCOAtbl);
-            BOSSDB.SaveChanges();
-            return RedirectToAction("FileAccounts");
-        }
+       
         //=========================================================
         //PIN
         public ActionResult ValidatePin(string Pin_Acct)
@@ -411,7 +462,7 @@ namespace BOSS.Controllers
             
             return Json(pinStatus, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdatePIN(GeneralAccountsModel model)
+        public ActionResult UpdatePIN(GeneralAccountModel model)
         {
             PIN_Accounts pin = (from e in BOSSDB.PIN_Accounts select e).FirstOrDefault();
 

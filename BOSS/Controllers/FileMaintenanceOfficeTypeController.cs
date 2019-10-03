@@ -30,7 +30,7 @@ namespace BOSS.Controllers
 
             List<OfficeTypeList> getOfficeTypeList = new List<OfficeTypeList>();
 
-            var SQLQuery = "SELECT * FROM [OfficeType]";
+            var SQLQuery = "SELECT * FROM [Tbl_FMOfficeType]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -64,11 +64,11 @@ namespace BOSS.Controllers
         //Add OfficeType function
         public JsonResult AddNewOfficeType(OfficeTypeModel model)
         {
-            OfficeType OfficeTypeTbl = new OfficeType();
+            Tbl_FMOfficeType OfficeTypeTbl = new Tbl_FMOfficeType();
             OfficeTypeTbl.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
             OfficeTypeTbl.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
 
-            BOSSDB.OfficeTypes.Add(OfficeTypeTbl);
+            BOSSDB.Tbl_FMOfficeType.Add(OfficeTypeTbl);
 
             BOSSDB.SaveChanges();
             return Json(OfficeTypeTbl);
@@ -76,7 +76,7 @@ namespace BOSS.Controllers
         //Get Update Partial View
         public ActionResult Get_UpdateOfficeType(OfficeTypeModel model, int OfficeTypeID)
         {
-            OfficeType tblOfficeType = (from e in BOSSDB.OfficeTypes where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+            Tbl_FMOfficeType tblOfficeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
 
             model.getOfficeTypeColumns.OfficeTypeTitle = tblOfficeType.OfficeTypeTitle;
             model.getOfficeTypeColumns.OfficeTypeCode = tblOfficeType.OfficeTypeCode;
@@ -86,7 +86,7 @@ namespace BOSS.Controllers
         //Update Function
         public ActionResult UpdateOfficeType(OfficeTypeModel model)
         {
-            OfficeType OfficeTypeTBL = (from e in BOSSDB.OfficeTypes where e.OfficeTypeID == model.OfficeTypeID select e).FirstOrDefault();
+            Tbl_FMOfficeType OfficeTypeTBL = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == model.OfficeTypeID select e).FirstOrDefault();
 
             OfficeTypeTBL.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
             OfficeTypeTBL.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
@@ -99,8 +99,8 @@ namespace BOSS.Controllers
         //Delete Function
         public ActionResult DeleteOfficeType(OfficeTypeModel model, int OfficeTypeID)
         {
-            OfficeType OfficeTypetbl = (from e in BOSSDB.OfficeTypes where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
-            BOSSDB.OfficeTypes.Remove(OfficeTypetbl);
+            Tbl_FMOfficeType OfficeTypetbl = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMOfficeType.Remove(OfficeTypetbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileOfficeType");
         }

@@ -2,51 +2,52 @@
 @{
     ViewBag.Title = "IndexSectorTab";
 }
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="sectortempID">
 
-<div id="sectortempID">
-
+    </div>
 </div>
-<div id="sectorTableID">
+    <div class="mt-2" id="sectorTableID">
 
-</div>
+    </div>
 
-<script>
-    $(function () {
-        GetSectorDTable();
-    })
-    function GetSectorDTable() {
-        $.ajax({
-            url: '/FileMaintenanceSector/GetSectorDTable',
-            success: function (result) {
-                $("#sectorTableID").html(result);
-                Get_AddSector();
-            }
+    <script>
+        $(function () {
+            GetSectorDTable();
         })
-    }
-    function Get_AddSector() {
-        $.ajax({
-            url: '/FileMaintenanceSector/Get_AddSector',
-            success: function (result) {
-                $("#sectortempID").html(result);
-            }
-        })
-    }
-    function Get_UpdateSector(SectorID) {
-        $.ajax({
-            url: '/FileMaintenanceSector/Get_UpdateSector',
-            data: { SectorID: SectorID },
-            success: function (result) {
-                $("#sectortempID").html(result);
-            }
-        })
-    }
-    function DeleteSector(SectorID) {
-        $.ajax({
-            url: '/FileMaintenanceSector/DeleteSector',
-            data: { SectorID: SectorID },
-            success: function (result) {
-                GetSectorDTable();
-            }
-        })
-    }
-</script>
+        function GetSectorDTable() {
+            $.ajax({
+                url: '/FileMaintenanceSector/GetSectorDTable',
+                success: function (result) {
+                    $("#sectorTableID").html(result);
+                    Get_AddSector();
+                }
+            })
+        }
+        function Get_AddSector() {
+            $.ajax({
+                url: '/FileMaintenanceSector/Get_AddSector',
+                success: function (result) {
+                    $("#sectortempID").html(result);
+                }
+            })
+        }
+        function Get_UpdateSector(SectorID) {
+            $.ajax({
+                url: '/FileMaintenanceSector/Get_UpdateSector',
+                data: { SectorID: SectorID },
+                success: function (result) {
+                    $("#sectortempID").html(result);
+                }
+            })
+        }
+        function DeleteSector(SectorID) {
+            $.ajax({
+                url: '/FileMaintenanceSector/DeleteSector',
+                data: { SectorID: SectorID },
+                success: function (result) {
+                    GetSectorDTable();
+                }
+            })
+        }
+    </script>

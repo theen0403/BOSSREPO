@@ -2,95 +2,67 @@
 @{
     ViewBag.Title = "IndexSubSectorTab";
 }
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="subsectortempID">
 
-<div id="subsectortempID">
-
-</div>
-<div id="subsectorTableID">
-
-</div>
-
-@*Modal*@
-<div class="modal fade text-left" id="ViewAddSectorModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Sector</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddSectorID"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-<script>
-    $(function () {
-        GetSubSectorDTable();
-    })
-    function GetSubSectorDTable() {
-        $.ajax({
-            url: '/FileMaintenanceSector/GetSubSectorDTable',
-            success: function (result) {
-                $("#subsectorTableID").html(result);
-                Get_AddSubSector();
-            }
-        })
-    }
-    function Get_AddSubSector() {
-        $.ajax({
-            url: '/FileMaintenanceSector/Get_AddSubSector',
-            success: function (result) {
-                $("#subsectortempID").html(result);
-                GetSectorCodeField();
-            }
-        })
-    }
-    function GetSectorCodeField() {
-        var SectorID = $("#SectorID").val();
-        $.ajax({
-            url: '/FileMaintenanceSector/GetSectorCodeField',
-            data: { SectorID: SectorID },
-            success: function (result) {
-                $('#sectorcodeID').html(result);
-            }
-        })
-    }
-    function Get_UpdateSubSector(SubSectorID) {
-        $.ajax({
-            url: '/FileMaintenanceSector/Get_UpdateSubSector',
-            data: { SubSectorID: SubSectorID },
-            success: function (result) {
-                $("#subsectortempID").html(result);
-                GetSectorCodeField();
-            }
-        })
-    }
-    function DeleteSubSector(SubSectorID) {
-        $.ajax({
-            url: '/FileMaintenanceSector/DeleteSubSector',
-            data: { SubSectorID: SubSectorID },
-            success: function (result) {
-                GetSubSectorDTable();
-            }
-        })
-    }
+    <div class="mt-2" id="subsectorTableID">
 
+    </div>
 
-
-    function GetAddSectorModal() {
-        $.ajax({
-            url: "/FileMaintenanceSector/GetAddSectorModal",
-            success: function (result) {
-                $("#ViewAddSectorID").html(result);
-                $('#ViewAddSectorModal').modal('toggle');
-            }
-        });
-    }
-</script>
+    <script>
+        $(function () {
+            GetSubSectorDTable();
+        })
+        function GetSubSectorDTable() {
+            $.ajax({
+                url: '/FileMaintenanceSector/GetSubSectorDTable',
+                success: function (result) {
+                    $("#subsectorTableID").html(result);
+                    Get_AddSubSector();
+                }
+            })
+        }
+        function Get_AddSubSector() {
+            $.ajax({
+                url: '/FileMaintenanceSector/Get_AddSubSector',
+                success: function (result) {
+                    $("#subsectortempID").html(result);
+                    GetSectorCodeField();
+                }
+            })
+        }
+        function GetSectorCodeField() {
+            var SectorID = $("#SectorID").val();
+            $.ajax({
+                url: '/FileMaintenanceSector/GetSectorCodeField',
+                data: { SectorID: SectorID },
+                success: function (result) {
+                    $('#sectorcodeID').html(result);
+                }
+            })
+        }
+        function Get_UpdateSubSector(SubSectorID) {
+            $.ajax({
+                url: '/FileMaintenanceSector/Get_UpdateSubSector',
+                data: { SubSectorID: SubSectorID },
+                success: function (result) {
+                    $("#subsectortempID").html(result);
+                    GetSectorCodeField();
+                }
+            })
+        }
+        function DeleteSubSector(SubSectorID) {
+            $.ajax({
+                url: '/FileMaintenanceSector/DeleteSubSector',
+                data: { SubSectorID: SubSectorID },
+                success: function (result) {
+                    GetSubSectorDTable();
+                }
+            })
+        }
+    </script>
 
 
 

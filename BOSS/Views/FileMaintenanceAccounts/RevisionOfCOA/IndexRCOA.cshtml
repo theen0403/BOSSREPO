@@ -1,20 +1,17 @@
-@model BOSS.Models.FMAccounts.RevisionOfCOAModel
+@model BOSS.Models.FMmodels.FMAccountsModels.RevisionYearModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
-<div class="card box-shadow-4 m-0 p-0 mt-1">
-    <div class="card-content collapse show">
-        <div id="RCOATempID">
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="RCOATempID">
 
-        </div>
     </div>
 </div>
 
 <div class="mt-1" id="tableRCOAID">
 </div>
-
 
 <script>
     $(function () {

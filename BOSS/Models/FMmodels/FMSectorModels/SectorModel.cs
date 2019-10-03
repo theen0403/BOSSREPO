@@ -12,10 +12,10 @@ namespace BOSS.Models.FMmodels.FMSectorModels
         public SectorModel()
         {
             getSectorList = new List<SectorList>();
-            getSectorColumns = new Sector();
+            getSectorColumns = new Tbl_FMSector();
         }
         public List<SectorList> getSectorList { get; set; }
-        public Sector getSectorColumns { get; set; }
+        public Tbl_FMSector getSectorColumns { get; set; }
         public int SectorID { get; set; }
         public string SectorTitle { get; set; }
         public string SectorCode { get; set; }

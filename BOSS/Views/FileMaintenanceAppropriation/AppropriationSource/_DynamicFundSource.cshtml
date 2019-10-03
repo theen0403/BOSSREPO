@@ -1,20 +1,16 @@
-﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+﻿@model BOSS.Models.FMmodels.FMAppropriarionSouceModels.AppropSourceModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
-
 <div class="form-group">
     <label style="margin-bottom:2px;">Fund Source</label>
-    <span class="input-group-append">
-        @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2", id = "FundID" })
-        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddFundSourceModal()"><strong>+</strong></button>
-    </span>
+        @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2nosearch", id = "FundSourceID" })
+       
 </div>
 
 <script>
     $(function () {
-        $("#FundID").select2();
-
+        select2nosearch();
     })
 </script>

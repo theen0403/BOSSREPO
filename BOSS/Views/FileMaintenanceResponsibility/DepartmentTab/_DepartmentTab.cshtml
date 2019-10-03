@@ -3,82 +3,13 @@
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="DepartmentTempID">
 
-<div class="mt-1" id="DepartmentTempID">
-
+    </div>
 </div>
-
 <div class="mt-2" id="DepartmentID">
 
-</div>
-
-@*Add Sector Modal*@
-<div class="modal fade text-left" id="ViewAddSectorDeptModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Sector</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddSectorDeptID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add SubSector Modal*@
-<div class="modal fade text-left" id="ViewAddSubSectorDeptModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Sub-Sector</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddSubSectorDeptID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add Fund Modal*@
-<div class="modal fade text-left" id="ViewAddFundDeptModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Fund</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddFundDeptID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add Office Type Modal*@
-<div class="modal fade text-left" id="ViewAddOfficeTypeModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Office Type</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddOfficeTypeID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -121,51 +52,33 @@
             }
         })
     }
-    function GetAddDynamicSubSector() {
+    function GetDynamicSubSector() {
         var SectorID = $("#SecID").val();
         $.ajax({
-            url: '/FileMaintenanceResponsibility/GetAddDynamicSubSector',
+            url: '/FileMaintenanceResponsibility/GetDynamicSubSector',
             data: { SectorID: SectorID },
             success: function (result) {
                 $("#SubSectorID").html(result);
             }
         })
     }
-    //Add Modal
-    function GetAddSectorModalDept() {
+    function GetDynamicSubSector2(SectorID, subsectorIDHidden) {
         $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddSectorModalDept",
+            url: '/FileMaintenanceResponsibility/GetDynamicSubSector2',
+            data: { SectorID: SectorID, subsectorIDHidden: subsectorIDHidden },
             success: function (result) {
-                $("#ViewAddSectorDeptID").html(result);
-                $('#ViewAddSectorDeptModal').modal('toggle');
+                $("#SubSectorID").html(result);
             }
-        });
+        })
     }
-    function GetAddSubSectorModalDept() {
+    function GetDynamicSubSector3() {
+        var SectorID = $("#SecID2").val();
         $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddSubSectorModalDept",
+            url: '/FileMaintenanceResponsibility/GetDynamicSubSector',
+            data: { SectorID: SectorID },
             success: function (result) {
-                $("#ViewAddSubSectorDeptID").html(result);
-                $('#ViewAddSubSectorDeptModal').modal('toggle');
+                $("#SubSectorID").html(result);
             }
-        });
-    }
-    function GetAddFundModalDept() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddFundModalDept",
-            success: function (result) {
-                $("#ViewAddFundDeptID").html(result);
-                $('#ViewAddFundDeptModal').modal('toggle');
-            }
-        });
-    }
-    function GetAddOfficeTypeModal() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddOfficeTypeModal",
-            success: function (result) {
-                $("#ViewAddOfficeTypeID").html(result);
-                $('#ViewAddOfficeTypeModal').modal('toggle');
-            }
-        });
+        })
     }
 </script>

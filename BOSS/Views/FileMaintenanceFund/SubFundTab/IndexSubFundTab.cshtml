@@ -2,73 +2,55 @@
 @{
     ViewBag.Title = "IndexSubFund";
 }
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="subfundTempID">
 
-<div id="subfundTempID">
-
-</div>
-<div id="subfundTableID">
-
-</div>
-
-
-@*Modal*@
-<div class="modal fade text-left" id="ViewAddFundModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Fund</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddFundID"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+    <div class="mt-2" id="subfundTableID">
 
-<script>
-    $(function () {
-        GetSubFundDTable();
-    })
-    function GetSubFundDTable() {
-        $.ajax({
-            url: '/FileMaintenanceFund/GetSubFundDTable',
-            success: function (result) {
-                $("#subfundTableID").html(result);
-                Get_AddSubFund();
-            }
-        })
-    }
-    function Get_AddSubFund() {
-        $.ajax({
-            url: '/FileMaintenanceFund/Get_AddSubFund',
-            success: function (result) {
-                $("#subfundTempID").html(result);
-            }
-        })
-    }
+    </div>
 
-    function Get_UpdateSubFund(SubFundID) {
-        $.ajax({
-            url: '/FileMaintenanceFund/Get_UpdateSubFund',
-            data: { SubFundID: SubFundID },
-            success: function (result) {
-                $("#subfundTempID").html(result);
-            }
+    <script>
+        $(function () {
+            GetSubFundDTable();
         })
-    }
-    function DeleteSubFund(SubFundID) {
-        $.ajax({
-            url: '/FileMaintenanceFund/DeleteSubFund',
-            data: { SubFundID: SubFundID },
-            success: function (result) {
-                GetSubFundDTable();
-            }
-        })
-    }
-</script>
+        function GetSubFundDTable() {
+            $.ajax({
+                url: '/FileMaintenanceFund/GetSubFundDTable',
+                success: function (result) {
+                    $("#subfundTableID").html(result);
+                    Get_AddSubFund();
+                }
+            })
+        }
+        function Get_AddSubFund() {
+            $.ajax({
+                url: '/FileMaintenanceFund/Get_AddSubFund',
+                success: function (result) {
+                    $("#subfundTempID").html(result);
+                }
+            })
+        }
+
+        function Get_UpdateSubFund(SubFundID) {
+            $.ajax({
+                url: '/FileMaintenanceFund/Get_UpdateSubFund',
+                data: { SubFundID: SubFundID },
+                success: function (result) {
+                    $("#subfundTempID").html(result);
+                }
+            })
+        }
+        function DeleteSubFund(SubFundID) {
+            $.ajax({
+                url: '/FileMaintenanceFund/DeleteSubFund',
+                data: { SubFundID: SubFundID },
+                success: function (result) {
+                    GetSubFundDTable();
+                }
+            })
+        }
+    </script>
 
 

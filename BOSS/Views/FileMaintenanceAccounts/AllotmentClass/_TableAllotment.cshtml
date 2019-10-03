@@ -1,0 +1,89 @@
+﻿
+<div class="row mt-2">
+    <div class="offset-md-1 col-md-10">
+        <table id="myTable" class="table table-bordered zero-configuration w-100">
+            <thead class="text-center">
+                <tr>
+                    <th width="20%">Revision Year</th>
+                    <th>Allotment Class</th>
+                    <th width="5%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                    var DeleteSuccesMess = "Successfully Deleted";
+                    var successUpdate = "Successfully Updated!";
+
+                    var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                    var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                    var ActionAS = Update + Remove;
+                }
+                <tr>
+                    <td class="text-center">2015</td>
+                    <td>Capital Outlay</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2015</td>
+                    <td>Maintenance and Other Operating Expenses</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2015</td>
+                    <td>Other Operating Expenses</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">2015</td>
+                    <td>Personal Services</td>
+                    <td class="text-center">
+                        @{
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                    data-toggle="popover" data-content="@ActionAS"
+                                    data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

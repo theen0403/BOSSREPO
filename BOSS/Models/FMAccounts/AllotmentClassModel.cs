@@ -10,12 +10,12 @@ namespace BOSS.Models.FMAccounts
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AllotmentClassModel()
         {
-            getRevCOAColumns = new Tbl_FMRevisionOfCOA();
-            getRevCOAColumns2 = new Tbl_FMRevisionOfCOA();
-            getRevCOAList = new List<RevisionCOAList>();
+            getRevCOAColumns = new Tbl_FMRevisionYear();
+            getRevCOAColumns2 = new Tbl_FMRevisionYear();
+           // getRevCOAList = new List<RevisionCOAList>();
         }
-        public Tbl_FMRevisionOfCOA getRevCOAColumns { get; set; }
-        public Tbl_FMRevisionOfCOA getRevCOAColumns2 { get; set; }
-        public List<RevisionCOAList> getRevCOAList { get; set; }
+        public Tbl_FMRevisionYear getRevCOAColumns { get; set; }
+        public Tbl_FMRevisionYear getRevCOAColumns2 { get; set; }
+       // public List<RevisionCOAList> getRevCOAList { get; set; }
     }
 }

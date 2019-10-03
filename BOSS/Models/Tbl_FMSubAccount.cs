@@ -25,7 +25,6 @@ namespace BOSS.Models
         public Nullable<int> GenAccountID { get; set; }
         public Nullable<int> AllotmentID { get; set; }
     
-        public virtual AllotmentClass AllotmentClass { get; set; }
         public virtual Tbl_FMGeneralAccount Tbl_FMGeneralAccount { get; set; }
     }
 }

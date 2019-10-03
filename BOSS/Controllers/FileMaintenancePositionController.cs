@@ -1,6 +1,6 @@
 ﻿using BOSS.GlobalFunctions;
 using BOSS.Models;
-using BOSS.Models.FMPositionforSPModels;
+using BOSS.Models.FMmodels.FMPositionModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,12 +20,12 @@ namespace BOSS.Controllers
         [Authorize]
         public ActionResult FilePosition()
         {
-            PositionforSPModel model = new PositionforSPModel();
+            PositionModel model = new PositionModel();
             return View();
         }
         public ActionResult GetPositionSPDTable()
         {
-            PositionforSPModel model = new PositionforSPModel();
+            PositionModel model = new PositionModel();
 
             List<PositionList> getPositionList = new List<PositionList>();
 
@@ -56,10 +56,10 @@ namespace BOSS.Controllers
         }
         public ActionResult GetAddPositionSP()
         {
-            PositionforSPModel model = new PositionforSPModel();
+            PositionModel model = new PositionModel();
             return PartialView("_AddPosition", model);
         }
-        public JsonResult AddNewPosition(PositionforSPModel model)
+        public JsonResult AddNewPosition(PositionModel model)
         {
             Tbl_FMPosition PositionTBL = new Tbl_FMPosition();
 
@@ -70,28 +70,28 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return Json(PositionTBL);
         }
-        public ActionResult Get_UpdatePosition(PositionforSPModel model, int PositionID)
+        public ActionResult Get_UpdatePosition(PositionModel model, int PositionID)
         {
             Tbl_FMPosition tblposition = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == PositionID select e).FirstOrDefault();
 
-            model.getPositionColumns2.PositionTitle = tblposition.PositionTitle;
-            model.getPositionColumns2.PositionCode = tblposition.PositionCode;
+            model.getPositionColumns.PositionTitle = tblposition.PositionTitle;
+            model.getPositionColumns.PositionCode = tblposition.PositionCode;
             model.PositionID = PositionID;
             return PartialView("_UpdatePosition", model);
         }
-        public ActionResult UpdatePosition(PositionforSPModel model)
+        public ActionResult UpdatePosition(PositionModel model)
         {
             Tbl_FMPosition positionTBL = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == model.PositionID select e).FirstOrDefault();
 
-            positionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionTitle);
-            positionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns2.PositionCode);
+            positionTBL.PositionTitle = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionTitle);
+            positionTBL.PositionCode = GlobalFunction.ReturnEmptyString(model.getPositionColumns.PositionCode);
             BOSSDB.Entry(positionTBL);
             BOSSDB.SaveChanges();
 
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult DeletePosition(PositionforSPModel model, int PositionID)
+        public ActionResult DeletePosition(PositionModel model, int PositionID)
         {
             Tbl_FMPosition positionTbl = (from e in BOSSDB.Tbl_FMPosition where e.PositionID == PositionID select e).FirstOrDefault();
             BOSSDB.Tbl_FMPosition.Remove(positionTbl);

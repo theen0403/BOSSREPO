@@ -30,7 +30,6 @@ namespace BOSS.Models
         public Nullable<bool> isOBRCashAdvance { get; set; }
         public Nullable<int> AllotmentID { get; set; }
     
-        public virtual AllotmentClass AllotmentClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
     }

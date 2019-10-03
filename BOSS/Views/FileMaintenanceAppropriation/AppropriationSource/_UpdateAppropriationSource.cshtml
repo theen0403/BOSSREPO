@@ -1,63 +1,52 @@
-﻿@model BOSS.Models.FMAppropriationSourceModels.FMAppropriationSourceModel
+﻿@model BOSS.Models.FMmodels.FMAppropriarionSouceModels.AppropSourceModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
-
-@using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetAppropriationSourceDT','Appropriation Successfully Updated!')", OnFailure = "OnFailure()", }))
+@using (Ajax.BeginForm("UpdateAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetAppropriationSourceDT','Appropriation Updated!')", OnFailure = "OnFailure()", }))
 {
-
-@*<div class="card-header bg-active">
-    <h4 class="card-title black">Update Appropriation Source</h4>
-</div>*@
-<div>
-
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     @Html.HiddenFor(m => m.FundSourceIDHidden, new { id = "FundSourceIDHidden" })
-    @Html.HiddenFor(m => m.ApproIDHidden, new { id = "ApproIDHidden" })
-    @Html.HiddenFor(m => m.getAppropriationSourceColumns2.AppropriationID, new { })
-    <div class="row">
-        <div class="col-xl-2 col-lg-1 col-md-1">
-        </div>
-        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
-            <div class="form-group">
-                <label style="margin-bottom:2px;">Appropriation Source Type</label>
-                @Html.DropDownListFor(m => m.AppropriationSourceID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropriationSourceTypeID2", onchange = "LoadGetDynamicFund3()" })
+    @Html.HiddenFor(m => m.AppropriationID, new { })
+  
+        <div class="row">
+            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-0">
+                <div class="form-group">
+                    <label class="custom-form-margin">Appropriation Source Type</label>
+                    @Html.DropDownListFor(m => m.AppropSourceTypeID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch", id = "AppropSourceTypeID2", onchange = "LoadGetDynamicFund3()" })
+
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mx-0" id="FundSourcetempID">
+
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mx-0">
+                <div class="form-group">
+                    <label class="custom-form-margin">Appropriation Source</label>
+                    @Html.TextBoxFor(m => m.getAppropriationSourceColumns.Description, new { @class = "form-control", type = "text", id = "Description" })
+                    @Html.ValidationMessageFor(m => m.getAppropriationSourceColumns.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mx-0">
+                <div class="form-group">
+                    <label class="custom-form-margin">Budget Year</label>
+                    @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "BudgetYearID" })
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <button type="button" class="btn btn-menuRed btn-min-width ml-1 pull-right" onclick="GetAppropriationSourceDT()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-btnbackcolor btn-min-width pull-right">
+                        Update
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0">
-            <div class="form-group">
-                <label style="margin-bottom:2px;">Description</label>
-                @Html.TextBoxFor(m => m.getAppropriationSourceColumns2.Description, new { @class = "form-control", type = "text", id = "desc" })
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-xl-2 col-lg-1 col-md-1">
-        </div>
-        <div class="col-xl-4 col-lg-5 col-md-5 col-sm-6 mx-0" id="FundSourceID2">
-
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 mx-0">
-            <div class="form-group">
-                <label style="margin-bottom:2px;">Budget Year</label>
-                @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2" })
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col p-0 mb-0 form-group">
-            <button type="button" onclick="AngularGlobalFunctions('ApproSourceController','GetAppropriationSourceDT','')" class="btn btn-danger btn-min-width pull-right mr-1">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width mr-1 pull-right">
-                Update
-            </button>
-        </div>
-    </div>
-</div>
 }
+
 <script>
     $(function () {
         LoadGetDynamicFund2();
@@ -65,11 +54,11 @@
         select2nosearch();
     })
     function LoadGetDynamicFund2() {
+        var AppropSourceTypeID = $("#AppropSourceTypeID2").val();
         var FundSourceIDHidden = $("#FundSourceIDHidden").val();
-        var ApproIDHidden = $("#ApproIDHidden").val();
-        AngularGlobalFunctionsTwoParams('ApproSourceController', 'GetDynamicFund2', FundSourceIDHidden, ApproIDHidden);
+        GetDynamicFund2(AppropSourceTypeID, FundSourceIDHidden);
     }
     function LoadGetDynamicFund3() {
-        AngularGlobalFunctions('ApproSourceController', 'GetDynamicFund3', '')
+        GetDynamicFund3();
     }
 </script>

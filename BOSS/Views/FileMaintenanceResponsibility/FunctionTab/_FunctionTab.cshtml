@@ -4,97 +4,13 @@
 }
 @using BOSS.Models;
 
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="functionTempID">
 
-<div id="functionTempID">
-
-</div>
-<div class="mt-1" id="functionTableID">
-
-</div>
-@*Add Dept Modal*@
-<div class="modal fade text-left" id="ViewAddDeptFuncModal" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Department</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddDeptFuncID"></div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-@*Add Sector Modal*@
-<div class="modal fade text-left" id="ViewAddSectorModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Sector</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
+<div class="mt-2" id="functionTableID">
 
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddSectorID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add SubSector Modal*@
-<div class="modal fade text-left" id="ViewAddSubSectorModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Sub-Sector</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddSubSectorID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add Fund Modal*@
-<div class="modal fade text-left" id="ViewAddFundFuncModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Fund</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddFundFuncID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@*Add Office Type Modal*@
-<div class="modal fade text-left" id="ViewAddOfficeTypeFuncModal" role="dialog">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-active">
-                <h4 class="modal-title"><strong>Add Office Type</strong></h4>
-                <button class="btn bg-active pull-right p-0 white" data-dismiss="modal"><i class="la la-close"></i></button>
-            </div>
-
-            <div class="modal-body skin skin-square">
-                <div class="card-body p-0">
-                    <div id="ViewAddOfficeTypeFuncID"></div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
@@ -117,7 +33,7 @@
             url: '/FileMaintenanceResponsibility/GetAddFunction',
             success: function (result) {
                 $('#functionTempID').html(result);
-                GetAddDynamicSubSector();
+                GetDynamicSubSectorfunc();
             }
         })
     }
@@ -131,6 +47,27 @@
             }
         })
     }
+    function GetDynamicSubSectorfunc2(SectorID, subsectorIDHidden) {
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDynamicSubSector2',
+            data: { SectorID: SectorID, subsectorIDHidden: subsectorIDHidden },
+            success: function (result) {
+                $("#SubSectorfuncID").html(result);
+            }
+        })
+    }
+    function GetDynamicSubSectorfunc3() {
+        var SectorID = $("#SectorID2").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDynamicSubSectorfunc',
+            data: { SectorID: SectorID },
+            success: function (result) {
+                $("#SubSectorfuncID").html(result);
+            }
+        })
+    }
+
+    //Get Dynamic Fund Title
     function GetFund() {
         var DeptID = $("#DeptID").val();
         $.ajax({
@@ -141,6 +78,61 @@
             }
         })
     }
+    //Get Fund for Update
+    function GetFund2() {
+        var DeptID = $("#DeptID2").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetFund',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#fundTitleID').html(result);
+            }
+        })
+    }
+    //Get Dynamic Department/Office Code Title
+    function GetDeptOfficeCode() {
+        var DeptID = $("#DeptID").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDeptOfficeCode',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#DeptOfficeCodeID').html(result);
+            }
+        })
+    }
+    //Get Dept/Office Code for Update
+    function GetDeptOfficeCode2() {
+        var DeptID = $("#DeptID2").val();
+        $.ajax({
+            url: '/FileMaintenanceResponsibility/GetDeptOfficeCode',
+            data: { DeptID: DeptID },
+            success: function (result) {
+                $('#DeptOfficeCodeID').html(result);
+            }
+        })
+    }
+    ////Get Dynamic Sector Title
+    //function GetSectorfromDept() {
+    //    var DeptID = $("#DeptID").val();
+    //    $.ajax({
+    //        url: '/FileMaintenanceResponsibility/GetSectorfromDept',
+    //        data: { DeptID: DeptID },
+    //        success: function (result) {
+    //            $('#sectorFieldID').html(result);
+    //        }
+    //    })
+    //}
+    ////Get Dynamic SubSector Title
+    //function GetSubSectorfromDept() {
+    //    var DeptID = $("#DeptID").val();
+    //    $.ajax({
+    //        url: '/FileMaintenanceResponsibility/GetSubSectorfromDept',
+    //        data: { DeptID: DeptID },
+    //        success: function (result) {
+    //            $('#SubSectorfuncID').html(result);
+    //        }
+    //    })
+    //}
     //For update function
     function Get_UpdateFunction(FunctionID) {
         $.ajax({
@@ -160,55 +152,4 @@
             }
         })
     }
-    //Get Add Department Modal
-    function GetAddDeptModalFunc() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddDeptModalFunc",
-            success: function (result) {
-                $("#ViewAddDeptFuncID").html(result);
-                $('#ViewAddDeptFuncModal').modal('toggle');
-            }
-        });
-    }
-    //Get Add Sector Modal
-    function GetAddSectorModal() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddSectorModalDept",
-            success: function (result) {
-                $("#ViewAddSectorID").html(result);
-                $('#ViewAddSectorModal').modal('toggle');
-            }
-        });
-    }
-    //Get Add Sub Sector Modal
-    function GetAddSubSectorModal() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddSubSectorModalDept",
-            success: function (result) {
-                $("#ViewAddSubSectorID").html(result);
-                $('#ViewAddSubSectorModal').modal('toggle');
-            }
-        });
-    }
-    //Get ADD FUND Modal
-    function GetAddFundModalFunc() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddFundModalFunc",
-            success: function (result) {
-                $("#ViewAddFundFuncID").html(result);
-                $('#ViewAddFundFuncModal').modal('toggle');
-            }
-        });
-    }
-    //Get ADD Office Type Modal
-    function GetAddOfficeTypeModalFunc() {
-        $.ajax({
-            url: "/FileMaintenanceResponsibility/GetAddOfficeTypeModal",
-            success: function (result) {
-                $("#ViewAddOfficeTypeFuncID").html(result);
-                $('#ViewAddOfficeTypeFuncModal').modal('toggle');
-            }
-        });
-    }
-
 </script>

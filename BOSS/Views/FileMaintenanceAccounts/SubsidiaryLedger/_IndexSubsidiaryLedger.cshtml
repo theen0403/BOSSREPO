@@ -1,0 +1,344 @@
+﻿@* Subsidiary Ledger Class Panel *@
+<div class="card box-shadow-2 m-0 p-0">
+    <div class="card-header bg-active mt-1">
+        <h4 class="card-title black"><b>Subsidiary Ledger Class</b></h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements">
+            <ul class="list-inline mb-0">
+                <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-content collapse show">
+        <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+            <div class="row">
+                <div class="col-xl-2 col-lg-1 col-md-0"></div>
+                <div class="col-xl-5 col-lg-6 col-md-8">
+                    <div class="form-group">
+                        <label>Subsidiary Ledger Class</label>
+                        <input type="text" id="" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label>Subsidiary Ledger Code</label>
+                        <input type="text" id="" value="" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xl-2 col-lg-1 col-md-0"></div>
+                <div class="col-xl-3 col-lg-4 col-md-5">
+                    <div class="form-group">
+                        <label>Fund</label>
+                        <select class="form-control select2">
+                            <option>General Fund</option>
+                            <option>Calamity Fund</option>
+                            <option>Development Fund</option>
+                            <option>Special Education Fund</option>
+                            <option>Trust Fund</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-6 col-md-7">
+                    <div class="form-group">
+                        <label>General Ledger Account</label>
+                        <select class="form-control select2">
+                            <option value="">Accountable Forms Expenses</option>
+                            <option value="">Accountable Forms Inventory</option>
+                            <option value="">Accounts Payable</option>
+                            <option value="">Accounts Receivable</option>
+                            <option value="">Accumulated Depreciation - Agricultural, Fishery and Forestry Equipment</option>
+                            <option value="">Accumulated Depreciation - Airport Equipment</option>
+                            <option value="">Accumulated Depreciation - Communication Equipment</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn  btn-menuRed btn-min-width" onclick="changeBtn2('btnAddSubLedger')">Cancel</button>
+                        <button type="button" id="btnAddSubLedger" class="float-right btn btn-btnbackcolor btn-min-width mr-1 popover-trigger" onfocusout='PopoverLostFocus()'>Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Subsidiary Ledger Class</th>
+                                <th>Subsidiary Ledger Code</th>
+                                <th>Fund</th>
+                                <th>General Account</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
+                                var DeleteSuccesMess = "Successfully Deleted";
+                                var successUpdate = "Successfully Updated!";
+
+                                var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
+                                var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
+
+                                var ActionAS = Update + Remove;
+
+                                <tr>
+                                    <td>GF - CASH IN BANK - LOCAL CURRENCY, CURRENT ACCOUNT</td>
+                                    <td>GF - CIBLCCA</td>
+                                    <td>General Fund</td>
+                                    <td>Cash in Bank - Local Currency, Current Account</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>GF - CASH IN BANK - LOCAL CURRENCY, SAVINGS ACCOUNT</td>
+                                    <td>GF - CIBLCCA</td>
+                                    <td>General Fund</td>
+                                    <td>Cash in Bank - Local Currency, Saving Account</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SEF - DUE TO BIR</td>
+                                    <td>SEF - DB</td>
+                                    <td>Special Education Fund</td>
+                                    <td>Due to BIR</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SEF - DUE TO PAG-IBIG</td>
+                                    <td>SEF - DPI</td>
+                                    <td>Special Education Fund</td>
+                                    <td>Due to Pag-ibig</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>TF - DUE TO NATIONAL GOVERNMENT AGENCIES</td>
+                                    <td>TF - DNGA</td>
+                                    <td>Trust Fund</td>
+                                    <td>Due to National Government Agencies</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Subsidiary Ledger Account Panel *@
+<div class="card box-shadow-2 m-0 p-0">
+    <div class="card-header bg-active mt-1">
+        <h4 class="card-title black"><b>Subsidiary Ledger Account</b></h4>
+        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+        <div class="heading-elements mt-0">
+            <ul class="list-inline mb-0">
+                <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-content collapse show">
+        <div class="card-body px-1 pt-1 card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+            <div class="row">
+                <div class="col-xl-4 col-lg-5 col-md-5 mt-xl-0 mt-lg-2 mt-md-2 ">
+                    <div class="form-group">
+                        <label class="mt-xl-2">Subsidiary Ledger Account</label>
+                        <input type="text" id="" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 px-0">
+                    <div class="form-group">
+                        <label>Subsidiary Ledger Code</label>
+                        <input type="text" id="" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-5 col-md-5 mt-xl-0 mt-lg-2 mt-md-2">
+                    <div class="form-group">
+                        <label class="mt-xl-2">Subsidiary Ledger Class</label>
+                        <select class="form-control select2">
+                            <option value="">GF -  ACCOUNTABLE FORMS, PLATES AND STICKERS</option>
+                            <option value="">GF - ACCOUNTS PAYABLE</option>
+                            <option value="">GF - ACCUMULATED DEPRECIATION - AGRICULTURAL AND FORESTRY EQUIPMENT</option>
+                        </select>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label>SL Category</label>
+                        <select class="form-control select2">
+                            <option>Bank Account</option>
+                            <option>Payee</option>
+                            <option>Supplier</option>
+                            <option>Tax</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="form-group">
+                        <label>Category Description</label>
+                        <select class="form-control select2">
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn  btn-menuRed btn-min-width" onclick="changeBtn2('btnAddSubLedger')">Cancel</button>
+                        <button type="button" id="btnAddSubLedger" class="float-right btn btn-btnbackcolor btn-min-width mr-1 popover-trigger" onfocusout='PopoverLostFocus()'>Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Subsidiary Ledger Account</th>
+                                <th>Subsidiary Ledger Code</th>
+                                <th>Subsidiary Ledger Class</th>
+                                <th>Subsidiary Ledger Category</th>
+                                <th>Category Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                <tr>
+                                    <td>Cash in Bank - LCCA - DBP</td>
+                                    <td>A</td>
+                                    <td>GF - CASH IN BANK - LOCAL CURRENCY, CURRENT ACCOUNT</td>
+                                    <td>Bank Account</td>
+                                    <td>1-1234-123-1</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cash in Bank - LCSA - DBP</td>
+                                    <td>A</td>
+                                    <td>GF - CASH IN BANK - LOCAL CURRENCY, SAVINGS ACCOUNT</td>
+                                    <td>Bank Account</td>
+                                    <td>1-3456-231-1</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Due to BIR - Contractor's Tax</td>
+                                    <td>B</td>
+                                    <td>SEF - DUE TO BIR</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Due to Pag-ibig - Pag-ibig Contributions</td>
+                                    <td>-01B</td>
+                                    <td>SEF - DUE TO PAG-IBIG</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Due to National Government Agencies - DSWD - Region 3 - Micro Enterprise Development</td>
+                                    <td>(39)</td>
+                                    <td>TF - DUE TO NATIONAL GOVERNMENT AGENCIES</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td class="text-center">
+                                        <button type="button" onfocusout="PopoveLostFocus()"
+                                                class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
+                                                data-toggle="popover" data-content="@ActionAS"
+                                                data-html="true" data-placement="left">
+                                            <i class="la la-bars"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        LoadDataTable();
+        clickBtn('btnAddSubLedger');
+        clickBtn('btnAddSubLedgerAcc');
+        enableSelect2();
+    });
+</script>

@@ -5,33 +5,34 @@
 @using BOSS.Models;
 @using (Ajax.BeginForm("AddNewOfficeType", "FileMaintenanceOfficeType", new AjaxOptions { OnSuccess = "AngularGlobalAlertsCallingwoModal('FMOfficeTypeController', 'GetOfficeTypeDTable','Successfully Saved!')", OnFailure = "OnFailure()", }))
 {
-    <div class="row">
-        <div class="col-xl-3 col-lg-2 col-md-1"></div>
-        <div class="col-xl-4 col-lg-5 col-md-6">
-            <div class="form-group">
-                <label class="custom-form-margin">Office Type</label>
-                @Html.TextAreaFor(m => m.getOfficeTypeColumns.OfficeTypeTitle, new { @class = "form-control", @rows = 1, id = "OfficeTypeTitle" })
+  
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-1"></div>
+            <div class="col-xl-8 col-lg-8 col-md-10">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Office Type</label>
+                            @Html.TextAreaFor(m => m.getOfficeTypeColumns.OfficeTypeTitle, new { @class = "form-control", @rows = 1, id = "OfficeTypeTitle" })
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Code</label>
+                            @Html.TextBoxFor(m => m.getOfficeTypeColumns.OfficeTypeCode, new { @class = "form-control", id = "OfficeTypeCode" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="AngularGlobalFunctions('FMOfficeTypeController','GetOfficeTypeDTable','')">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xl-2 col-lg-3 col-md-4">
-            <div class="form-group">
-                <label class="custom-form-margin">Code</label>
-                @Html.TextBoxFor(m => m.getOfficeTypeColumns.OfficeTypeCode, new { @class = "form-control", id = "OfficeTypeCode" })
-            </div>
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-xl-2 col-lg-2 col-md-1"></div>
-        <div class="col-xl-8 col-lg-8 col-md-10">
-            <div class="form-group">
-                <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="AngularGlobalFunctions('FMOfficeTypeController','GetOfficeTypeDTable','')">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                    Add
-                </button>
-            </div>
-        </div>
-    </div>
-
 }

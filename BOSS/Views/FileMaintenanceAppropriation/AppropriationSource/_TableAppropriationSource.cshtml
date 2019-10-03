@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BOSS.Models.FMAppropriationSourceModels.AppropriationSourceList>
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMAppropriarionSouceModels.AppropriationSourceList>
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -22,12 +22,12 @@
                 var DeleteSuccesMess = "Successfully Deleted";
 
                 var Update = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"GlobalEdit('Get_UpdateAppropSource','" + @Items.AppropriationID + "')\"> <i class='la la-edit'></i> Edit</button>";
-                var Remove = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.Description + "','" + @DeleteSuccesMess + "','GlobalDelete(" + @Items.AppropriationID + ",&quot;_DeleteAppropriationSource&quot;)')\"><i class='la la-trash'></i> Delete</button>";
+                var Remove = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.Description + "','" + @DeleteSuccesMess + "','GlobalDelete(" + @Items.AppropriationID + ",&quot;DeleteAppropriationSource&quot;)')\"><i class='la la-trash'></i> Delete</button>";
                 
                 var ActionAS = Update + Remove;
 
         <tr>
-            <td>@Items.AppropriationSourceType</td>
+            <td>@Items.AppropSourceTypeTitle</td>
             <td>@Items.FundSourceTitle</td>
             <td>@Items.Description</td>
             <td class="text-center">@Items.BudgetYearTitle</td>

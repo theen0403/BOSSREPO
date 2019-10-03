@@ -17,13 +17,13 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public AppropriationSourceType()
         {
-            this.FundSources = new HashSet<FundSource>();
+            this.Tbl_FMFundSource = new HashSet<Tbl_FMFundSource>();
         }
     
-        public int AppropriationSourceID { get; set; }
-        public string AppropriationSourceType1 { get; set; }
+        public int AppropSourceTypeID { get; set; }
+        public string AppropSourceTypeTitle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FundSource> FundSources { get; set; }
+        public virtual ICollection<Tbl_FMFundSource> Tbl_FMFundSource { get; set; }
     }
 }

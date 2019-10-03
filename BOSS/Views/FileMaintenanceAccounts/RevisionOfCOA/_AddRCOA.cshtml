@@ -1,45 +1,52 @@
-@model BOSS.Models.FMAccounts.RevisionOfCOAModel
+@model BOSS.Models.FMmodels.FMAccountsModels.RevisionYearModel
 @{
-    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+                /**/
+
+                BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
 @using (Ajax.BeginForm("AddNewRevisionCOA", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetRevisionCOADT','Successfully Added!')", OnFailure = "", }))
 {
     <div class="row">
-        <div class="col-lg-2 col-md-1">
-        </div>
-        <div class="col-xl-2 col-lg-3 col-md-3">
-            <div class="form-group ">
-                <label class="custom-form-margin">Revision Year</label>
-                @Html.TextBoxFor(m => m.getRevCOAColumns.RevYEar, new { @class = "form-control", type = "text", id = "RevYEar" })
+        <div class="col-xl-2 col-lg-1 col-md-1"></div>
+        <div class="col-xl-8 col-lg-10 col-md-10">
+            <div class="row">
+                <div class="col-xl-4 col-lg-3 col-md-4">
+                    <div class="form-group ">
+                        <label class="custom-form-margin">Revision Year</label>
+                        @Html.TextBoxFor(m => m.getRevYearColumns.RevYEar, new { @class = "form-control", type = "text", id = "RevYEar" })
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-3">
+                    <div class="form-group ">
+                        @Html.HiddenFor(m => m.isUsed, new { id = "isUsedID" })
+                        <label class="custom-form-margin">Is Used?</label>
+                        <select class="form-control" id="isUsedIDD" onchange="isUsedOnChange()">
+                            <option value="0">Yes</option>
+                            <option value="1">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Remarks</label>
+                        @Html.TextBoxFor(m => m.getRevYearColumns.Remarks, new { @class = "form-control", type = "text", id = "Remarks" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetRevisionCOADT()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                            Add
+                        </button>
+                    </div>
+                </div>
+
+
             </div>
-        </div>
-        <div class="col-lg-2 col-md-3">
-            <div class="form-group ">
-                @Html.HiddenFor(m => m.isUsed, new { id = "isUsedID" })
-                <label class="custom-form-margin">Is Used?</label>
-                <select class="form-control" id="isUsedIDD" onchange="isUsedOnChange()">
-                    <option value="0">Yes</option>
-                    <option value="1">No</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-xl-4 col-lg-3 col-md-4">
-            <div class="form-group">
-                <label class="custom-form-margin">Remarks</label>
-                @Html.TextBoxFor(m => m.getRevCOAColumns.Remarks, new { @class = "form-control", type = "text", id = "Remarks" })
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="offset-md-1 col-md-10">
-            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetRevisionCOADT()">
-                Cancel
-            </button>
-            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                Add
-            </button>
         </div>
     </div>
 }

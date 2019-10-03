@@ -1,37 +1,40 @@
 ﻿@model BOSS.Models.FMmodels.FMFundModels.FundModel
 @{
-    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 @using (Ajax.BeginForm("AddNewFund", "FileMaintenanceFund", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal( 'GetFundDTable','Successfully Saved!')", OnFailure = "", }))
 {
-    <div class="row">
-        <div class="col-xl-3 col-lg-2 col-md-1"></div>
-        <div class="col-xl-4 col-lg-5 col-md-6">
-            <div class="form-group">
-                <label class="custom-form-margin">Fund</label>
-                @Html.TextAreaFor(m => m.getFundColumns.FundTitle, new { @class = "form-control", @rows = 1, id = "FundTitle" })
+   
+        <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-1"></div>
+            <div class="col-xl-8 col-lg-8 col-md-10">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Fund</label>
+                            @Html.TextAreaFor(m => m.getFundColumns.FundTitle, new { @class = "form-control", @rows = 1, id = "FundTitle" })
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4">
+                        <div class="form-group">
+                            <label class="custom-form-margin">Code</label>
+                            @Html.TextBoxFor(m => m.getFundColumns.FundCode, new { @class = "form-control", id = "FundCode" })
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetFundDTable()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xl-2 col-lg-3 col-md-4">
-            <div class="form-group">
-                <label class="custom-form-margin">Code</label>
-                @Html.TextBoxFor(m => m.getFundColumns.FundCode, new { @class = "form-control", id = "FundCode" })
-            </div>
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-xl-2 col-lg-2 col-md-1"></div>
-        <div class="col-xl-8 col-lg-8 col-md-10">
-            <div class="form-group">
-                <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetFundDTable()">
-                    Cancel
-                </button>
-                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                    Add
-                </button>
-            </div>
-        </div>
-    </div>
-
 }
+
+    

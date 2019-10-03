@@ -6,10 +6,8 @@
 
 <div class="form-group">
     <label class="custom-form-margin">Sub Sector</label>
-    <span class="input-group-append">
         @Html.DropDownListFor(m => m.SubSectorID, Model.SubSectorListfunc, new { @class = "form-control select2", id = "SubSecID" })
-        <button type="button" class="btn btn-warning btn-sm m-left" data-toggle="modal" onclick="GetAddSubSectorModal()"><strong>+</strong></button>
-    </span>
+        
 </div>
 
 <script>

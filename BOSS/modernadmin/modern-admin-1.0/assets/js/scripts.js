@@ -256,7 +256,9 @@ function GlobalAlertsCallingwoModal( ActionName, SuccessMess,Param1) {
     swalSuccess("Success", SuccessMess);
 
 }
-
+function GlobalFunctionsTwoParams( ActionName, IDParams1, IDParams2) {
+        eval(ActionName + "(" + IDParams1 + "," + IDParams2 + ");");
+}
 (function (window, undefined) {
   'use strict';
 

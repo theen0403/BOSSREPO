@@ -43,7 +43,7 @@ namespace BOSS.Controllers
 
             List<FundList> getFundList = new List<FundList>();
 
-            var SQLQuery = "SELECT * FROM [Fund]";
+            var SQLQuery = "SELECT * FROM [Tbl_FMFund]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -77,11 +77,11 @@ namespace BOSS.Controllers
         //Add Fund function
         public JsonResult AddNewFund(FundModel model)
         {
-            Fund FundTbl = new Fund();
+            Tbl_FMFund FundTbl = new Tbl_FMFund();
 
             FundTbl.FundTitle = GlobalFunction.ReturnEmptyString(model.getFundColumns.FundTitle);
             FundTbl.FundCode = GlobalFunction.ReturnEmptyString(model.getFundColumns.FundCode);
-            BOSSDB.Funds.Add(FundTbl);
+            BOSSDB.Tbl_FMFund.Add(FundTbl);
             
             BOSSDB.SaveChanges();
             return Json(FundTbl);
@@ -89,7 +89,7 @@ namespace BOSS.Controllers
         //Get Update Partial View
         public ActionResult Get_UpdateFund(FundModel model, int FundID)
         {
-            Fund tblFund = (from e in BOSSDB.Funds where e.FundID == FundID select e).FirstOrDefault();
+            Tbl_FMFund tblFund = (from e in BOSSDB.Tbl_FMFund where e.FundID == FundID select e).FirstOrDefault();
             
             model.getFundColumns.FundTitle = tblFund.FundTitle;
             model.getFundColumns.FundCode = tblFund.FundCode;
@@ -99,7 +99,7 @@ namespace BOSS.Controllers
         //Update Function
         public ActionResult UpdateFund(FundModel model)
         {
-            Fund fundTBL = (from e in BOSSDB.Funds where e.FundID == model.FundID select e).FirstOrDefault();
+            Tbl_FMFund fundTBL = (from e in BOSSDB.Tbl_FMFund where e.FundID == model.FundID select e).FirstOrDefault();
 
             fundTBL.FundTitle = GlobalFunction.ReturnEmptyString(model.getFundColumns.FundTitle);
             fundTBL.FundCode = GlobalFunction.ReturnEmptyString(model.getFundColumns.FundCode);
@@ -112,18 +112,18 @@ namespace BOSS.Controllers
         //Delete Function
         public ActionResult DeleteFund(FundModel model, int FundID)
         {
-            List<SubFund> subfund = (from e in BOSSDB.SubFunds where e.FundID == FundID select e).ToList();
+            List<Tbl_FMSubFund> subfund = (from e in BOSSDB.Tbl_FMSubFund where e.FundID == FundID select e).ToList();
             if (subfund != null)
             {
                 foreach (var items in subfund)
                 {
-                    BOSSDB.SubFunds.Remove(items);
+                    BOSSDB.Tbl_FMSubFund.Remove(items);
                     BOSSDB.SaveChanges();
                 }
             }
             
-            Fund fundtbl = (from e in BOSSDB.Funds where e.FundID == FundID select e).FirstOrDefault();
-            BOSSDB.Funds.Remove(fundtbl);
+            Tbl_FMFund fundtbl = (from e in BOSSDB.Tbl_FMFund where e.FundID == FundID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMFund.Remove(fundtbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileFund");
         }
@@ -135,7 +135,7 @@ namespace BOSS.Controllers
             SubFundModel model = new SubFundModel();
             List<SubFundList> getSubFundList = new List<SubFundList>();
 
-            var SQLQuery = "SELECT [SubFundID], [SubFundTitle], [Fund].[FundTitle] FROM [BOSS].[dbo].[SubFund],[dbo].[Fund] where [dbo].[SubFund].FundID =[dbo].[Fund].FundID";
+            var SQLQuery = "SELECT [SubFundID], [SubFundTitle], [Tbl_FMFund].[FundTitle] FROM [BOSS].[dbo].[Tbl_FMSubFund],[dbo].[Tbl_FMFund] where [dbo].[Tbl_FMSubFund].FundID =[dbo].[Tbl_FMFund].FundID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -169,11 +169,11 @@ namespace BOSS.Controllers
         //Add Sub-Fund function
         public JsonResult AddSubNewSubFund(SubFundModel model)
         {
-            SubFund SubFundTbl = new SubFund();
+            Tbl_FMSubFund SubFundTbl = new Tbl_FMSubFund();
 
             SubFundTbl.SubFundTitle = GlobalFunction.ReturnEmptyString(model.getSubFundColumns.SubFundTitle);
             SubFundTbl.FundID = GlobalFunction.ReturnEmptyInt(model.FundID);
-            BOSSDB.SubFunds.Add(SubFundTbl);
+            BOSSDB.Tbl_FMSubFund.Add(SubFundTbl);
 
             BOSSDB.SaveChanges();
             return Json(SubFundTbl);
@@ -181,7 +181,7 @@ namespace BOSS.Controllers
         //Get Update Partial View
         public ActionResult Get_UpdateSubFund(SubFundModel model, int SubFundID)
         {
-            SubFund tblsubFund = (from e in BOSSDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
+            Tbl_FMSubFund tblsubFund = (from e in BOSSDB.Tbl_FMSubFund where e.SubFundID == SubFundID select e).FirstOrDefault();
 
             model.getSubFundColumns.SubFundTitle = tblsubFund.SubFundTitle;
             model.FundID = Convert.ToInt32(tblsubFund.FundID);
@@ -191,7 +191,7 @@ namespace BOSS.Controllers
         //Update Function
         public ActionResult UpdateSubFund(SubFundModel model)
         {
-            SubFund subfundTBL = (from e in BOSSDB.SubFunds where e.SubFundID == model.SubFundID select e).FirstOrDefault();
+            Tbl_FMSubFund subfundTBL = (from e in BOSSDB.Tbl_FMSubFund where e.SubFundID == model.SubFundID select e).FirstOrDefault();
 
             subfundTBL.SubFundTitle = GlobalFunction.ReturnEmptyString(model.getSubFundColumns.SubFundTitle);
             subfundTBL.FundID = GlobalFunction.ReturnEmptyInt(model.FundID);
@@ -204,16 +204,10 @@ namespace BOSS.Controllers
         //Delete Function
         public ActionResult DeleteSubFund(SubFundModel model, int SubFundID)
         {
-            SubFund subfundtbl = (from e in BOSSDB.SubFunds where e.SubFundID == SubFundID select e).FirstOrDefault();
-            BOSSDB.SubFunds.Remove(subfundtbl);
+            Tbl_FMSubFund subfundtbl = (from e in BOSSDB.Tbl_FMSubFund where e.SubFundID == SubFundID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMSubFund.Remove(subfundtbl);
             BOSSDB.SaveChanges();
             return RedirectToAction("FileFund");
-        }
-        
-        //Get Add Fund Modal
-        public ActionResult GetAddFundModal()
-        {
-            return PartialView("FundTab/IndexFundTab");
         }
     }
 }

@@ -174,7 +174,7 @@ table.table {
     table.table thead tr th,
     table.table tbody tr td {
         /*background: #1883AE;*/
-        /*color: #fff;*/
+        color: black!important;
         border-color: black;
     }
 
@@ -450,7 +450,6 @@ form .form-control {
     border: 1px solid #4B4B4B !important;
     color: #4B4B4B !important;
 }
-
 /*costume menuitem*/
 .dropdown .dropdown-menu .dropdown-item:active {
     color: black !important;
@@ -512,16 +511,6 @@ form .form-control {
     cursor: pointer;
 }
 
-/*FMAccounts /Account Code*/
-.accntCode {
-    margin-top: 8px;
-    border: 0px white;
-    background-color: white;
-    width:80px;
-    padding-left:0px;
-    margin-left:0px;
-}
-
 /*Modal center-position input windows*/
 #ViewEnterPIN {
     top: 35%;
@@ -550,3 +539,60 @@ form .form-control {
     min-height: .01%;
     overflow-x: auto;
 }*/
+
+.table-bordered th, .table-bordered td {
+    border-color: black !important;
+}
+
+.menubackground{
+    background-color: #E2EFDB !important;
+}
+
+
+/*FMAccounts /Account Code*/
+.form-woutborder {
+    border: 0px #E2EFDB;
+    background-color: #E2EFDB;
+    margin-top:8px;
+}
+
+.nav.nav-tabs.nav-underline .nav-item a.nav-link:before {
+    background: #E49B1F !important;
+    color: white;
+}
+
+.nav.nav-tabs.nav-underline .nav-item a.nav-link {
+    color: white;
+    background: #388E3C !important;
+}
+
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link:focus {
+        color: white;
+        background: #388E3C !important;
+    }
+
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link.active {
+        color: black !important;
+        background: #E49B1F !important;
+        font-weight: bolder !important;
+    }
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link.active {
+        color: black !important;
+        background: #E49B1F !important;
+        font-weight: bolder !important;
+    }
+
+        .nav.nav-tabs.nav-underline .nav-item a.nav-link.active:hover {
+            color: white;
+            background: #388E3C !important;
+        }
+
+    .nav.nav-tabs.nav-underline .nav-item a.nav-link:hover {
+        color: black !important;
+        background: #388E3C !important;
+    }
+
+.custom-pad {
+    padding-left: 5px !important ;
+    padding-right: 5px !important;
+}

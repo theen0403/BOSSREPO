@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "FileAccounts";
 }
-
 <script>
     $("#FileMaintenanceAccountsID").addClass("active");
 </script>
@@ -16,29 +15,28 @@
                         @*NAV TAB*@
                         <div class="card box-shadow-2">
                             <div class="row m-0">
-                                <ul class="nav nav-tabs">
+                                <ul class="nav nav-tabs nav-underline">
                                     <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
+                                        <a class="nav-link active bg-backcolorheader custom-pad" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabAllotment" ng-click="AllotmentClassTab()" data-toggle="tab" aria-controls="tabAllotment" href="#tabAllotment" aria-expanded="false">Allotment Class</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabAllotment" ng-click="AllotmentClassTab()" data-toggle="tab" aria-controls="tabAllotment" href="#tabAllotment" aria-expanded="false">Allotment Class</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabAccntGroup" ng-click="AccountGroupTab()" data-toggle="tab" aria-controls="tabAccntGroup" href="#tabAccntGroup" aria-expanded="true">Account Group</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabAccntGroup" ng-click="AccountGroupTab()" data-toggle="tab" aria-controls="tabAccntGroup" href="#tabAccntGroup" aria-expanded="false">Account Group</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">Sub Major Account Group</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">Sub Major Account Group</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabGenAccnt" ng-click="COATab()" data-toggle="tab" aria-controls="tabGenAccnt" href="#tabGenAccnt" aria-expanded="false">General Account</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabGenAccnt" ng-click="COATab()" data-toggle="tab" aria-controls="tabGenAccnt" href="#tabGenAccnt" aria-expanded="false">General Account</a>
                                     </li>
-                                    @**<li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab23" ng-click="PINTab()" data-toggle="tab" aria-controls="tab23" href="#tab23" aria-expanded="false">Sub Major Account Group</a>
-                                    </li>*@
-
+                                    <li class="nav-item">
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabSubsiLedger" ng-click="SubsiLedgerTab()" data-toggle="tab" aria-controls="tabSubsiLedger" href="#tabSubsiLedger" aria-expanded="false">Subsidiary Ledger</a>
+                                    </li>
                                 </ul>
                                 <div class="tab-content w-100 skin skin-square" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
@@ -61,7 +59,9 @@
                                         <div class="tab-pane" id="tabGenAccnt" ng-bind-html="tabGenAccnt">
 
                                         </div>
+                                        <div class="tab-pane" id="tabSubsiLedger" ng-bind-html="tabSubsiLedger">
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,6 @@
                 F.tabAllotment = D(response.data);
             });
         }
-        
         F.AccountGroupTab = function () {
             F.tabAccntGroup = null;
             P({
@@ -118,7 +117,6 @@
                 F.tabSubMajorAccnt = D(response.data);
             });
         }
-        
         F.COATab = function () {
             F.tabGenAccnt = null;
             P({
@@ -127,14 +125,14 @@
                 F.tabGenAccnt = D(response.data);
             });
         }
-       
-        //F.PINTab = function () {
-        //    F.tab23 = null;
-        //    P({
-        //        url: '/FileMaintenanceAccounts/PINTab',
-        //    }).then(function (response) {
-        //        F.tab23 = D(response.data);
-        //    });
-        //}
+        F.SubsiLedgerTab = function () {
+            F.tabSubsiLedger = null;
+            P({
+                url: '/FileMaintenanceAccounts/SubsiLedgerTab',
+            }).then(function (response) {
+                F.tabSubsiLedger = D(response.data);
+            });
+        }
+        
     });
 </script> 

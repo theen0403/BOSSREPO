@@ -18,6 +18,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         public List<SectionList> getSectionList { get; set; }
         public Tbl_FMSection getSectionColumns { get; set; }
         public int SectionID { get; set; }
+        public int FunctionIDHidden { get; set; }
         public string SectionTitle { get; set; }
         public string FunctionTitle { get; set; }
         public string DeptTitle { get; set; }

@@ -1,13 +1,15 @@
-﻿@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+﻿
+@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
 @using BOSS.Models;
 
-@using (Ajax.BeginForm("AddNewAllotmentClass", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetAllotmentClassDT','Successfully Added!')", OnFailure = "", }))
+@using (Ajax.BeginForm("UpdateAllotment", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetAllotmentClassDT','Successfully Updated!')", OnFailure = "", }))
 {
+    @Html.HiddenFor(m=> m.AllotmentClassID, new { })
     <div class="row">
-        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+           <div class="col-xl-2 col-lg-2 col-md-1"></div>
         <div class="col-xl-8 col-lg-8 col-md-10">
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-4" id="revYearAllotID">
@@ -24,9 +26,10 @@
                         Cancel
                     </button>
                     <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                        Add
+                        Update
                     </button>
                 </div>
+
 
             </div>
         </div>

@@ -33,7 +33,7 @@ namespace BOSS.Controllers
 
         public ActionResult AllotmentClassTab()
         {
-            RevisionYearModel model = new RevisionYearModel();
+            AllotmentClassModel model = new AllotmentClassModel();
             return PartialView("AllotmentClass/IndexAllotmentClass", model);
         }
         public ActionResult AccountGroupTab()
@@ -103,7 +103,7 @@ namespace BOSS.Controllers
         {
             Tbl_FMRevisionYear RevCOATable = new Tbl_FMRevisionYear();
 
-            RevCOATable.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYEar);
+            RevCOATable.RevYear = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYear);
             RevCOATable.isUsed = model.isUsed;
             RevCOATable.Remarks = GlobalFunction.ReturnEmptyString(model.getRevYearColumns.Remarks);
 
@@ -117,7 +117,7 @@ namespace BOSS.Controllers
         {
             Tbl_FMRevisionYear revCOATable = (from e in BOSSDB.Tbl_FMRevisionYear where e.RevID == RevID select e).FirstOrDefault();
 
-            model.getRevYearColumns.RevYEar = revCOATable.RevYEar;
+            model.getRevYearColumns.RevYear = revCOATable.RevYear;
             model.isUsed = Convert.ToBoolean(revCOATable.isUsed);
             model.getRevYearColumns.Remarks = revCOATable.Remarks;
             model.RevID = RevID;
@@ -126,7 +126,7 @@ namespace BOSS.Controllers
         public ActionResult UpdateRevCOA(RevisionYearModel model)
         {
             Tbl_FMRevisionYear revCOATbl = (from e in BOSSDB.Tbl_FMRevisionYear where e.RevID == model.RevID select e).FirstOrDefault();
-            revCOATbl.RevYEar = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYEar);
+            revCOATbl.RevYear = GlobalFunction.ReturnEmptyInt(model.getRevYearColumns.RevYear);
             revCOATbl.isUsed = model.isUsed;
             revCOATbl.Remarks = GlobalFunction.ReturnEmptyString(model.getRevYearColumns.Remarks);
 
@@ -148,10 +148,10 @@ namespace BOSS.Controllers
         //Revision Year
         public ActionResult GetAllotmentClassDT()
         {
-            RevisionYearModel model = new RevisionYearModel();
-            List<RevisionList> getRevisionYearList = new List<RevisionList>();
+            AllotmentClassModel model = new AllotmentClassModel();
+            List<AllotmentClassList> getAllotmentClassList = new List<AllotmentClassList>();
             var SQLQuery = "";
-            SQLQuery = "SELECT [RevID], [RevYEar], [isUsed], [Remarks] FROM [BOSS].[dbo].[Tbl_FMRevisionYear]";
+            SQLQuery = "SELECT [AllotmentClassID],[AllotmentClassTitle],[RevYear] FROM [BOSS].[dbo].[Tbl_FMAllotmentClass],[Tbl_FMRevisionYear] where [Tbl_FMAllotmentClass].RevID = [Tbl_FMRevisionYear].RevID";
 
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
@@ -163,20 +163,83 @@ namespace BOSS.Controllers
                     SqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
-                        getRevisionYearList.Add(new RevisionList()
+                        getAllotmentClassList.Add(new AllotmentClassList()
                         {
-                            RevID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            RevYEar = GlobalFunction.ReturnEmptyInt(dr[1]),
-                            isUsed = GlobalFunction.ReturnEmptyInt(dr[2]),
-                            Remarks = GlobalFunction.ReturnEmptyString(dr[3])
+                            AllotmentClassID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            AllotmentClassTitle = GlobalFunction.ReturnEmptyString(dr[1]),
+                            RevYear = GlobalFunction.ReturnEmptyString(dr[2])
                         });
                     }
                 }
                 Connection.Close();
             }
-            model.getRevisionYearList = getRevisionYearList.ToList();
-            return PartialView("RevisionOfCOA/_TableRCOA", getRevisionYearList);
+            model.getAllotmentClassList = getAllotmentClassList.ToList();
+            return PartialView("AllotmentClass/_TableAllotment", getAllotmentClassList);
         }
+        public ActionResult GetAddAllotmentClass()
+        {
+            AllotmentClassModel model = new AllotmentClassModel();
+            return PartialView("AllotmentClass/_AddAllotment", model);
+        }
+        public ActionResult AddNewAllotmentClass(AllotmentClassModel model)
+        {
+            Tbl_FMAllotmentClass AllotTable = new Tbl_FMAllotmentClass();
+
+            AllotTable.RevID = model.RevID;
+            AllotTable.AllotmentClassTitle = GlobalFunction.ReturnEmptyString(model.getAllotmentClassColumns.AllotmentClassTitle);
+     
+            BOSSDB.Tbl_FMAllotmentClass.Add(AllotTable);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetDynamicRevYear()
+        {
+            AllotmentClassModel model = new AllotmentClassModel();
+            model.RevYearDropDownList = new SelectList((from s in BOSSDB.Tbl_FMRevisionYear.Where(a => a.isUsed == true).ToList() select new { RevID = s.RevID, RevYear = s.RevYear }), "RevID", "RevYear");
+
+            return PartialView("DynamicFields/_RevisionYearDropDown", model);
+        }
+        public ActionResult Get_UpdateAllotmentClass(AllotmentClassModel model, int AllotmentClassID)
+        {
+            Tbl_FMAllotmentClass allotClassTBL = (from e in BOSSDB.Tbl_FMAllotmentClass where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
+
+            model.AllotmentClassID = AllotmentClassID;
+            model.getAllotmentClassColumns.AllotmentClassTitle = allotClassTBL.AllotmentClassTitle;
+            model.RevID = Convert.ToInt32(allotClassTBL.RevID);
+            return PartialView("AllotmentClass/_UpdateAllotmentClass", model);
+        }
+        public ActionResult UpdateAllotment(AllotmentClassModel model)
+        {
+            Tbl_FMAllotmentClass allotClassTbl = (from e in BOSSDB.Tbl_FMAllotmentClass where e.AllotmentClassID == model.AllotmentClassID select e).FirstOrDefault();
+            allotClassTbl.AllotmentClassTitle = GlobalFunction.ReturnEmptyString(model.getAllotmentClassColumns.AllotmentClassTitle);
+            allotClassTbl.RevID = GlobalFunction.ReturnEmptyInt(model.RevID);
+
+            BOSSDB.Entry(allotClassTbl);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+         public ActionResult DeleteAllotmentClass(AllotmentClassModel model, int AllotmentClassID)
+        {
+            Tbl_FMAllotmentClass allotmenttbl = (from e in BOSSDB.Tbl_FMAllotmentClass where e.AllotmentClassID == AllotmentClassID select e).FirstOrDefault();
+            BOSSDB.Tbl_FMAllotmentClass.Remove(allotmenttbl);
+            BOSSDB.SaveChanges();
+            return RedirectToAction("FileAccounts");
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -474,35 +537,5 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
-        //========================
-        //Revision Year
-        public ActionResult GetAddAddRevYear()
-        {
-            return PartialView("Modals/_AddRevisionYearModal");
-        }
-        //RevisionYEar For Allotment tab
-        //public ActionResult GetAddAddRevYearAllot()
-        //{
-        //    return PartialView("Modals/_AddRevisionYearModal");
-        //}
-        public ActionResult GetAddAllomentClass()
-        {
-            return PartialView("Modals/_AddAllotmentClassModal");
-        }
-        public ActionResult GetAddAccntGroup()
-        {
-            return PartialView("Modals/_AddAccountGroupModal");
-        }
-        public ActionResult GetAddMajorAccntGroup()
-        {
-            return PartialView("Modals/_AddMajorAccountModal");
-        }
-        public ActionResult GetAddSubMajorAccntGroup()
-        {
-            return PartialView("Modals/_AddSubMajorAccountModal");
-        }
-
     }
 }

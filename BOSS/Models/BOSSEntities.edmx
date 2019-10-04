@@ -99,13 +99,6 @@
           <Property Name="PinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pin_Acct" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Position">
-          <Property Name="PositionName" Type="varchar" MaxLength="50" />
-          <Property Name="IsPermanent" Type="int" />
-          <Property Name="Classification" Type="varchar" MaxLength="50" />
-        </EntityType>-->
         <EntityType Name="Tbl_FMAllotmentClass">
           <Key>
             <PropertyRef Name="AllotmentClassID" />
@@ -211,7 +204,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <PropertyRef Name="RevID" />
           </Key>
           <Property Name="RevID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RevYEar" Type="int" />
+          <Property Name="RevYear" Type="int" />
           <Property Name="isUsed" Type="bit" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -1107,7 +1100,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
             <PropertyRef Name="RevID" />
           </Key>
           <Property Name="RevID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RevYEar" Type="Int32" />
+          <Property Name="RevYear" Type="Int32" />
           <Property Name="isUsed" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMAllotmentClass" Relationship="BOSSModel.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" FromRole="Tbl_FMRevisionYear" ToRole="Tbl_FMAllotmentClass" />
@@ -1708,7 +1701,7 @@ warning 6013: The table/view 'BOSS.dbo.Position' does not have a primary key def
               <MappingFragment StoreEntitySet="Tbl_FMRevisionYear">
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="isUsed" ColumnName="isUsed" />
-                <ScalarProperty Name="RevYEar" ColumnName="RevYEar" />
+                <ScalarProperty Name="RevYear" ColumnName="RevYear" />
                 <ScalarProperty Name="RevID" ColumnName="RevID" />
               </MappingFragment>
             </EntityTypeMapping>

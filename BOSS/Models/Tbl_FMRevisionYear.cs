@@ -21,7 +21,7 @@ namespace BOSS.Models
         }
     
         public int RevID { get; set; }
-        public Nullable<int> RevYEar { get; set; }
+        public Nullable<int> RevYear { get; set; }
         public Nullable<bool> isUsed { get; set; }
         public string Remarks { get; set; }
     

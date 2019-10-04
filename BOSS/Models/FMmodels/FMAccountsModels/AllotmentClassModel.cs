@@ -15,23 +15,24 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         }
         public Tbl_FMAllotmentClass getAllotmentClassColumns { get; set; }
         public List<AllotmentClassList> getAllotmentClassList { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> AllotClassDropDownList
-        {
-            get
-            {
-                List<Tbl_FMAllotmentClass> allotmentClasses = BOSSDB.Tbl_FMAllotmentClass.ToList();
-                return new System.Web.Mvc.SelectList(AllotClassDropDownList, "AllotmentID", "AllotmentClassTitle");
-            }
-        }
+        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearDropDownList { get; set; }
+        //{
+        //    get
+        //    {
+        //        List<Tbl_FMRevisionYear> revisionYears = BOSSDB.Tbl_FMRevisionYear.ToList();
+        //        return new System.Web.Mvc.SelectList(RevYearDropDownList, "RevID", "RevYear");
+        //    }
+        //}
         public int AllotmentClassID { get; set; }
         public string AllotmentClassTitle { get; set; }
         public int RevID { get; set; }
+        public string RevYear { get; set; }
     }
     public class AllotmentClassList
     {
         public int AllotmentClassID { get; set; }
         public string AllotmentClassTitle { get; set; }
-        public string RevYEar { get; set; }
+        public string RevYear { get; set; }
     }
 
 }

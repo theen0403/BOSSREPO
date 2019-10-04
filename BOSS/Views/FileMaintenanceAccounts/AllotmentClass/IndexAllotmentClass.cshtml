@@ -9,7 +9,7 @@
 
     </div>
 </div>
-<div id="tableAllotmentID">
+<div class="mt-2" id="tableAllotmentID">
 
 </div>
 
@@ -21,34 +21,42 @@
         $.ajax({
             url: '/FileMaintenanceAccounts/GetAllotmentClassDT',
             success: function (result) {
+                $("#tableAllotmentID").html(result);
+                GetAddAllotmentClass();
+            }
+        })
+    }
+    function GetDynamicRevYear() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
+            success: function (result) {
+                $("#revYearAllotID").html(result);
+            }
+        })
+    }
+    function GetAddAllotmentClass() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAddAllotmentClass',
+            success: function (result) {
                 $("#allotmentTempID").html(result);
-                //GetAddRevision();
             }
         })
     }
-    function GetAddRevision() {
+    function Get_UpdateAllotmentClass(AllotmentClassID) {
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetAddRevision',
+            url: '/FileMaintenanceAccounts/Get_UpdateAllotmentClass',
+            data: { AllotmentClassID: AllotmentClassID },
             success: function (result) {
-                $("#RCOATempID").html(result);
+                $('#allotmentTempID').html(result);
             }
         })
     }
-    function Get_UpdateRevCOA(RevID) {
+    function DeleteAllotmentClass(AllotmentClassID) {
         $.ajax({
-            url: '/FileMaintenanceAccounts/Get_UpdateRevCOA',
-            data: { RevID: RevID },
+            url: '/FileMaintenanceAccounts/DeleteAllotmentClass',
+            data: { AllotmentClassID: AllotmentClassID },
             success: function (result) {
-                $('#RCOATempID').html(result);
-            }
-        })
-    }
-    function DeleteRCOA(RevID) {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/DeleteRCOA',
-            data: { RevID: RevID },
-            success: function (result) {
-                GetRevisionCOADT();
+                GetAllotmentClassDT();
             }
         })
     }

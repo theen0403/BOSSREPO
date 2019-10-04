@@ -9164,6 +9164,8 @@
     <Content Include="Views\FileMaintenanceAccounts\SubsidiaryLedger\_IndexSubsidiaryLedger.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AddAllotment.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_TableAllotment.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_RevisionYearDropDown.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_UpdateAllotmentClass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

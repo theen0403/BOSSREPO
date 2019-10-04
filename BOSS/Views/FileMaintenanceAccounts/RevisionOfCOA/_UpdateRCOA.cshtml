@@ -11,17 +11,17 @@
         <div class="col-xl-2 col-lg-1 col-md-1"></div>
         <div class="col-xl-8 col-lg-10 col-md-10">
             <div class="row">
-                <div class="col-xl-4 col-lg-3 col-md-4">
+                <div class="col-xl-3 col-lg-3 col-md-4">
                     <div class="form-group ">
                         <label class="custom-form-margin">Revision Year</label>
-                        @Html.TextBoxFor(m => m.getRevYearColumns.RevYEar, new { @class = "form-control", type = "text", id = "RevYEar" })
+                        @Html.TextBoxFor(m => m.getRevYearColumns.RevYear, new { @class = "form-control", type = "text", id = "RevYear" })
                     </div>
                 </div>
-                <div class="col-xl-2 col-lg-3 col-md-3">
+                <div class="col-xl-3 col-lg-3 col-md-3">
                     <div class="form-group ">
                         @Html.TextBoxFor(m => m.isUsed, new { id = "isUsedID", @class = "hidden" })
                         <label class="custom-form-margin">Is Used?</label>
-                        <select class="form-control" id="isUsedIDD" onchange="isUsedOnChange()">
+                        <select class="form-control select2nosearch" id="isUsedIDD" onchange="isUsedOnChange()">
                             <option value=True>Yes</option>
                             <option value=False>No</option>
                         </select>
@@ -48,6 +48,7 @@
 <script>
     $(function () {
         $("#isUsedIDD").val($("#isUsedID").val());
+        select2nosearch();
     })
     function isUsedOnChange() {
         $("#isUsedID").val($("#isUsedIDD").val());

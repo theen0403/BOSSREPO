@@ -1,0 +1,16 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label class="custom-form-margin">Revision Year</label>
+    @Html.DropDownListFor(m => m.RevID, Model.RevYearDropDownList, new { @class = "form-control select2nosearch", id = "RevID" })
+</div>
+
+<script>
+    $(function () {
+        select2nosearch();
+    })
+</script>

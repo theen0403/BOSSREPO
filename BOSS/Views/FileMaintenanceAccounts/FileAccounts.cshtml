@@ -29,7 +29,7 @@
                                         <a class="nav-link bg-backcolorheader custom-pad" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">Sub Major Account Group</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">SubMajor Account Group</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link bg-backcolorheader custom-pad" id="base-tabGenAccnt" ng-click="COATab()" data-toggle="tab" aria-controls="tabGenAccnt" href="#tabGenAccnt" aria-expanded="false">General Account</a>
@@ -42,7 +42,7 @@
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
 
                                         <div class="tab-pane active" id="tabRevision" ng-bind-html="tabRevision">
-
+                                           
                                         </div>
                                         <div class="tab-pane" id="tabAllotment" ng-bind-html="tabAllotment">
 
@@ -75,8 +75,9 @@
 <script>
     app.controller('FMAccountsController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
-        
+
         F.RevisionCOATab = function () {
+            ClearTabContent();
             F.tabRevision = null;
             P({
                 url: '/FileMaintenanceAccounts/RevisionCOATab',
@@ -85,6 +86,7 @@
             });
         }
         F.AllotmentClassTab = function () {
+            ClearTabContent(); 
             F.tabAllotment = null;
             P({
                 url: '/FileMaintenanceAccounts/AllotmentClassTab',
@@ -93,6 +95,7 @@
             });
         }
         F.AccountGroupTab = function () {
+            ClearTabContent(); 
             F.tabAccntGroup = null;
             P({
                 url: '/FileMaintenanceAccounts/AccountGroupTab',
@@ -135,4 +138,11 @@
         }
         
     });
+
+
+    function ClearTabContent() {
+        $("#tabRevision").html("");
+        $("#tabAllotment").html("");
+        $("#tabAccntGroup").html("");
+    }
 </script> 

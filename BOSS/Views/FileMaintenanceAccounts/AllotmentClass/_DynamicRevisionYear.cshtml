@@ -1,4 +1,4 @@
-﻿@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -6,7 +6,7 @@
 
 <div class="form-group">
     <label class="custom-form-margin">Revision Year</label>
-    @Html.DropDownListFor(m => m.RevID, Model.RevYearDropDownList, new { @class = "form-control select2nosearch", id = "RevID" })
+    @Html.DropDownListFor(m => m.AllotClassModel.RevID, Model.AllotClassModel.RevYearDropDownList, new { @class = "form-control select2nosearch", id = "RevID" })
 </div>
 
 <script>

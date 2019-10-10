@@ -32,8 +32,9 @@ namespace BOSS.Controllers
             SubSectorModel model = new SubSectorModel();
             return PartialView("SubSectorTab/IndexSubSectorTab");
         }
-        //========================================================
-                                                        //Sector Tab
+        //---------------------------------------------------------------------------------------------------
+        //Sector Tab
+        //---------------------------------------------------------------------------------------------------
         //Display Data Table
         public ActionResult GetSectorDTable()
         {
@@ -125,8 +126,9 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return RedirectToAction("FileSector");
         }
-        //========================================================
-                                                            //Sub-Sector Tab
+        //---------------------------------------------------------------------------------------------------
+        //Sub-Sector Tab
+        //---------------------------------------------------------------------------------------------------
         //Display Data Table
         public ActionResult GetSubSectorDTable()
         {

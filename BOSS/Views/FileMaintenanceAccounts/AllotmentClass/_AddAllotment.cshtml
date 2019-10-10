@@ -1,4 +1,4 @@
-﻿@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -16,8 +16,9 @@
                 <div class="col-xl-9 col-lg-8 col-md-8">
                     <div class="form-group">
                         <label class="custom-form-margin">Allotment Class</label>
-                        @Html.TextBoxFor(m => m.getAllotmentClassColumns.AllotmentClassTitle, new { @class = "form-control", type = "text", id = "AllotmentClassTitle" })
+                        @Html.TextBoxFor(m => m.AllotClassModel.getAllotmentClassColumns.AllotmentClassTitle, new { @class = "form-control", type = "text", id = "AllotmentClassTitle" })
                     </div>
+
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetAllotmentClassDT()">

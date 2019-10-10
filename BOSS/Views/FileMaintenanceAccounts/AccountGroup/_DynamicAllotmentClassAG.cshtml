@@ -1,0 +1,17 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@*@model BOSS.Models.FMmodels.FMAccountsModels.AccountGroupModel*@
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label class="custom-form-margin">Allotment Class</label>
+    @Html.DropDownListFor(m => m.AccountGrpModel.AllotmentClassID, Model.AccountGrpModel.AllotClasslist, new { @class = "form-control select2nosearch", id = "AllotmentClassID" })
+</div>
+
+<script>
+    $(function () {
+        select2nosearch();
+    })
+</script>

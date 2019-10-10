@@ -1,0 +1,79 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.MajorAccountGroupModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("AddNewAccountGroup", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetMajorAccntGrpDT','Successfully Added!')", OnFailure = "", }))
+{
+    <div class="row">
+        <div class="col-xl-1">
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin">Revision Year</label>
+                <select class="form-control">
+                    <option>2015</option>
+                    <option>2016</option>
+                    <option>2017</option>
+                    <option>2018</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5">
+            <div class="form-group">
+                <label class="custom-form-margin">Allotment Class</label>
+                <select class="form-control">
+                    <option>Personal Services</option>
+                    <option>Capital Outlay</option>
+                    <option>Maintenance and Other Operating Expenses</option>
+                    <option>Other Operating Expenses</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Accounts</label>
+                <select class="form-control">
+                    <option>Asset</option>
+                    <option>Liabilities</option>
+                    <option>Equity</option>
+                    <option>Income</option>
+                    <option>Expenses</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-1">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Major Account Group</label>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <label class="custom-form-margin"><b>Account Code</b></label>
+            <div class="input-group mt-0">
+                <span class="input-group-addon" id="basic-addon1"><b>1 -</b></span>
+                <input type="text" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-1">
+        </div>
+        <div class="col-xl-10">
+            <div class="form-group">
+                <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetMajorAccntGrpDT()">
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                    Add
+                </button>
+            </div>
+        </div>
+    </div>
+}

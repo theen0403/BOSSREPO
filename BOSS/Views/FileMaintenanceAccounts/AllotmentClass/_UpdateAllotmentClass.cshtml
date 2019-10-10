@@ -1,5 +1,5 @@
-﻿
-@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@*@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel*@
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -7,9 +7,10 @@
 
 @using (Ajax.BeginForm("UpdateAllotment", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetAllotmentClassDT','Successfully Updated!')", OnFailure = "", }))
 {
-    @Html.HiddenFor(m=> m.AllotmentClassID, new { })
+    @Html.HiddenFor(m => m.AllotClassModel.AllotmentClassID, new { })
+    @Html.HiddenFor(m => m.AllotClassModel.RevIDtemp, new { id= "RevIDtemp" })
     <div class="row">
-           <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
         <div class="col-xl-8 col-lg-8 col-md-10">
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-md-4" id="revYearAllotID">
@@ -18,7 +19,7 @@
                 <div class="col-xl-9 col-lg-8 col-md-8">
                     <div class="form-group">
                         <label class="custom-form-margin">Allotment Class</label>
-                        @Html.TextBoxFor(m => m.getAllotmentClassColumns.AllotmentClassTitle, new { @class = "form-control", type = "text", id = "AllotmentClassTitle" })
+                        @Html.TextBoxFor(m => m.AllotClassModel.getAllotmentClassColumns.AllotmentClassTitle, new { @class = "form-control", type = "text", id = "AllotmentClassTitle" })
                     </div>
                 </div>
                 <div class="col">
@@ -36,7 +37,7 @@
     </div>
 }
 <script>
-    $(function () {
-        GetDynamicRevYear();
-    })
+$(function () {
+    GetDynamicRevYearUpdate();
+})
 </script>

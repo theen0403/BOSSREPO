@@ -1,4 +1,4 @@
-﻿@model BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
 @{
     BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
@@ -42,12 +42,23 @@
             }
         })
     }
+    function GetDynamicRevYearUpdate(RevIDtemp) {
+        var RevIDtemp = $("#RevIDtemp").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYearUpdate',
+            data: { RevIDtemp: RevIDtemp },
+            success: function (result) {
+                $("#revYearAllotID").html(result);
+            }
+        })
+    }
     function Get_UpdateAllotmentClass(AllotmentClassID) {
         $.ajax({
             url: '/FileMaintenanceAccounts/Get_UpdateAllotmentClass',
             data: { AllotmentClassID: AllotmentClassID },
             success: function (result) {
                 $('#allotmentTempID').html(result);
+                
             }
         })
     }

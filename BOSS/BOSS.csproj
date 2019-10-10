@@ -291,16 +291,17 @@
     <Compile Include="Models\BudgetYear.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FMAccounts\AllotmentClassModel.cs" />
-    <Compile Include="Models\FMAccounts\GeneralAccountsModel.cs" />
-    <Compile Include="Models\FMAccounts\SubAccountsModel.cs" />
+    <Compile Include="Models\FMmodels\FMAccountsModels\AccountGroupModel.cs" />
     <Compile Include="Models\FMmodels\FMAccountsModels\AllotmentClassModel.cs" />
+    <Compile Include="Models\FMmodels\FMAccountsModels\FMMainChartofAccountModel.cs" />
     <Compile Include="Models\FMmodels\FMAccountsModels\GeneralAccountModel.cs" />
+    <Compile Include="Models\FMmodels\FMAccountsModels\MajorAccountGroupModel.cs" />
     <Compile Include="Models\FMmodels\FMAccountsModels\RevisionYearModel.cs" />
     <Compile Include="Models\FMmodels\FMAppropriarionSouceModels\AppropSourceModel.cs" />
     <Compile Include="Models\FMmodels\FMAppropriarionSouceModels\FundSourceModel.cs" />
     <Compile Include="Models\FMmodels\FMFundModels\FundModel.cs" />
     <Compile Include="Models\FMmodels\FMFundModels\SubFundModel.cs" />
+    <Compile Include="Models\FMmodels\FMMainModel.cs" />
     <Compile Include="Models\FMmodels\FMOfficeTypeModels\OfficeTypeModel.cs" />
     <Compile Include="Models\FMmodels\FMPayeeModels\PayeeModel.cs" />
     <Compile Include="Models\FMmodels\FMPositionModels\PositionModel.cs" />
@@ -332,6 +333,9 @@
     <Compile Include="Models\PIN_Accounts.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tbl_FMAccountGroup.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Tbl_FMAllotmentClass.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
@@ -351,6 +355,9 @@
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMGeneralAccount.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMMajorAccountGroup.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMOfficeType.cs">
@@ -9164,8 +9171,15 @@
     <Content Include="Views\FileMaintenanceAccounts\SubsidiaryLedger\_IndexSubsidiaryLedger.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AddAllotment.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_TableAllotment.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_RevisionYearDropDown.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_DynamicRevisionYear.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_UpdateAllotmentClass.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_AddAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_TableAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_DynamicAllotmentClassAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_UpdateAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_TableMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_AddMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicRevYear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

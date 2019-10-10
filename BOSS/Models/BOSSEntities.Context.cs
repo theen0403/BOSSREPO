@@ -37,6 +37,7 @@ namespace BOSS.Models
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
         public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
+        public virtual DbSet<Tbl_FMAccountGroup> Tbl_FMAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMAllotmentClass> Tbl_FMAllotmentClass { get; set; }
         public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
         public virtual DbSet<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
@@ -44,6 +45,7 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMFund> Tbl_FMFund { get; set; }
         public virtual DbSet<Tbl_FMFundSource> Tbl_FMFundSource { get; set; }
         public virtual DbSet<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
+        public virtual DbSet<Tbl_FMMajorAccountGroup> Tbl_FMMajorAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMOfficeType> Tbl_FMOfficeType { get; set; }
         public virtual DbSet<Tbl_FMPayee> Tbl_FMPayee { get; set; }
         public virtual DbSet<Tbl_FMPosition> Tbl_FMPosition { get; set; }

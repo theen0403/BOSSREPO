@@ -4,8 +4,12 @@
 }
 @using BOSS.Models;
 
-@using (Ajax.BeginForm("AddNewMajorAccntGrp", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetMajorAccntGrpDT','Successfully Added!')", OnFailure = "", }))
+@using (Ajax.BeginForm("UpdateMajorAccountGroup", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetMajorAccntGrpDT','Successfully Edited!')", OnFailure = "", }))
 {
+    @Html.HiddenFor(m => m.MajorAccountGrpModel.MAGID, new { })
+    @Html.HiddenFor(m => m.MajorAccountGrpModel.RevIDMAG, new { id = "RevIDMAG" })
+    @Html.HiddenFor(m => m.MajorAccountGrpModel.allotclasssTempID, new { id = "allotclasssTempID" })
+    @Html.HiddenFor( m => m.MajorAccountGrpModel.AGIDMag, new { id= "AGIDMag" })
     <div class="row">
         <div class="col-xl-1">
         </div>
@@ -57,7 +61,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     <div class="row">
         <div class="col-xl-1">
@@ -68,7 +71,7 @@
                     Cancel
                 </button>
                 <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-                    Add
+                    Update
                 </button>
             </div>
         </div>

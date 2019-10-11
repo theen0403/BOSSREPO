@@ -7,11 +7,5 @@
 
 <div class="form-group">
     <label class="custom-form-margin">Allotment Class</label>
-    @Html.DropDownListFor(m => m.AccountGrpModel.AllotmentClassID, Model.AccountGrpModel.AllotClasslist, new { @class = "form-control select2nosearch", id = "AllotmentClassID" })
+    @Html.DropDownListFor(m => m.AccountGrpModel.AllotmentClassID, Model.AccountGrpModel.AllotClasslist, new { @class = "form-control select2", id = "AllotmentClassID" })
 </div>
-
-<script>
-    $(function () {
-        select2nosearch();
-    })
-</script>

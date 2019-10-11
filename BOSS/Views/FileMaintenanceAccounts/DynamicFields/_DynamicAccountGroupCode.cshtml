@@ -1,0 +1,9 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div>
+    @Html.TextBoxFor(m => m.AccountGrpModel.AGCode, new { @class = "form-woutborder mr-0 pr-1", type = "text", id = "AGCode", disabled = "disabled" })
+</div>

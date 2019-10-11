@@ -13,9 +13,11 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
             AccountGrpModel = new AccountGroupModel();
             AllotClassModel = new AllotmentClassModel();
             RevYearModel = new RevisionYearModel();
+            MajorAccountGrpModel = new MajorAccountGroupModel();
         }
         public AccountGroupModel AccountGrpModel { get; set; }
         public AllotmentClassModel AllotClassModel { get; set; }
         public RevisionYearModel RevYearModel { get; set; }
+        public MajorAccountGroupModel MajorAccountGrpModel { get; set; }
     }
 }

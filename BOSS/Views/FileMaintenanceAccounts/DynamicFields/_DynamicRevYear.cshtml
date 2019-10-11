@@ -6,11 +6,5 @@
 
 <div class="form-group">
     <label class="custom-form-margin">Revision Year</label>
-    @Html.DropDownListFor(m => m.AllotClassModel.RevID, Model.AllotClassModel.RevYearDropDownList, new { @class = "form-control select2nosearch", id = "RevIDdynamic"@*, onchange= "onchangeRevYearAG();"*@ })
+    @Html.DropDownListFor(m => m.AllotClassModel.RevID, Model.AllotClassModel.RevYearDropDownList, new { @class = "form-control select2", id = "RevID" })
 </div>
-
-<script>
-    $(function () {
-        select2nosearch();
-    })
-</script>

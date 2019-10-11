@@ -9171,15 +9171,20 @@
     <Content Include="Views\FileMaintenanceAccounts\SubsidiaryLedger\_IndexSubsidiaryLedger.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AddAllotment.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_TableAllotment.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_DynamicRevisionYear.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_UpdateAllotmentClass.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_AddAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_TableAccountGroup.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_DynamicAllotmentClassAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAllotmentClass.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_UpdateAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_TableMAG.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_AddMAG.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicRevYear.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAccountGroupCode.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_UpdateMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_AddSMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_TableSMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_UpdateSMAG.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

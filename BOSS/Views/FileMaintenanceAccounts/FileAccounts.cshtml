@@ -6,7 +6,7 @@
     $("#FileMaintenanceAccountsID").addClass("active");
 </script>
 @*BODY*@
-<div class="content-body" id="FMAccountsController" ng-controller="FMAccountsController" ng-init="RevisionCOATab()">
+<div class="content-body" id="FMAccountsController" ng-controller="FMAccountsController" ng-init="MajorAccountGroupTab()">
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-3">
@@ -17,7 +17,7 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs nav-underline">
                                     <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader custom-pad" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
+                                        <a class="nav-link  bg-backcolorheader custom-pad" id="base-tabRevision" ng-click="RevisionCOATab()" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link bg-backcolorheader custom-pad" id="base-tabAllotment" ng-click="AllotmentClassTab()" data-toggle="tab" aria-controls="tabAllotment" href="#tabAllotment" aria-expanded="false">Allotment Class</a>
@@ -26,7 +26,7 @@
                                         <a class="nav-link bg-backcolorheader custom-pad" id="base-tabAccntGroup" ng-click="AccountGroupTab()" data-toggle="tab" aria-controls="tabAccntGroup" href="#tabAccntGroup" aria-expanded="false">Account Group</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader custom-pad" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad active" id="base-tabMajorAccnt" ng-click="MajorAccountGroupTab()" data-toggle="tab" aria-controls="tabMajorAccnt" href="#tabMajorAccnt" aria-expanded="false">Major Account Group</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link bg-backcolorheader custom-pad" id="base-tabSubMajorAccnt" ng-click="SubMajorAccountGroupTab()" data-toggle="tab" aria-controls="tabSubMajorAccnt" href="#tabSubMajorAccnt" aria-expanded="false">SubMajor Account Group</a>
@@ -41,7 +41,7 @@
                                 <div class="tab-content w-100 skin skin-square" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
 
-                                        <div class="tab-pane active" id="tabRevision" ng-bind-html="tabRevision">
+                                        <div class="tab-pane " id="tabRevision" ng-bind-html="tabRevision">
                                            
                                         </div>
                                         <div class="tab-pane" id="tabAllotment" ng-bind-html="tabAllotment">
@@ -50,7 +50,7 @@
                                         <div class="tab-pane" id="tabAccntGroup" ng-bind-html="tabAccntGroup">
 
                                         </div>
-                                        <div class="tab-pane" id="tabMajorAccnt" ng-bind-html="tabMajorAccnt">
+                                        <div class="tab-pane active" id="tabMajorAccnt" ng-bind-html="tabMajorAccnt">
 
                                         </div>
                                         <div class="tab-pane" id="tabSubMajorAccnt" ng-bind-html="tabSubMajorAccnt">
@@ -60,7 +60,7 @@
 
                                         </div>
                                         <div class="tab-pane" id="tabSubsiLedger" ng-bind-html="tabSubsiLedger">
-
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -103,8 +103,8 @@
                 F.tabAccntGroup = D(response.data);
             });
         }
-        
         F.MajorAccountGroupTab = function () {
+            ClearTabContent();
             F.tabMajorAccnt = null;
             P({
                 url: '/FileMaintenanceAccounts/MajorAccountGroupTab',
@@ -113,6 +113,7 @@
             });
         }
         F.SubMajorAccountGroupTab = function () {
+            ClearTabContent();
             F.tabSubMajorAccnt = null;
             P({
                 url: '/FileMaintenanceAccounts/SubMajorAccountGroupTab',
@@ -121,6 +122,7 @@
             });
         }
         F.COATab = function () {
+            ClearTabContent();
             F.tabGenAccnt = null;
             P({
                 url: '/FileMaintenanceAccounts/COATab',
@@ -129,6 +131,7 @@
             });
         }
         F.SubsiLedgerTab = function () {
+            ClearTabContent();
             F.tabSubsiLedger = null;
             P({
                 url: '/FileMaintenanceAccounts/SubsiLedgerTab',
@@ -144,5 +147,9 @@
         $("#tabRevision").html("");
         $("#tabAllotment").html("");
         $("#tabAccntGroup").html("");
+        $("#tabMajorAccnt").html("");
+        $("#tabSubMajorAccnt").html("");
+        $("#tabGenAccnt").html("");
+        $("#tabSubsiLedger").html("");
     }
 </script> 

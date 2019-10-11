@@ -16,10 +16,12 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         public Tbl_FMMajorAccountGroup getMajorAccntGrpColumns { get; set; }
         public List<MajorAccountGroupList> getMajorAccntGrpList { get; set; }
         public int MAGID { get; set; }
+        public int AGID { get; set; }
         public string MAGTitle { get; set; }
         public int RevIDMAG { get; set; }
-        public int AllotmentIDMAG { get; set; }
+        public int allotclasssTempID { get; set; }
         public int AGIDMag { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> AccountGrpList { get; set; }
     }
     public class MajorAccountGroupList
     {

@@ -7,9 +7,9 @@
 
 @using (Ajax.BeginForm("UpdateAccountGroup", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetAccountGroupDT','Successfully Updated!')", OnFailure = "", }))
 {
-    @Html.TextBoxFor(m => m.AccountGrpModel.AGID, new {})
-    @Html.TextBoxFor(m => m.AccountGrpModel.allotclasssTempID, new { id= "allotclasssTempID" })
-    @Html.TextBoxFor(m => m.AccountGrpModel.RevTempID, new { id= "RevTempID" })
+    @Html.HiddenFor(m => m.AccountGrpModel.AGID, new { })
+    @Html.HiddenFor(m => m.AccountGrpModel.allotclasssTempID, new { id = "allotclasssTempID" })
+    @Html.HiddenFor(m => m.AccountGrpModel.RevTempID, new { id = "RevTempID" })
     <div class="row">
         <div class="col-xl-1">
         </div>
@@ -45,17 +45,19 @@
     $(function () {
         GetDynamicRevYearAGUpdate();
         LoadGetDynamicAllotClassAGUpdate();
-        OnchangeRevYear();
+        onchangeRevYearAG();
+        LoadICheck();
     })
     function LoadGetDynamicAllotClassAGUpdate() {
         var RevID = $("#RevTempID").val();
         var allotclasssTempID = $("#allotclasssTempID").val();
         GetDynamicAllotClassAGUpdate(RevID, allotclasssTempID);
     }
-    function OnchangeRevYear() {
+    function onchangeRevYearAG() {
         $("#RevID").on("change", function () {
             GetDynamicAllotClassAG();
         });
     }
 </script>
+
 

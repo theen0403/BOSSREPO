@@ -45,16 +45,16 @@
     }
     //Revision Year onchange event
     function onchangeRevYearAG() {
-        $("#RevIDdynamic").on("change", function () {
+        $("#RevID").on("change", function () {
             GetDynamicAllotClassAG();
         });
     }
     //Call Dynamic Allotment Class Input Field
     function GetDynamicAllotClassAG() {
-        var RevIDdynamic = $("#RevIDdynamic").val();
+        var RevID = $("#RevID").val();
         $.ajax({
             url: '/FileMaintenanceAccounts/GetDynamicAllotClassAG',
-            data: { RevIDdynamic: RevIDdynamic },
+            data: { RevID: RevID },
             success: function (result) {
                 $("#allotClassAGID").html(result);
             }
@@ -72,12 +72,13 @@
     }
      //Call Dynamic Revision Year Input Field for Update
     function GetDynamicRevYearAGUpdate() {
-        var RevID = $("#RevTempID").val();
+        var RevTempID = $("#RevTempID").val();
         $.ajax({
             url: '/FileMaintenanceAccounts/GetDynamicRevYearAGUpdate',
-            data: { RevID: RevID },
+            data: { RevTempID: RevTempID },
             success: function (result) {
                 $("#revYearAGID").html(result);
+                onchangeRevYearAG();
             }
         })
     }

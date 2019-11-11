@@ -1,0 +1,12 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label class="custom-form-margin">General Ledger Account</label>
+    @Html.DropDownListFor(m => m.GeneralAccntModel.GAID, Model.GeneralAccntModel.GeneralAccountList, new { @class = "form-control select2", id = "GAID" })
+</div>
+
+

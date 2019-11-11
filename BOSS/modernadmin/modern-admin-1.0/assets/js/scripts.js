@@ -123,7 +123,6 @@ function select2nosearch() {
 function PopoveLostFocus() {
     $('[data-toggle="popover"]').popover('hide');
 }
-
 function swalConfirmation(questionMessage, confirmationMessage, successTitle, action) {
     swal({
         title: questionMessage,
@@ -156,7 +155,6 @@ function swalConfirmation(questionMessage, confirmationMessage, successTitle, ac
             }
         });
 }
-
 function swalSuccess(title, message) {
     swal({
         title: title,
@@ -169,7 +167,6 @@ function swalSuccess(title, message) {
         }
     });
 }
-
 function swalError(title, message) {
     swal({
         title: title,
@@ -190,7 +187,6 @@ $(document).on('click', '.ft-delete', function () {
         $(this).remove();
     });
 });
-
 //ANGULAR
 function AngularGlobalFunctions(ControllerName, ActionName, IDParams) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
@@ -198,7 +194,6 @@ function AngularGlobalFunctions(ControllerName, ActionName, IDParams) {
         eval("scope." + ActionName + "(" + IDParams + ");");
     })
 }
-
 function AngularGlobalFunctionsTwoParams(ControllerName, ActionName, IDParams1, IDParams2) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
@@ -214,22 +209,18 @@ function AngularGlobalEdit(ControllerName, ActionName, IDParams) {
 function GlobalEdit( ActionName, IDParams) {
     eval(ActionName + "(" + IDParams + ");");
 }
-
 function AngularGlobalView(ControllerName, ActionName, IDParams) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
         eval("scope." + ActionName + "(" + IDParams + ");");
     })
 }
-
 function AngularGlobalDelete(IDParams, ActionName, ControllerName) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
         eval("scope." + ActionName + "(" + IDParams + ");");
     })
 }
-
-
 function GlobalDelete(IDParams, ActionName) {
     eval(ActionName + "(" + IDParams + ");");
 }
@@ -240,7 +231,6 @@ function AngularGlobalAlertsCalling(ControllerName, ActionName, ModalName, Succe
         eval("$('#" + ModalName + "').modal('toggle');");
         swalSuccess("Success", SuccessMess);
     });
-
 }
 function AngularGlobalAlertsCallingwoModal(ControllerName, ActionName, SuccessMess) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
@@ -248,9 +238,7 @@ function AngularGlobalAlertsCallingwoModal(ControllerName, ActionName, SuccessMe
         eval("scope." + ActionName + "();");
         swalSuccess("Success", SuccessMess);
     });
-
 }
-
 function GlobalAlertsCallingwoModal( ActionName, SuccessMess,Param1) {
     eval(ActionName + "(" + Param1+");");
     swalSuccess("Success", SuccessMess);
@@ -258,6 +246,41 @@ function GlobalAlertsCallingwoModal( ActionName, SuccessMess,Param1) {
 }
 function GlobalFunctionsTwoParams( ActionName, IDParams1, IDParams2) {
         eval(ActionName + "(" + IDParams1 + "," + IDParams2 + ");");
+}
+
+//FROM OPPA OSCAR
+function DeleteRecord(PrimaryID, ControllerUrl, ControllerUrl2, FormField) {
+    var ActionDeleteFund = " ConfirmDelete(" + PrimaryID + ",'" + ControllerUrl2 + "'," + FormField + ")";
+    var confirmMess2 = "Are you sure you want to delete this record?";
+    var titleMess = "Warning";
+    var confirmMess = "This record is used by other table. Deleting this will also delete the records on other table. Are you sure to delete this?";
+    var successDeleteMess = "Successfully deleted!";
+    var warningMsgTitle = "Warning";
+    var cancelMsg = "Cancelled";
+    $.ajax({
+        url: ControllerUrl,
+        data: { PrimaryID: PrimaryID },
+        success: function (result) {
+            if (result.confirmDelete == "true") {
+                swalConfirmation(titleMess, confirmMess, successDeleteMess, ActionDeleteFund);
+            }
+            else if (result.confirmDelete == "false") {
+                swalConfirmation(titleMess, confirmMess2, successDeleteMess, ActionDeleteFund);
+            }
+            else if (result.confirmDelete == "restricted") {
+                swalError("Error", "This record is used by other table. Deletion is prohibited.");
+            }
+        }
+    })
+}
+function ConfirmDelete(PrimaryID, ControllerUrl2, FormField) {
+    $.ajax({
+        url: ControllerUrl2,
+        data: { PrimaryID: PrimaryID },
+        success: function (result) {
+            FormField;
+        }
+    })
 }
 (function (window, undefined) {
   'use strict';
@@ -298,18 +321,18 @@ function GlobalFunctionsTwoParams( ActionName, IDParams1, IDParams2) {
             }, 500, 'swing', function () {
                 //window.location.hash = target;
             });
-
         });
-
-
     });
   /*
   NOTE:
   ------
   PLACE HERE YOUR OWN JAVASCRIPT CODE IF NEEDED
   WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR JAVASCRIPT CODE PLEASE CONSIDER WRITING YOUR SCRIPT HERE.  */
- 
+
 })(window);
+
+
+
 
 
 

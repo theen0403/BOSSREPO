@@ -12,16 +12,13 @@ namespace BOSS.Models.FMmodels.FMSectorModels
         public SubSectorModel()
         {
             getSubSectorList = new List<SubSectorList>();
-            getSubSectorColumns = new Tbl_FMSubSector();
+            SubSectorList = new SubSectorList();
+            
         }
         public List<SubSectorList> getSubSectorList { get; set; }
-        public Tbl_FMSubSector getSubSectorColumns { get; set; }
-
-        public int SubSectorID { get; set; }
-        public int SectorID { get; set; }
-        public string SubSectorTitle { get; set; }
+        public SubSectorList SubSectorList { get; set; }
+        public int ActionID { get; set; }
         public string SectorCode { get; set; }
-        public string SubSectorCode { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> SectorSelectionList
         {
             get
@@ -37,6 +34,7 @@ namespace BOSS.Models.FMmodels.FMSectorModels
         public int SectorID { get; set; }
         public string SectorTitle { get; set; }
         public string SubSectorTitle { get; set; }
+        [Required]
         public string SubSectorCode { get; set; }
         public string CombinedCode { get; set; }
     }

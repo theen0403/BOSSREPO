@@ -40,7 +40,8 @@ namespace BOSS.Controllers
             SectionModel model = new SectionModel();
             return PartialView("SectionTab/_SectionTab", model);
         }
-
+        //===============================================================================================
+        //Department Tab
         //===============================================================================================
         //View Table For Department Table
         public ActionResult GetDepartmentDT()
@@ -201,6 +202,8 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return RedirectToAction("FileResponsibility");
         }
+        //===============================================================================================
+        //Function Tab
         //===============================================================================================
         //View Table For Function Table
         public ActionResult GetFunctionDT()
@@ -404,6 +407,8 @@ namespace BOSS.Controllers
             BOSSDB.SaveChanges();
             return RedirectToAction("FileResponsibility");
         }
+        //===============================================================================================
+        //Section Tab
         //===============================================================================================
         //View Table For Office Section Table
         public ActionResult GetSectionDT()

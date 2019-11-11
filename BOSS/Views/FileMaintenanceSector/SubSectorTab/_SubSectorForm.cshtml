@@ -1,0 +1,55 @@
+﻿@model BOSS.Models.FMmodels.FMSectorModels.SubSectorModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveSubSector", "FileMaintenanceSector", new AjaxOptions { OnSuccess = "ifExists(data, GetSubSectorForm(1, 0))", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.SubSectorList.SubSectorID, new { @id = "SubSectorID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Sector</label>
+                        @Html.DropDownListFor(m => m.SubSectorList.SectorID, Model.SectorSelectionList, new { @class = "form-control select2", id = "SectorIDtemp", onchange = "GetSectorCodeField()" })
+
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Sub Sector</label>
+                        @Html.TextBoxFor(m => m.SubSectorList.SubSectorTitle, new { @class = "form-control", id = "SubSectorTitle" })
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label><b>Code</b></label>
+                        <div class="input-group mt-0">
+                            <span class="input-group-addon menubackground" id="sectorCodeID"></span>
+                            @Html.TextBoxFor(m => m.SubSectorList.SubSectorCode, new { @class = "form-control", id = "SubSectorCode", maxlength = "3" })
+                            @Html.ValidationMessageFor(m => m.SubSectorList.SubSectorCode, "", new { @class = "text-danger",style= "font-weight:normal" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSubSectorForm(1,0)">Cancel</button>
+                        <button type="submit" id="btnAddSubSector" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+    })
+</script>

@@ -30,16 +30,16 @@ namespace BOSS.Models
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<AppropriationSourceType> AppropriationSourceTypes { get; set; }
         public virtual DbSet<BudgetYear> BudgetYears { get; set; }
-        public virtual DbSet<FundType> FundTypes { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
         public virtual DbSet<Level2Modules> Level2Modules { get; set; }
         public virtual DbSet<Level3Modules> Level3Modules { get; set; }
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
-        public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tbl_FMAccountGroup> Tbl_FMAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMAllotmentClass> Tbl_FMAllotmentClass { get; set; }
         public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
+        public virtual DbSet<Tbl_FMBalance> Tbl_FMBalance { get; set; }
         public virtual DbSet<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
         public virtual DbSet<Tbl_FMFunction> Tbl_FMFunction { get; set; }
         public virtual DbSet<Tbl_FMFund> Tbl_FMFund { get; set; }
@@ -53,8 +53,8 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMSection> Tbl_FMSection { get; set; }
         public virtual DbSet<Tbl_FMSector> Tbl_FMSector { get; set; }
         public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
-        public virtual DbSet<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
         public virtual DbSet<Tbl_FMSubFund> Tbl_FMSubFund { get; set; }
+        public virtual DbSet<Tbl_FMSubMajorAccountGroup> Tbl_FMSubMajorAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMSubSector> Tbl_FMSubSector { get; set; }
     
         public virtual int SP_AppropriationSource(string sQLStatement)

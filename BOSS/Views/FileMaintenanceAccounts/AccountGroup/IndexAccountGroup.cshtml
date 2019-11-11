@@ -35,10 +35,10 @@
     //Call Dynamic Revision Year Input Field
     function GetDynamicRevYearAG() {
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicRevYearAG',
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
             success: function (result) {
                 $("#revYearAGID").html(result);
-                GetDynamicAllotClassAG();
+                GetDynamicAllotClass();
                 onchangeRevYearAG();
             }
         })
@@ -46,14 +46,14 @@
     //Revision Year onchange event
     function onchangeRevYearAG() {
         $("#RevID").on("change", function () {
-            GetDynamicAllotClassAG();
+            GetDynamicAllotClass();
         });
     }
     //Call Dynamic Allotment Class Input Field
-    function GetDynamicAllotClassAG() {
+    function GetDynamicAllotClass() {
         var RevID = $("#RevID").val();
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicAllotClassAG',
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClass',
             data: { RevID: RevID },
             success: function (result) {
                 $("#allotClassAGID").html(result);

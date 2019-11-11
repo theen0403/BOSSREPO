@@ -30,13 +30,6 @@
           <Property Name="BudgetYearID" Type="int" Nullable="false" />
           <Property Name="BudgetYearTitle" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="FundType">
-          <Key>
-            <PropertyRef Name="FundID" />
-          </Key>
-          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FundTitle" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Level1Modules">
           <Key>
             <PropertyRef Name="Level1ModuleID" />
@@ -92,12 +85,15 @@
           <Property Name="Birthday" Type="date" />
           <Property Name="Fullname" Type="varchar" MaxLength="108" StoreGeneratedPattern="Computed" />
         </EntityType>
-        <EntityType Name="PIN_Accounts">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="PinID" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="PinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pin_Acct" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Tbl_FMAccountGroup">
           <Key>
@@ -124,6 +120,13 @@
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="FundSourceID" Type="int" />
           <Property Name="BudgetYearID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBalance">
+          <Key>
+            <PropertyRef Name="BalanceID" />
+          </Key>
+          <Property Name="BalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BalanceTitle" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Tbl_FMDepartment">
           <Key>
@@ -171,17 +174,25 @@
         </EntityType>
         <EntityType Name="Tbl_FMGeneralAccount">
           <Key>
-            <PropertyRef Name="GenAccountID" />
+            <PropertyRef Name="GAID" />
           </Key>
-          <Property Name="GenAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GenAccountCode" Type="varchar" MaxLength="50" />
-          <Property Name="GenAccountTitle" Type="varchar" MaxLength="50" />
+          <Property Name="GAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevID" Type="int" />
+          <Property Name="SMAGID" Type="int" />
+          <Property Name="GATitle" Type="varchar" MaxLength="50" />
+          <Property Name="GACode" Type="varchar" MaxLength="50" />
           <Property Name="isReserve" Type="bit" />
           <Property Name="ReservePercent" Type="int" />
           <Property Name="isFullRelease" Type="bit" />
           <Property Name="isContinuing" Type="bit" />
           <Property Name="isOBRCashAdvance" Type="bit" />
-          <Property Name="AllotmentID" Type="int" />
+          <Property Name="BalanceID" Type="int" />
+          <Property Name="isMiscellaneousAccount" Type="bit" />
+          <Property Name="GAIDMA" Type="int" />
+          <Property Name="isContraAccount" Type="bit" />
+          <Property Name="GAIDCA" Type="int" />
+          <Property Name="isSubAccount" Type="bit" />
+          <Property Name="GAIDSA" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMMajorAccountGroup">
           <Key>
@@ -256,21 +267,6 @@
           <Property Name="isHead" Type="bit" />
           <Property Name="isActive" Type="bit" />
         </EntityType>
-        <EntityType Name="Tbl_FMSubAccount">
-          <Key>
-            <PropertyRef Name="SubAccountID" />
-          </Key>
-          <Property Name="SubAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SubAccountCode" Type="varchar" MaxLength="50" />
-          <Property Name="SubAccountTitle" Type="varchar" MaxLength="50" />
-          <Property Name="isReserve" Type="bit" />
-          <Property Name="ReservePercent" Type="int" />
-          <Property Name="isFullRelease" Type="bit" />
-          <Property Name="isContinuing" Type="bit" />
-          <Property Name="isOBRCashAdvance" Type="bit" />
-          <Property Name="GenAccountID" Type="int" />
-          <Property Name="AllotmentID" Type="int" />
-        </EntityType>
         <EntityType Name="Tbl_FMSubFund">
           <Key>
             <PropertyRef Name="SubFundID" />
@@ -278,6 +274,15 @@
           <Property Name="SubFundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SubFundTitle" Type="varchar" MaxLength="50" />
           <Property Name="FundID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SMAGID" />
+          </Key>
+          <Property Name="SMAGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMAGTitle" Type="varchar" MaxLength="50" />
+          <Property Name="SMAGCode" Type="varchar" MaxLength="50" />
+          <Property Name="MAGID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMSubSector">
           <Key>
@@ -492,6 +497,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
+          <End Role="Tbl_FMBalance" Type="Self.Tbl_FMBalance" Multiplicity="0..1" />
+          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBalance">
+              <PropertyRef Name="BalanceID" />
+            </Principal>
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="BalanceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
+          <End Role="Tbl_FMRevisionYear" Type="Self.Tbl_FMRevisionYear" Multiplicity="0..1" />
+          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRevisionYear">
+              <PropertyRef Name="RevID" />
+            </Principal>
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
+          <End Role="Tbl_FMSubMajorAccountGroup" Type="Self.Tbl_FMSubMajorAccountGroup" Multiplicity="0..1" />
+          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSubMajorAccountGroup">
+              <PropertyRef Name="SMAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="SMAGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
           <End Role="Tbl_FMAccountGroup" Type="Self.Tbl_FMAccountGroup" Multiplicity="0..1" />
           <End Role="Tbl_FMMajorAccountGroup" Type="Self.Tbl_FMMajorAccountGroup" Multiplicity="*" />
@@ -564,20 +605,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount">
-          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="0..1" />
-          <End Role="Tbl_FMSubAccount" Type="Self.Tbl_FMSubAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="GenAccountID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSubAccount">
-              <PropertyRef Name="GenAccountID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_FMSubFund_Tbl_FMFund">
-          <End Role="Tbl_FMFund" Type="Self.Tbl_FMFund" Multiplicity="0..1" />
+          <End Role="Tbl_FMFund" Type="Self.Tbl_FMFund" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Tbl_FMSubFund" Type="Self.Tbl_FMSubFund" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFund">
@@ -585,6 +616,18 @@
             </Principal>
             <Dependent Role="Tbl_FMSubFund">
               <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
+          <End Role="Tbl_FMMajorAccountGroup" Type="Self.Tbl_FMMajorAccountGroup" Multiplicity="0..1" />
+          <End Role="Tbl_FMSubMajorAccountGroup" Type="Self.Tbl_FMSubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMSubMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -631,16 +674,16 @@
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AppropriationSourceType" EntityType="Self.AppropriationSourceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BudgetYear" EntityType="Self.BudgetYear" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FundType" EntityType="Self.FundType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level3Modules" EntityType="Self.Level3Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PIN_Accounts" EntityType="Self.PIN_Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMAccountGroup" EntityType="Self.Tbl_FMAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMAllotmentClass" EntityType="Self.Tbl_FMAllotmentClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="Self.Tbl_FMAppropriationSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBalance" EntityType="Self.Tbl_FMBalance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMDepartment" EntityType="Self.Tbl_FMDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMFunction" EntityType="Self.Tbl_FMFunction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMFund" EntityType="Self.Tbl_FMFund" Schema="dbo" store:Type="Tables" />
@@ -654,8 +697,8 @@
           <EntitySet Name="Tbl_FMSection" EntityType="Self.Tbl_FMSection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSector" EntityType="Self.Tbl_FMSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="Self.Tbl_FMSignatory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSubAccount" EntityType="Self.Tbl_FMSubAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSubFund" EntityType="Self.Tbl_FMSubFund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMSubMajorAccountGroup" EntityType="Self.Tbl_FMSubMajorAccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSubSector" EntityType="Self.Tbl_FMSubSector" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformation" />
@@ -725,6 +768,18 @@
             <End Role="AppropriationSourceType" EntitySet="AppropriationSourceType" />
             <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
+            <End Role="Tbl_FMBalance" EntitySet="Tbl_FMBalance" />
+            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
+            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
+            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
+            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
+            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" Association="Self.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
             <End Role="Tbl_FMAccountGroup" EntitySet="Tbl_FMAccountGroup" />
             <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
@@ -749,13 +804,13 @@
             <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
             <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" Association="Self.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount">
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-            <End Role="Tbl_FMSubAccount" EntitySet="Tbl_FMSubAccount" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSubFund_Tbl_FMFund" Association="Self.FK_Tbl_FMSubFund_Tbl_FMFund">
             <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
             <End Role="Tbl_FMSubFund" EntitySet="Tbl_FMSubFund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" Association="Self.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
+            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
+            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSubSector_Tbl_FMSector" Association="Self.FK_Tbl_FMSubSector_Tbl_FMSector">
             <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
@@ -797,16 +852,16 @@
           <EntitySet Name="Accounts" EntityType="BOSSModel.Account" />
           <EntitySet Name="AppropriationSourceTypes" EntityType="BOSSModel.AppropriationSourceType" />
           <EntitySet Name="BudgetYears" EntityType="BOSSModel.BudgetYear" />
-          <EntitySet Name="FundTypes" EntityType="BOSSModel.FundType" />
           <EntitySet Name="Level1Modules" EntityType="BOSSModel.Level1Modules" />
           <EntitySet Name="Level2Modules" EntityType="BOSSModel.Level2Modules" />
           <EntitySet Name="Level3Modules" EntityType="BOSSModel.Level3Modules" />
           <EntitySet Name="ParentModules" EntityType="BOSSModel.ParentModule" />
           <EntitySet Name="PersonalInformations" EntityType="BOSSModel.PersonalInformation" />
-          <EntitySet Name="PIN_Accounts" EntityType="BOSSModel.PIN_Accounts" />
+          <EntitySet Name="sysdiagrams" EntityType="BOSSModel.sysdiagram" />
           <EntitySet Name="Tbl_FMAccountGroup" EntityType="BOSSModel.Tbl_FMAccountGroup" />
           <EntitySet Name="Tbl_FMAllotmentClass" EntityType="BOSSModel.Tbl_FMAllotmentClass" />
           <EntitySet Name="Tbl_FMAppropriationSource" EntityType="BOSSModel.Tbl_FMAppropriationSource" />
+          <EntitySet Name="Tbl_FMBalance" EntityType="BOSSModel.Tbl_FMBalance" />
           <EntitySet Name="Tbl_FMDepartment" EntityType="BOSSModel.Tbl_FMDepartment" />
           <EntitySet Name="Tbl_FMFunction" EntityType="BOSSModel.Tbl_FMFunction" />
           <EntitySet Name="Tbl_FMFund" EntityType="BOSSModel.Tbl_FMFund" />
@@ -820,8 +875,8 @@
           <EntitySet Name="Tbl_FMSection" EntityType="BOSSModel.Tbl_FMSection" />
           <EntitySet Name="Tbl_FMSector" EntityType="BOSSModel.Tbl_FMSector" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="BOSSModel.Tbl_FMSignatory" />
-          <EntitySet Name="Tbl_FMSubAccount" EntityType="BOSSModel.Tbl_FMSubAccount" />
           <EntitySet Name="Tbl_FMSubFund" EntityType="BOSSModel.Tbl_FMSubFund" />
+          <EntitySet Name="Tbl_FMSubMajorAccountGroup" EntityType="BOSSModel.Tbl_FMSubMajorAccountGroup" />
           <EntitySet Name="Tbl_FMSubSector" EntityType="BOSSModel.Tbl_FMSubSector" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="BOSSModel.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformations" />
@@ -862,6 +917,10 @@
           <AssociationSet Name="FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" Association="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource">
             <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
             <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
+            <End Role="Tbl_FMBalance" EntitySet="Tbl_FMBalance" />
+            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMFund" Association="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMFund">
             <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
@@ -915,9 +974,17 @@
             <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
             <End Role="Tbl_FMSubFund" EntitySet="Tbl_FMSubFund" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" Association="BOSSModel.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount">
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
+            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
             <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-            <End Role="Tbl_FMSubAccount" EntitySet="Tbl_FMSubAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
+            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
+            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" Association="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
+            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
+            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMPosition" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition">
             <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
@@ -955,13 +1022,6 @@
           <Property Name="BudgetYearID" Type="Int32" Nullable="false" />
           <Property Name="BudgetYearTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMAppropriationSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="BudgetYear" ToRole="Tbl_FMAppropriationSource" />
-        </EntityType>
-        <EntityType Name="FundType">
-          <Key>
-            <PropertyRef Name="FundID" />
-          </Key>
-          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Level1Modules">
           <Key>
@@ -1025,12 +1085,15 @@
           <Property Name="Fullname" Type="String" MaxLength="108" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Accounts" Relationship="BOSSModel.FK_Accounts_PersonalInformation" FromRole="PersonalInformation" ToRole="Account" />
         </EntityType>
-        <EntityType Name="PIN_Accounts">
+        <EntityType Name="sysdiagram">
           <Key>
-            <PropertyRef Name="PinID" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="PinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pin_Acct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Tbl_FMAccountGroup">
           <Key>
@@ -1063,6 +1126,14 @@
           <Property Name="BudgetYearID" Type="Int32" />
           <NavigationProperty Name="BudgetYear" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="Tbl_FMAppropriationSource" ToRole="BudgetYear" />
           <NavigationProperty Name="Tbl_FMFundSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" FromRole="Tbl_FMAppropriationSource" ToRole="Tbl_FMFundSource" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBalance">
+          <Key>
+            <PropertyRef Name="BalanceID" />
+          </Key>
+          <Property Name="BalanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BalanceTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance" FromRole="Tbl_FMBalance" ToRole="Tbl_FMGeneralAccount" />
         </EntityType>
         <EntityType Name="Tbl_FMDepartment">
           <Key>
@@ -1127,18 +1198,28 @@
         </EntityType>
         <EntityType Name="Tbl_FMGeneralAccount">
           <Key>
-            <PropertyRef Name="GenAccountID" />
+            <PropertyRef Name="GAID" />
           </Key>
-          <Property Name="GenAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GenAccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GenAccountTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevID" Type="Int32" />
+          <Property Name="SMAGID" Type="Int32" />
+          <Property Name="GATitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GACode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isReserve" Type="Boolean" />
           <Property Name="ReservePercent" Type="Int32" />
           <Property Name="isFullRelease" Type="Boolean" />
           <Property Name="isContinuing" Type="Boolean" />
           <Property Name="isOBRCashAdvance" Type="Boolean" />
-          <Property Name="AllotmentID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMSubAccount" Relationship="BOSSModel.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMSubAccount" />
+          <Property Name="BalanceID" Type="Int32" />
+          <Property Name="isMiscellaneousAccount" Type="Boolean" />
+          <Property Name="GAIDMA" Type="Int32" />
+          <Property Name="isContraAccount" Type="Boolean" />
+          <Property Name="GAIDCA" Type="Int32" />
+          <Property Name="isSubAccount" Type="Boolean" />
+          <Property Name="GAIDSA" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMBalance" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMBalance" />
+          <NavigationProperty Name="Tbl_FMRevisionYear" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMRevisionYear" />
+          <NavigationProperty Name="Tbl_FMSubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMSubMajorAccountGroup" />
         </EntityType>
         <EntityType Name="Tbl_FMMajorAccountGroup">
           <Key>
@@ -1149,6 +1230,7 @@
           <Property Name="MAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AGID" Type="Int32" />
           <NavigationProperty Name="Tbl_FMAccountGroup" Relationship="BOSSModel.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" FromRole="Tbl_FMMajorAccountGroup" ToRole="Tbl_FMAccountGroup" />
+          <NavigationProperty Name="Tbl_FMSubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" FromRole="Tbl_FMMajorAccountGroup" ToRole="Tbl_FMSubMajorAccountGroup" />
         </EntityType>
         <EntityType Name="Tbl_FMOfficeType">
           <Key>
@@ -1188,6 +1270,7 @@
           <Property Name="isUsed" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMAllotmentClass" Relationship="BOSSModel.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" FromRole="Tbl_FMRevisionYear" ToRole="Tbl_FMAllotmentClass" />
+          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" FromRole="Tbl_FMRevisionYear" ToRole="Tbl_FMGeneralAccount" />
         </EntityType>
         <EntityType Name="Tbl_FMSection">
           <Key>
@@ -1226,22 +1309,6 @@
           <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMFunction" />
           <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMPosition" />
         </EntityType>
-        <EntityType Name="Tbl_FMSubAccount">
-          <Key>
-            <PropertyRef Name="SubAccountID" />
-          </Key>
-          <Property Name="SubAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubAccountCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SubAccountTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="isReserve" Type="Boolean" />
-          <Property Name="ReservePercent" Type="Int32" />
-          <Property Name="isFullRelease" Type="Boolean" />
-          <Property Name="isContinuing" Type="Boolean" />
-          <Property Name="isOBRCashAdvance" Type="Boolean" />
-          <Property Name="GenAccountID" Type="Int32" />
-          <Property Name="AllotmentID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount" FromRole="Tbl_FMSubAccount" ToRole="Tbl_FMGeneralAccount" />
-        </EntityType>
         <EntityType Name="Tbl_FMSubFund">
           <Key>
             <PropertyRef Name="SubFundID" />
@@ -1250,6 +1317,17 @@
           <Property Name="SubFundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundID" Type="Int32" />
           <NavigationProperty Name="Tbl_FMFund" Relationship="BOSSModel.FK_Tbl_FMSubFund_Tbl_FMFund" FromRole="Tbl_FMSubFund" ToRole="Tbl_FMFund" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SMAGID" />
+          </Key>
+          <Property Name="SMAGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMAGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SMAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAGID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" FromRole="Tbl_FMSubMajorAccountGroup" ToRole="Tbl_FMGeneralAccount" />
+          <NavigationProperty Name="Tbl_FMMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" FromRole="Tbl_FMSubMajorAccountGroup" ToRole="Tbl_FMMajorAccountGroup" />
         </EntityType>
         <EntityType Name="Tbl_FMSubSector">
           <Key>
@@ -1380,6 +1458,18 @@
             </Principal>
             <Dependent Role="Tbl_FMAppropriationSource">
               <PropertyRef Name="FundSourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
+          <End Type="BOSSModel.Tbl_FMBalance" Role="Tbl_FMBalance" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBalance">
+              <PropertyRef Name="BalanceID" />
+            </Principal>
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="BalanceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1528,7 +1618,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMSubFund_Tbl_FMFund">
-          <End Type="BOSSModel.Tbl_FMFund" Role="Tbl_FMFund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFund" Role="Tbl_FMFund" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="BOSSModel.Tbl_FMSubFund" Role="Tbl_FMSubFund" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFund">
@@ -1539,15 +1631,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSubAccount_Tbl_FMGeneralAccount">
-          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSubAccount" Role="Tbl_FMSubAccount" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
+          <End Type="BOSSModel.Tbl_FMRevisionYear" Role="Tbl_FMRevisionYear" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="GenAccountID" />
+            <Principal Role="Tbl_FMRevisionYear">
+              <PropertyRef Name="RevID" />
             </Principal>
-            <Dependent Role="Tbl_FMSubAccount">
-              <PropertyRef Name="GenAccountID" />
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
+          <End Type="BOSSModel.Tbl_FMSubMajorAccountGroup" Role="Tbl_FMSubMajorAccountGroup" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSubMajorAccountGroup">
+              <PropertyRef Name="SMAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMGeneralAccount">
+              <PropertyRef Name="SMAGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
+          <End Type="BOSSModel.Tbl_FMMajorAccountGroup" Role="Tbl_FMMajorAccountGroup" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMSubMajorAccountGroup" Role="Tbl_FMSubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMSubMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1618,14 +1734,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FundTypes">
-            <EntityTypeMapping TypeName="BOSSModel.FundType">
-              <MappingFragment StoreEntitySet="FundType">
-                <ScalarProperty Name="FundTitle" ColumnName="FundTitle" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Level1Modules">
             <EntityTypeMapping TypeName="BOSSModel.Level1Modules">
               <MappingFragment StoreEntitySet="Level1Modules">
@@ -1686,11 +1794,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PIN_Accounts">
-            <EntityTypeMapping TypeName="BOSSModel.PIN_Accounts">
-              <MappingFragment StoreEntitySet="PIN_Accounts">
-                <ScalarProperty Name="Pin_Acct" ColumnName="Pin_Acct" />
-                <ScalarProperty Name="PinID" ColumnName="PinID" />
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BOSSModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1720,6 +1831,14 @@
                 <ScalarProperty Name="FundSourceID" ColumnName="FundSourceID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AppropriationID" ColumnName="AppropriationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBalance">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBalance">
+              <MappingFragment StoreEntitySet="Tbl_FMBalance">
+                <ScalarProperty Name="BalanceTitle" ColumnName="BalanceTitle" />
+                <ScalarProperty Name="BalanceID" ColumnName="BalanceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1774,15 +1893,23 @@
           <EntitySetMapping Name="Tbl_FMGeneralAccount">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMGeneralAccount">
               <MappingFragment StoreEntitySet="Tbl_FMGeneralAccount">
-                <ScalarProperty Name="AllotmentID" ColumnName="AllotmentID" />
+                <ScalarProperty Name="GAIDSA" ColumnName="GAIDSA" />
+                <ScalarProperty Name="isSubAccount" ColumnName="isSubAccount" />
+                <ScalarProperty Name="GAIDCA" ColumnName="GAIDCA" />
+                <ScalarProperty Name="isContraAccount" ColumnName="isContraAccount" />
+                <ScalarProperty Name="GAIDMA" ColumnName="GAIDMA" />
+                <ScalarProperty Name="isMiscellaneousAccount" ColumnName="isMiscellaneousAccount" />
+                <ScalarProperty Name="BalanceID" ColumnName="BalanceID" />
                 <ScalarProperty Name="isOBRCashAdvance" ColumnName="isOBRCashAdvance" />
                 <ScalarProperty Name="isContinuing" ColumnName="isContinuing" />
                 <ScalarProperty Name="isFullRelease" ColumnName="isFullRelease" />
                 <ScalarProperty Name="ReservePercent" ColumnName="ReservePercent" />
                 <ScalarProperty Name="isReserve" ColumnName="isReserve" />
-                <ScalarProperty Name="GenAccountTitle" ColumnName="GenAccountTitle" />
-                <ScalarProperty Name="GenAccountCode" ColumnName="GenAccountCode" />
-                <ScalarProperty Name="GenAccountID" ColumnName="GenAccountID" />
+                <ScalarProperty Name="GACode" ColumnName="GACode" />
+                <ScalarProperty Name="GATitle" ColumnName="GATitle" />
+                <ScalarProperty Name="SMAGID" ColumnName="SMAGID" />
+                <ScalarProperty Name="RevID" ColumnName="RevID" />
+                <ScalarProperty Name="GAID" ColumnName="GAID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1867,28 +1994,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSubAccount">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubAccount">
-              <MappingFragment StoreEntitySet="Tbl_FMSubAccount">
-                <ScalarProperty Name="AllotmentID" ColumnName="AllotmentID" />
-                <ScalarProperty Name="GenAccountID" ColumnName="GenAccountID" />
-                <ScalarProperty Name="isOBRCashAdvance" ColumnName="isOBRCashAdvance" />
-                <ScalarProperty Name="isContinuing" ColumnName="isContinuing" />
-                <ScalarProperty Name="isFullRelease" ColumnName="isFullRelease" />
-                <ScalarProperty Name="ReservePercent" ColumnName="ReservePercent" />
-                <ScalarProperty Name="isReserve" ColumnName="isReserve" />
-                <ScalarProperty Name="SubAccountTitle" ColumnName="SubAccountTitle" />
-                <ScalarProperty Name="SubAccountCode" ColumnName="SubAccountCode" />
-                <ScalarProperty Name="SubAccountID" ColumnName="SubAccountID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_FMSubFund">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubFund">
               <MappingFragment StoreEntitySet="Tbl_FMSubFund">
                 <ScalarProperty Name="FundID" ColumnName="FundID" />
                 <ScalarProperty Name="SubFundTitle" ColumnName="SubFundTitle" />
                 <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMSubMajorAccountGroup">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubMajorAccountGroup">
+              <MappingFragment StoreEntitySet="Tbl_FMSubMajorAccountGroup">
+                <ScalarProperty Name="MAGID" ColumnName="MAGID" />
+                <ScalarProperty Name="SMAGCode" ColumnName="SMAGCode" />
+                <ScalarProperty Name="SMAGTitle" ColumnName="SMAGTitle" />
+                <ScalarProperty Name="SMAGID" ColumnName="SMAGID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

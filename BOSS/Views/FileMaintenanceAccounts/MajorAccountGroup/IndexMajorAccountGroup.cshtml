@@ -29,7 +29,7 @@
     }
     function GetDynamicRevYearMAG() {
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicRevYearMAG',
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
             success: function (result) {
                 $("#revYearMAGID").html(result);
                 GetDynamicAllotClassMAG();
@@ -41,7 +41,7 @@
     function GetDynamicAllotClassMAG() {
         var RevID = $("#RevID").val();
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicAllotClassMAG',
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClass',
             data: { RevID: RevID },
             success: function (result) {
                 $("#allotClassMAGID").html(result);
@@ -54,7 +54,7 @@
     function GetDynamicAccountGroupMAG() {
         var AllotmentClassID = $("#AllotmentClassID").val();
         $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicAccountGroupMAG',
+            url: '/FileMaintenanceAccounts/GetDynamicAccountGroup',
             data: { AllotmentClassID: AllotmentClassID },
             success: function (result) {
                 $("#accountGrpMAGID").html(result);
@@ -155,7 +155,7 @@
             data: { allotclasssTempID: allotclasssTempID, AGIDMag: AGIDMag },
             success: function (result) {
                 $("#accountGrpMAGID").html(result);
-                GetAccountGroupCode();
+                GetAccountGroupCode2();
                 onchangeAccountGroupMAG2();
             }
         })

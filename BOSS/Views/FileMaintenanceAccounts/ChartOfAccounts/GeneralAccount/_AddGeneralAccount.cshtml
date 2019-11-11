@@ -33,8 +33,9 @@
 <div class="row">
     <div class="col-lg-1 col-md-1">
     </div>
-    @Html.TextBoxFor(m => m.isReserve, new { id = "isReserveID", @class = "hidden" })
+   
     <div class="col-lg-2 col-md-2 mt-0">
+        @Html.TextBoxFor(m => m.isReserve, new { id = "isReserveID", @class = "hidden" })
         <div class="form-group">
             <label class="custom-form-margin">With Reserve?</label>
             <select class="form-control select2nosearch" id="isReserveIDD" onchange="isReserveOnChange()">
@@ -51,8 +52,9 @@
             </fieldset>
         </div>
     </div>
-    @Html.TextBoxFor(m => m.isFullRelease, new { id = "isFullReleaseID", @class = "hidden" })
+   
     <div class="col-lg-2 col-md-2">
+        @Html.TextBoxFor(m => m.isFullRelease, new { id = "isFullReleaseID", @class = "hidden" })
         <div class="form-group">
             <label class="custom-form-margin">For Full Release?</label>
             <select class="form-control select2nosearch" id="isFullReleaseIDD" onchange="isFullReleaseOnChange()">
@@ -61,9 +63,10 @@
             </select>
         </div>
     </div>
-    @Html.TextBoxFor(m => m.isContinuing, new { id = "isContinuingID", @class = "hidden" })
+  
     <div class="col-lg-2 col-md-2">
         <div class="form-group">
+            @Html.TextBoxFor(m => m.isContinuing, new { id = "isContinuingID", @class = "hidden" })
             <label class="custom-form-margin">For Continuing?</label>
             <select class="form-control select2nosearch" id="isContinuingIDD" onchange="isContinuingOnChange()">
                 <option value="0">Yes</option>
@@ -71,8 +74,9 @@
             </select>
         </div>
     </div>
-    @Html.TextBoxFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID", @class = "hidden" }) 
+    
     <div class="col-lg-2 col-md-2">
+        @Html.TextBoxFor(m => m.isOBRCashAdvance, new { id = "isOBRCashAdvanceID", @class = "hidden" })
         <div class="form-group">
             <label class="custom-form-margin">OBR Cash Adv?</label>
             <select class="form-control select2nosearch" id="isOBRCashAdvanceIDD" onchange="isOBRCashAdvanceOnChange()">

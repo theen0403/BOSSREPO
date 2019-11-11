@@ -1,79 +1,76 @@
-﻿
-<div class="row mt-1">
-    <div class="col-xl-1"></div>
-    <div class="col-xl-2 col-lg-4 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">Revision Year</label>
-            <select class="form-control">
-                <option>2015</option>
-                <option>2016</option>
-                <option>2017</option>
-                <option>2018</option>
-            </select>
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("AddNewSubMajorAccntGrp", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "GlobalAlertsCallingwoModal('GetSubMajorAccntGrpDT','Successfully Added!')", OnFailure = "", }))
+{
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-2 col-lg-4 col-md-3" id="revYearSMAGID">
+
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-5" id="allotClassSMAGID">
+
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4" id="accountGrpSMAGID">
         </div>
     </div>
-    <div class="col-xl-4 col-lg-4 col-md-5">
-        <div class="form-group">
-            <label class="custom-form-margin">Allotment Class</label>
-            <select class="form-control">
-                <option>Personal Services</option>
-                <option>Capital Outlay</option>
-                <option>Maintenance and Other Operating Expenses</option>
-                <option>Other Operating Expenses</option>
-            </select>
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-4 col-lg-4 col-md-4" id="majorAccountGrpSMAGID">
+
         </div>
-    </div>
-    <div class="col-xl-4 col-lg-4 col-md-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Accounts</label>
-            <select class="form-control">
-                <option>Asset</option>
-                <option>Liabilities</option>
-                <option>Equity</option>
-                <option>Income</option>
-                <option>Expenses</option>
-            </select>
+        <div class="col-xl-4 col-lg-4 col-md-5">
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Major Account Group</label>
+                @Html.TextBoxFor(m => m.SubMajorAccountGrpModel.getSubMajorAccntGrpColumns.SMAGTitle, new { @class = "form-control", type = "text", id = "SMAGTitle" })
+            </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xl-1"></div>
-    <div class="col-xl-4 col-lg-4 col-md-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Major Account Group</label>
-            <select class="form-control">
-                <option>Cash</option>
-                <option>Financial Liabilities</option>
-                <option>Government Equity</option>
-                <option>Tax Revenue</option>
-                <option>Personnel Services</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-4 col-lg-4 col-md-5">
-        <div class="form-group">
-            <label class="custom-form-margin">Sub Major Account Group</label>
-            <input type="text" class="form-control" name="name" value="" />
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-4 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">Account Code</label>
-            <div class="input-group mt-0">
-                <span class="input-group-addon" id="basic-addon1"><b>1 - 01 -</b></span>
-                <input type="text" class="form-control" name="name" value="" />
+        @*<div class="col-xl-2 col-lg-4 col-md-3">
+                <div class="form-group">
+                    <label class="custom-form-margin">Account Code</label>
+                    <div class="input-group mt-0">
+                        <span class="input-group-addon" id="basic-addon1"><b>1 - 01 -</b></span>
+                        <input type="text" class="form-control" name="name" value="" />
+                    </div>
+                </div>
+            </div>*@
+        <div class="col-xl-3 col-lg-4 col-md-3">
+            <div class="form-group m-0 p-0">
+                <label class="custom-form-margin">Account Code</label>
+            </div>
+            <div class="row">
+                <div class="col-xl-1 col-lg-1 col-md-1 px-0 mx-0" id="accountGrpCodeSMAGID">
+
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1">
+                    <label class="mb-2 px-0 mx-0" style="margin-top:7px;">-</label>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 px-0 mx-0" id="majorAccountGrpCodeSMAGID">
+
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 px-0">
+                    <label class="mb-2 px-0 mx-0" style="margin-top:7px;">-</label>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-5 px-0">
+                    <div class="form-group">
+                        @Html.TextBoxFor(m => m.SubMajorAccountGrpModel.getSubMajorAccntGrpColumns.SMAGCode, new { @class = "form-control mx-0", type = "text", id = "SMAGCode" })
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row mb-2">
-    <div class="col-xl-1"></div>
-    <div class="col-xl-10">
-        <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right">
-            Cancel
-        </button>
-        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-            Add
-        </button>
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-10">
+            <button type="button" class="btn btn-menuRed btn-min-width ml-1 float-right" onclick="GetSubMajorAccntGrpDT()">
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
+                Add
+            </button>
+        </div>
     </div>
-</div>
+}

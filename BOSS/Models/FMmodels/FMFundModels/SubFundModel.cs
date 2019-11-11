@@ -12,14 +12,13 @@ namespace BOSS.Models.FMmodels.FMFundModels
         public SubFundModel()
         {
             getSubFundList = new List<SubFundList>();
-            getSubFundColumns = new Tbl_FMSubFund();
+            //getSubFundColumns = new Tbl_FMSubFund();
+            SubFundList = new SubFundList();
         }
+        public int ActionID { get; set; }
         public List<SubFundList> getSubFundList { get; set; }
-        public Tbl_FMSubFund getSubFundColumns { get; set; }
-
-        public int SubFundID { get; set; }
-        public int FundID { get; set; }
-        public string SubFundTitle { get; set; }
+        public SubFundList SubFundList { get; set; }
+        //public Tbl_FMSubFund getSubFundColumns { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FundSelectionList
         {
             get
@@ -36,6 +35,7 @@ namespace BOSS.Models.FMmodels.FMFundModels
         public int SubFundID { get; set; }
         public int FundID { get; set; }
         public string FundTitle { get; set; }
+        [Required(ErrorMessage = "Please enter SubFund Title")]
         public string SubFundTitle { get; set; }
     }
 }

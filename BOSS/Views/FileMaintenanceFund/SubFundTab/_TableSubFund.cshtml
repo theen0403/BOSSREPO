@@ -22,10 +22,11 @@
 
                         var DeleteConfirmationMess = "Are you sure do you want to delete this?";
                         var DeleteSuccesMess = "Successfully Deleted";
+                        var DeleteAction = "DeleteSubFund(" + Items.SubFundID + ")";
 
-                        var UpdateSB = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"GlobalEdit('Get_UpdateSubFund','" + @Items.SubFundID + "')\"> <i class='la la-edit'></i> Edit</button>";
-                        var RemoveSB = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick =\"swalConfirmation('" + @DeleteConfirmationMess + "', '" + @Items.SubFundTitle + "','" + @DeleteSuccesMess + "','GlobalDelete(" + @Items.SubFundID + ",&quot;DeleteSubFund&quot;)')\"><i class='la la-trash'></i> Delete</button>";
-                        var ActionSB = UpdateSB + RemoveSB;
+                        var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSubFundID' SubFundAttr='" + Items.SubFundID + "'><i class='ft-edit'></i> Edit</button>";
+                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSubFundID' onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "','" + @DeleteAction + "')\"><i class='la la-trash'></i> Delete</button>";
+                        var Action = Update + Remove;
 
                         <tr>
                             <td>@Items.FundTitle</td>
@@ -33,7 +34,7 @@
                             <td class="text-center">
                                 <button type="button" onfocusout="PopoveLostFocus()"
                                         class="btn btn-m btn-btnbackcolor popover-trigger"
-                                        data-toggle="popover" data-content="@ActionSB" data-html="true" data-placement="left">
+                                        data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
                                     <i class="la la-bars"></i>
                                 </button>
                             </td>

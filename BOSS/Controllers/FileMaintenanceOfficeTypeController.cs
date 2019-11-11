@@ -1,8 +1,10 @@
 ﻿using BOSS.GlobalFunctions;
 using BOSS.Models;
 using BOSS.Models.FMmodels.FMOfficeTypeModels;
+using System.Text.RegularExpressions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -23,7 +25,20 @@ namespace BOSS.Controllers
             OfficeTypeModel model = new OfficeTypeModel();
             return View();
         }
-        //Display Data Table
+        public ActionResult GetOfficeTypeForm(int ActionID, int OfficeTypeID)
+        {
+            OfficeTypeModel model = new OfficeTypeModel();
+
+            if (ActionID == 2)
+            {
+                var officeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+                model.OfficeTypeList.OfficeTypeTitle = officeType.OfficeTypeTitle;
+                model.OfficeTypeList.OfficeTypeCode = officeType.OfficeTypeCode;
+                model.OfficeTypeList.OfficeTypeID = officeType.OfficeTypeID;
+            }
+            model.ActionID = ActionID;
+            return PartialView("_OfficeTypeForm", model);
+        }
         public ActionResult GetOfficeTypeDTable()
         {
             OfficeTypeModel model = new OfficeTypeModel();
@@ -55,55 +70,127 @@ namespace BOSS.Controllers
 
             return PartialView("_TableOfficeType", model.getOfficeTypeList);
         }
-        //Get Add Partial View
-        public ActionResult Get_AddOfficeType()
+        
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOfficeType(OfficeTypeModel model)
         {
-            OfficeTypeModel model = new OfficeTypeModel();
-            return PartialView("_AddOfficeType", model);
-        }
-        //Add OfficeType function
-        public JsonResult AddNewOfficeType(OfficeTypeModel model)
-        {
-            Tbl_FMOfficeType OfficeTypeTbl = new Tbl_FMOfficeType();
-            OfficeTypeTbl.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
-            OfficeTypeTbl.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
+            var isExist = "";
+            if (ModelState.IsValid)
+            {
+                var officetypetitle = model.OfficeTypeList.OfficeTypeTitle;
+                officetypetitle = Regex.Replace(officetypetitle, @"\s\s+", "");
+                officetypetitle = Regex.Replace(officetypetitle, @"^\s+", "");
+                officetypetitle = Regex.Replace(officetypetitle, @"\s+$", "");
+                officetypetitle = new CultureInfo("en-US").TextInfo.ToTitleCase(officetypetitle);
+                //check if has duplicate
+                Tbl_FMOfficeType checkofficetype = (from a in BOSSDB.Tbl_FMOfficeType where (a.OfficeTypeTitle == officetypetitle && a.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) select a).FirstOrDefault();
 
-            BOSSDB.Tbl_FMOfficeType.Add(OfficeTypeTbl);
+                if (model.ActionID == 1)
+                {
+                    if (checkofficetype == null)
+                    {
+                        Tbl_FMOfficeType OfficeTypeTbl = new Tbl_FMOfficeType();
+                        OfficeTypeTbl.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.OfficeTypeList.OfficeTypeTitle);
+                        OfficeTypeTbl.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.OfficeTypeList.OfficeTypeCode);
 
-            BOSSDB.SaveChanges();
-            return Json(OfficeTypeTbl);
-        }
-        //Get Update Partial View
-        public ActionResult Get_UpdateOfficeType(OfficeTypeModel model, int OfficeTypeID)
-        {
-            Tbl_FMOfficeType tblOfficeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+                        BOSSDB.Tbl_FMOfficeType.Add(OfficeTypeTbl);
+                        BOSSDB.SaveChanges();
+                        isExist = "false";
+                    }
+                    else if (checkofficetype != null)
+                    {
+                        isExist = "true";
+                    }
+                }
+                else if (model.ActionID == 2)
+                {
+                    Tbl_FMOfficeType officetype = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == model.OfficeTypeList.OfficeTypeID select e).FirstOrDefault();
 
-            model.getOfficeTypeColumns.OfficeTypeTitle = tblOfficeType.OfficeTypeTitle;
-            model.getOfficeTypeColumns.OfficeTypeCode = tblOfficeType.OfficeTypeCode;
-            model.OfficeTypeID = OfficeTypeID;
-            return PartialView("_UpdateOfficeType", model);
-        }
-        //Update Function
-        public ActionResult UpdateOfficeType(OfficeTypeModel model)
-        {
-            Tbl_FMOfficeType OfficeTypeTBL = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == model.OfficeTypeID select e).FirstOrDefault();
+                    if (checkofficetype != null)
+                    {
+                        if (officetype.OfficeTypeTitle == officetypetitle && officetype.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) //walang binago 
+                        {
+                            officetype.OfficeTypeTitle = officetypetitle;
+                            officetype.OfficeTypeCode = model.OfficeTypeList.OfficeTypeCode;
+                            BOSSDB.Entry(officetype);
+                            BOSSDB.SaveChanges();
+                            isExist = "justUpdate";
 
-            OfficeTypeTBL.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
-            OfficeTypeTBL.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
-            BOSSDB.Entry(OfficeTypeTBL);
-            BOSSDB.SaveChanges();
+                        }
+                        else
+                        {
+                            isExist = "true";
+                        }
+                    }
+                    else if (checkofficetype == null)
+                    {
+                        officetype.OfficeTypeTitle = officetypetitle;
+                        officetype.OfficeTypeCode = model.OfficeTypeList.OfficeTypeCode;
+                        BOSSDB.Entry(officetype);
+                        BOSSDB.SaveChanges();
+                        isExist = "justUpdate";
+                    }
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        ////Display Data Table
 
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        //Delete Function
-        public ActionResult DeleteOfficeType(OfficeTypeModel model, int OfficeTypeID)
-        {
-            Tbl_FMOfficeType OfficeTypetbl = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMOfficeType.Remove(OfficeTypetbl);
-            BOSSDB.SaveChanges();
-            return RedirectToAction("FileOfficeType");
-        }
+        ////Get Add Partial View
+        //public ActionResult Get_AddOfficeType()
+        //{
+        //    OfficeTypeModel model = new OfficeTypeModel();
+        //    return PartialView("_AddOfficeType", model);
+        //}
+        ////Add OfficeType function
+        //public JsonResult AddNewOfficeType(OfficeTypeModel model)
+        //{
+        //    Tbl_FMOfficeType OfficeTypeTbl = new Tbl_FMOfficeType();
+        //    OfficeTypeTbl.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
+        //    OfficeTypeTbl.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
+
+        //    BOSSDB.Tbl_FMOfficeType.Add(OfficeTypeTbl);
+
+        //    BOSSDB.SaveChanges();
+        //    return Json(OfficeTypeTbl);
+        //}
+        ////Get Update Partial View
+        //public ActionResult Get_UpdateOfficeType(OfficeTypeModel model, int OfficeTypeID)
+        //{
+        //    Tbl_FMOfficeType tblOfficeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+
+        //    model.getOfficeTypeColumns.OfficeTypeTitle = tblOfficeType.OfficeTypeTitle;
+        //    model.getOfficeTypeColumns.OfficeTypeCode = tblOfficeType.OfficeTypeCode;
+        //    model.OfficeTypeID = OfficeTypeID;
+        //    return PartialView("_UpdateOfficeType", model);
+        //}
+        ////Update Function
+        //public ActionResult UpdateOfficeType(OfficeTypeModel model)
+        //{
+        //    Tbl_FMOfficeType OfficeTypeTBL = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == model.OfficeTypeID select e).FirstOrDefault();
+
+        //    OfficeTypeTBL.OfficeTypeTitle = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeTitle);
+        //    OfficeTypeTBL.OfficeTypeCode = GlobalFunction.ReturnEmptyString(model.getOfficeTypeColumns.OfficeTypeCode);
+        //    BOSSDB.Entry(OfficeTypeTBL);
+        //    BOSSDB.SaveChanges();
+
+        //    var result = "";
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
+        ////Delete Function
+        //public ActionResult DeleteOfficeType(OfficeTypeModel model, int OfficeTypeID)
+        //{
+        //    Tbl_FMOfficeType OfficeTypetbl = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+        //    BOSSDB.Tbl_FMOfficeType.Remove(OfficeTypetbl);
+        //    BOSSDB.SaveChanges();
+        //    return RedirectToAction("FileOfficeType");
+        //}
     }
-   
+
 }

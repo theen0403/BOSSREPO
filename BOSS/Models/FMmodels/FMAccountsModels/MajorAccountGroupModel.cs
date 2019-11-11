@@ -18,6 +18,7 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         public int MAGID { get; set; }
         public int AGID { get; set; }
         public string MAGTitle { get; set; }
+        public string MAGCode { get; set; }
         public int RevIDMAG { get; set; }
         public int allotclasssTempID { get; set; }
         public int AGIDMag { get; set; }

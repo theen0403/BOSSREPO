@@ -24,7 +24,7 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
     {
         public int RevID { get; set; }
         public int RevYEar { get; set; }
-        public int isUsed { get; set; }
+        public bool isUsed { get; set; }
         public string Remarks { get; set; }
     }
 }

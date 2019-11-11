@@ -14,23 +14,26 @@ namespace BOSS.Models
     
     public partial class Tbl_FMGeneralAccount
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMGeneralAccount()
-        {
-            this.Tbl_FMSubAccount = new HashSet<Tbl_FMSubAccount>();
-        }
-    
-        public int GenAccountID { get; set; }
-        public string GenAccountCode { get; set; }
-        public string GenAccountTitle { get; set; }
+        public int GAID { get; set; }
+        public Nullable<int> RevID { get; set; }
+        public Nullable<int> SMAGID { get; set; }
+        public string GATitle { get; set; }
+        public string GACode { get; set; }
         public Nullable<bool> isReserve { get; set; }
         public Nullable<int> ReservePercent { get; set; }
         public Nullable<bool> isFullRelease { get; set; }
         public Nullable<bool> isContinuing { get; set; }
         public Nullable<bool> isOBRCashAdvance { get; set; }
-        public Nullable<int> AllotmentID { get; set; }
+        public Nullable<int> BalanceID { get; set; }
+        public Nullable<bool> isMiscellaneousAccount { get; set; }
+        public Nullable<int> GAIDMA { get; set; }
+        public Nullable<bool> isContraAccount { get; set; }
+        public Nullable<int> GAIDCA { get; set; }
+        public Nullable<bool> isSubAccount { get; set; }
+        public Nullable<int> GAIDSA { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMSubAccount> Tbl_FMSubAccount { get; set; }
+        public virtual Tbl_FMBalance Tbl_FMBalance { get; set; }
+        public virtual Tbl_FMRevisionYear Tbl_FMRevisionYear { get; set; }
+        public virtual Tbl_FMSubMajorAccountGroup Tbl_FMSubMajorAccountGroup { get; set; }
     }
 }

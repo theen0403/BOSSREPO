@@ -9,7 +9,7 @@
     @Html.HiddenFor(m => m.MajorAccountGrpModel.MAGID, new { })
     @Html.HiddenFor(m => m.MajorAccountGrpModel.RevIDMAG, new { id = "RevIDMAG" })
     @Html.HiddenFor(m => m.MajorAccountGrpModel.allotclasssTempID, new { id = "allotclasssTempID" })
-    @Html.HiddenFor( m => m.MajorAccountGrpModel.AGIDMag, new { id= "AGIDMag" })
+    @Html.HiddenFor( m => m.MajorAccountGrpModel.AGIDMag, new { id= "AGIDMag"})
     <div class="row">
         <div class="col-xl-1">
         </div>
@@ -44,17 +44,13 @@
                 <label class="custom-form-margin">Account Code</label>
             </div>
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-4 col-xs-4 px-0">
-                    <div class="ml-xl-4 ml-lg-4 ml-md-3" id="accountGrpCodeMAGID">
+                <div class="col-xl-1 col-lg-1 col-md-1 px-0 mx-0" id="accountGrpCodeMAGID">
 
-                    </div>
                 </div>
-                <div class="col-1">
-                    <div class="form-group m-0 p-0">
-                        <label class="custom-form-margin" style="margin-top:7px;">-</label>
-                    </div>
+                <div class="col-xl-1 col-lg-1 col-md-1">
+                    <label class="mb-2 px-0 mx-0" style="margin-top:7px;">-</label>
                 </div>
-                <div class="col-xl-5 col-lg-5 col-md-5 col-xs-5 pl-0">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-xs-6 pl-0">
                     <div class="form-group">
                         @Html.TextBoxFor(m => m.MajorAccountGrpModel.getMajorAccntGrpColumns.MAGCode, new { @class = "form-control", type = "text", id = "MAGCode" })
                     </div>

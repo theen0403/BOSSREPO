@@ -12,9 +12,12 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PIN_Accounts
+    public partial class sysdiagram
     {
-        public int PinID { get; set; }
-        public string Pin_Acct { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

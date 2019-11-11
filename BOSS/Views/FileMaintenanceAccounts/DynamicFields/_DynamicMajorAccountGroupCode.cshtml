@@ -1,0 +1,10 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+
+<div class="col-xl-1 col-lg-1 col-md-1 col-sm-1 pl-0 ml-0">
+    @Html.TextBoxFor(m => m.MajorAccountGrpModel.MAGCode, new { @class = "form-woutborder ml-0 pl-0", type = "text", id = "MAGCode", disabled = "disabled" })
+</div>

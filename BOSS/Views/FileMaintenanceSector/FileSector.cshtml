@@ -14,7 +14,6 @@
     </div>
 </div>
 @*BODY*@
-<div class="content-body" id="FMResponsibilityController" ng-controller="FMSectorController" ng-init="SectorTab()">
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-4">
@@ -25,21 +24,19 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs nav-underline">
                                     <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader" ng-click="SectorTab()" id="base-tabSectorID" data-toggle="tab" aria-controls="tabSectorID" href="#tabSectorID" aria-expanded="true">Sector</a>
+                                        <a class="nav-link active bg-backcolorheader btn-min-width" id="sectorNavID" data-toggle="tab" aria-controls="tabSectorID" href="#tabSectorID" aria-expanded="false">Sector</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabSubSectorID" ng-click="SubSectorTab()" data-toggle="tab" aria-controls="tabSubSectorID" href="#tabSubSectorID" aria-expanded="false">Sub Sector</a>
+                                        <a class="nav-link bg-backcolorheader btn-min-width" id="subsectorNavID" data-toggle="tab" aria-controls="tabSubSectorID" href="#tabSubSectorID" aria-expanded="false">Sub Sector</a>
                                     </li>
                                 </ul>
                                 @*TAB*@
                                 <div class="tab-content w-100" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
-                                        @*Sector Tab*@
-                                        <div class="tab-pane active" id="tabSectorID" ng-bind-html="tabSectorID">
+                                        <div class="tab-pane active" id="tabSectorID">
 
                                         </div>
-                                        @*Sub-Sector Tab*@
-                                        <div class="tab-pane" id="tabSubSectorID" ng-bind-html="tabSubSectorID">
+                                        <div class="tab-pane" id="tabSubSectorID">
 
                                         </div>
                                     </div>
@@ -51,10 +48,9 @@
             </div>
         </div>
     </div>
-</div>
 
 @*=============================================*@
-<script>
+@*<script>
     app.controller('FMSectorController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
 
@@ -75,4 +71,9 @@
             });
         }
     });
-</script>
+</script>*@
+    <script>
+        $(function () {
+            $("#sectorNavID").click();
+        });
+    </script>

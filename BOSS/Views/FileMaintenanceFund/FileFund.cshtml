@@ -14,34 +14,32 @@
     </div>
 </div>
 @*BODY*@
-<div class="content-body" id="FMResponsibilityController" ng-controller="FMFundController" ng-init="FundTab()">
-    <div class="row">
-        <div class="content-header-left col-md-12">
-            <div class="card box-shadow-4">
-                <div class="card-content collapse show">
-                    <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
-                        @*NAV TAB*@
-                        <div class="card box-shadow-2">
-                            <div class="row m-0">
-                                <ul class="nav nav-tabs nav-underline">
-                                    <li class="nav-item ">
-                                        <a class="nav-link active bg-backcolorheader" ng-click="FundTab()" id="base-tabFundID" data-toggle="tab" aria-controls="tabFundID" href="#tabFundID" aria-expanded="false">Fund</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tabSubFundID" ng-click="SubFundTab()" data-toggle="tab" aria-controls="tabSubFundID" href="#tabSubFundID" aria-expanded="false">Sub Fund</a>
-                                    </li>
-                                </ul>
-                                @*TAB*@
-                                <div class="tab-content w-100" id="nav-tabContent">
-                                    <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
-                                        @*Fund Tab*@
-                                        <div class="tab-pane active" id="tabFundID" ng-bind-html="tabFundID">
+<div class="row">
+    <div class="content-header-left col-md-12">
+        <div class="card box-shadow-4">
+            <div class="card-content collapse show">
+                <div class="card-body rounded" style="border: 1px solid; border-color: #9BC69D;">
+                    @*NAV TAB*@
+                    <div class="card box-shadow-2">
+                        <div class="row m-0">
+                            <ul class="nav nav-tabs nav-underline">
+                                <li class="nav-item ">
+                                    <a class="nav-link active bg-backcolorheader btn-min-width" id="fundNaviID" data-toggle="tab" aria-controls="tabFundID" href="#tabFundID" aria-expanded="false">Fund</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link bg-backcolorheader btn-min-width" id="sfundNaviID" data-toggle="tab" aria-controls="tabSubFundID" href="#tabSubFundID" aria-expanded="false">Sub Fund</a>
+                                </li>
+                            </ul>
+                            @*TAB*@
+                            <div class="tab-content w-100" id="nav-tabContent">
+                                <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
+                                    @*Fund Tab*@
+                                    <div class="tab-pane" id="tabFundID">
+                                       
+                                    </div>
+                                    @*Sub-Fund Tab*@
+                                    <div class="tab-pane" id="tabSubFundID">
 
-                                        </div>
-                                        @*Sub-Fund Tab*@
-                                        <div class="tab-pane" id="tabSubFundID" ng-bind-html="tabSubFundID">
-
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -55,24 +53,7 @@
 
 @*=============================================*@
 <script>
-    app.controller('FMFundController', function ($scope, $http, $sce) {
-        var F = $scope, P = $http, D = $sce.trustAsHtml;
-       
-        F.FundTab = function () {
-            F.tabFundID = null;
-            P({
-                url: '/FileMaintenanceFund/FundTab',
-            }).then(function (response) {
-                F.tabFundID = D(response.data);
-            });
-        }
-        F.SubFundTab = function () {
-            F.tabSubFundID = null;
-            P({
-                url: '/FileMaintenanceFund/SubFundTab',
-            }).then(function (response) {
-                F.tabSubFundID = D(response.data);
-            });
-        }
+    $(function () {
+        $("#fundNaviID").click();
     });
 </script>

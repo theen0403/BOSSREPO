@@ -1,0 +1,10 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.FMMainChartofAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="form-group">
+    <label class="custom-form-margin">Major Account Group</label>
+    @Html.DropDownListFor(m => m.SubMajorAccountGrpModel.MAGID, Model.SubMajorAccountGrpModel.MajorAccountGrpList, new { @class = "form-control select2", id = "MAGID" })
+</div>

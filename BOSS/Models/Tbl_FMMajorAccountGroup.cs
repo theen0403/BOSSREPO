@@ -14,11 +14,19 @@ namespace BOSS.Models
     
     public partial class Tbl_FMMajorAccountGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tbl_FMMajorAccountGroup()
+        {
+            this.Tbl_FMSubMajorAccountGroup = new HashSet<Tbl_FMSubMajorAccountGroup>();
+        }
+    
         public int MAGID { get; set; }
         public string MAGTitle { get; set; }
         public string MAGCode { get; set; }
         public Nullable<int> AGID { get; set; }
     
         public virtual Tbl_FMAccountGroup Tbl_FMAccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMSubMajorAccountGroup> Tbl_FMSubMajorAccountGroup { get; set; }
     }
 }

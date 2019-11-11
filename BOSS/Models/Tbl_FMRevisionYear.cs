@@ -18,6 +18,7 @@ namespace BOSS.Models
         public Tbl_FMRevisionYear()
         {
             this.Tbl_FMAllotmentClass = new HashSet<Tbl_FMAllotmentClass>();
+            this.Tbl_FMGeneralAccount = new HashSet<Tbl_FMGeneralAccount>();
         }
     
         public int RevID { get; set; }
@@ -27,5 +28,7 @@ namespace BOSS.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMAllotmentClass> Tbl_FMAllotmentClass { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
     }
 }

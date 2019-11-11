@@ -1,0 +1,41 @@
+﻿@model BOSS.Models.FMmodels.FMOfficeTypeModels.OfficeTypeModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("AddOfficeType", "FileMaintenanceOfficeType", new AjaxOptions { OnSuccess = "ifExists(data, GetOfficeTypeForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(m => m.OfficeTypeList.OfficeTypeID, new { @id = "OfficeTypeID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Office Type</label>
+                        @Html.TextAreaFor(m => m.OfficeTypeList.OfficeTypeTitle, new { @class = "form-control", @rows = 1, id = "OfficeTypeTitle" })
+                        @Html.ValidationMessageFor(m => m.OfficeTypeList.OfficeTypeTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Code</label>
+                        @Html.TextBoxFor(m => m.OfficeTypeList.OfficeTypeCode, new { @class = "form-control", id = "OfficeTypeCode" })
+                        @Html.ValidationMessageFor(m => m.OfficeTypeList.OfficeTypeCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetOfficeTypeForm(1, 0);">Cancel</button>
+                        <button type="submit" id="btnAddOfficeType" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

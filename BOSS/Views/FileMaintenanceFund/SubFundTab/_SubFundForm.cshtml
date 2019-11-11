@@ -1,0 +1,46 @@
+﻿@model BOSS.Models.FMmodels.FMFundModels.SubFundModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveSubFund", "FileMaintenanceFund", new AjaxOptions { OnSuccess = "ifExists(data, GetSubFundForm(1, 0))", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.SubFundList.SubFundID, new { @id = "SubFundID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Fund</label>
+                        @Html.DropDownListFor(m => m.SubFundList.FundID, Model.FundSelectionList, new { @class = "form-control select2nosearch", id = "FundID" })
+                        @Html.ValidationMessageFor(m => m.SubFundList.FundID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Sub Fund</label>
+                        @Html.TextBoxFor(m => m.SubFundList.SubFundTitle, new { @class = "form-control", id = "SubFundTitle" })
+                        @Html.ValidationMessageFor(m => m.SubFundList.SubFundTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSubFundForm(1,0)">Cancel</button>
+                        <button type="submit" id="btnAddSector" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        select2nosearch();
+    })
+</script>

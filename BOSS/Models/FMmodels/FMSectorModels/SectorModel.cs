@@ -12,18 +12,18 @@ namespace BOSS.Models.FMmodels.FMSectorModels
         public SectorModel()
         {
             getSectorList = new List<SectorList>();
-            getSectorColumns = new Tbl_FMSector();
+            SectorList = new SectorList();
         }
         public List<SectorList> getSectorList { get; set; }
-        public Tbl_FMSector getSectorColumns { get; set; }
-        public int SectorID { get; set; }
-        public string SectorTitle { get; set; }
-        public string SectorCode { get; set; }
+        public SectorList SectorList { get; set; }
+        public int ActionID { get; set; }
     }
     public class SectorList
     {
         public int SectorID { get; set; }
+        [Required]
         public string SectorTitle { get; set; }
+        [Required]
         public string SectorCode { get; set; }
     }
 }

@@ -1,291 +1,283 @@
-﻿
-<div class="row">
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">Revision Year</label>
-                <select class="form-control">
-                    <option>2015</option>
-                </select>
-        </div>
-    </div>
-    <div class="col-xl-5 col-lg-5 col-md-5">
-        <div class="form-group">
-            <label class="custom-form-margin">Allotment Class</label>
-                <select class="form-control">
-                    <option>Maintenance and Other Operating Expenses</option>
-                    <option>Personal Services</option>
-                    <option>Capital Outlay</option>
-                    <option>Other Operating Expenses</option>
-                </select>
-        </div>
-    </div>
-    <div class="col-xl-5 col-lg-4 col-md-4">
-        <div class="form-group">
-            <label class="custom-form-margin">Accounts</label>
-                <select class="form-control">
-                    <option>Asset</option>
-                </select>
-        </div>
+﻿<div class="card-body px-1 card-body rounded menubackground">
+    <div id="generalAccntTempID">
+
     </div>
 </div>
-<div class="row">
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <div class="form-group">
-            <label class="custom-form-margin">Major Account Group</label>
-                <select class="form-control">
-                    <option>Property, Plant and Equipment</option>
-                    <option>Financial Liabilities</option>
-                    <option>Government Equity</option>
-                    <option>Tax Revenue</option>
-                    <option>Personnel Services</option>
-                </select>
-        </div>
-    </div>
-    <div class="col-xl-6 col-lg-6 col-md-6">
-        <div class="form-group">
-            <label class="custom-form-margin">Sub Major Account Group</label>
-                <select class="form-control">
-                    <option>Tax Revenue - Individual and Corporation</option>
-                    <option>Land</option>
-                    <option>Payables</option>
-                    <option>Government Equity</option>
-                    <option>Salaries and Wages</option>
-                </select>
-        </div>
-    </div>
+<div class="mt-2" id="tablegeneralAccntID">
+
 </div>
-<div class="row skin skin-square">
-    <div class="col-xl-3 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">General Ledger Account / Contra Account / Sub Account</label>
-            <input type="text" class="form-control" value="Land" />
-        </div>
-    </div>
-    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-2 text-center">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-3 mt-lg-3 mt-md-3">Miscellaneous Account?</label>
-            <fieldset>
-                <input type="checkbox" class="form-control icheckbox_square-red" />
-            </fieldset>
-        </div>
-    </div>
-    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-1 text-center">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-3 mt-lg-3 mt-md-3">Contra Account?</label>
-            <fieldset>
-                <input type="checkbox" class="form-control icheckbox_square-red" />
-            </fieldset>
-        </div>
-    </div>
-    <div class="col-xl-1 col-lg-2 col-md-2 px-0 text-center">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-3 mt-lg-5 mt-md-5">Sub Account?</label>
-            <fieldset class=" skin skin-square">
-                <input type="checkbox" class="form-control icheckbox_square-green" />
-            </fieldset>
-        </div>
-    </div>
-    <div class="col-xl-3 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-3 mt-lg-2 mt-md-2">General Ledger Account</label>
-            <select class="form-control">
-                <option></option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-12">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-3">Account Code</label>
-            <div class="input-group mt-0">
-                <span class="input-group-addon" id="basic-addon1">1-07-01-</span>
-                <input type="text" class="form-control less-padding" />
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-2">With Reserve?</label>
-            <select class="form-control">
-                <option>No</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-2">Reserve %?</label>
-            <input type="text" class="form-control" disabled />
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-2">Full Release?</label>
-            <select class="form-control">
-                <option>No</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">For Continuing?</label>
-            <select class="form-control">
-                <option>No</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin">OBR Cash Advance?</label>
-            <select class="form-control">
-                <option>No</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-xl-2 col-lg-3 col-md-3">
-        <div class="form-group">
-            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Normal Balance</label>
-            <select class="form-control">
-                <option>Debit</option>
-                <option>Credit</option>
-            </select>
-        </div>
-    </div>
-</div>
-<div class="row mb-2">
-    <div class="col">
-        <button type="button" class="btn btn-menuRed btn-min-width float-right ml-1" onclick="GetRevisionCOADT()">
-            Cancel
-        </button>
-        <button type="submit" class="btn btn-btnbackcolor btn-min-width float-right">
-            Add
-        </button>
-    </div>
-</div>
-<table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
-    <thead class="text-center">
-        <tr>
-            <th width="5%">Revision Year</th>
-            <th>Allotment Class</th>
-            <th>Accounts</th>
-            <th>Major Account Group</th>
-            <th>Sub Major Account Group</th>
-            <th>General Account</th>
-            <th>Account Code</th>
-            <th width="5%">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @{
-            var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-            var DeleteSuccesMess = "Successfully Deleted";
-            var successUpdate = "Successfully Updated!";
-
-            var Update = "<div class=\"row m-small\"><button class=\"btn btn-icon black btn-menuorange form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button></div>";
-            var Remove = "<div class=\"row m-small\"><button class=\"btn btn-icon btn-menuRed white form-control m-small my-0\" style=\"border-color: white \" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button></div>";
-
-            var ActionAS = Update + Remove;
-        }
-        <tr>
-            <td class="text-center">2015</td>
-            <td>N/A</td>
-            <td>Asset</td>
-            <td>Property, Plant and Equipment</td>
-            <td>Land</td>
-            <td>Land</td>
-            <td class="text-center">1-07-01-010</td>
-            <td class="text-center">
-
-                @{
-                    <button type="button" onfocusout="PopoveLostFocus()"
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                            data-toggle="popover" data-content="@ActionAS"
-                            data-html="true" data-placement="left">
-                        <i class="la la-bars"></i>
-                    </button>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">2015</td>
-            <td>N/A</td>
-            <td>Liabilitie</td>
-            <td>Financial Liabilities</td>
-            <td>Payables</td>
-            <td>Accounts Payables</td>
-            <td class="text-center">2-07-01-020</td>
-            <td class="text-center">
-                @{
-                    <button type="button" onfocusout="PopoveLostFocus()"
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                            data-toggle="popover" data-content="@ActionAS"
-                            data-html="true" data-placement="left">
-                        <i class="la la-bars"></i>
-                    </button>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">2015</td>
-            <td>N/A</td>
-            <td>Equity</td>
-            <td>Government Equity</td>
-            <td>Government Equity</td>
-            <td>Prior Period Adjustment</td>
-            <td class="text-center">3-07-01-030</td>
-            <td class="text-center">
-                @{
-                    <button type="button" onfocusout="PopoveLostFocus()"
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                            data-toggle="popover" data-content="@ActionAS"
-                            data-html="true" data-placement="left">
-                        <i class="la la-bars"></i>
-                    </button>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">2015</td>
-            <td>N/A</td>
-            <td>Income</td>
-            <td>Tax Revenue</td>
-            <td>Tax Revenue - Individual and Corporation</td>
-            <td>Professional Tax</td>
-            <td class="text-center">4-01-01-020</td>
-            <td class="text-center">
-                @{
-                    <button type="button" onfocusout="PopoveLostFocus()"
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                            data-toggle="popover" data-content="@ActionAS"
-                            data-html="true" data-placement="left">
-                        <i class="la la-bars"></i>
-                    </button>
-                }
-            </td>
-        </tr>
-        <tr>
-            <td class="text-center">2015</td>
-            <td>Personal Services</td>
-            <td>Expenses</td>
-            <td>Personal Services</td>
-            <td>Salaries and Wages</td>
-            <td>Salaries and Wages - Regular</td>
-            <td class="text-center">5-01-01-010</td>
-            <td class="text-center">
-                @{
-                    <button type="button" onfocusout="PopoveLostFocus()"
-                            class="btn btn-m btn-btnbackcolor popover-trigger" style="padding:5px;"
-                            data-toggle="popover" data-content="@ActionAS"
-                            data-html="true" data-placement="left">
-                        <i class="la la-bars"></i>
-                    </button>
-                }
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 <script>
     $(function () {
-        LoadDataTable();
+        GetGeneralAccountDT();
     })
+    function GetGeneralAccountDT() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetGeneralAccountDT',
+            success: function (result) {
+                $("#tablegeneralAccntID").html(result);
+                GetAddGeneralAccount();
+            }
+        })
+    }
+    function GetAddGeneralAccount() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAddGeneralAccount',
+            success: function (result) {
+                $("#generalAccntTempID").html(result);
+                GetDynamicRevYearGA();
+            }
+        })
+    }
+    //Get Dynamic Revision Year Partial View
+    function GetDynamicRevYearGA() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
+            success: function (result) {
+                $("#RevYearGAID").html(result);
+                GetDynamicAllotClassGA();
+                onchangeAllotmentClassGA();
+            }
+        })
+    }
+    function GetDynamicAllotClassGA() {
+        var RevID = $("#RevID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClass',
+            data: { RevID: RevID },
+            success: function (result) {
+                $("#AllotmentGAID").html(result);
+                GetDynamicAccountGroupGA();
+                onchangeAccountGroupGA();
+                
+            }
+        })
+    }
+    function GetDynamicAccountGroupGA() {
+        var AllotmentClassID = $("#AllotmentClassID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAccountGroup',
+            data: { AllotmentClassID: AllotmentClassID },
+            success: function (result) {
+                $("#AccountGroupGAID").html(result);
+                GetAccountGroupCodeGA();
+                onchangeAccountGroupGA2();
+                GetDynamicMajorAccountGroupGA(); 
+                onchangeMajorAccountGroupGA();
+            }
+        })
+    }
+    //Display dynamic Major Account Group Partial View
+    function GetDynamicMajorAccountGroupGA() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicMajorAccountGroup',
+            data: { AGID: AGID },
+            success: function (result) {
+                $("#MajorAccountGAID").html(result);
+                GetMajorAccountGroupCodeGA();
+                onchangeMajorAccountCodeGroupGA2();
+                GetDynamicSubMajorAccountGroupGA();
+                onchangeSubMajorAccountGroupGA();
+                
+            }
+        })
+    }
+    //Display dynamic Sub Major Account Group Partial View
+    function GetDynamicSubMajorAccountGroupGA() {
+        var MAGID = $("#MAGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicSubMajorAccountGroup',
+            data: { MAGID: MAGID },
+            success: function (result) {
+                $("#SubMajorAccountGAID").html(result);
+                GetSubMajorAccountGroupCodeGA();
+                onchangeSubMajorAccountCodeGroupGA2();
+            }
+        })
+    }
+    //------------------------------------------------------------------------------------------------
+    //Get Account Group Code for onchange in Allotment DropDown
+    function GetAccountGroupCodeGA() {
+        var AllotmentClassID = $("#AllotmentClassID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAccountGroupCode',
+            data: { AllotmentClassID: AllotmentClassID },
+            success: function (result) {
+                $('#accountGrpCodeGAID').html(result);
+            }
+        })
+    }
+    //Get Account Group Code for onchange in Account Group DropDown
+    function GetAccountGroupCodeGA2() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAccountGroupCode2',
+            data: { AGID: AGID },
+            success: function (result) {
+                $('#accountGrpCodeGAID').html(result);
+                GetDynamicMajorAccountGroupGA
+            }
+        })
+    }
+    //Display Dynamic Major Account code partial view 
+    function GetMajorAccountGroupCodeGA() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetMajorAccountGroupCode',
+            data: { AGID: AGID },
+            success: function (result) {
+                $('#majorAccountGrpCodeGAID').html(result);
+            }
+        })
+    }
+    function GetMajorAccountGroupCodeGA2() {
+        var MAGID = $("#MAGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetMajorAccountGroupCode2',
+            data: { MAGID: MAGID },
+            success: function (result) {
+                $('#majorAccountGrpCodeGAID').html(result);
+            }
+        })
+    }
+    //Display Dynamic Major Account code partial view 
+    function GetSubMajorAccountGroupCodeGA() {
+        var MAGID = $("#MAGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetSubMajorAccountGroupCode',
+            data: { MAGID: MAGID },
+            success: function (result) {
+                $('#subMajorAccountGrpCodeGAID').html(result);
+            }
+        })
+    }
+    function GetSubMajorAccountGroupCodeGA2() {
+        var SMAGID = $("#SMAGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetSubMajorAccountGroupCode2',
+            data: { SMAGID: SMAGID },
+            success: function (result) {
+                $('#subMajorAccountGrpCodeGAID').html(result);
+            }
+        })
+    }
+
+    //------------------------------------------------------------------------------------------------
+    //Onchange for Allotment Class
+    function onchangeAllotmentClassGA() {
+        $("#RevID").on("change", function () {
+            GetDynamicAllotClassGA();
+        });
+    }
+    //Onchange Account Group                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    function onchangeAccountGroupGA() {
+        $("#AllotmentClassID").on("change", function () {
+            GetDynamicAccountGroupGA();
+        });
+    }
+    //Onchange Major Account Group                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    function onchangeMajorAccountGroupGA() {
+        $("#AGID").on("change", function () {
+            GetDynamicMajorAccountGroupGA();
+        });
+    } 
+    //Onchange Sub Major Account Group                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    function onchangeSubMajorAccountGroupGA() {
+        $("#MAGID").on("change", function () {
+            GetDynamicSubMajorAccountGroupGA();
+        });
+    }
+    //Onchange for Account Group Code
+    function onchangeAccountGroupGA2() {
+        $("#AGID").on("change", function () {
+            GetAccountGroupCodeGA2();
+        });
+    }
+    function onchangeMajorAccountCodeGroupGA() {
+        $("#AGID").on("change", function () {
+            GetMajorAccountGroupCodeGA();
+        });
+    }
+    function onchangeMajorAccountCodeGroupGA2() {
+        $("#MAGID").on("change", function () {
+            GetMajorAccountGroupCodeGA2();
+        });
+    }
+    function onchangeSubMajorAccountCodeGroupGA() {
+        $("#MAGID").on("change", function () {
+            GetSubMajorAccountGroupCodeGA();
+        });
+    }
+    function onchangeSubMajorAccountCodeGroupGA2() {
+        $("#SMAGID").on("change", function () {
+            GetSubMajorAccountGroupCodeGA2();
+        });
+    }
+</script>
+
+<script>
+    function GetDyanmicGeneralLedgerAccountnoselect() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDyanmicGeneralLedgerAccountnoselect',
+            success: function (result) {
+                $("#generalLedgerAccntID").html(result);
+                $("#GAID").attr("disabled", "disabled");
+                isSelected();
+            }
+        })
+    }
+    function GetDyanmicGeneralLedgerAccount() {
+        var isSelected = $("#isSelected").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDyanmicGeneralLedgerAccount',
+            data: { isSelected: isSelected },
+            success: function (result) {
+                $("#generalLedgerAccntID").html(result);
+            }
+        })
+    }
+    function isSelected() {
+        $(document).on('change', '.checkbox', function () {
+            if ($('#isContraID').is(':checked')) {
+                $("#isSubID").prop("checked", false);
+                $('#GenLedgerID').text('Contra Account');
+                $("#GAID").removeAttr("disabled");
+                $("#isSelected").val(1);
+                GetDyanmicGeneralLedgerAccount();
+            } else if ($('#isSubID').is(':checked')) {
+                $("#isContraID").prop("checked", false);
+                $('#GenLedgerID').text('Sub Account');
+                $("#GAID").removeAttr("disabled");
+                $("#isSelected").val(2);
+                GetDyanmicGeneralLedgerAccount();
+            }
+            else {
+                $("#GAID").attr("disabled", "disabled");
+                $("#isSelected").val(0);
+                $('#GenLedgerID').text('General Ledger Account');
+            }
+        });
+    }
+    function isReserveOnChange() {
+        var isReserveValue = $("#isReserveIDD").val();
+        if (isReserveValue == "True") {
+            $("#isReserveID").val("True");
+            $("#ReservePercent").removeAttr('disabled');
+            $("#ReservePercent").val("");
+        } else {
+            $("#isReserveID").val("False");
+            $("#ReservePercent").attr("disabled", "disabled");
+            $("#ReservePercent").val(0);
+        }
+    }
+    function isOBRCashAdvanceOnChange() {
+        $("#isOBRCashAdvanceID").val($("#isOBRCashAdvanceIDD").val());
+    }
+    function isContinuingOnChange() {
+        $("#isContinuingID").val($("#isContinuingIDD").val());
+    }
+    function isFullReleaseOnChange() {
+        $("#isFullReleaseID").val($("#isFullReleaseIDD").val());
+    }
 </script>

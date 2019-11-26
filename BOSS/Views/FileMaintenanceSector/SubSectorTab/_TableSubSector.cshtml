@@ -22,12 +22,8 @@
 
                     foreach (var Items in Model)
                     {
-                        var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                        var DeleteSuccesMess = "Successfully Deleted";
-                        var DeleteAction = "DeleteSubSector(" + Items.SubSectorID + ")";
-
                         var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSubSectorID' SubSectorAttr='" + Items.SubSectorID + "'><i class='ft-edit'></i> Edit</button>";
-                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSubSectorID' onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "','" + @DeleteAction + "')\"><i class='la la-trash'></i> Delete</button>";
+                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSubSectorID' SubSectorAttr='" + Items.SubSectorID + "'><i class='la la-trash'></i> Delete</button>";
                         var Action = Update + Remove;
 
                         <tr>

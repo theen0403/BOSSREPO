@@ -10,7 +10,6 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Mvc;
-
 namespace BOSS.Controllers
 {
     public class FileMaintenanceFundController : Controller
@@ -36,18 +35,16 @@ namespace BOSS.Controllers
             SubFundModel model = new SubFundModel();
             return PartialView("SubFundTab/IndexSubFundTab", model);
         }
-      
         //------------------------------------------------------------------------------------------------
         //Fund Tab
         //------------------------------------------------------------------------------------------------
-        //Display Data Table
         public ActionResult GetFundDTable()
         {
             FundModel model = new FundModel();
 
             List<FundList> getFundList = new List<FundList>();
 
-            var SQLQuery = "SELECT * FROM [Tbl_FMFund]";
+            var SQLQuery = "SELECT * FROM [Tbl_FMFund_Fund]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -72,13 +69,13 @@ namespace BOSS.Controllers
 
             return PartialView("FundTab/_TableFund", model.getFundList);
         }
-        public ActionResult GetFundForm(int ActionID, int FundID)
+        public ActionResult GetFundForm(int ActionID, int PrimaryID)
         {
             FundModel model = new FundModel();
 
             if (ActionID == 2)
             {
-                var fund = (from a in BOSSDB.Tbl_FMFund where a.FundID == FundID select a).FirstOrDefault();
+                var fund = (from a in BOSSDB.Tbl_FMFund_Fund where a.FundID == PrimaryID select a).FirstOrDefault();
                 model.FundList.FundTitle = fund.FundTitle;
                 model.FundList.FundCode = fund.FundCode;
                 model.FundList.FundID = fund.FundID;
@@ -99,16 +96,16 @@ namespace BOSS.Controllers
                 fundTitle = Regex.Replace(fundTitle, @"^\s+", "");
                 fundTitle = Regex.Replace(fundTitle, @"\s+$", "");
                 fundTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(fundTitle);
-                Tbl_FMFund checkFund = (from a in BOSSDB.Tbl_FMFund where (a.FundTitle == fundTitle || a.FundCode == model.FundList.FundCode) select a).FirstOrDefault();
+                Tbl_FMFund_Fund checkFund = (from a in BOSSDB.Tbl_FMFund_Fund where (a.FundTitle == fundTitle || a.FundCode == model.FundList.FundCode) select a).FirstOrDefault();
 
                 if (model.ActionID == 1)
                 {
                     if (checkFund == null)
                     {
-                        Tbl_FMFund fund = new Tbl_FMFund();
+                        Tbl_FMFund_Fund fund = new Tbl_FMFund_Fund();
                         fund.FundTitle = fundTitle;
                         fund.FundCode = model.FundList.FundCode;
-                        BOSSDB.Tbl_FMFund.Add(fund);
+                        BOSSDB.Tbl_FMFund_Fund.Add(fund);
                         BOSSDB.SaveChanges();
                         isExist = "false";
                     }
@@ -119,13 +116,11 @@ namespace BOSS.Controllers
                 }
                 else if (model.ActionID == 2)
                 {
-                    Tbl_FMFund fund = (from a in BOSSDB.Tbl_FMFund where a.FundID == model.FundList.FundID select a).FirstOrDefault();
-                    List<Tbl_FMFund> fundTitlelist = (from e in BOSSDB.Tbl_FMFund where e.FundTitle == fundTitle select e).ToList();
-                    List<Tbl_FMFund> fundCode = (from e in BOSSDB.Tbl_FMFund where e.FundCode == model.FundList.FundCode select e).ToList();
+                    Tbl_FMFund_Fund fund = (from a in BOSSDB.Tbl_FMFund_Fund where a.FundID == model.FundList.FundID select a).FirstOrDefault();
+                    List<Tbl_FMFund_Fund> fundTitlelist = (from e in BOSSDB.Tbl_FMFund_Fund where e.FundTitle == fundTitle select e).ToList();
+                    List<Tbl_FMFund_Fund> fundCode = (from e in BOSSDB.Tbl_FMFund_Fund where e.FundCode == model.FundList.FundCode select e).ToList();
                     if (checkFund != null)
                     {
-                        if(fundTitlelist == 1 || fundCode == 1) { }
-
                         if (fund.FundTitle == fundTitle && fund.FundCode == model.FundList.FundCode)
                         {
                             fund.FundTitle = fundTitle;
@@ -133,11 +128,21 @@ namespace BOSS.Controllers
                             BOSSDB.Entry(fund);
                             BOSSDB.SaveChanges();
                             isExist = "justUpdate";
-                            isExist = "true";
                         }
-                        else
+                        else 
                         {
-                            isExist = "true";
+                            if (fund.FundTitle != fundTitle && fundTitlelist.Count >= 1 || fund.FundCode != model.FundList.FundCode && fundCode.Count >= 1)
+                            {
+                                isExist = "true";
+                            }
+                            else
+                            {
+                                fund.FundTitle = fundTitle;
+                                fund.FundCode = model.FundList.FundCode;
+                                BOSSDB.Entry(fund);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                            }
                         }
                     }
                     else if (checkFund == null)
@@ -156,29 +161,11 @@ namespace BOSS.Controllers
                 Data = new { isExist = isExist }
             };
         }
-        public ActionResult ConfirmDeleteFund(int PrimaryID)
-        {
-            Tbl_FMFund fund = (from a in BOSSDB.Tbl_FMFund where a.FundID == PrimaryID select a).FirstOrDefault();
-            BOSSDB.Tbl_FMFund.Remove(fund);
-            BOSSDB.SaveChanges();
-            //var sql = "SELECT DISTINCT TABLE_NAME FROM Information_Schema.Columns WHERE COLUMN_NAME = 'FundID' AND TABLE_NAME<> 'Tbl_FMFund'";
-
-            //if (sql != null)
-            //{
-            //    TempData["Message"] = "With Data.";
-            //}
-            //else
-            //{
-            //    TempData["Message"] = "Without Data.";
-            //}
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
         public ActionResult DeleteFund(int PrimaryID)
         {
-            Tbl_FMFund fund = (from a in BOSSDB.Tbl_FMFund where a.FundID == PrimaryID select a).FirstOrDefault();
-            Tbl_FMSubFund subFund = (from a in BOSSDB.Tbl_FMSubFund where a.FundID == PrimaryID select a).FirstOrDefault();
-            Tbl_FMDepartment dept = (from e in BOSSDB.Tbl_FMDepartment where e.FundID == PrimaryID select e).FirstOrDefault();
+            Tbl_FMFund_Fund fund = (from a in BOSSDB.Tbl_FMFund_Fund where a.FundID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMFund_SubFund subFund = (from a in BOSSDB.Tbl_FMFund_SubFund where a.FundID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMRes_Department dept = (from e in BOSSDB.Tbl_FMRes_Department where e.FundID == PrimaryID select e).FirstOrDefault();
             var confirmDelete = "";
             if (fund != null)
             {
@@ -198,16 +185,24 @@ namespace BOSS.Controllers
             var result = new { confirmDelete = confirmDelete };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ConfirmDelete(int PrimaryID)
+        {
+            Tbl_FMFund_Fund fund = (from a in BOSSDB.Tbl_FMFund_Fund where a.FundID == PrimaryID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMFund_Fund.Remove(fund);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         //------------------------------------------------------------------------------------------------
         //Sub Fund Tab
         //------------------------------------------------------------------------------------------------
-        //Display Data Table
         public ActionResult GetSubFundDTable()
         {
             SubFundModel model = new SubFundModel(); 
             List<SubFundList> getSubFundList = new List<SubFundList>();
 
-            var SQLQuery = "SELECT [SubFundID], [SubFundTitle], [Tbl_FMFund].[FundTitle] FROM [BOSS].[dbo].[Tbl_FMSubFund],[dbo].[Tbl_FMFund] where [dbo].[Tbl_FMSubFund].FundID =[dbo].[Tbl_FMFund].FundID";
+            var SQLQuery = "SELECT [SubFundID], [SubFundTitle], [Tbl_FMFund_Fund].[FundTitle] FROM [BOSS].[dbo].[Tbl_FMFund_SubFund],[dbo].[Tbl_FMFund_Fund] where [dbo].[Tbl_FMFund_SubFund].FundID =[dbo].[Tbl_FMFund_Fund].FundID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -238,7 +233,7 @@ namespace BOSS.Controllers
 
             if (ActionID == 2)
             {
-                var sfund = (from a in BOSSDB.Tbl_FMSubFund where a.SubFundID == SubFundID select a).FirstOrDefault();
+                var sfund = (from a in BOSSDB.Tbl_FMFund_SubFund where a.SubFundID == SubFundID select a).FirstOrDefault();
                 model.SubFundList.SubFundTitle = sfund.SubFundTitle;
                 model.SubFundList.FundID = Convert.ToInt32(sfund.FundID);
                 model.SubFundList.SubFundID = sfund.SubFundID;
@@ -260,16 +255,16 @@ namespace BOSS.Controllers
                 subfundTitle = Regex.Replace(subfundTitle, @"\s+$", "");
                 subfundTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(subfundTitle);
 
-                Tbl_FMSubFund checksubFund = (from a in BOSSDB.Tbl_FMSubFund where (a.FundID == model.SubFundList.FundID || a.SubFundTitle == model.SubFundList.SubFundTitle) select a).FirstOrDefault();
+                Tbl_FMFund_SubFund checksubFund = (from a in BOSSDB.Tbl_FMFund_SubFund where (a.SubFundTitle == model.SubFundList.SubFundTitle) select a).FirstOrDefault();
 
                 if (model.ActionID == 1)
                 {
                     if (checksubFund == null)
                     {
-                        Tbl_FMSubFund sfund = new Tbl_FMSubFund();
+                        Tbl_FMFund_SubFund sfund = new Tbl_FMFund_SubFund();
                         sfund.SubFundTitle = subfundTitle;
                         sfund.FundID = model.SubFundList.FundID;
-                        BOSSDB.Tbl_FMSubFund.Add(sfund);
+                        BOSSDB.Tbl_FMFund_SubFund.Add(sfund);
                         BOSSDB.SaveChanges();
                         isExist = "false";
                     }
@@ -280,10 +275,12 @@ namespace BOSS.Controllers
                 }
                 else if (model.ActionID == 2)
                 {
-                    Tbl_FMSubFund subfund = (from a in BOSSDB.Tbl_FMSubFund where a.SubFundID == model.SubFundList.SubFundID select a).FirstOrDefault();
+                    Tbl_FMFund_SubFund subfund = (from a in BOSSDB.Tbl_FMFund_SubFund where a.SubFundID == model.SubFundList.SubFundID select a).FirstOrDefault();
+                    List<Tbl_FMFund_SubFund> subfundTitlelist = (from e in BOSSDB.Tbl_FMFund_SubFund where e.SubFundTitle == subfundTitle select e).ToList();
+
                     if (checksubFund != null)
                     {
-                        if (subfund.SubFundTitle == subfundTitle || subfund.FundID == model.SubFundList.FundID) //walang binago 
+                        if (subfund.SubFundTitle == subfundTitle && subfund.SubFundID == model.SubFundList.SubFundID && subfund.FundID == model.SubFundList.FundID)
                         {
                             subfund.SubFundTitle = subfundTitle;
                             subfund.FundID = GlobalFunction.ReturnEmptyInt(model.SubFundList.FundID);
@@ -293,7 +290,18 @@ namespace BOSS.Controllers
                         }
                         else
                         {
-                            isExist = "true";
+                            if (subfund.SubFundTitle != subfundTitle && subfundTitlelist.Count >= 1)
+                            {
+                                isExist = "true";
+                            }
+                            else
+                            {
+                                subfund.SubFundTitle = subfundTitle;
+                                subfund.FundID = GlobalFunction.ReturnEmptyInt(model.SubFundList.FundID);
+                                BOSSDB.Entry(subfund);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                            }
                         }
                     }
                     else if (checksubFund == null)
@@ -314,8 +322,8 @@ namespace BOSS.Controllers
         }
         public ActionResult DeleteSubFund(int SubFundID)
         {
-            Tbl_FMSubFund subFundOne = (from a in BOSSDB.Tbl_FMSubFund where a.SubFundID == SubFundID select a).FirstOrDefault();
-            BOSSDB.Tbl_FMSubFund.Remove(subFundOne);
+            Tbl_FMFund_SubFund subFundOne = (from a in BOSSDB.Tbl_FMFund_SubFund where a.SubFundID == SubFundID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMFund_SubFund.Remove(subFundOne);
             BOSSDB.SaveChanges();
 
             var result = "";

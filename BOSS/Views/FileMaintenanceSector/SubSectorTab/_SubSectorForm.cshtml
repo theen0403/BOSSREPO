@@ -18,21 +18,21 @@
                     <div class="form-group">
                         <label class="custom-form-margin">Sector</label>
                         @Html.DropDownListFor(m => m.SubSectorList.SectorID, Model.SectorSelectionList, new { @class = "form-control select2", id = "SectorIDtemp", onchange = "GetSectorCodeField()" })
-
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group">
                         <label class="custom-form-margin">Sub Sector</label>
-                        @Html.TextBoxFor(m => m.SubSectorList.SubSectorTitle, new { @class = "form-control", id = "SubSectorTitle" })
+                        @Html.TextBoxFor(m => m.SubSectorList.SubSectorTitle, new { @class = "form-control noSpeChar", id = "SubSectorTitle" })
+                        @Html.ValidationMessageFor(m => m.SubSectorList.SubSectorTitle, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-4 col-md-4">
                     <div class="form-group">
                         <label><b>Code</b></label>
                         <div class="input-group mt-0">
-                            <span class="input-group-addon menubackground" id="sectorCodeID"></span>
-                            @Html.TextBoxFor(m => m.SubSectorList.SubSectorCode, new { @class = "form-control", id = "SubSectorCode", maxlength = "3" })
+                         <span class="input-group-addon menubackground" id="sectorCodeID"></span>
+                            @Html.TextBoxFor(m => m.SubSectorList.SubSectorCode, new { @class = "form-control numbersOnly", id = "SubSectorCode", maxlength = "3" })
                             @Html.ValidationMessageFor(m => m.SubSectorList.SubSectorCode, "", new { @class = "text-danger",style= "font-weight:normal" })
                         </div>
                     </div>
@@ -49,7 +49,9 @@
     </div>
 }
 <script>
-    $(function () {
+    $(document).ready(function () {
         LoadICheck();
-    })
+        numbersOnly();
+        noSpeChar();
+    });
 </script>

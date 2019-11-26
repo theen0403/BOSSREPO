@@ -10,10 +10,10 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AllotmentClassModel()
         {
-            getAllotmentClassColumns = new Tbl_FMAllotmentClass();
+            getAllotmentClassColumns = new Tbl_FMCOA_AllotmentClass();
             getAllotmentClassList = new List<AllotmentClassList>();
         }
-        public Tbl_FMAllotmentClass getAllotmentClassColumns { get; set; }
+        public Tbl_FMCOA_AllotmentClass getAllotmentClassColumns { get; set; }
         public List<AllotmentClassList> getAllotmentClassList { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> RevYearDropDownList { get; set; }
         public int AllotmentClassID { get; set; }

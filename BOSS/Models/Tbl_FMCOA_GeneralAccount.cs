@@ -12,7 +12,7 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMGeneralAccount
+    public partial class Tbl_FMCOA_GeneralAccount
     {
         public int GAID { get; set; }
         public Nullable<int> RevID { get; set; }
@@ -31,9 +31,5 @@ namespace BOSS.Models
         public Nullable<int> GAIDCA { get; set; }
         public Nullable<bool> isSubAccount { get; set; }
         public Nullable<int> GAIDSA { get; set; }
-    
-        public virtual Tbl_FMBalance Tbl_FMBalance { get; set; }
-        public virtual Tbl_FMRevisionYear Tbl_FMRevisionYear { get; set; }
-        public virtual Tbl_FMSubMajorAccountGroup Tbl_FMSubMajorAccountGroup { get; set; }
     }
 }

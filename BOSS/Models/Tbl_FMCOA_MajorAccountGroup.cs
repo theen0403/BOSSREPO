@@ -12,21 +12,21 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSubMajorAccountGroup
+    public partial class Tbl_FMCOA_MajorAccountGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMSubMajorAccountGroup()
+        public Tbl_FMCOA_MajorAccountGroup()
         {
-            this.Tbl_FMGeneralAccount = new HashSet<Tbl_FMGeneralAccount>();
+            this.Tbl_FMCOA_SubMajorAccountGroup = new HashSet<Tbl_FMCOA_SubMajorAccountGroup>();
         }
     
-        public int SMAGID { get; set; }
-        public string SMAGTitle { get; set; }
-        public string SMAGCode { get; set; }
-        public Nullable<int> MAGID { get; set; }
+        public int MAGID { get; set; }
+        public string MAGTitle { get; set; }
+        public string MAGCode { get; set; }
+        public Nullable<int> AGID { get; set; }
     
+        public virtual Tbl_FMCOA_AccountGroup Tbl_FMCOA_AccountGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
-        public virtual Tbl_FMMajorAccountGroup Tbl_FMMajorAccountGroup { get; set; }
+        public virtual ICollection<Tbl_FMCOA_SubMajorAccountGroup> Tbl_FMCOA_SubMajorAccountGroup { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace BOSS.Models.FMmodels.FMFundModels
         {
             get
             {
-                List<Tbl_FMFund> FundSelectionList = BOSSDB.Tbl_FMFund.ToList();
+                List<Tbl_FMFund_Fund> FundSelectionList = BOSSDB.Tbl_FMFund_Fund.ToList();
                 return new System.Web.Mvc.SelectList(FundSelectionList, "FundID", "FundTitle");
             }
         }

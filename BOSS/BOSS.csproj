@@ -264,9 +264,6 @@
     <Compile Include="Models\Account.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AppropriationSourceType.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\BarModels\BarModel.cs" />
     <Compile Include="Models\BOSSDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -288,7 +285,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BOSSEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\BudgetYear.cs">
+    <Compile Include="Models\FMApprop_AppropriationSourceType.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FMApprop_BudgetYear.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FMmodels\FMAccountsModels\AccountGroupModel.cs" />
@@ -328,37 +328,49 @@
     <Compile Include="Models\PersonalInformation.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PIN_Accounts.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMAccountGroup.cs">
+    <Compile Include="Models\Tbl_FMApprop_AppropriationSource.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMAllotmentClass.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tbl_FMAppropriationSource.cs">
+    <Compile Include="Models\Tbl_FMApprop_FundSource.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMBalance.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMDepartment.cs">
+    <Compile Include="Models\Tbl_FMCOA_AccountGroup.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMFunction.cs">
+    <Compile Include="Models\Tbl_FMCOA_AllotmentClass.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMFund.cs">
+    <Compile Include="Models\Tbl_FMCOA_GeneralAccount.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMFundSource.cs">
+    <Compile Include="Models\Tbl_FMCOA_MajorAccountGroup.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMGeneralAccount.cs">
+    <Compile Include="Models\Tbl_FMCOA_RevisionYear.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMMajorAccountGroup.cs">
+    <Compile Include="Models\Tbl_FMCOA_SubMajorAccountGroup.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMFund_Fund.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMFund_SubFund.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMOfficeType.cs">
@@ -370,25 +382,22 @@
     <Compile Include="Models\Tbl_FMPosition.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMRevisionYear.cs">
+    <Compile Include="Models\Tbl_FMRes_Department.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMSection.cs">
+    <Compile Include="Models\Tbl_FMRes_Function.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Tbl_FMSector.cs">
+    <Compile Include="Models\Tbl_FMRes_Section.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMSector_Sector.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMSector_SubSector.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMSignatory.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tbl_FMSubFund.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tbl_FMSubMajorAccountGroup.cs">
-      <DependentUpon>BOSSEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Tbl_FMSubSector.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -5391,9 +5400,12 @@
     <Content Include="modernadmin\modern-admin-1.0\app-assets\vendors\js\vendors.min.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style-rtl.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style.css" />
-    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\FUNDJS\FundJS.js" />
-    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\OFFICETYPEJS\OfficeTypeJS.js" />
-    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\SECTORJS\SectorJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\AppropSourceJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\FundJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\OfficeTypeJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\PayeeJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\PositionJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\SectorJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\scripts.js" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-2-columns.html" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-block-ui.html" />
@@ -9096,9 +9108,7 @@
     <Content Include="Views\FileMaintenanceSignatory\_TableFileMaintenanceSignatory.cshtml" />
     <Content Include="Views\FileMaintenancePosition\_TablePositionSP.cshtml" />
     <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_TableAppropriationSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_AddAppropriationSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_DynamicFundSource.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_UpdateAppropriationSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\AppropriationSource\_AppropSourceForm.cshtml" />
     <Content Include="Views\Profile\ProfileView.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewAttachment.cshtml" />
     <Content Include="Views\AccountabilityLBAFDashboard\LBAFDashboard.cshtml" />
@@ -9107,8 +9117,7 @@
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_AddRCOA.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_TableRCOA.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_UpdateRCOA.cshtml" />
-    <Content Include="Views\FileMaintenancePosition\_AddPosition.cshtml" />
-    <Content Include="Views\FileMaintenancePosition\_UpdatePosition.cshtml" />
+    <Content Include="Views\FileMaintenancePosition\_PositionForm.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_AddSignatory.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_AddDynamicFunctionList.cshtml" />
     <Content Include="Views\FileMaintenanceSignatory\_UpdateSignatory.cshtml" />
@@ -9160,12 +9169,10 @@
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DynamicSubSectorfunc.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DynamicDeptOfficeCode.cshtml" />
     <Content Include="Views\FileMaintenanceResponsibility\FunctionTab\_DynamicSectorField.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\FundSource\_AddFundSource.cshtml" />
+    <Content Include="Views\FileMaintenanceAppropriation\FundSource\_FundSourceForm.cshtml" />
     <Content Include="Views\FileMaintenanceAppropriation\FundSource\_TableFundSource.cshtml" />
-    <Content Include="Views\FileMaintenancePayee\_AddPayee.cshtml" />
+    <Content Include="Views\FileMaintenancePayee\_PayeeForm.cshtml" />
     <Content Include="Views\FileMaintenancePayee\_TablePayee.cshtml" />
-    <Content Include="Views\FileMaintenancePayee\_UpdatePayee.cshtml" />
-    <Content Include="Views\FileMaintenanceAppropriation\FundSource\_UpdateFundSource.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\SubsidiaryLedger\_IndexSubsidiaryLedger.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AddAllotment.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_TableAllotment.cshtml" />

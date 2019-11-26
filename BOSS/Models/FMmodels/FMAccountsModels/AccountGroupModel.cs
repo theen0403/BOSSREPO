@@ -11,11 +11,11 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AccountGroupModel()
         {
-            getAccountGroupColumns = new Tbl_FMAccountGroup();
+            getAccountGroupColumns = new Tbl_FMCOA_AccountGroup();
             getAccountGroupList = new List<AccountGroupList>();
             allotModel = new AllotmentClassModel();
         }
-        public Tbl_FMAccountGroup getAccountGroupColumns { get; set; }
+        public Tbl_FMCOA_AccountGroup getAccountGroupColumns { get; set; }
         public List<AccountGroupList> getAccountGroupList { get; set; }
         public AllotmentClassModel allotModel { get; set; }
         public int AGID { get; set; }

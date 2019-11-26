@@ -13,7 +13,7 @@
     </div>
 </div>
 @*BODY*@
-<div class="content-body" id="FMSignatoryController" ng-controller="FMSignatoryController" ng-init="InitFunctions();">
+<div class="content-body">
     <div class="row">
         <div class="col-md-12">
             <div class="card box-shadow-3">
@@ -24,7 +24,7 @@
 
                                 </div>
                             </div>
-                            <div class="mt-2" ng-bind-html="FMSignatoryID">
+                            <div class="mt-2" id="SignatoryTableID">
 
                             </div>
                         </div>
@@ -33,8 +33,7 @@
         </div>
     </div>
 </div>
-
-<script>
+@*<script>
     app.controller('FMSignatoryController', function ($scope, $http, $sce) {
         var F = $scope, P = $http, D = $sce.trustAsHtml;
         //Get Signatory Datatable Partial View
@@ -104,4 +103,4 @@
             });
         }
     });
-</script>
+</script>*@

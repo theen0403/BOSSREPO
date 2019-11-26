@@ -12,19 +12,17 @@ namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
         public FundSourceModel()
         {
             getFundSourceList = new List<FundSourceList>();
-            getFundSourceColumns = new Tbl_FMFundSource();
+            FundSourceList = new FundSourceList();
         }
         public List<FundSourceList> getFundSourceList { get; set; }
-        public Tbl_FMFundSource getFundSourceColumns { get; set; }
-        public int FundSourceID { get; set; }
-        public string FundSourceTitle { get; set; }
-        public string AppropSourceTypeTitle { get; set; }
+        public FundSourceList FundSourceList { get; set; }
+        public int ActionID { get; set; }
         public int AppropSourceTypeID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> AppropriationSourceTypeList
         {
             get
             {
-                List<AppropriationSourceType> AppropriationSourceTypeLists = BOSSDB.AppropriationSourceTypes.ToList();
+                List<FMApprop_AppropriationSourceType> AppropriationSourceTypeLists = BOSSDB.FMApprop_AppropriationSourceType.ToList();
                 return new System.Web.Mvc.SelectList(AppropriationSourceTypeLists, "AppropSourceTypeID", "AppropSourceTypeTitle");
             }
         }
@@ -32,6 +30,7 @@ namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
     public class FundSourceList
     {
         public int FundSourceID { get; set; }
+        [Required(ErrorMessage = "Please enter Fund Source Title")]
         public string FundSourceTitle { get; set; }
         public string AppropSourceTypeTitle { get; set; }
     }

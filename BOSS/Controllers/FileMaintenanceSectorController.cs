@@ -44,7 +44,7 @@ namespace BOSS.Controllers
 
             List<SectorList> getSectorList = new List<SectorList>();
 
-            var SQLQuery = "SELECT * FROM [Tbl_FMSector]";
+            var SQLQuery = "SELECT * FROM [Tbl_FMSector_Sector]";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -69,16 +69,16 @@ namespace BOSS.Controllers
 
             return PartialView("SectorTab/_TableSector", model.getSectorList);
         }
-        public ActionResult GetSectorForm(int ActionID, int SectorID)
+        public ActionResult GetSectorForm(int ActionID, int PrimaryID)
         {
             SectorModel model = new SectorModel();
 
             if (ActionID == 2)
             {
-                var sector = (from a in BOSSDB.Tbl_FMSector where a.SectorID == SectorID select a).FirstOrDefault();
+                var sector = (from a in BOSSDB.Tbl_FMSector_Sector where a.SectorID == PrimaryID select a).FirstOrDefault();
                 model.SectorList.SectorTitle = sector.SectorTitle;
                 model.SectorList.SectorCode = sector.SectorCode;
-                model.SectorList.SectorID = SectorID;
+                model.SectorList.SectorID = sector.SectorID;
             }
             model.ActionID = ActionID;
             return PartialView("SectorTab/_SectorForm", model);
@@ -97,16 +97,16 @@ namespace BOSS.Controllers
                 SectorTitle = Regex.Replace(SectorTitle, @"\s+$", "");
                 SectorTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(SectorTitle);
 
-                Tbl_FMSector checkSector = (from a in BOSSDB.Tbl_FMSector where (a.SectorTitle == SectorTitle && a.SectorCode == model.SectorList.SectorCode) select a).FirstOrDefault();
+                Tbl_FMSector_Sector checkSector = (from a in BOSSDB.Tbl_FMSector_Sector where (a.SectorTitle == SectorTitle || a.SectorCode == model.SectorList.SectorCode) select a).FirstOrDefault();
 
                 if (model.ActionID == 1)
                 {
                     if (checkSector == null)
                     {
-                        Tbl_FMSector Sector = new Tbl_FMSector();
+                        Tbl_FMSector_Sector Sector = new Tbl_FMSector_Sector();
                         Sector.SectorTitle = SectorTitle;
                         Sector.SectorCode = model.SectorList.SectorCode;
-                        BOSSDB.Tbl_FMSector.Add(Sector);
+                        BOSSDB.Tbl_FMSector_Sector.Add(Sector);
                         BOSSDB.SaveChanges();
                         isExist = "false";
                     }
@@ -117,8 +117,9 @@ namespace BOSS.Controllers
                 }
                 else if (model.ActionID == 2)
                 {
-                    Tbl_FMSector Sector = (from a in BOSSDB.Tbl_FMSector where a.SectorID == model.SectorList.SectorID select a).FirstOrDefault();
-
+                    Tbl_FMSector_Sector Sector = (from a in BOSSDB.Tbl_FMSector_Sector where a.SectorID == model.SectorList.SectorID select a).FirstOrDefault();
+                    List<Tbl_FMSector_Sector> sectorTitlelist = (from e in BOSSDB.Tbl_FMSector_Sector where e.SectorTitle == SectorTitle select e).ToList();
+                    List<Tbl_FMSector_Sector> sectorCode = (from e in BOSSDB.Tbl_FMSector_Sector where e.SectorCode == model.SectorList.SectorCode select e).ToList();
                     if (checkSector != null)
                     {
                         if (Sector.SectorTitle == SectorTitle && Sector.SectorCode == model.SectorList.SectorCode) //walang binago 
@@ -131,7 +132,18 @@ namespace BOSS.Controllers
                         }
                         else
                         {
-                            isExist = "true";
+                            if (Sector.SectorTitle != SectorTitle && sectorTitlelist.Count >= 1 || Sector.SectorCode != model.SectorList.SectorCode && sectorCode.Count >= 1)
+                            {
+                                isExist = "true";
+                            }
+                            else
+                            {
+                                Sector.SectorTitle = SectorTitle;
+                                Sector.SectorCode = model.SectorList.SectorCode;
+                                BOSSDB.Entry(Sector);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                            }
                         }
                     }
                     else if (checkSector == null)
@@ -150,50 +162,39 @@ namespace BOSS.Controllers
                 Data = new { isExist = isExist }
             };
         }
-        public ActionResult ConfirmDeleteSector(int SectorID)
+        public ActionResult DeleteSector(int PrimaryID)
         {
-            Tbl_FMSector Sector = (from a in BOSSDB.Tbl_FMSector where a.SectorID == SectorID select a).FirstOrDefault();
-            List<Tbl_FMSubSector> subSector = (from e in BOSSDB.Tbl_FMSubSector where e.SectorID == SectorID select e).ToList();
-            if (subSector.Count == 1)
-            {
-                Tbl_FMSubSector subSectorOne = (from a in BOSSDB.Tbl_FMSubSector where a.SectorID == SectorID select a).FirstOrDefault();
-                BOSSDB.Tbl_FMSubSector.Remove(subSectorOne);
-                BOSSDB.Tbl_FMSector.Remove(Sector);
-                BOSSDB.SaveChanges();
+            Tbl_FMSector_Sector sector = (from a in BOSSDB.Tbl_FMSector_Sector where a.SectorID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMSector_SubSector subSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == PrimaryID select a).FirstOrDefault();
 
-            }
-            else if (subSector.Count > 1)
+            Tbl_FMRes_Department dept = (from e in BOSSDB.Tbl_FMRes_Department where e.SectorID == PrimaryID select e).FirstOrDefault();
+            Tbl_FMRes_Function func = (from e in BOSSDB.Tbl_FMRes_Function where e.SectorID == PrimaryID select e).FirstOrDefault();
+            var confirmDelete = "";
+            if (sector != null)
             {
-                foreach (var items in subSector)
+                if (dept != null || func != null)
                 {
-                    BOSSDB.Tbl_FMSubSector.Remove(items);
+                    confirmDelete = "restricted";
                 }
-                BOSSDB.Tbl_FMSector.Remove(Sector);
-                BOSSDB.SaveChanges();
-            }
-
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult DeleteSector(int SectorID)
-        {
-            Tbl_FMSector Sector = (from a in BOSSDB.Tbl_FMSector where a.SectorID == SectorID select a).FirstOrDefault();
-            Tbl_FMSubSector subSector = (from a in BOSSDB.Tbl_FMSubSector where a.SectorID == SectorID select a).FirstOrDefault();
-            var confirmDeleteSector = "";
-            if (Sector != null)
-            {
-                if (subSector != null)
+                else if (subSector != null)
                 {
-                    confirmDeleteSector = "confirm";
+                    confirmDelete = "true";
                 }
                 else
                 {
-                    BOSSDB.Tbl_FMSector.Remove(Sector);
-                    BOSSDB.SaveChanges();
-                    confirmDeleteSector = "delete";
+                    confirmDelete = "false";
                 }
             }
-            var result = new { confirmDeleteSector = confirmDeleteSector };
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDelete(int PrimaryID)
+        {
+            Tbl_FMSector_Sector sector = (from a in BOSSDB.Tbl_FMSector_Sector where a.SectorID == PrimaryID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMSector_Sector.Remove(sector);
+            BOSSDB.SaveChanges();
+
+            var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         //---------------------------------------------------------------------------------------------------
@@ -206,7 +207,7 @@ namespace BOSS.Controllers
 
             List<SubSectorList> getSubSectorList = new List<SubSectorList>();
 
-            var SQLQuery = "SELECT [SubSectorID],[Tbl_FMSector].SectorTitle,[SubSectorTitle],[SectorCode]+ ' - '+[SubSectorCode] as CombinedCode FROM [BOSS].[dbo].[Tbl_FMSubSector],[dbo].[Tbl_FMSector] where [Tbl_FMSubSector].SectorID = [Tbl_FMSector].SectorID";
+            var SQLQuery = "SELECT [SubSectorID],[Tbl_FMSector_Sector].SectorTitle,[SubSectorTitle],[SectorCode]+ ' - '+[SubSectorCode] as CombinedCode FROM [BOSS].[dbo].[Tbl_FMSector_SubSector],[dbo].[Tbl_FMSector_Sector] where [Tbl_FMSector_SubSector].SectorID = [Tbl_FMSector_Sector].SectorID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -232,22 +233,21 @@ namespace BOSS.Controllers
 
             return PartialView("SubSectorTab/_TableSubSector", model.getSubSectorList);
         }
-        public ActionResult GetSubSectorForm(int ActionID, int SubSectorID)
+        public ActionResult GetSubSectorForm(int ActionID, int PrimaryID)
         {
             SubSectorModel model = new SubSectorModel();
 
             if (ActionID == 2)
             {
-                var Subsector = (from a in BOSSDB.Tbl_FMSubSector where a.SubSectorID == SubSectorID select a).FirstOrDefault();
+                var Subsector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SubSectorID == PrimaryID select a).FirstOrDefault();
                 model.SubSectorList.SectorID = Convert.ToInt32(Subsector.SectorID);
                 model.SubSectorList.SubSectorTitle = Subsector.SubSectorTitle;
                 model.SubSectorList.SubSectorCode = Subsector.SubSectorCode;
-                model.SubSectorList.SubSectorID = SubSectorID;
+                model.SubSectorList.SubSectorID = Subsector.SubSectorID;
             }
             model.ActionID = ActionID;
             return PartialView("SubSectorTab/_SubSectorForm", model);
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -257,26 +257,21 @@ namespace BOSS.Controllers
             if (ModelState.IsValid)
             {
                 var SubSectorTitle = model.SubSectorList.SubSectorTitle;
-                var subsecVal = "N/A";
-                if (SubSectorTitle != null)
-                {
-                    subsecVal = Regex.Replace(SubSectorTitle, @"\s\s+", "");
-                    subsecVal = Regex.Replace(SubSectorTitle, @"^\s+", "");
-                    subsecVal = Regex.Replace(SubSectorTitle, @"\s+$", "");
-                    subsecVal = new CultureInfo("en-US").TextInfo.ToTitleCase(SubSectorTitle);
-                }
-                SubSectorTitle = subsecVal;
-                Tbl_FMSubSector checksubSector = (from a in BOSSDB.Tbl_FMSubSector where (a.SubSectorTitle == SubSectorTitle && a.SubSectorCode == model.SubSectorList.SubSectorCode) select a).FirstOrDefault();
+                SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s\s+", "");
+                SubSectorTitle = Regex.Replace(SubSectorTitle, @"^\s+", "");
+                SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s+$", "");
+                SubSectorTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(SubSectorTitle);
+                Tbl_FMSector_SubSector checksubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where (a.SubSectorTitle == SubSectorTitle || a.SubSectorCode == model.SubSectorList.SubSectorCode) select a).FirstOrDefault();
 
                 if (model.ActionID == 1)
                 {
                     if (checksubSector == null)
                     {
-                        Tbl_FMSubSector subSector = new Tbl_FMSubSector();
+                        Tbl_FMSector_SubSector subSector = new Tbl_FMSector_SubSector();
                         subSector.SectorID = model.SubSectorList.SectorID;
                         subSector.SubSectorTitle = SubSectorTitle;
                         subSector.SubSectorCode = model.SubSectorList.SubSectorCode;
-                        BOSSDB.Tbl_FMSubSector.Add(subSector);
+                        BOSSDB.Tbl_FMSector_SubSector.Add(subSector);
                         BOSSDB.SaveChanges();
                         isExist = "false";
                     }
@@ -287,7 +282,7 @@ namespace BOSS.Controllers
                 }
                 else if (model.ActionID == 2)
                 {
-                    Tbl_FMSubSector subSector = (from a in BOSSDB.Tbl_FMSubSector where a.SubSectorID == model.SubSectorList.SubSectorID select a).FirstOrDefault();
+                    Tbl_FMSector_SubSector subSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SubSectorID == model.SubSectorList.SubSectorID select a).FirstOrDefault();
 
                     if (checksubSector != null)
                     {
@@ -322,10 +317,31 @@ namespace BOSS.Controllers
                 Data = new { isExist = isExist }
             };
         }
-        public ActionResult DeleteSubSector(int SubSectorID)
+        public ActionResult DeleteSubSector(int PrimaryID)
         {
-            Tbl_FMSubSector subSector = (from a in BOSSDB.Tbl_FMSubSector where a.SubSectorID == SubSectorID select a).FirstOrDefault();
-            BOSSDB.Tbl_FMSubSector.Remove(subSector);
+            Tbl_FMSector_SubSector subSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SubSectorID == PrimaryID select a).FirstOrDefault();
+
+            Tbl_FMRes_Department dept = (from e in BOSSDB.Tbl_FMRes_Department where e.SubSectorID == PrimaryID select e).FirstOrDefault();
+            Tbl_FMRes_Function func = (from e in BOSSDB.Tbl_FMRes_Function where e.SubSectorID == PrimaryID select e).FirstOrDefault();
+            var confirmDelete = "";
+            if (subSector != null)
+            {
+                if (dept != null || func != null)
+                {
+                    confirmDelete = "restricted";
+                }
+                else
+                {
+                    confirmDelete = "false";
+                }
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteSubFund(int PrimaryID)
+        {
+            Tbl_FMSector_SubSector subsector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SubSectorID == PrimaryID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMSector_SubSector.Remove(subsector);
             BOSSDB.SaveChanges();
 
             var result = "";
@@ -333,7 +349,7 @@ namespace BOSS.Controllers
         }
         public ActionResult GetSectorCodeField(int SectorID, SubSectorModel model)
         {
-            var sector = (from a in BOSSDB.Tbl_FMSector where a.SectorID == SectorID select a).FirstOrDefault();
+            var sector = (from a in BOSSDB.Tbl_FMSector_Sector where a.SectorID == SectorID select a).FirstOrDefault();
             var passCon = "";
             model.SectorCode = sector.SectorCode;
             passCon = model.SectorCode;

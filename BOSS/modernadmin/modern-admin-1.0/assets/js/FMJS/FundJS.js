@@ -25,82 +25,43 @@ function GetFundTab() {
             ClearTabContentFMFund();
             $('#tabFundID').html(result);
             GetFundForm(1, 0);
-            //GetFundDTable();
-        }
-    })
-}
-//var tabSelect = function (tabid) {
-//    var tabactive = $(".tab-pane.active").attr("id");
-//    if (tabactive == "tabFundID") {
-//        tableid = '#fundTableID';
-//        tempid = '#fundTempID';
-//        tabid = 1;
-//    } else {
-//        tableid = '#subfundTableID';
-//        tempid = '#subfundTempID';
-//        tabid = 2;
-//    }
-//}
-function GetFundForm(ActionID, FundID) {
-    //tabSelect();
-    $.ajax({
-        url: "/FileMaintenanceFund/GetFundForm",
-        data: { ActionID: ActionID, FundID: FundID },
-        success: function (result) {
-            $('#fundTempID').html(result);
-            GetFundDTable(); 
-            changeBtnTxt('btnAddFund');
-            $('form').removeData("validator");
-            $.validator.unobtrusive.parse(document);
-        },
-        error: function () { 
-            alert('An error occured while attempting to get the content');
         }
     })
 }
 function GetFundDTable() {
-    //tabSelect();
     $.ajax({
         url: '/FileMaintenanceFund/GetFundDTable',
         success: function (result) {
             $('#fundTableID').html(result);
-            //GetFundForm(1, 0);
         }
     })
 }
-function changeBtnTxt(addBtnID) {
-    if ($(".ActionID").val() == 1) {
-        $("#" + addBtnID).text("Add");
-    }
-    else if ($(".ActionID").val() == 2) {
-        $("#" + addBtnID).text("Save Changes");
-        //$("#" + addBtnID).attr("disabled", true);
-    }
-}
+function GetFundForm(ActionID, PrimaryID) {
+    $.ajax({
+        url: "/FileMaintenanceFund/GetFundForm",
+        data: { ActionID: ActionID, PrimaryID: PrimaryID },
+        success: function (result) {
+            $('#fundTempID').html(result);
 
-//var ifExists = function (data, getForm) {
-//    if (data.isExist == "true") {
-//        getForm;
-//        swalError("Error saving", "Record already exists.")
-//    }
-//    else if (data.isExist == "false") {
-//        getForm;
-//        swalSuccess('Success', 'Fund Saved.');
-//    }
-//    else {
-//        getForm;
-//        swalSuccess('Success', 'Updated Successfully.');
-//    }
-//}
+            changeBtnTxt('btnAddFund');
+            $('form').removeData("validator");
+            $.validator.unobtrusive.parse(document);
+            GetFundDTable(); 
+        },
+        error: function () {
+            alert('An error occured while attempting to get the content');
+        }
+    })
+}
+//Click Edit in action button
 $(document).on('click', '#btnEditFundID', function (e) {
     var FundID = $(this).attr('FundAttr');
     GetFundForm(2, FundID);
-
 });
-
+//Click Delete in action button
 $(document).on('click', "#btnDeleteFundID", function () {
     var PrimaryID = $(this).attr('FundAttr');
-    DeleteRecord(PrimaryID, '/FileMaintenanceFund/DeleteFund', '/FileMaintenanceFund/ConfirmDeleteFund', 'GetFundForm(1, 0)');
+    DeleteRecord(PrimaryID, '/FileMaintenanceFund/DeleteFund', '/FileMaintenanceFund/ConfirmDelete', ' GetFundForm(1, 0)');
 });
 //---------------------------------------------------------------------------------------------------------------------
 //Sub Fund Tab
@@ -122,7 +83,7 @@ function GetSubFundForm(ActionID, SubFundID) {
         success: function (result) {
             $('#subfundTempID').html(result);
             GetSubFundDTable();
-            changeBtnTxt('btnAddFund');
+            changeBtnTxt('btnAddSubFund');
             $('form').removeData("validator");
             $.validator.unobtrusive.parse(document);
         },
@@ -153,3 +114,31 @@ $(document).on('click', '#btnEditSubFundID', function (e) {
     GetSubFundForm(2, SubFundID);
 
 });
+// Dynamic var --------------------------------------------------
+var ifExists = function (data, getForm) {
+    if (data.isExist == "true") {
+        getForm;
+        swalError("Error saving", "Record already exists.")
+    }
+    else if (data.isExist == "false") {
+        getForm;
+        swalSuccess('Success', 'Successfully Saved.');
+    }
+    else {
+        getForm;
+        swalSuccess('Success', 'Updated Successfully.');
+    }
+}
+
+//var tabSelect = function (tabid) {
+//    var tabactive = $(".tab-pane.active").attr("id");
+//    if (tabactive == "tabFundID") {
+//        tableid = '#fundTableID';
+//        tempid = '#fundTempID';
+//        tabid = 1;
+//    } else {
+//        tableid = '#subfundTableID';
+//        tempid = '#subfundTempID';
+//        tabid = 2;
+//    }
+//}

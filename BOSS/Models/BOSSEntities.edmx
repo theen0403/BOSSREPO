@@ -16,14 +16,14 @@
           <Property Name="IsLock" Type="bit" />
           <Property Name="PersonalInfoID" Type="uniqueidentifier" />
         </EntityType>
-        <EntityType Name="AppropriationSourceType">
+        <EntityType Name="FMApprop_AppropriationSourceType">
           <Key>
             <PropertyRef Name="AppropSourceTypeID" />
           </Key>
           <Property Name="AppropSourceTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AppropSourceTypeTitle" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="BudgetYear">
+        <EntityType Name="FMApprop_BudgetYear">
           <Key>
             <PropertyRef Name="BudgetYearID" />
           </Key>
@@ -85,6 +85,13 @@
           <Property Name="Birthday" Type="date" />
           <Property Name="Fullname" Type="varchar" MaxLength="108" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <EntityType Name="PIN_Accounts">
+          <Key>
+            <PropertyRef Name="PinID" />
+          </Key>
+          <Property Name="PinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pin_Acct" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -95,24 +102,7 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="Tbl_FMAccountGroup">
-          <Key>
-            <PropertyRef Name="AGID" />
-          </Key>
-          <Property Name="AGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AGTitle" Type="varchar" MaxLength="50" />
-          <Property Name="AGCode" Type="varchar" MaxLength="50" />
-          <Property Name="AllotmentClassID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMAllotmentClass">
-          <Key>
-            <PropertyRef Name="AllotmentClassID" />
-          </Key>
-          <Property Name="AllotmentClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AllotmentClassTitle" Type="varchar" MaxLength="100" />
-          <Property Name="RevID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMAppropriationSource">
+        <EntityType Name="Tbl_FMApprop_AppropriationSource">
           <Key>
             <PropertyRef Name="AppropriationID" />
           </Key>
@@ -121,50 +111,7 @@
           <Property Name="FundSourceID" Type="int" />
           <Property Name="BudgetYearID" Type="int" />
         </EntityType>
-        <EntityType Name="Tbl_FMBalance">
-          <Key>
-            <PropertyRef Name="BalanceID" />
-          </Key>
-          <Property Name="BalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BalanceTitle" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Tbl_FMDepartment">
-          <Key>
-            <PropertyRef Name="DeptID" />
-          </Key>
-          <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DeptTitle" Type="varchar" MaxLength="100" />
-          <Property Name="DeptAbbrv" Type="varchar" MaxLength="50" />
-          <Property Name="RCcode" Type="varchar" MaxLength="50" />
-          <Property Name="FundID" Type="int" />
-          <Property Name="SectorID" Type="int" />
-          <Property Name="SubSectorID" Type="int" />
-          <Property Name="OfficeTypeID" Type="int" />
-          <Property Name="DeptOfficeCode" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Tbl_FMFunction">
-          <Key>
-            <PropertyRef Name="FunctionID" />
-          </Key>
-          <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FunctionTitle" Type="varchar" MaxLength="50" />
-          <Property Name="FunctionAbbrv" Type="varchar" MaxLength="50" />
-          <Property Name="FunctionCode" Type="varchar" MaxLength="50" />
-          <Property Name="SectorID" Type="int" />
-          <Property Name="SubSectorID" Type="int" />
-          <Property Name="OfficeTypeID" Type="int" />
-          <Property Name="DeptOfficeCodefunc" Type="varchar" MaxLength="50" />
-          <Property Name="DeptID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMFund">
-          <Key>
-            <PropertyRef Name="FundID" />
-          </Key>
-          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FundTitle" Type="varchar" MaxLength="50" />
-          <Property Name="FundCode" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Tbl_FMFundSource">
+        <EntityType Name="Tbl_FMApprop_FundSource">
           <Key>
             <PropertyRef Name="FundSourceID" />
           </Key>
@@ -172,7 +119,31 @@
           <Property Name="FundSourceTitle" Type="varchar" MaxLength="100" />
           <Property Name="AppropSourceTypeID" Type="int" />
         </EntityType>
-        <EntityType Name="Tbl_FMGeneralAccount">
+        <EntityType Name="Tbl_FMBalance">
+          <Key>
+            <PropertyRef Name="BalanceID" />
+          </Key>
+          <Property Name="BalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BalanceTitle" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_AccountGroup">
+          <Key>
+            <PropertyRef Name="AGID" />
+          </Key>
+          <Property Name="AGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AGTitle" Type="varchar" MaxLength="50" />
+          <Property Name="AGCode" Type="varchar" MaxLength="50" />
+          <Property Name="AllotmentClassID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_AllotmentClass">
+          <Key>
+            <PropertyRef Name="AllotmentClassID" />
+          </Key>
+          <Property Name="AllotmentClassID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllotmentClassTitle" Type="varchar" MaxLength="100" />
+          <Property Name="RevID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_GeneralAccount">
           <Key>
             <PropertyRef Name="GAID" />
           </Key>
@@ -194,7 +165,7 @@
           <Property Name="isSubAccount" Type="bit" />
           <Property Name="GAIDSA" Type="int" />
         </EntityType>
-        <EntityType Name="Tbl_FMMajorAccountGroup">
+        <EntityType Name="Tbl_FMCOA_MajorAccountGroup">
           <Key>
             <PropertyRef Name="MAGID" />
           </Key>
@@ -202,6 +173,40 @@
           <Property Name="MAGTitle" Type="varchar" MaxLength="50" />
           <Property Name="MAGCode" Type="varchar" MaxLength="50" />
           <Property Name="AGID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_RevisionYear">
+          <Key>
+            <PropertyRef Name="RevID" />
+          </Key>
+          <Property Name="RevID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RevYear" Type="int" />
+          <Property Name="isUsed" Type="bit" />
+          <Property Name="Remarks" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_SubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SMAGID" />
+          </Key>
+          <Property Name="SMAGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMAGTitle" Type="varchar" MaxLength="50" />
+          <Property Name="SMAGCode" Type="varchar" MaxLength="50" />
+          <Property Name="MAGID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMFund_Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FundTitle" Type="varchar" MaxLength="50" />
+          <Property Name="FundCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_FMFund_SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubFundTitle" Type="varchar" MaxLength="50" />
+          <Property Name="FundID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMOfficeType">
           <Key>
@@ -228,16 +233,35 @@
           <Property Name="PositionTitle" Type="varchar" MaxLength="50" />
           <Property Name="PositionCode" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Tbl_FMRevisionYear">
+        <EntityType Name="Tbl_FMRes_Department">
           <Key>
-            <PropertyRef Name="RevID" />
+            <PropertyRef Name="DeptID" />
           </Key>
-          <Property Name="RevID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RevYear" Type="int" />
-          <Property Name="isUsed" Type="bit" />
-          <Property Name="Remarks" Type="varchar" MaxLength="100" />
+          <Property Name="DeptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeptTitle" Type="varchar" MaxLength="100" />
+          <Property Name="DeptAbbrv" Type="varchar" MaxLength="50" />
+          <Property Name="RCcode" Type="varchar" MaxLength="50" />
+          <Property Name="FundID" Type="int" />
+          <Property Name="SectorID" Type="int" />
+          <Property Name="SubSectorID" Type="int" />
+          <Property Name="OfficeTypeID" Type="int" />
+          <Property Name="DeptOfficeCode" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Tbl_FMSection">
+        <EntityType Name="Tbl_FMRes_Function">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FunctionTitle" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionAbbrv" Type="varchar" MaxLength="50" />
+          <Property Name="FunctionCode" Type="varchar" MaxLength="50" />
+          <Property Name="SectorID" Type="int" />
+          <Property Name="SubSectorID" Type="int" />
+          <Property Name="OfficeTypeID" Type="int" />
+          <Property Name="DeptOfficeCodefunc" Type="varchar" MaxLength="50" />
+          <Property Name="DeptID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMRes_Section">
           <Key>
             <PropertyRef Name="SectionID" />
           </Key>
@@ -246,13 +270,22 @@
           <Property Name="DeptID" Type="int" />
           <Property Name="FunctionID" Type="int" />
         </EntityType>
-        <EntityType Name="Tbl_FMSector">
+        <EntityType Name="Tbl_FMSector_Sector">
           <Key>
             <PropertyRef Name="SectorID" />
           </Key>
           <Property Name="SectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SectorTitle" Type="varchar" MaxLength="50" />
           <Property Name="SectorCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSector_SubSector">
+          <Key>
+            <PropertyRef Name="SubSectorID" />
+          </Key>
+          <Property Name="SubSectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubSectorTitle" Type="varchar" MaxLength="100" />
+          <Property Name="SubSectorCode" Type="varchar" MaxLength="50" />
+          <Property Name="SectorID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMSignatory">
           <Key>
@@ -266,32 +299,6 @@
           <Property Name="Division" Type="varchar" MaxLength="50" />
           <Property Name="isHead" Type="bit" />
           <Property Name="isActive" Type="bit" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubFund">
-          <Key>
-            <PropertyRef Name="SubFundID" />
-          </Key>
-          <Property Name="SubFundID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SubFundTitle" Type="varchar" MaxLength="50" />
-          <Property Name="FundID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubMajorAccountGroup">
-          <Key>
-            <PropertyRef Name="SMAGID" />
-          </Key>
-          <Property Name="SMAGID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SMAGTitle" Type="varchar" MaxLength="50" />
-          <Property Name="SMAGCode" Type="varchar" MaxLength="50" />
-          <Property Name="MAGID" Type="int" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubSector">
-          <Key>
-            <PropertyRef Name="SubSectorID" />
-          </Key>
-          <Property Name="SubSectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SubSectorTitle" Type="varchar" MaxLength="100" />
-          <Property Name="SubSectorCode" Type="varchar" MaxLength="50" />
-          <Property Name="SectorID" Type="int" />
         </EntityType>
         <Association Name="FK_Accounts_PersonalInformation">
           <End Role="PersonalInformation" Type="Self.PersonalInformation" Multiplicity="0..1" />
@@ -341,215 +348,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass">
-          <End Role="Tbl_FMAllotmentClass" Type="Self.Tbl_FMAllotmentClass" Multiplicity="0..1" />
-          <End Role="Tbl_FMAccountGroup" Type="Self.Tbl_FMAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMAllotmentClass">
-              <PropertyRef Name="AllotmentClassID" />
-            </Principal>
-            <Dependent Role="Tbl_FMAccountGroup">
-              <PropertyRef Name="AllotmentClassID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear">
-          <End Role="Tbl_FMRevisionYear" Type="Self.Tbl_FMRevisionYear" Multiplicity="0..1" />
-          <End Role="Tbl_FMAllotmentClass" Type="Self.Tbl_FMAllotmentClass" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMRevisionYear">
-              <PropertyRef Name="RevID" />
-            </Principal>
-            <Dependent Role="Tbl_FMAllotmentClass">
-              <PropertyRef Name="RevID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_FMAppropriationSource_BudgetYear">
-          <End Role="BudgetYear" Type="Self.BudgetYear" Multiplicity="0..1" />
-          <End Role="Tbl_FMAppropriationSource" Type="Self.Tbl_FMAppropriationSource" Multiplicity="*" />
+          <End Role="FMApprop_BudgetYear" Type="Self.FMApprop_BudgetYear" Multiplicity="0..1" />
+          <End Role="Tbl_FMApprop_AppropriationSource" Type="Self.Tbl_FMApprop_AppropriationSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BudgetYear">
+            <Principal Role="FMApprop_BudgetYear">
               <PropertyRef Name="BudgetYearID" />
             </Principal>
-            <Dependent Role="Tbl_FMAppropriationSource">
+            <Dependent Role="Tbl_FMApprop_AppropriationSource">
               <PropertyRef Name="BudgetYearID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMAppropriationSource_Tbl_FMFundSource">
-          <End Role="Tbl_FMFundSource" Type="Self.Tbl_FMFundSource" Multiplicity="0..1" />
-          <End Role="Tbl_FMAppropriationSource" Type="Self.Tbl_FMAppropriationSource" Multiplicity="*" />
+          <End Role="Tbl_FMApprop_FundSource" Type="Self.Tbl_FMApprop_FundSource" Multiplicity="0..1" />
+          <End Role="Tbl_FMApprop_AppropriationSource" Type="Self.Tbl_FMApprop_AppropriationSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFundSource">
+            <Principal Role="Tbl_FMApprop_FundSource">
               <PropertyRef Name="FundSourceID" />
             </Principal>
-            <Dependent Role="Tbl_FMAppropriationSource">
+            <Dependent Role="Tbl_FMApprop_AppropriationSource">
               <PropertyRef Name="FundSourceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMFund">
-          <End Role="Tbl_FMFund" Type="Self.Tbl_FMFund" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
+          <End Role="Tbl_FMCOA_AllotmentClass" Type="Self.Tbl_FMCOA_AllotmentClass" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_AccountGroup" Type="Self.Tbl_FMCOA_AccountGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFund">
+            <Principal Role="Tbl_FMCOA_AllotmentClass">
+              <PropertyRef Name="AllotmentClassID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="AllotmentClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
+          <End Role="Tbl_FMCOA_RevisionYear" Type="Self.Tbl_FMCOA_RevisionYear" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_AllotmentClass" Type="Self.Tbl_FMCOA_AllotmentClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_RevisionYear">
+              <PropertyRef Name="RevID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_AllotmentClass">
+              <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
+          <End Role="Tbl_FMCOA_AccountGroup" Type="Self.Tbl_FMCOA_AccountGroup" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_MajorAccountGroup" Type="Self.Tbl_FMCOA_MajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="AGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_MajorAccountGroup">
+              <PropertyRef Name="AGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
+          <End Role="Tbl_FMCOA_MajorAccountGroup" Type="Self.Tbl_FMCOA_MajorAccountGroup" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_SubMajorAccountGroup" Type="Self.Tbl_FMCOA_SubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_MajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_SubMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
+          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Role="Tbl_FMFund_SubFund" Type="Self.Tbl_FMFund_SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
               <PropertyRef Name="FundID" />
             </Principal>
-            <Dependent Role="Tbl_FMDepartment">
+            <Dependent Role="Tbl_FMFund_SubFund">
               <PropertyRef Name="FundID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMOfficeType">
-          <End Role="Tbl_FMOfficeType" Type="Self.Tbl_FMOfficeType" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMOfficeType">
-              <PropertyRef Name="OfficeTypeID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="OfficeTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMSector">
-          <End Role="Tbl_FMSector" Type="Self.Tbl_FMSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMSubSector">
-          <End Role="Tbl_FMSubSector" Type="Self.Tbl_FMSubSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SubSectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMDepartment">
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
-              <PropertyRef Name="DeptID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="DeptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMOfficeType">
-          <End Role="Tbl_FMOfficeType" Type="Self.Tbl_FMOfficeType" Multiplicity="0..1" />
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMOfficeType">
-              <PropertyRef Name="OfficeTypeID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="OfficeTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMSector">
-          <End Role="Tbl_FMSector" Type="Self.Tbl_FMSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMSubSector">
-          <End Role="Tbl_FMSubSector" Type="Self.Tbl_FMSubSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMFundSource_AppropriationSourceType">
-          <End Role="AppropriationSourceType" Type="Self.AppropriationSourceType" Multiplicity="0..1" />
-          <End Role="Tbl_FMFundSource" Type="Self.Tbl_FMFundSource" Multiplicity="*" />
+          <End Role="FMApprop_AppropriationSourceType" Type="Self.FMApprop_AppropriationSourceType" Multiplicity="0..1" />
+          <End Role="Tbl_FMApprop_FundSource" Type="Self.Tbl_FMApprop_FundSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AppropriationSourceType">
+            <Principal Role="FMApprop_AppropriationSourceType">
               <PropertyRef Name="AppropSourceTypeID" />
             </Principal>
-            <Dependent Role="Tbl_FMFundSource">
+            <Dependent Role="Tbl_FMApprop_FundSource">
               <PropertyRef Name="AppropSourceTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
-          <End Role="Tbl_FMBalance" Type="Self.Tbl_FMBalance" Multiplicity="0..1" />
-          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMBalance">
-              <PropertyRef Name="BalanceID" />
-            </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="BalanceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
-          <End Role="Tbl_FMRevisionYear" Type="Self.Tbl_FMRevisionYear" Multiplicity="0..1" />
-          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMRevisionYear">
-              <PropertyRef Name="RevID" />
-            </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="RevID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
-          <End Role="Tbl_FMSubMajorAccountGroup" Type="Self.Tbl_FMSubMajorAccountGroup" Multiplicity="0..1" />
-          <End Role="Tbl_FMGeneralAccount" Type="Self.Tbl_FMGeneralAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubMajorAccountGroup">
-              <PropertyRef Name="SMAGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="SMAGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
-          <End Role="Tbl_FMAccountGroup" Type="Self.Tbl_FMAccountGroup" Multiplicity="0..1" />
-          <End Role="Tbl_FMMajorAccountGroup" Type="Self.Tbl_FMMajorAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMAccountGroup">
-              <PropertyRef Name="AGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMMajorAccountGroup">
-              <PropertyRef Name="AGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMPayee_Tbl_FMDepartment">
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="0..1" />
+        <Association Name="FK_Tbl_FMPayee_Tbl_FMRes_Department">
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="0..1" />
           <End Role="Tbl_FMPayee" Type="Self.Tbl_FMPayee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
+            <Principal Role="Tbl_FMRes_Department">
               <PropertyRef Name="DeptID" />
             </Principal>
             <Dependent Role="Tbl_FMPayee">
@@ -557,39 +456,135 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSection_Tbl_FMDepartment">
-          <End Role="Tbl_FMDepartment" Type="Self.Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Role="Tbl_FMSection" Type="Self.Tbl_FMSection" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMFund_Fund">
+          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMOfficeType">
+          <End Role="Tbl_FMOfficeType" Type="Self.Tbl_FMOfficeType" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMOfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMSector_Sector">
+          <End Role="Tbl_FMSector_Sector" Type="Self.Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector">
+          <End Role="Tbl_FMSector_SubSector" Type="Self.Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMOfficeType">
+          <End Role="Tbl_FMOfficeType" Type="Self.Tbl_FMOfficeType" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMOfficeType">
+              <PropertyRef Name="OfficeTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="OfficeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMRes_Department">
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
               <PropertyRef Name="DeptID" />
             </Principal>
-            <Dependent Role="Tbl_FMSection">
+            <Dependent Role="Tbl_FMRes_Function">
               <PropertyRef Name="DeptID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSection_Tbl_FMFunction">
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="0..1" />
-          <End Role="Tbl_FMSection" Type="Self.Tbl_FMSection" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMSector_Sector">
+          <End Role="Tbl_FMSector_Sector" Type="Self.Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
+            <Principal Role="Tbl_FMSector_Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector">
+          <End Role="Tbl_FMSector_SubSector" Type="Self.Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Department">
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Section" Type="Self.Tbl_FMRes_Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Section">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Function">
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="0..1" />
+          <End Role="Tbl_FMRes_Section" Type="Self.Tbl_FMRes_Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Function">
               <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="Tbl_FMSection">
+            <Dependent Role="Tbl_FMRes_Section">
               <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMFunction">
-          <End Role="Tbl_FMFunction" Type="Self.Tbl_FMFunction" Multiplicity="0..1" />
-          <End Role="Tbl_FMSignatory" Type="Self.Tbl_FMSignatory" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector">
+          <End Role="Tbl_FMSector_Sector" Type="Self.Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Role="Tbl_FMSector_SubSector" Type="Self.Tbl_FMSector_SubSector" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
-              <PropertyRef Name="FunctionID" />
+            <Principal Role="Tbl_FMSector_Sector">
+              <PropertyRef Name="SectorID" />
             </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="FunctionID" />
+            <Dependent Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -605,46 +600,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSubFund_Tbl_FMFund">
-          <End Role="Tbl_FMFund" Type="Self.Tbl_FMFund" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Tbl_FMSubFund" Type="Self.Tbl_FMSubFund" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMSignatory_Tbl_FMRes_Function">
+          <End Role="Tbl_FMRes_Function" Type="Self.Tbl_FMRes_Function" Multiplicity="0..1" />
+          <End Role="Tbl_FMSignatory" Type="Self.Tbl_FMSignatory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFund">
-              <PropertyRef Name="FundID" />
+            <Principal Role="Tbl_FMRes_Function">
+              <PropertyRef Name="FunctionID" />
             </Principal>
-            <Dependent Role="Tbl_FMSubFund">
-              <PropertyRef Name="FundID" />
+            <Dependent Role="Tbl_FMSignatory">
+              <PropertyRef Name="FunctionID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
-          <End Role="Tbl_FMMajorAccountGroup" Type="Self.Tbl_FMMajorAccountGroup" Multiplicity="0..1" />
-          <End Role="Tbl_FMSubMajorAccountGroup" Type="Self.Tbl_FMSubMajorAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMMajorAccountGroup">
-              <PropertyRef Name="MAGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSubMajorAccountGroup">
-              <PropertyRef Name="MAGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSubSector_Tbl_FMSector">
-          <End Role="Tbl_FMSector" Type="Self.Tbl_FMSector" Multiplicity="0..1" />
-          <End Role="Tbl_FMSubSector" Type="Self.Tbl_FMSubSector" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSubSector">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
         <Function Name="SP_AppropriationSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_FMAccounts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
@@ -655,6 +641,14 @@
         <Function Name="SP_Fund" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_OfficeType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -664,42 +658,49 @@
         <Function Name="SP_PositionSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="SP_Sector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="SP_Signatory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BOSSModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AppropriationSourceType" EntityType="Self.AppropriationSourceType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BudgetYear" EntityType="Self.BudgetYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FMApprop_AppropriationSourceType" EntityType="Self.FMApprop_AppropriationSourceType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FMApprop_BudgetYear" EntityType="Self.FMApprop_BudgetYear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level2Modules" EntityType="Self.Level2Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level3Modules" EntityType="Self.Level3Modules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ParentModules" EntityType="Self.ParentModules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PersonalInformation" EntityType="Self.PersonalInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PIN_Accounts" EntityType="Self.PIN_Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMAccountGroup" EntityType="Self.Tbl_FMAccountGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMAllotmentClass" EntityType="Self.Tbl_FMAllotmentClass" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMAppropriationSource" EntityType="Self.Tbl_FMAppropriationSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMApprop_AppropriationSource" EntityType="Self.Tbl_FMApprop_AppropriationSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMApprop_FundSource" EntityType="Self.Tbl_FMApprop_FundSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMBalance" EntityType="Self.Tbl_FMBalance" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMDepartment" EntityType="Self.Tbl_FMDepartment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMFunction" EntityType="Self.Tbl_FMFunction" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMFund" EntityType="Self.Tbl_FMFund" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMFundSource" EntityType="Self.Tbl_FMFundSource" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMGeneralAccount" EntityType="Self.Tbl_FMGeneralAccount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMMajorAccountGroup" EntityType="Self.Tbl_FMMajorAccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_AccountGroup" EntityType="Self.Tbl_FMCOA_AccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_AllotmentClass" EntityType="Self.Tbl_FMCOA_AllotmentClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_GeneralAccount" EntityType="Self.Tbl_FMCOA_GeneralAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_MajorAccountGroup" EntityType="Self.Tbl_FMCOA_MajorAccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_RevisionYear" EntityType="Self.Tbl_FMCOA_RevisionYear" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMCOA_SubMajorAccountGroup" EntityType="Self.Tbl_FMCOA_SubMajorAccountGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMFund_Fund" EntityType="Self.Tbl_FMFund_Fund" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMFund_SubFund" EntityType="Self.Tbl_FMFund_SubFund" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMOfficeType" EntityType="Self.Tbl_FMOfficeType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMPayee" EntityType="Self.Tbl_FMPayee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMPosition" EntityType="Self.Tbl_FMPosition" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMRevisionYear" EntityType="Self.Tbl_FMRevisionYear" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSection" EntityType="Self.Tbl_FMSection" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSector" EntityType="Self.Tbl_FMSector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMRes_Department" EntityType="Self.Tbl_FMRes_Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMRes_Function" EntityType="Self.Tbl_FMRes_Function" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMRes_Section" EntityType="Self.Tbl_FMRes_Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMSector_Sector" EntityType="Self.Tbl_FMSector_Sector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMSector_SubSector" EntityType="Self.Tbl_FMSector_SubSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="Self.Tbl_FMSignatory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSubFund" EntityType="Self.Tbl_FMSubFund" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSubMajorAccountGroup" EntityType="Self.Tbl_FMSubMajorAccountGroup" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tbl_FMSubSector" EntityType="Self.Tbl_FMSubSector" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformation" />
             <End Role="Accounts" EntitySet="Accounts" />
@@ -716,105 +717,93 @@
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass" Association="Self.FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass">
-            <End Role="Tbl_FMAllotmentClass" EntitySet="Tbl_FMAllotmentClass" />
-            <End Role="Tbl_FMAccountGroup" EntitySet="Tbl_FMAccountGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" Association="Self.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear">
-            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
-            <End Role="Tbl_FMAllotmentClass" EntitySet="Tbl_FMAllotmentClass" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMAppropriationSource_BudgetYear" Association="Self.FK_Tbl_FMAppropriationSource_BudgetYear">
-            <End Role="BudgetYear" EntitySet="BudgetYear" />
-            <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
+            <End Role="FMApprop_BudgetYear" EntitySet="FMApprop_BudgetYear" />
+            <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" Association="Self.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource">
-            <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
-            <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
+            <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
+            <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMFund" Association="Self.FK_Tbl_FMDepartment_Tbl_FMFund">
-            <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" Association="Self.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
+            <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMOfficeType" Association="Self.FK_Tbl_FMDepartment_Tbl_FMOfficeType">
-            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" Association="Self.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
+            <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
+            <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMSector" Association="Self.FK_Tbl_FMDepartment_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" Association="Self.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
+            <End Role="Tbl_FMCOA_MajorAccountGroup" EntitySet="Tbl_FMCOA_MajorAccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMSubSector" Association="Self.FK_Tbl_FMDepartment_Tbl_FMSubSector">
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" Association="Self.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
+            <End Role="Tbl_FMCOA_MajorAccountGroup" EntitySet="Tbl_FMCOA_MajorAccountGroup" />
+            <End Role="Tbl_FMCOA_SubMajorAccountGroup" EntitySet="Tbl_FMCOA_SubMajorAccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMDepartment" Association="Self.FK_Tbl_FMFunction_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMOfficeType" Association="Self.FK_Tbl_FMFunction_Tbl_FMOfficeType">
-            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMSector" Association="Self.FK_Tbl_FMFunction_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMSubSector" Association="Self.FK_Tbl_FMFunction_Tbl_FMSubSector">
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
+          <AssociationSet Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" Association="Self.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMFund_SubFund" EntitySet="Tbl_FMFund_SubFund" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMFundSource_AppropriationSourceType" Association="Self.FK_Tbl_FMFundSource_AppropriationSourceType">
-            <End Role="AppropriationSourceType" EntitySet="AppropriationSourceType" />
-            <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
+            <End Role="FMApprop_AppropriationSourceType" EntitySet="FMApprop_AppropriationSourceType" />
+            <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
-            <End Role="Tbl_FMBalance" EntitySet="Tbl_FMBalance" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
-            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" Association="Self.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
-            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" Association="Self.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
-            <End Role="Tbl_FMAccountGroup" EntitySet="Tbl_FMAccountGroup" />
-            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMPayee_Tbl_FMDepartment" Association="Self.FK_Tbl_FMPayee_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMPayee_Tbl_FMRes_Department" Association="Self.FK_Tbl_FMPayee_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
             <End Role="Tbl_FMPayee" EntitySet="Tbl_FMPayee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSection_Tbl_FMDepartment" Association="Self.FK_Tbl_FMSection_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" Association="Self.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSection_Tbl_FMFunction" Association="Self.FK_Tbl_FMSection_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMOfficeType" Association="Self.FK_Tbl_FMRes_Department_Tbl_FMOfficeType">
+            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMFunction" Association="Self.FK_Tbl_FMSignatory_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMSector_Sector" Association="Self.FK_Tbl_FMRes_Department_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector" Association="Self.FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMOfficeType" Association="Self.FK_Tbl_FMRes_Function_Tbl_FMOfficeType">
+            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMRes_Department" Association="Self.FK_Tbl_FMRes_Function_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMSector_Sector" Association="Self.FK_Tbl_FMRes_Function_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector" Association="Self.FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Department" Association="Self.FK_Tbl_FMRes_Section_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="Tbl_FMRes_Section" EntitySet="Tbl_FMRes_Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Function" Association="Self.FK_Tbl_FMRes_Section_Tbl_FMRes_Function">
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+            <End Role="Tbl_FMRes_Section" EntitySet="Tbl_FMRes_Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector" Association="Self.FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMPosition" Association="Self.FK_Tbl_FMSignatory_Tbl_FMPosition">
             <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
             <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubFund_Tbl_FMFund" Association="Self.FK_Tbl_FMSubFund_Tbl_FMFund">
-            <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
-            <End Role="Tbl_FMSubFund" EntitySet="Tbl_FMSubFund" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" Association="Self.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
-            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
-            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubSector_Tbl_FMSector" Association="Self.FK_Tbl_FMSubSector_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
+          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMRes_Function" Association="Self.FK_Tbl_FMSignatory_Tbl_FMRes_Function">
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -849,46 +838,77 @@
           <FunctionImport Name="SP_Payee">
           <Parameter Name="SQLStatement" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BOSSModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BOSSModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="Accounts" EntityType="BOSSModel.Account" />
-          <EntitySet Name="AppropriationSourceTypes" EntityType="BOSSModel.AppropriationSourceType" />
-          <EntitySet Name="BudgetYears" EntityType="BOSSModel.BudgetYear" />
+          <EntitySet Name="FMApprop_AppropriationSourceType" EntityType="BOSSModel.FMApprop_AppropriationSourceType" />
+          <EntitySet Name="FMApprop_BudgetYear" EntityType="BOSSModel.FMApprop_BudgetYear" />
           <EntitySet Name="Level1Modules" EntityType="BOSSModel.Level1Modules" />
           <EntitySet Name="Level2Modules" EntityType="BOSSModel.Level2Modules" />
           <EntitySet Name="Level3Modules" EntityType="BOSSModel.Level3Modules" />
           <EntitySet Name="ParentModules" EntityType="BOSSModel.ParentModule" />
           <EntitySet Name="PersonalInformations" EntityType="BOSSModel.PersonalInformation" />
+          <EntitySet Name="PIN_Accounts" EntityType="BOSSModel.PIN_Accounts" />
           <EntitySet Name="sysdiagrams" EntityType="BOSSModel.sysdiagram" />
-          <EntitySet Name="Tbl_FMAccountGroup" EntityType="BOSSModel.Tbl_FMAccountGroup" />
-          <EntitySet Name="Tbl_FMAllotmentClass" EntityType="BOSSModel.Tbl_FMAllotmentClass" />
-          <EntitySet Name="Tbl_FMAppropriationSource" EntityType="BOSSModel.Tbl_FMAppropriationSource" />
+          <EntitySet Name="Tbl_FMApprop_AppropriationSource" EntityType="BOSSModel.Tbl_FMApprop_AppropriationSource" />
+          <EntitySet Name="Tbl_FMApprop_FundSource" EntityType="BOSSModel.Tbl_FMApprop_FundSource" />
           <EntitySet Name="Tbl_FMBalance" EntityType="BOSSModel.Tbl_FMBalance" />
-          <EntitySet Name="Tbl_FMDepartment" EntityType="BOSSModel.Tbl_FMDepartment" />
-          <EntitySet Name="Tbl_FMFunction" EntityType="BOSSModel.Tbl_FMFunction" />
-          <EntitySet Name="Tbl_FMFund" EntityType="BOSSModel.Tbl_FMFund" />
-          <EntitySet Name="Tbl_FMFundSource" EntityType="BOSSModel.Tbl_FMFundSource" />
-          <EntitySet Name="Tbl_FMGeneralAccount" EntityType="BOSSModel.Tbl_FMGeneralAccount" />
-          <EntitySet Name="Tbl_FMMajorAccountGroup" EntityType="BOSSModel.Tbl_FMMajorAccountGroup" />
+          <EntitySet Name="Tbl_FMCOA_AccountGroup" EntityType="BOSSModel.Tbl_FMCOA_AccountGroup" />
+          <EntitySet Name="Tbl_FMCOA_AllotmentClass" EntityType="BOSSModel.Tbl_FMCOA_AllotmentClass" />
+          <EntitySet Name="Tbl_FMCOA_GeneralAccount" EntityType="BOSSModel.Tbl_FMCOA_GeneralAccount" />
+          <EntitySet Name="Tbl_FMCOA_MajorAccountGroup" EntityType="BOSSModel.Tbl_FMCOA_MajorAccountGroup" />
+          <EntitySet Name="Tbl_FMCOA_RevisionYear" EntityType="BOSSModel.Tbl_FMCOA_RevisionYear" />
+          <EntitySet Name="Tbl_FMCOA_SubMajorAccountGroup" EntityType="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" />
+          <EntitySet Name="Tbl_FMFund_Fund" EntityType="BOSSModel.Tbl_FMFund_Fund" />
+          <EntitySet Name="Tbl_FMFund_SubFund" EntityType="BOSSModel.Tbl_FMFund_SubFund" />
           <EntitySet Name="Tbl_FMOfficeType" EntityType="BOSSModel.Tbl_FMOfficeType" />
           <EntitySet Name="Tbl_FMPayee" EntityType="BOSSModel.Tbl_FMPayee" />
           <EntitySet Name="Tbl_FMPosition" EntityType="BOSSModel.Tbl_FMPosition" />
-          <EntitySet Name="Tbl_FMRevisionYear" EntityType="BOSSModel.Tbl_FMRevisionYear" />
-          <EntitySet Name="Tbl_FMSection" EntityType="BOSSModel.Tbl_FMSection" />
-          <EntitySet Name="Tbl_FMSector" EntityType="BOSSModel.Tbl_FMSector" />
+          <EntitySet Name="Tbl_FMRes_Department" EntityType="BOSSModel.Tbl_FMRes_Department" />
+          <EntitySet Name="Tbl_FMRes_Function" EntityType="BOSSModel.Tbl_FMRes_Function" />
+          <EntitySet Name="Tbl_FMRes_Section" EntityType="BOSSModel.Tbl_FMRes_Section" />
+          <EntitySet Name="Tbl_FMSector_Sector" EntityType="BOSSModel.Tbl_FMSector_Sector" />
+          <EntitySet Name="Tbl_FMSector_SubSector" EntityType="BOSSModel.Tbl_FMSector_SubSector" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="BOSSModel.Tbl_FMSignatory" />
-          <EntitySet Name="Tbl_FMSubFund" EntityType="BOSSModel.Tbl_FMSubFund" />
-          <EntitySet Name="Tbl_FMSubMajorAccountGroup" EntityType="BOSSModel.Tbl_FMSubMajorAccountGroup" />
-          <EntitySet Name="Tbl_FMSubSector" EntityType="BOSSModel.Tbl_FMSubSector" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="BOSSModel.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformations" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMFundSource_AppropriationSourceType" Association="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType">
-            <End Role="AppropriationSourceType" EntitySet="AppropriationSourceTypes" />
-            <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
+            <End Role="FMApprop_AppropriationSourceType" EntitySet="FMApprop_AppropriationSourceType" />
+            <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMAppropriationSource_BudgetYear" Association="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear">
-            <End Role="BudgetYear" EntitySet="BudgetYears" />
-            <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
+            <End Role="FMApprop_BudgetYear" EntitySet="FMApprop_BudgetYear" />
+            <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_ParentModules" Association="BOSSModel.FK_Level1Modules_ParentModules">
             <End Role="ParentModule" EntitySet="ParentModules" />
@@ -902,99 +922,98 @@
             <End Role="Level2Modules" EntitySet="Level2Modules" />
             <End Role="Level3Modules" EntitySet="Level3Modules" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass" Association="BOSSModel.FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass">
-            <End Role="Tbl_FMAllotmentClass" EntitySet="Tbl_FMAllotmentClass" />
-            <End Role="Tbl_FMAccountGroup" EntitySet="Tbl_FMAccountGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" Association="BOSSModel.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
-            <End Role="Tbl_FMAccountGroup" EntitySet="Tbl_FMAccountGroup" />
-            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" Association="BOSSModel.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear">
-            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
-            <End Role="Tbl_FMAllotmentClass" EntitySet="Tbl_FMAllotmentClass" />
-          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" Association="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource">
-            <End Role="Tbl_FMFundSource" EntitySet="Tbl_FMFundSource" />
-            <End Role="Tbl_FMAppropriationSource" EntitySet="Tbl_FMAppropriationSource" />
+            <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
+            <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
-            <End Role="Tbl_FMBalance" EntitySet="Tbl_FMBalance" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
+          <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" Association="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
+            <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMFund" Association="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMFund">
-            <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" Association="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
+            <End Role="Tbl_FMCOA_MajorAccountGroup" EntitySet="Tbl_FMCOA_MajorAccountGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMOfficeType" Association="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMOfficeType">
+          <AssociationSet Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" Association="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
+            <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
+            <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" Association="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
+            <End Role="Tbl_FMCOA_MajorAccountGroup" EntitySet="Tbl_FMCOA_MajorAccountGroup" />
+            <End Role="Tbl_FMCOA_SubMajorAccountGroup" EntitySet="Tbl_FMCOA_SubMajorAccountGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" Association="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMFund_SubFund" EntitySet="Tbl_FMFund_SubFund" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" Association="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMOfficeType" Association="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMOfficeType">
             <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMSector" Association="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMOfficeType" Association="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMOfficeType">
+            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMDepartment_Tbl_FMSubSector" Association="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSubSector">
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMDepartment" Association="BOSSModel.FK_Tbl_FMFunction_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMPayee_Tbl_FMDepartment" Association="BOSSModel.FK_Tbl_FMPayee_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
+          <AssociationSet Name="FK_Tbl_FMPayee_Tbl_FMRes_Department" Association="BOSSModel.FK_Tbl_FMPayee_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
             <End Role="Tbl_FMPayee" EntitySet="Tbl_FMPayee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSection_Tbl_FMDepartment" Association="BOSSModel.FK_Tbl_FMSection_Tbl_FMDepartment">
-            <End Role="Tbl_FMDepartment" EntitySet="Tbl_FMDepartment" />
-            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMOfficeType" Association="BOSSModel.FK_Tbl_FMFunction_Tbl_FMOfficeType">
-            <End Role="Tbl_FMOfficeType" EntitySet="Tbl_FMOfficeType" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMSector" Association="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMFunction_Tbl_FMSubSector" Association="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSubSector">
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSection_Tbl_FMFunction" Association="BOSSModel.FK_Tbl_FMSection_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSection" EntitySet="Tbl_FMSection" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMFunction" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction">
-            <End Role="Tbl_FMFunction" EntitySet="Tbl_FMFunction" />
-            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubFund_Tbl_FMFund" Association="BOSSModel.FK_Tbl_FMSubFund_Tbl_FMFund">
-            <End Role="Tbl_FMFund" EntitySet="Tbl_FMFund" />
-            <End Role="Tbl_FMSubFund" EntitySet="Tbl_FMSubFund" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
-            <End Role="Tbl_FMRevisionYear" EntitySet="Tbl_FMRevisionYear" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" Association="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
-            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
-            <End Role="Tbl_FMGeneralAccount" EntitySet="Tbl_FMGeneralAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" Association="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
-            <End Role="Tbl_FMMajorAccountGroup" EntitySet="Tbl_FMMajorAccountGroup" />
-            <End Role="Tbl_FMSubMajorAccountGroup" EntitySet="Tbl_FMSubMajorAccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMPosition" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition">
             <End Role="Tbl_FMPosition" EntitySet="Tbl_FMPosition" />
             <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tbl_FMSubSector_Tbl_FMSector" Association="BOSSModel.FK_Tbl_FMSubSector_Tbl_FMSector">
-            <End Role="Tbl_FMSector" EntitySet="Tbl_FMSector" />
-            <End Role="Tbl_FMSubSector" EntitySet="Tbl_FMSubSector" />
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMSector_Sector" Association="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector" Association="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMRes_Department" Association="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Department" Association="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="Tbl_FMRes_Section" EntitySet="Tbl_FMRes_Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMSector_Sector" Association="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector" Association="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Function" Association="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Function">
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+            <End Role="Tbl_FMRes_Section" EntitySet="Tbl_FMRes_Section" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMSignatory_Tbl_FMRes_Function" Association="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMRes_Function">
+            <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
+            <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector" Association="BOSSModel.FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector">
+            <End Role="Tbl_FMSector_Sector" EntitySet="Tbl_FMSector_Sector" />
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
           </AssociationSet>
           </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountID" />
@@ -1007,21 +1026,21 @@
           <Property Name="PersonalInfoID" Type="Guid" />
           <NavigationProperty Name="PersonalInformation" Relationship="BOSSModel.FK_Accounts_PersonalInformation" FromRole="Account" ToRole="PersonalInformation" />
         </EntityType>
-        <EntityType Name="AppropriationSourceType">
+        <EntityType Name="FMApprop_AppropriationSourceType">
           <Key>
             <PropertyRef Name="AppropSourceTypeID" />
           </Key>
           <Property Name="AppropSourceTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AppropSourceTypeTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMFundSource" Relationship="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType" FromRole="AppropriationSourceType" ToRole="Tbl_FMFundSource" />
+          <NavigationProperty Name="Tbl_FMApprop_FundSource" Relationship="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType" FromRole="FMApprop_AppropriationSourceType" ToRole="Tbl_FMApprop_FundSource" />
         </EntityType>
-        <EntityType Name="BudgetYear">
+        <EntityType Name="FMApprop_BudgetYear">
           <Key>
             <PropertyRef Name="BudgetYearID" />
           </Key>
           <Property Name="BudgetYearID" Type="Int32" Nullable="false" />
           <Property Name="BudgetYearTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMAppropriationSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="BudgetYear" ToRole="Tbl_FMAppropriationSource" />
+          <NavigationProperty Name="Tbl_FMApprop_AppropriationSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="FMApprop_BudgetYear" ToRole="Tbl_FMApprop_AppropriationSource" />
         </EntityType>
         <EntityType Name="Level1Modules">
           <Key>
@@ -1085,6 +1104,13 @@
           <Property Name="Fullname" Type="String" MaxLength="108" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Accounts" Relationship="BOSSModel.FK_Accounts_PersonalInformation" FromRole="PersonalInformation" ToRole="Account" />
         </EntityType>
+        <EntityType Name="PIN_Accounts">
+          <Key>
+            <PropertyRef Name="PinID" />
+          </Key>
+          <Property Name="PinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pin_Acct" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -1095,28 +1121,7 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Tbl_FMAccountGroup">
-          <Key>
-            <PropertyRef Name="AGID" />
-          </Key>
-          <Property Name="AGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AllotmentClassID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMAllotmentClass" Relationship="BOSSModel.FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass" FromRole="Tbl_FMAccountGroup" ToRole="Tbl_FMAllotmentClass" />
-          <NavigationProperty Name="Tbl_FMMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" FromRole="Tbl_FMAccountGroup" ToRole="Tbl_FMMajorAccountGroup" />
-        </EntityType>
-        <EntityType Name="Tbl_FMAllotmentClass">
-          <Key>
-            <PropertyRef Name="AllotmentClassID" />
-          </Key>
-          <Property Name="AllotmentClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AllotmentClassTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="RevID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMAccountGroup" Relationship="BOSSModel.FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass" FromRole="Tbl_FMAllotmentClass" ToRole="Tbl_FMAccountGroup" />
-          <NavigationProperty Name="Tbl_FMRevisionYear" Relationship="BOSSModel.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" FromRole="Tbl_FMAllotmentClass" ToRole="Tbl_FMRevisionYear" />
-        </EntityType>
-        <EntityType Name="Tbl_FMAppropriationSource">
+        <EntityType Name="Tbl_FMApprop_AppropriationSource">
           <Key>
             <PropertyRef Name="AppropriationID" />
           </Key>
@@ -1124,8 +1129,18 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundSourceID" Type="Int32" />
           <Property Name="BudgetYearID" Type="Int32" />
-          <NavigationProperty Name="BudgetYear" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="Tbl_FMAppropriationSource" ToRole="BudgetYear" />
-          <NavigationProperty Name="Tbl_FMFundSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" FromRole="Tbl_FMAppropriationSource" ToRole="Tbl_FMFundSource" />
+          <NavigationProperty Name="FMApprop_BudgetYear" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" FromRole="Tbl_FMApprop_AppropriationSource" ToRole="FMApprop_BudgetYear" />
+          <NavigationProperty Name="Tbl_FMApprop_FundSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" FromRole="Tbl_FMApprop_AppropriationSource" ToRole="Tbl_FMApprop_FundSource" />
+        </EntityType>
+        <EntityType Name="Tbl_FMApprop_FundSource">
+          <Key>
+            <PropertyRef Name="FundSourceID" />
+          </Key>
+          <Property Name="FundSourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundSourceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AppropSourceTypeID" Type="Int32" />
+          <NavigationProperty Name="FMApprop_AppropriationSourceType" Relationship="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType" FromRole="Tbl_FMApprop_FundSource" ToRole="FMApprop_AppropriationSourceType" />
+          <NavigationProperty Name="Tbl_FMApprop_AppropriationSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" FromRole="Tbl_FMApprop_FundSource" ToRole="Tbl_FMApprop_AppropriationSource" />
         </EntityType>
         <EntityType Name="Tbl_FMBalance">
           <Key>
@@ -1133,70 +1148,29 @@
           </Key>
           <Property Name="BalanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BalanceTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance" FromRole="Tbl_FMBalance" ToRole="Tbl_FMGeneralAccount" />
         </EntityType>
-        <EntityType Name="Tbl_FMDepartment">
+        <EntityType Name="Tbl_FMCOA_AccountGroup">
           <Key>
-            <PropertyRef Name="DeptID" />
+            <PropertyRef Name="AGID" />
           </Key>
-          <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DeptTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DeptAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RCcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FundID" Type="Int32" />
-          <Property Name="SectorID" Type="Int32" />
-          <Property Name="SubSectorID" Type="Int32" />
-          <Property Name="OfficeTypeID" Type="Int32" />
-          <Property Name="DeptOfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMFund" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMFund" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMFund" />
-          <NavigationProperty Name="Tbl_FMOfficeType" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMOfficeType" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMOfficeType" />
-          <NavigationProperty Name="Tbl_FMSector" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSector" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMSector" />
-          <NavigationProperty Name="Tbl_FMSubSector" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSubSector" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMSubSector" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMDepartment" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMFunction" />
-          <NavigationProperty Name="Tbl_FMPayee" Relationship="BOSSModel.FK_Tbl_FMPayee_Tbl_FMDepartment" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMPayee" />
-          <NavigationProperty Name="Tbl_FMSection" Relationship="BOSSModel.FK_Tbl_FMSection_Tbl_FMDepartment" FromRole="Tbl_FMDepartment" ToRole="Tbl_FMSection" />
+          <Property Name="AGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AllotmentClassID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMCOA_AllotmentClass" Relationship="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" FromRole="Tbl_FMCOA_AccountGroup" ToRole="Tbl_FMCOA_AllotmentClass" />
+          <NavigationProperty Name="Tbl_FMCOA_MajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" FromRole="Tbl_FMCOA_AccountGroup" ToRole="Tbl_FMCOA_MajorAccountGroup" />
         </EntityType>
-        <EntityType Name="Tbl_FMFunction">
+        <EntityType Name="Tbl_FMCOA_AllotmentClass">
           <Key>
-            <PropertyRef Name="FunctionID" />
+            <PropertyRef Name="AllotmentClassID" />
           </Key>
-          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FunctionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FunctionAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FunctionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SectorID" Type="Int32" />
-          <Property Name="SubSectorID" Type="Int32" />
-          <Property Name="OfficeTypeID" Type="Int32" />
-          <Property Name="DeptOfficeCodefunc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeptID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMDepartment" FromRole="Tbl_FMFunction" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMOfficeType" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMOfficeType" FromRole="Tbl_FMFunction" ToRole="Tbl_FMOfficeType" />
-          <NavigationProperty Name="Tbl_FMSector" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSector" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSector" />
-          <NavigationProperty Name="Tbl_FMSubSector" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSubSector" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSubSector" />
-          <NavigationProperty Name="Tbl_FMSection" Relationship="BOSSModel.FK_Tbl_FMSection_Tbl_FMFunction" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSection" />
-          <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMFunction" ToRole="Tbl_FMSignatory" />
+          <Property Name="AllotmentClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllotmentClassTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RevID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMCOA_AccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" FromRole="Tbl_FMCOA_AllotmentClass" ToRole="Tbl_FMCOA_AccountGroup" />
+          <NavigationProperty Name="Tbl_FMCOA_RevisionYear" Relationship="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" FromRole="Tbl_FMCOA_AllotmentClass" ToRole="Tbl_FMCOA_RevisionYear" />
         </EntityType>
-        <EntityType Name="Tbl_FMFund">
-          <Key>
-            <PropertyRef Name="FundID" />
-          </Key>
-          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMFund" FromRole="Tbl_FMFund" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMSubFund" Relationship="BOSSModel.FK_Tbl_FMSubFund_Tbl_FMFund" FromRole="Tbl_FMFund" ToRole="Tbl_FMSubFund" />
-        </EntityType>
-        <EntityType Name="Tbl_FMFundSource">
-          <Key>
-            <PropertyRef Name="FundSourceID" />
-          </Key>
-          <Property Name="FundSourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FundSourceTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AppropSourceTypeID" Type="Int32" />
-          <NavigationProperty Name="AppropriationSourceType" Relationship="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType" FromRole="Tbl_FMFundSource" ToRole="AppropriationSourceType" />
-          <NavigationProperty Name="Tbl_FMAppropriationSource" Relationship="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" FromRole="Tbl_FMFundSource" ToRole="Tbl_FMAppropriationSource" />
-        </EntityType>
-        <EntityType Name="Tbl_FMGeneralAccount">
+        <EntityType Name="Tbl_FMCOA_GeneralAccount">
           <Key>
             <PropertyRef Name="GAID" />
           </Key>
@@ -1217,11 +1191,8 @@
           <Property Name="GAIDCA" Type="Int32" />
           <Property Name="isSubAccount" Type="Boolean" />
           <Property Name="GAIDSA" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMBalance" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMBalance" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMBalance" />
-          <NavigationProperty Name="Tbl_FMRevisionYear" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMRevisionYear" />
-          <NavigationProperty Name="Tbl_FMSubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" FromRole="Tbl_FMGeneralAccount" ToRole="Tbl_FMSubMajorAccountGroup" />
         </EntityType>
-        <EntityType Name="Tbl_FMMajorAccountGroup">
+        <EntityType Name="Tbl_FMCOA_MajorAccountGroup">
           <Key>
             <PropertyRef Name="MAGID" />
           </Key>
@@ -1229,8 +1200,47 @@
           <Property Name="MAGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AGID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMAccountGroup" Relationship="BOSSModel.FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup" FromRole="Tbl_FMMajorAccountGroup" ToRole="Tbl_FMAccountGroup" />
-          <NavigationProperty Name="Tbl_FMSubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" FromRole="Tbl_FMMajorAccountGroup" ToRole="Tbl_FMSubMajorAccountGroup" />
+          <NavigationProperty Name="Tbl_FMCOA_AccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" FromRole="Tbl_FMCOA_MajorAccountGroup" ToRole="Tbl_FMCOA_AccountGroup" />
+          <NavigationProperty Name="Tbl_FMCOA_SubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" FromRole="Tbl_FMCOA_MajorAccountGroup" ToRole="Tbl_FMCOA_SubMajorAccountGroup" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_RevisionYear">
+          <Key>
+            <PropertyRef Name="RevID" />
+          </Key>
+          <Property Name="RevID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RevYear" Type="Int32" />
+          <Property Name="isUsed" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMCOA_AllotmentClass" Relationship="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" FromRole="Tbl_FMCOA_RevisionYear" ToRole="Tbl_FMCOA_AllotmentClass" />
+        </EntityType>
+        <EntityType Name="Tbl_FMCOA_SubMajorAccountGroup">
+          <Key>
+            <PropertyRef Name="SMAGID" />
+          </Key>
+          <Property Name="SMAGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMAGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SMAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MAGID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMCOA_MajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" FromRole="Tbl_FMCOA_SubMajorAccountGroup" ToRole="Tbl_FMCOA_MajorAccountGroup" />
+        </EntityType>
+        <EntityType Name="Tbl_FMFund_Fund">
+          <Key>
+            <PropertyRef Name="FundID" />
+          </Key>
+          <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMFund_SubFund" Relationship="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMFund_SubFund" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMRes_Department" />
+        </EntityType>
+        <EntityType Name="Tbl_FMFund_SubFund">
+          <Key>
+            <PropertyRef Name="SubFundID" />
+          </Key>
+          <Property Name="SubFundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubFundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMFund_Fund" Relationship="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_SubFund" ToRole="Tbl_FMFund_Fund" />
         </EntityType>
         <EntityType Name="Tbl_FMOfficeType">
           <Key>
@@ -1239,8 +1249,8 @@
           <Property Name="OfficeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OfficeTypeTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OfficeTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMOfficeType" FromRole="Tbl_FMOfficeType" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMOfficeType" FromRole="Tbl_FMOfficeType" ToRole="Tbl_FMFunction" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMOfficeType" FromRole="Tbl_FMOfficeType" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMOfficeType" FromRole="Tbl_FMOfficeType" ToRole="Tbl_FMRes_Function" />
         </EntityType>
         <EntityType Name="Tbl_FMPayee">
           <Key>
@@ -1250,7 +1260,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeptID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMPayee_Tbl_FMDepartment" FromRole="Tbl_FMPayee" ToRole="Tbl_FMDepartment" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMPayee_Tbl_FMRes_Department" FromRole="Tbl_FMPayee" ToRole="Tbl_FMRes_Department" />
         </EntityType>
         <EntityType Name="Tbl_FMPosition">
           <Key>
@@ -1261,18 +1271,48 @@
           <Property Name="PositionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMPosition" ToRole="Tbl_FMSignatory" />
         </EntityType>
-        <EntityType Name="Tbl_FMRevisionYear">
+        <EntityType Name="Tbl_FMRes_Department">
           <Key>
-            <PropertyRef Name="RevID" />
+            <PropertyRef Name="DeptID" />
           </Key>
-          <Property Name="RevID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RevYear" Type="Int32" />
-          <Property Name="isUsed" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMAllotmentClass" Relationship="BOSSModel.FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear" FromRole="Tbl_FMRevisionYear" ToRole="Tbl_FMAllotmentClass" />
-          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear" FromRole="Tbl_FMRevisionYear" ToRole="Tbl_FMGeneralAccount" />
+          <Property Name="DeptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeptTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DeptAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RCcode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundID" Type="Int32" />
+          <Property Name="SectorID" Type="Int32" />
+          <Property Name="SubSectorID" Type="Int32" />
+          <Property Name="OfficeTypeID" Type="Int32" />
+          <Property Name="DeptOfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMFund_Fund" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMFund_Fund" />
+          <NavigationProperty Name="Tbl_FMOfficeType" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMOfficeType" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMOfficeType" />
+          <NavigationProperty Name="Tbl_FMPayee" Relationship="BOSSModel.FK_Tbl_FMPayee_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMPayee" />
+          <NavigationProperty Name="Tbl_FMSector_Sector" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_Sector" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMSector_Sector" />
+          <NavigationProperty Name="Tbl_FMSector_SubSector" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMSector_SubSector" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMRes_Function" />
+          <NavigationProperty Name="Tbl_FMRes_Section" Relationship="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMRes_Section" />
         </EntityType>
-        <EntityType Name="Tbl_FMSection">
+        <EntityType Name="Tbl_FMRes_Function">
+          <Key>
+            <PropertyRef Name="FunctionID" />
+          </Key>
+          <Property Name="FunctionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FunctionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionAbbrv" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FunctionCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SectorID" Type="Int32" />
+          <Property Name="SubSectorID" Type="Int32" />
+          <Property Name="OfficeTypeID" Type="Int32" />
+          <Property Name="DeptOfficeCodefunc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeptID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMOfficeType" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMOfficeType" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMOfficeType" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMSector_Sector" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_Sector" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMSector_Sector" />
+          <NavigationProperty Name="Tbl_FMSector_SubSector" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMSector_SubSector" />
+          <NavigationProperty Name="Tbl_FMRes_Section" Relationship="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Function" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMRes_Section" />
+          <NavigationProperty Name="Tbl_FMSignatory" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMRes_Function" FromRole="Tbl_FMRes_Function" ToRole="Tbl_FMSignatory" />
+        </EntityType>
+        <EntityType Name="Tbl_FMRes_Section">
           <Key>
             <PropertyRef Name="SectionID" />
           </Key>
@@ -1280,19 +1320,31 @@
           <Property Name="SectionTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeptID" Type="Int32" />
           <Property Name="FunctionID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMSection_Tbl_FMDepartment" FromRole="Tbl_FMSection" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMSection_Tbl_FMFunction" FromRole="Tbl_FMSection" ToRole="Tbl_FMFunction" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Section" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Section_Tbl_FMRes_Function" FromRole="Tbl_FMRes_Section" ToRole="Tbl_FMRes_Function" />
         </EntityType>
-        <EntityType Name="Tbl_FMSector">
+        <EntityType Name="Tbl_FMSector_Sector">
           <Key>
             <PropertyRef Name="SectorID" />
           </Key>
           <Property Name="SectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SectorTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSector" FromRole="Tbl_FMSector" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSector" FromRole="Tbl_FMSector" ToRole="Tbl_FMFunction" />
-          <NavigationProperty Name="Tbl_FMSubSector" Relationship="BOSSModel.FK_Tbl_FMSubSector_Tbl_FMSector" FromRole="Tbl_FMSector" ToRole="Tbl_FMSubSector" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_Sector" FromRole="Tbl_FMSector_Sector" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_Sector" FromRole="Tbl_FMSector_Sector" ToRole="Tbl_FMRes_Function" />
+          <NavigationProperty Name="Tbl_FMSector_SubSector" Relationship="BOSSModel.FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector" FromRole="Tbl_FMSector_Sector" ToRole="Tbl_FMSector_SubSector" />
+        </EntityType>
+        <EntityType Name="Tbl_FMSector_SubSector">
+          <Key>
+            <PropertyRef Name="SubSectorID" />
+          </Key>
+          <Property Name="SubSectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubSectorTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SubSectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SectorID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMRes_Function" />
+          <NavigationProperty Name="Tbl_FMSector_Sector" Relationship="BOSSModel.FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMSector_Sector" />
         </EntityType>
         <EntityType Name="Tbl_FMSignatory">
           <Key>
@@ -1306,40 +1358,8 @@
           <Property Name="Division" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isHead" Type="Boolean" />
           <Property Name="isActive" Type="Boolean" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMFunction" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMFunction" />
           <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMPosition" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubFund">
-          <Key>
-            <PropertyRef Name="SubFundID" />
-          </Key>
-          <Property Name="SubFundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubFundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FundID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMFund" Relationship="BOSSModel.FK_Tbl_FMSubFund_Tbl_FMFund" FromRole="Tbl_FMSubFund" ToRole="Tbl_FMFund" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubMajorAccountGroup">
-          <Key>
-            <PropertyRef Name="SMAGID" />
-          </Key>
-          <Property Name="SMAGID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SMAGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SMAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MAGID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMGeneralAccount" Relationship="BOSSModel.FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup" FromRole="Tbl_FMSubMajorAccountGroup" ToRole="Tbl_FMGeneralAccount" />
-          <NavigationProperty Name="Tbl_FMMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup" FromRole="Tbl_FMSubMajorAccountGroup" ToRole="Tbl_FMMajorAccountGroup" />
-        </EntityType>
-        <EntityType Name="Tbl_FMSubSector">
-          <Key>
-            <PropertyRef Name="SubSectorID" />
-          </Key>
-          <Property Name="SubSectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SubSectorTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SubSectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SectorID" Type="Int32" />
-          <NavigationProperty Name="Tbl_FMDepartment" Relationship="BOSSModel.FK_Tbl_FMDepartment_Tbl_FMSubSector" FromRole="Tbl_FMSubSector" ToRole="Tbl_FMDepartment" />
-          <NavigationProperty Name="Tbl_FMFunction" Relationship="BOSSModel.FK_Tbl_FMFunction_Tbl_FMSubSector" FromRole="Tbl_FMSubSector" ToRole="Tbl_FMFunction" />
-          <NavigationProperty Name="Tbl_FMSector" Relationship="BOSSModel.FK_Tbl_FMSubSector_Tbl_FMSector" FromRole="Tbl_FMSubSector" ToRole="Tbl_FMSector" />
+          <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMRes_Function" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMRes_Function" />
         </EntityType>
         <Association Name="FK_Accounts_PersonalInformation">
           <End Type="BOSSModel.PersonalInformation" Role="PersonalInformation" Multiplicity="0..1" />
@@ -1354,25 +1374,25 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMFundSource_AppropriationSourceType">
-          <End Type="BOSSModel.AppropriationSourceType" Role="AppropriationSourceType" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFundSource" Role="Tbl_FMFundSource" Multiplicity="*" />
+          <End Type="BOSSModel.FMApprop_AppropriationSourceType" Role="FMApprop_AppropriationSourceType" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMApprop_FundSource" Role="Tbl_FMApprop_FundSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AppropriationSourceType">
+            <Principal Role="FMApprop_AppropriationSourceType">
               <PropertyRef Name="AppropSourceTypeID" />
             </Principal>
-            <Dependent Role="Tbl_FMFundSource">
+            <Dependent Role="Tbl_FMApprop_FundSource">
               <PropertyRef Name="AppropSourceTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMAppropriationSource_BudgetYear">
-          <End Type="BOSSModel.BudgetYear" Role="BudgetYear" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMAppropriationSource" Role="Tbl_FMAppropriationSource" Multiplicity="*" />
+          <End Type="BOSSModel.FMApprop_BudgetYear" Role="FMApprop_BudgetYear" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMApprop_AppropriationSource" Role="Tbl_FMApprop_AppropriationSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="BudgetYear">
+            <Principal Role="FMApprop_BudgetYear">
               <PropertyRef Name="BudgetYearID" />
             </Principal>
-            <Dependent Role="Tbl_FMAppropriationSource">
+            <Dependent Role="Tbl_FMApprop_AppropriationSource">
               <PropertyRef Name="BudgetYearID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1413,257 +1433,123 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMAccountGroup_Tbl_FMAllotmentClass">
-          <End Type="BOSSModel.Tbl_FMAllotmentClass" Role="Tbl_FMAllotmentClass" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMAccountGroup" Role="Tbl_FMAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMAllotmentClass">
-              <PropertyRef Name="AllotmentClassID" />
-            </Principal>
-            <Dependent Role="Tbl_FMAccountGroup">
-              <PropertyRef Name="AllotmentClassID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMMajorAccountGroup_Tbl_FMAccountGroup">
-          <End Type="BOSSModel.Tbl_FMAccountGroup" Role="Tbl_FMAccountGroup" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMMajorAccountGroup" Role="Tbl_FMMajorAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMAccountGroup">
-              <PropertyRef Name="AGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMMajorAccountGroup">
-              <PropertyRef Name="AGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMAllotmentClass_Tbl_FMRevisionYear">
-          <End Type="BOSSModel.Tbl_FMRevisionYear" Role="Tbl_FMRevisionYear" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMAllotmentClass" Role="Tbl_FMAllotmentClass" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMRevisionYear">
-              <PropertyRef Name="RevID" />
-            </Principal>
-            <Dependent Role="Tbl_FMAllotmentClass">
-              <PropertyRef Name="RevID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Tbl_FMAppropriationSource_Tbl_FMFundSource">
-          <End Type="BOSSModel.Tbl_FMFundSource" Role="Tbl_FMFundSource" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMAppropriationSource" Role="Tbl_FMAppropriationSource" Multiplicity="*" />
+          <End Type="BOSSModel.Tbl_FMApprop_FundSource" Role="Tbl_FMApprop_FundSource" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMApprop_AppropriationSource" Role="Tbl_FMApprop_AppropriationSource" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFundSource">
+            <Principal Role="Tbl_FMApprop_FundSource">
               <PropertyRef Name="FundSourceID" />
             </Principal>
-            <Dependent Role="Tbl_FMAppropriationSource">
+            <Dependent Role="Tbl_FMApprop_AppropriationSource">
               <PropertyRef Name="FundSourceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMBalance">
-          <End Type="BOSSModel.Tbl_FMBalance" Role="Tbl_FMBalance" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
+          <End Type="BOSSModel.Tbl_FMCOA_AllotmentClass" Role="Tbl_FMCOA_AllotmentClass" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_AccountGroup" Role="Tbl_FMCOA_AccountGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMBalance">
-              <PropertyRef Name="BalanceID" />
+            <Principal Role="Tbl_FMCOA_AllotmentClass">
+              <PropertyRef Name="AllotmentClassID" />
             </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="BalanceID" />
+            <Dependent Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="AllotmentClassID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMFund">
-          <End Type="BOSSModel.Tbl_FMFund" Role="Tbl_FMFund" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
+          <End Type="BOSSModel.Tbl_FMCOA_AccountGroup" Role="Tbl_FMCOA_AccountGroup" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_MajorAccountGroup" Role="Tbl_FMCOA_MajorAccountGroup" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMFund">
+            <Principal Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="AGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_MajorAccountGroup">
+              <PropertyRef Name="AGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
+          <End Type="BOSSModel.Tbl_FMCOA_RevisionYear" Role="Tbl_FMCOA_RevisionYear" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_AllotmentClass" Role="Tbl_FMCOA_AllotmentClass" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_RevisionYear">
+              <PropertyRef Name="RevID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_AllotmentClass">
+              <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
+          <End Type="BOSSModel.Tbl_FMCOA_MajorAccountGroup" Role="Tbl_FMCOA_MajorAccountGroup" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" Role="Tbl_FMCOA_SubMajorAccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_MajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_SubMajorAccountGroup">
+              <PropertyRef Name="MAGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
+          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFund_SubFund" Role="Tbl_FMFund_SubFund" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
               <PropertyRef Name="FundID" />
             </Principal>
-            <Dependent Role="Tbl_FMDepartment">
+            <Dependent Role="Tbl_FMFund_SubFund">
               <PropertyRef Name="FundID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMOfficeType">
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMFund_Fund">
+          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMOfficeType">
           <End Type="BOSSModel.Tbl_FMOfficeType" Role="Tbl_FMOfficeType" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMOfficeType">
               <PropertyRef Name="OfficeTypeID" />
             </Principal>
-            <Dependent Role="Tbl_FMDepartment">
+            <Dependent Role="Tbl_FMRes_Department">
               <PropertyRef Name="OfficeTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMSector">
-          <End Type="BOSSModel.Tbl_FMSector" Role="Tbl_FMSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMOfficeType">
+          <End Type="BOSSModel.Tbl_FMOfficeType" Role="Tbl_FMOfficeType" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
-              <PropertyRef Name="SectorID" />
+            <Principal Role="Tbl_FMOfficeType">
+              <PropertyRef Name="OfficeTypeID" />
             </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SectorID" />
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="OfficeTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMDepartment_Tbl_FMSubSector">
-          <End Type="BOSSModel.Tbl_FMSubSector" Role="Tbl_FMSubSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMDepartment">
-              <PropertyRef Name="SubSectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMDepartment">
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
-              <PropertyRef Name="DeptID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="DeptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMPayee_Tbl_FMDepartment">
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="0..1" />
+        <Association Name="FK_Tbl_FMPayee_Tbl_FMRes_Department">
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="0..1" />
           <End Type="BOSSModel.Tbl_FMPayee" Role="Tbl_FMPayee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
+            <Principal Role="Tbl_FMRes_Department">
               <PropertyRef Name="DeptID" />
             </Principal>
             <Dependent Role="Tbl_FMPayee">
               <PropertyRef Name="DeptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSection_Tbl_FMDepartment">
-          <End Type="BOSSModel.Tbl_FMDepartment" Role="Tbl_FMDepartment" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSection" Role="Tbl_FMSection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMDepartment">
-              <PropertyRef Name="DeptID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSection">
-              <PropertyRef Name="DeptID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMOfficeType">
-          <End Type="BOSSModel.Tbl_FMOfficeType" Role="Tbl_FMOfficeType" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMOfficeType">
-              <PropertyRef Name="OfficeTypeID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="OfficeTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMSector">
-          <End Type="BOSSModel.Tbl_FMSector" Role="Tbl_FMSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
-              <PropertyRef Name="SectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="SectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMFunction_Tbl_FMSubSector">
-          <End Type="BOSSModel.Tbl_FMSubSector" Role="Tbl_FMSubSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubSector">
-              <PropertyRef Name="SubSectorID" />
-            </Principal>
-            <Dependent Role="Tbl_FMFunction">
-              <PropertyRef Name="SubSectorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSection_Tbl_FMFunction">
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSection" Role="Tbl_FMSection" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
-              <PropertyRef Name="FunctionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSection">
-              <PropertyRef Name="FunctionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSignatory_Tbl_FMFunction">
-          <End Type="BOSSModel.Tbl_FMFunction" Role="Tbl_FMFunction" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSignatory" Role="Tbl_FMSignatory" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMFunction">
-              <PropertyRef Name="FunctionID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSignatory">
-              <PropertyRef Name="FunctionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSubFund_Tbl_FMFund">
-          <End Type="BOSSModel.Tbl_FMFund" Role="Tbl_FMFund" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BOSSModel.Tbl_FMSubFund" Role="Tbl_FMSubFund" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMFund">
-              <PropertyRef Name="FundID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSubFund">
-              <PropertyRef Name="FundID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMRevisionYear">
-          <End Type="BOSSModel.Tbl_FMRevisionYear" Role="Tbl_FMRevisionYear" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMRevisionYear">
-              <PropertyRef Name="RevID" />
-            </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="RevID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMGeneralAccount_Tbl_FMSubMajorAccountGroup">
-          <End Type="BOSSModel.Tbl_FMSubMajorAccountGroup" Role="Tbl_FMSubMajorAccountGroup" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMGeneralAccount" Role="Tbl_FMGeneralAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMSubMajorAccountGroup">
-              <PropertyRef Name="SMAGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMGeneralAccount">
-              <PropertyRef Name="SMAGID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tbl_FMSubMajorAccountGroup_Tbl_FMMajorAccountGroup">
-          <End Type="BOSSModel.Tbl_FMMajorAccountGroup" Role="Tbl_FMMajorAccountGroup" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSubMajorAccountGroup" Role="Tbl_FMSubMajorAccountGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tbl_FMMajorAccountGroup">
-              <PropertyRef Name="MAGID" />
-            </Principal>
-            <Dependent Role="Tbl_FMSubMajorAccountGroup">
-              <PropertyRef Name="MAGID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1679,14 +1565,110 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tbl_FMSubSector_Tbl_FMSector">
-          <End Type="BOSSModel.Tbl_FMSector" Role="Tbl_FMSector" Multiplicity="0..1" />
-          <End Type="BOSSModel.Tbl_FMSubSector" Role="Tbl_FMSubSector" Multiplicity="*" />
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMSector_Sector">
+          <End Type="BOSSModel.Tbl_FMSector_Sector" Role="Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Tbl_FMSector">
+            <Principal Role="Tbl_FMSector_Sector">
               <PropertyRef Name="SectorID" />
             </Principal>
-            <Dependent Role="Tbl_FMSubSector">
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector">
+          <End Type="BOSSModel.Tbl_FMSector_SubSector" Role="Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Department">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMRes_Department">
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Department">
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Section" Role="Tbl_FMRes_Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Section">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMSector_Sector">
+          <End Type="BOSSModel.Tbl_FMSector_Sector" Role="Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="SectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector">
+          <End Type="BOSSModel.Tbl_FMSector_SubSector" Role="Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Function">
+              <PropertyRef Name="SubSectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMRes_Section_Tbl_FMRes_Function">
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMRes_Section" Role="Tbl_FMRes_Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Function">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="Tbl_FMRes_Section">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMSignatory_Tbl_FMRes_Function">
+          <End Type="BOSSModel.Tbl_FMRes_Function" Role="Tbl_FMRes_Function" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMSignatory" Role="Tbl_FMSignatory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Function">
+              <PropertyRef Name="FunctionID" />
+            </Principal>
+            <Dependent Role="Tbl_FMSignatory">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector">
+          <End Type="BOSSModel.Tbl_FMSector_Sector" Role="Tbl_FMSector_Sector" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMSector_SubSector" Role="Tbl_FMSector_SubSector" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_Sector">
+              <PropertyRef Name="SectorID" />
+            </Principal>
+            <Dependent Role="Tbl_FMSector_SubSector">
               <PropertyRef Name="SectorID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1706,6 +1688,30 @@
           <FunctionImportMapping FunctionImportName="SP_Sector" FunctionName="BOSSModel.Store.SP_Sector" />
           <FunctionImportMapping FunctionImportName="SP_OfficeType" FunctionName="BOSSModel.Store.SP_OfficeType" />
           <FunctionImportMapping FunctionImportName="SP_Payee" FunctionName="BOSSModel.Store.SP_Payee" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BOSSModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BOSSModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BOSSModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BOSSModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BOSSModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BOSSModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BOSSModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BOSSModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BOSSModel.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="BOSSModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -1718,17 +1724,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AppropriationSourceTypes">
-            <EntityTypeMapping TypeName="BOSSModel.AppropriationSourceType">
-              <MappingFragment StoreEntitySet="AppropriationSourceType">
+          <EntitySetMapping Name="FMApprop_AppropriationSourceType">
+            <EntityTypeMapping TypeName="BOSSModel.FMApprop_AppropriationSourceType">
+              <MappingFragment StoreEntitySet="FMApprop_AppropriationSourceType">
                 <ScalarProperty Name="AppropSourceTypeTitle" ColumnName="AppropSourceTypeTitle" />
                 <ScalarProperty Name="AppropSourceTypeID" ColumnName="AppropSourceTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BudgetYears">
-            <EntityTypeMapping TypeName="BOSSModel.BudgetYear">
-              <MappingFragment StoreEntitySet="BudgetYear">
+          <EntitySetMapping Name="FMApprop_BudgetYear">
+            <EntityTypeMapping TypeName="BOSSModel.FMApprop_BudgetYear">
+              <MappingFragment StoreEntitySet="FMApprop_BudgetYear">
                 <ScalarProperty Name="BudgetYearTitle" ColumnName="BudgetYearTitle" />
                 <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
               </MappingFragment>
@@ -1794,6 +1800,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PIN_Accounts">
+            <EntityTypeMapping TypeName="BOSSModel.PIN_Accounts">
+              <MappingFragment StoreEntitySet="PIN_Accounts">
+                <ScalarProperty Name="Pin_Acct" ColumnName="Pin_Acct" />
+                <ScalarProperty Name="PinID" ColumnName="PinID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="BOSSModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -1805,32 +1819,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMAccountGroup">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMAccountGroup">
-              <MappingFragment StoreEntitySet="Tbl_FMAccountGroup">
-                <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
-                <ScalarProperty Name="AGCode" ColumnName="AGCode" />
-                <ScalarProperty Name="AGTitle" ColumnName="AGTitle" />
-                <ScalarProperty Name="AGID" ColumnName="AGID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMAllotmentClass">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMAllotmentClass">
-              <MappingFragment StoreEntitySet="Tbl_FMAllotmentClass">
-                <ScalarProperty Name="RevID" ColumnName="RevID" />
-                <ScalarProperty Name="AllotmentClassTitle" ColumnName="AllotmentClassTitle" />
-                <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMAppropriationSource">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMAppropriationSource">
-              <MappingFragment StoreEntitySet="Tbl_FMAppropriationSource">
+          <EntitySetMapping Name="Tbl_FMApprop_AppropriationSource">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMApprop_AppropriationSource">
+              <MappingFragment StoreEntitySet="Tbl_FMApprop_AppropriationSource">
                 <ScalarProperty Name="BudgetYearID" ColumnName="BudgetYearID" />
                 <ScalarProperty Name="FundSourceID" ColumnName="FundSourceID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="AppropriationID" ColumnName="AppropriationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMApprop_FundSource">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMApprop_FundSource">
+              <MappingFragment StoreEntitySet="Tbl_FMApprop_FundSource">
+                <ScalarProperty Name="AppropSourceTypeID" ColumnName="AppropSourceTypeID" />
+                <ScalarProperty Name="FundSourceTitle" ColumnName="FundSourceTitle" />
+                <ScalarProperty Name="FundSourceID" ColumnName="FundSourceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1842,57 +1846,28 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMDepartment">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMDepartment">
-              <MappingFragment StoreEntitySet="Tbl_FMDepartment">
-                <ScalarProperty Name="DeptOfficeCode" ColumnName="DeptOfficeCode" />
-                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
-                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
-                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
-                <ScalarProperty Name="RCcode" ColumnName="RCcode" />
-                <ScalarProperty Name="DeptAbbrv" ColumnName="DeptAbbrv" />
-                <ScalarProperty Name="DeptTitle" ColumnName="DeptTitle" />
-                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+          <EntitySetMapping Name="Tbl_FMCOA_AccountGroup">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_AccountGroup">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_AccountGroup">
+                <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
+                <ScalarProperty Name="AGCode" ColumnName="AGCode" />
+                <ScalarProperty Name="AGTitle" ColumnName="AGTitle" />
+                <ScalarProperty Name="AGID" ColumnName="AGID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMFunction">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFunction">
-              <MappingFragment StoreEntitySet="Tbl_FMFunction">
-                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
-                <ScalarProperty Name="DeptOfficeCodefunc" ColumnName="DeptOfficeCodefunc" />
-                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
-                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
-                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
-                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
-                <ScalarProperty Name="FunctionAbbrv" ColumnName="FunctionAbbrv" />
-                <ScalarProperty Name="FunctionTitle" ColumnName="FunctionTitle" />
-                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+          <EntitySetMapping Name="Tbl_FMCOA_AllotmentClass">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_AllotmentClass">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_AllotmentClass">
+                <ScalarProperty Name="RevID" ColumnName="RevID" />
+                <ScalarProperty Name="AllotmentClassTitle" ColumnName="AllotmentClassTitle" />
+                <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMFund">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFund">
-              <MappingFragment StoreEntitySet="Tbl_FMFund">
-                <ScalarProperty Name="FundCode" ColumnName="FundCode" />
-                <ScalarProperty Name="FundTitle" ColumnName="FundTitle" />
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMFundSource">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFundSource">
-              <MappingFragment StoreEntitySet="Tbl_FMFundSource">
-                <ScalarProperty Name="AppropSourceTypeID" ColumnName="AppropSourceTypeID" />
-                <ScalarProperty Name="FundSourceTitle" ColumnName="FundSourceTitle" />
-                <ScalarProperty Name="FundSourceID" ColumnName="FundSourceID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMGeneralAccount">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMGeneralAccount">
-              <MappingFragment StoreEntitySet="Tbl_FMGeneralAccount">
+          <EntitySetMapping Name="Tbl_FMCOA_GeneralAccount">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_GeneralAccount">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_GeneralAccount">
                 <ScalarProperty Name="GAIDSA" ColumnName="GAIDSA" />
                 <ScalarProperty Name="isSubAccount" ColumnName="isSubAccount" />
                 <ScalarProperty Name="GAIDCA" ColumnName="GAIDCA" />
@@ -1913,13 +1888,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMMajorAccountGroup">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMMajorAccountGroup">
-              <MappingFragment StoreEntitySet="Tbl_FMMajorAccountGroup">
+          <EntitySetMapping Name="Tbl_FMCOA_MajorAccountGroup">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_MajorAccountGroup">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_MajorAccountGroup">
                 <ScalarProperty Name="AGID" ColumnName="AGID" />
                 <ScalarProperty Name="MAGCode" ColumnName="MAGCode" />
                 <ScalarProperty Name="MAGTitle" ColumnName="MAGTitle" />
                 <ScalarProperty Name="MAGID" ColumnName="MAGID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMCOA_RevisionYear">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_RevisionYear">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_RevisionYear">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="isUsed" ColumnName="isUsed" />
+                <ScalarProperty Name="RevYear" ColumnName="RevYear" />
+                <ScalarProperty Name="RevID" ColumnName="RevID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMCOA_SubMajorAccountGroup">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup">
+              <MappingFragment StoreEntitySet="Tbl_FMCOA_SubMajorAccountGroup">
+                <ScalarProperty Name="MAGID" ColumnName="MAGID" />
+                <ScalarProperty Name="SMAGCode" ColumnName="SMAGCode" />
+                <ScalarProperty Name="SMAGTitle" ColumnName="SMAGTitle" />
+                <ScalarProperty Name="SMAGID" ColumnName="SMAGID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMFund_Fund">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFund_Fund">
+              <MappingFragment StoreEntitySet="Tbl_FMFund_Fund">
+                <ScalarProperty Name="FundCode" ColumnName="FundCode" />
+                <ScalarProperty Name="FundTitle" ColumnName="FundTitle" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMFund_SubFund">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMFund_SubFund">
+              <MappingFragment StoreEntitySet="Tbl_FMFund_SubFund">
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="SubFundTitle" ColumnName="SubFundTitle" />
+                <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1951,19 +1964,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMRevisionYear">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMRevisionYear">
-              <MappingFragment StoreEntitySet="Tbl_FMRevisionYear">
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="isUsed" ColumnName="isUsed" />
-                <ScalarProperty Name="RevYear" ColumnName="RevYear" />
-                <ScalarProperty Name="RevID" ColumnName="RevID" />
+          <EntitySetMapping Name="Tbl_FMRes_Department">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMRes_Department">
+              <MappingFragment StoreEntitySet="Tbl_FMRes_Department">
+                <ScalarProperty Name="DeptOfficeCode" ColumnName="DeptOfficeCode" />
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="RCcode" ColumnName="RCcode" />
+                <ScalarProperty Name="DeptAbbrv" ColumnName="DeptAbbrv" />
+                <ScalarProperty Name="DeptTitle" ColumnName="DeptTitle" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSection">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSection">
-              <MappingFragment StoreEntitySet="Tbl_FMSection">
+          <EntitySetMapping Name="Tbl_FMRes_Function">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMRes_Function">
+              <MappingFragment StoreEntitySet="Tbl_FMRes_Function">
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="DeptOfficeCodefunc" ColumnName="DeptOfficeCodefunc" />
+                <ScalarProperty Name="OfficeTypeID" ColumnName="OfficeTypeID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="FunctionCode" ColumnName="FunctionCode" />
+                <ScalarProperty Name="FunctionAbbrv" ColumnName="FunctionAbbrv" />
+                <ScalarProperty Name="FunctionTitle" ColumnName="FunctionTitle" />
+                <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMRes_Section">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMRes_Section">
+              <MappingFragment StoreEntitySet="Tbl_FMRes_Section">
                 <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
                 <ScalarProperty Name="DeptID" ColumnName="DeptID" />
                 <ScalarProperty Name="SectionTitle" ColumnName="SectionTitle" />
@@ -1971,12 +2004,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSector">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSector">
-              <MappingFragment StoreEntitySet="Tbl_FMSector">
+          <EntitySetMapping Name="Tbl_FMSector_Sector">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSector_Sector">
+              <MappingFragment StoreEntitySet="Tbl_FMSector_Sector">
                 <ScalarProperty Name="SectorCode" ColumnName="SectorCode" />
                 <ScalarProperty Name="SectorTitle" ColumnName="SectorTitle" />
                 <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMSector_SubSector">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSector_SubSector">
+              <MappingFragment StoreEntitySet="Tbl_FMSector_SubSector">
+                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
+                <ScalarProperty Name="SubSectorCode" ColumnName="SubSectorCode" />
+                <ScalarProperty Name="SubSectorTitle" ColumnName="SubSectorTitle" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1991,35 +2034,6 @@
                 <ScalarProperty Name="PreferredName" ColumnName="PreferredName" />
                 <ScalarProperty Name="SignatoryName" ColumnName="SignatoryName" />
                 <ScalarProperty Name="SignatoryID" ColumnName="SignatoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSubFund">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubFund">
-              <MappingFragment StoreEntitySet="Tbl_FMSubFund">
-                <ScalarProperty Name="FundID" ColumnName="FundID" />
-                <ScalarProperty Name="SubFundTitle" ColumnName="SubFundTitle" />
-                <ScalarProperty Name="SubFundID" ColumnName="SubFundID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSubMajorAccountGroup">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubMajorAccountGroup">
-              <MappingFragment StoreEntitySet="Tbl_FMSubMajorAccountGroup">
-                <ScalarProperty Name="MAGID" ColumnName="MAGID" />
-                <ScalarProperty Name="SMAGCode" ColumnName="SMAGCode" />
-                <ScalarProperty Name="SMAGTitle" ColumnName="SMAGTitle" />
-                <ScalarProperty Name="SMAGID" ColumnName="SMAGID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tbl_FMSubSector">
-            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMSubSector">
-              <MappingFragment StoreEntitySet="Tbl_FMSubSector">
-                <ScalarProperty Name="SectorID" ColumnName="SectorID" />
-                <ScalarProperty Name="SubSectorCode" ColumnName="SubSectorCode" />
-                <ScalarProperty Name="SubSectorTitle" ColumnName="SubSectorTitle" />
-                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

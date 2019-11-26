@@ -10,16 +10,13 @@
 namespace BOSS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Tbl_FMSection
+    public partial class sp_helpdiagrams_Result
     {
-        public int SectionID { get; set; }
-        public string SectionTitle { get; set; }
-        public Nullable<int> DeptID { get; set; }
-        public Nullable<int> FunctionID { get; set; }
-    
-        public virtual Tbl_FMDepartment Tbl_FMDepartment { get; set; }
-        public virtual Tbl_FMFunction Tbl_FMFunction { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

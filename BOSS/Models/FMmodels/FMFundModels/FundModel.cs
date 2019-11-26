@@ -17,7 +17,6 @@ namespace BOSS.Models.FMmodels.FMFundModels
         public int ActionID { get; set; }
         public List<FundList> getFundList { get; set; }
         public FundList FundList { get; set; }
- 
     }
     //Fields From DB table
     public class FundList
@@ -25,7 +24,8 @@ namespace BOSS.Models.FMmodels.FMFundModels
         public int FundID { get; set; }
         [Required(ErrorMessage = "Please enter Fund Title")]
         public string FundTitle { get; set; }
-        [Required(ErrorMessage = "Please enter Fund Code")]
+        [Required( ErrorMessage = "Please enter Fund Code")]
+        [StringLength(7, MinimumLength = 3, ErrorMessage = "Minimum Fund Code should be 3 digits")]
         public string FundCode { get; set; }
     }
 }

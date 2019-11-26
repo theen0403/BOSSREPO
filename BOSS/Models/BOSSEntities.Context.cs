@@ -28,34 +28,35 @@ namespace BOSS.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<AppropriationSourceType> AppropriationSourceTypes { get; set; }
-        public virtual DbSet<BudgetYear> BudgetYears { get; set; }
+        public virtual DbSet<FMApprop_AppropriationSourceType> FMApprop_AppropriationSourceType { get; set; }
+        public virtual DbSet<FMApprop_BudgetYear> FMApprop_BudgetYear { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }
         public virtual DbSet<Level2Modules> Level2Modules { get; set; }
         public virtual DbSet<Level3Modules> Level3Modules { get; set; }
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
+        public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Tbl_FMAccountGroup> Tbl_FMAccountGroup { get; set; }
-        public virtual DbSet<Tbl_FMAllotmentClass> Tbl_FMAllotmentClass { get; set; }
-        public virtual DbSet<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
+        public virtual DbSet<Tbl_FMApprop_AppropriationSource> Tbl_FMApprop_AppropriationSource { get; set; }
+        public virtual DbSet<Tbl_FMApprop_FundSource> Tbl_FMApprop_FundSource { get; set; }
         public virtual DbSet<Tbl_FMBalance> Tbl_FMBalance { get; set; }
-        public virtual DbSet<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
-        public virtual DbSet<Tbl_FMFunction> Tbl_FMFunction { get; set; }
-        public virtual DbSet<Tbl_FMFund> Tbl_FMFund { get; set; }
-        public virtual DbSet<Tbl_FMFundSource> Tbl_FMFundSource { get; set; }
-        public virtual DbSet<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
-        public virtual DbSet<Tbl_FMMajorAccountGroup> Tbl_FMMajorAccountGroup { get; set; }
+        public virtual DbSet<Tbl_FMCOA_AccountGroup> Tbl_FMCOA_AccountGroup { get; set; }
+        public virtual DbSet<Tbl_FMCOA_AllotmentClass> Tbl_FMCOA_AllotmentClass { get; set; }
+        public virtual DbSet<Tbl_FMCOA_GeneralAccount> Tbl_FMCOA_GeneralAccount { get; set; }
+        public virtual DbSet<Tbl_FMCOA_MajorAccountGroup> Tbl_FMCOA_MajorAccountGroup { get; set; }
+        public virtual DbSet<Tbl_FMCOA_RevisionYear> Tbl_FMCOA_RevisionYear { get; set; }
+        public virtual DbSet<Tbl_FMCOA_SubMajorAccountGroup> Tbl_FMCOA_SubMajorAccountGroup { get; set; }
+        public virtual DbSet<Tbl_FMFund_Fund> Tbl_FMFund_Fund { get; set; }
+        public virtual DbSet<Tbl_FMFund_SubFund> Tbl_FMFund_SubFund { get; set; }
         public virtual DbSet<Tbl_FMOfficeType> Tbl_FMOfficeType { get; set; }
         public virtual DbSet<Tbl_FMPayee> Tbl_FMPayee { get; set; }
         public virtual DbSet<Tbl_FMPosition> Tbl_FMPosition { get; set; }
-        public virtual DbSet<Tbl_FMRevisionYear> Tbl_FMRevisionYear { get; set; }
-        public virtual DbSet<Tbl_FMSection> Tbl_FMSection { get; set; }
-        public virtual DbSet<Tbl_FMSector> Tbl_FMSector { get; set; }
+        public virtual DbSet<Tbl_FMRes_Department> Tbl_FMRes_Department { get; set; }
+        public virtual DbSet<Tbl_FMRes_Function> Tbl_FMRes_Function { get; set; }
+        public virtual DbSet<Tbl_FMRes_Section> Tbl_FMRes_Section { get; set; }
+        public virtual DbSet<Tbl_FMSector_Sector> Tbl_FMSector_Sector { get; set; }
+        public virtual DbSet<Tbl_FMSector_SubSector> Tbl_FMSector_SubSector { get; set; }
         public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
-        public virtual DbSet<Tbl_FMSubFund> Tbl_FMSubFund { get; set; }
-        public virtual DbSet<Tbl_FMSubMajorAccountGroup> Tbl_FMSubMajorAccountGroup { get; set; }
-        public virtual DbSet<Tbl_FMSubSector> Tbl_FMSubSector { get; set; }
     
         public virtual int SP_AppropriationSource(string sQLStatement)
         {
@@ -136,6 +137,109 @@ namespace BOSS.Models
                 new ObjectParameter("SQLStatement", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Payee", sQLStatementParameter);
+        }
+    
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     }
 }

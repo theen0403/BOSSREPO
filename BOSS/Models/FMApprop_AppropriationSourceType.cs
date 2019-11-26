@@ -12,20 +12,18 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMFundSource
+    public partial class FMApprop_AppropriationSourceType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMFundSource()
+        public FMApprop_AppropriationSourceType()
         {
-            this.Tbl_FMAppropriationSource = new HashSet<Tbl_FMAppropriationSource>();
+            this.Tbl_FMApprop_FundSource = new HashSet<Tbl_FMApprop_FundSource>();
         }
     
-        public int FundSourceID { get; set; }
-        public string FundSourceTitle { get; set; }
-        public Nullable<int> AppropSourceTypeID { get; set; }
+        public int AppropSourceTypeID { get; set; }
+        public string AppropSourceTypeTitle { get; set; }
     
-        public virtual AppropriationSourceType AppropriationSourceType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
+        public virtual ICollection<Tbl_FMApprop_FundSource> Tbl_FMApprop_FundSource { get; set; }
     }
 }

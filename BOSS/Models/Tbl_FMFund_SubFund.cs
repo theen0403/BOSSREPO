@@ -12,9 +12,12 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMBalance
+    public partial class Tbl_FMFund_SubFund
     {
-        public int BalanceID { get; set; }
-        public string BalanceTitle { get; set; }
+        public int SubFundID { get; set; }
+        public string SubFundTitle { get; set; }
+        public Nullable<int> FundID { get; set; }
+    
+        public virtual Tbl_FMFund_Fund Tbl_FMFund_Fund { get; set; }
     }
 }

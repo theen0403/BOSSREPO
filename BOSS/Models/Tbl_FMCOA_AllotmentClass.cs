@@ -12,24 +12,20 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSubSector
+    public partial class Tbl_FMCOA_AllotmentClass
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMSubSector()
+        public Tbl_FMCOA_AllotmentClass()
         {
-            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
-            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
+            this.Tbl_FMCOA_AccountGroup = new HashSet<Tbl_FMCOA_AccountGroup>();
         }
     
-        public int SubSectorID { get; set; }
-        public string SubSectorTitle { get; set; }
-        public string SubSectorCode { get; set; }
-        public Nullable<int> SectorID { get; set; }
+        public int AllotmentClassID { get; set; }
+        public string AllotmentClassTitle { get; set; }
+        public Nullable<int> RevID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
-        public virtual Tbl_FMSector Tbl_FMSector { get; set; }
+        public virtual ICollection<Tbl_FMCOA_AccountGroup> Tbl_FMCOA_AccountGroup { get; set; }
+        public virtual Tbl_FMCOA_RevisionYear Tbl_FMCOA_RevisionYear { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace BOSS.Models.FMmodels.FMSignatoryModels
         public List<SignatoryDTList> getSignatoryList { get; set; }
         public Tbl_FMSignatory getSignatoryColumns { get; set; }
         public int SignatoryID { get; set; }
+        [Required]
         public string SignatoryName { get; set; }
         public int PositionID { get; set; }
         public int FunctionID { get; set; }
@@ -39,8 +40,8 @@ namespace BOSS.Models.FMmodels.FMSignatoryModels
         {
             get
             {
-                List<Tbl_FMDepartment> tbl_FMDepartments = BOSSDB.Tbl_FMDepartment.ToList();
-                return new System.Web.Mvc.SelectList(tbl_FMDepartments, "DeptID", "DeptTitle");
+                List<Tbl_FMRes_Department> Tbl_FMRes_Departments = BOSSDB.Tbl_FMRes_Department.ToList();
+                return new System.Web.Mvc.SelectList(Tbl_FMRes_Departments, "DeptID", "DeptTitle");
             }
         }
         public IEnumerable<System.Web.Mvc.SelectListItem> FunctionList { get; set; }

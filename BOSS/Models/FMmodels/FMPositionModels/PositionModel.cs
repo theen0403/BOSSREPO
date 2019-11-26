@@ -12,20 +12,18 @@ namespace BOSS.Models.FMmodels.FMPositionModels
         public PositionModel()
         {
             getPositionList = new List<PositionList>();
-            getPositionColumns = new Tbl_FMPosition();
+            PositionList = new PositionList();
         }
+        public int ActionID { get; set; }
         public List<PositionList> getPositionList { get; set; }
-        public Tbl_FMPosition getPositionColumns { get; set; }
-
-        public int PositionID { get; set; }
-        public string PositionTitle { get; set; }
-        public string PositionCode { get; set; }
-
+        public PositionList PositionList { get; set; }
     }
     public class PositionList
     {
         public int PositionID { get; set; }
+        [Required(ErrorMessage = "Please enter Position Title")]
         public string PositionTitle { get; set; }
+        [Required(ErrorMessage = "Please enter Position Code")]
         public string PositionCode { get; set; }
     }
 }

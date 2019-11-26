@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+
 namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
 {
     public class AppropSourceModel
@@ -10,37 +12,37 @@ namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AppropSourceModel()
         {
-            getAppropSourceList = new List<AppropriationSourceList>();
-            getAppropriationSourceColumns = new Tbl_FMAppropriationSource();
+            getAppropSourceList = new List<AppropSourceList>();
+            AppropSourceList = new AppropSourceList();
+            FundSourceList = new List<SelectListItem>();
         }
-        public Tbl_FMAppropriationSource getAppropriationSourceColumns { get; set; }
-        public List<AppropriationSourceList> getAppropSourceList { get; set; }
-        public int AppropriationID { get; set; }
-        public int FundSourceID { get; set; }
-        public string Description { get; set; }
-        public int FundSourceIDHidden { get; set; }
-        public int ApproIDHidden { get; set; }
+        public int ActionID { get; set; }
+        public List<AppropSourceList> getAppropSourceList { get; set; }
+        public AppropSourceList AppropSourceList { get; set; }
+
         public int AppropSourceTypeID { get; set; }
+        public int FundSourceID { get; set; }
         public int BudgetYearID { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> AppropriationSourceTypeList
+        {
+            get
+            {
+                List<FMApprop_AppropriationSourceType> AppropriationSourceTypeLists = BOSSDB.FMApprop_AppropriationSourceType.ToList();
+                AppropriationSourceTypeLists = (from li in AppropriationSourceTypeLists orderby li.AppropSourceTypeTitle select li).ToList();
+                return new System.Web.Mvc.SelectList(AppropriationSourceTypeLists, "AppropSourceTypeID", "AppropSourceTypeTitle");
+            }
+        }
         public IEnumerable<System.Web.Mvc.SelectListItem> FundSourceList { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> BudgetYearList
         {
             get
             {
-                List<BudgetYear> BudgetYearLists = BOSSDB.BudgetYears.ToList();
+                List<FMApprop_BudgetYear> BudgetYearLists = BOSSDB.FMApprop_BudgetYear.ToList();
                 return new System.Web.Mvc.SelectList(BudgetYearLists, "BudgetYearID", "BudgetYearTitle");
             }
         }
-        public IEnumerable<System.Web.Mvc.SelectListItem> AppropriationSourceTypeList
-        {
-            get
-            {
-                List<AppropriationSourceType> AppropriationSourceTypeLists = BOSSDB.AppropriationSourceTypes.ToList();
-                return new System.Web.Mvc.SelectList(AppropriationSourceTypeLists, "AppropSourceTypeID", "AppropSourceTypeTitle");
-            }
-        }
     }
-    public class AppropriationSourceList
+    public class AppropSourceList
     {
         public int AppropriationID { get; set; }
         public string Description { get; set; }

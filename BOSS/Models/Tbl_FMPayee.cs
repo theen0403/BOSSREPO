@@ -19,6 +19,6 @@ namespace BOSS.Models
         public string Address { get; set; }
         public Nullable<int> DeptID { get; set; }
     
-        public virtual Tbl_FMDepartment Tbl_FMDepartment { get; set; }
+        public virtual Tbl_FMRes_Department Tbl_FMRes_Department { get; set; }
     }
 }

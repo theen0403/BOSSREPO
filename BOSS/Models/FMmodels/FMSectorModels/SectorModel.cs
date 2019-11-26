@@ -21,9 +21,10 @@ namespace BOSS.Models.FMmodels.FMSectorModels
     public class SectorList
     {
         public int SectorID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter Sector Title")]
         public string SectorTitle { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter Sector Code")]
+        [StringLength(4, MinimumLength = 4, ErrorMessage = "Sub Sector Code should be 4 digits")]
         public string SectorCode { get; set; }
     }
 }

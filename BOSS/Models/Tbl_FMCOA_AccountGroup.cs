@@ -12,23 +12,21 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMRevisionYear
+    public partial class Tbl_FMCOA_AccountGroup
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMRevisionYear()
+        public Tbl_FMCOA_AccountGroup()
         {
-            this.Tbl_FMAllotmentClass = new HashSet<Tbl_FMAllotmentClass>();
-            this.Tbl_FMGeneralAccount = new HashSet<Tbl_FMGeneralAccount>();
+            this.Tbl_FMCOA_MajorAccountGroup = new HashSet<Tbl_FMCOA_MajorAccountGroup>();
         }
     
-        public int RevID { get; set; }
-        public Nullable<int> RevYear { get; set; }
-        public Nullable<bool> isUsed { get; set; }
-        public string Remarks { get; set; }
+        public int AGID { get; set; }
+        public string AGTitle { get; set; }
+        public string AGCode { get; set; }
+        public Nullable<int> AllotmentClassID { get; set; }
     
+        public virtual Tbl_FMCOA_AllotmentClass Tbl_FMCOA_AllotmentClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMAllotmentClass> Tbl_FMAllotmentClass { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMGeneralAccount> Tbl_FMGeneralAccount { get; set; }
+        public virtual ICollection<Tbl_FMCOA_MajorAccountGroup> Tbl_FMCOA_MajorAccountGroup { get; set; }
     }
 }

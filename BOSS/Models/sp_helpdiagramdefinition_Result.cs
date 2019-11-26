@@ -10,11 +10,10 @@
 namespace BOSS.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Tbl_FMBalance
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int BalanceID { get; set; }
-        public string BalanceTitle { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -12,9 +12,13 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMBalance
+    public partial class Tbl_FMCOA_SubMajorAccountGroup
     {
-        public int BalanceID { get; set; }
-        public string BalanceTitle { get; set; }
+        public int SMAGID { get; set; }
+        public string SMAGTitle { get; set; }
+        public string SMAGCode { get; set; }
+        public Nullable<int> MAGID { get; set; }
+    
+        public virtual Tbl_FMCOA_MajorAccountGroup Tbl_FMCOA_MajorAccountGroup { get; set; }
     }
 }

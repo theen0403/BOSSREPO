@@ -12,14 +12,14 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMDepartment
+    public partial class Tbl_FMRes_Department
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMDepartment()
+        public Tbl_FMRes_Department()
         {
-            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
             this.Tbl_FMPayee = new HashSet<Tbl_FMPayee>();
-            this.Tbl_FMSection = new HashSet<Tbl_FMSection>();
+            this.Tbl_FMRes_Function = new HashSet<Tbl_FMRes_Function>();
+            this.Tbl_FMRes_Section = new HashSet<Tbl_FMRes_Section>();
         }
     
         public int DeptID { get; set; }
@@ -32,15 +32,15 @@ namespace BOSS.Models
         public Nullable<int> OfficeTypeID { get; set; }
         public string DeptOfficeCode { get; set; }
     
-        public virtual Tbl_FMFund Tbl_FMFund { get; set; }
+        public virtual Tbl_FMFund_Fund Tbl_FMFund_Fund { get; set; }
         public virtual Tbl_FMOfficeType Tbl_FMOfficeType { get; set; }
-        public virtual Tbl_FMSector Tbl_FMSector { get; set; }
-        public virtual Tbl_FMSubSector Tbl_FMSubSector { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMPayee> Tbl_FMPayee { get; set; }
+        public virtual Tbl_FMSector_Sector Tbl_FMSector_Sector { get; set; }
+        public virtual Tbl_FMSector_SubSector Tbl_FMSector_SubSector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMSection> Tbl_FMSection { get; set; }
+        public virtual ICollection<Tbl_FMRes_Function> Tbl_FMRes_Function { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMRes_Section> Tbl_FMRes_Section { get; set; }
     }
 }

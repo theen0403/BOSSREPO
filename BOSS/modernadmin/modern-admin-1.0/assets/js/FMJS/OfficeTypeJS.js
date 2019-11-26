@@ -3,10 +3,10 @@ $(document).ready(function () {
     GetOfficeTypeForm(1, 0);
 });
 
-function GetOfficeTypeForm(ActionID, OfficeTypeID){
+function GetOfficeTypeForm(ActionID, PrimaryID){
     $.ajax({
         url: "/FileMaintenanceOfficeType/GetOfficeTypeForm",
-        data: { ActionID: ActionID, OfficeTypeID: OfficeTypeID },
+        data: { ActionID: ActionID, PrimaryID: PrimaryID },
         success: function (result) {
             $('#officetypeTempID').html(result);
             GetOfficeTypeDTable();
@@ -28,17 +28,13 @@ function GetOfficeTypeDTable() {
         }
     })
 }
-function changeBtnTxt(addBtnID) {
-    if ($(".ActionID").val() == 1) {
-        $("#" + addBtnID).text("Add");
-    }
-    else if ($(".ActionID").val() == 2) {
-        $("#" + addBtnID).text("Save Changes");
-    }
-}
-
+//Click Edit in action button
 $(document).on('click', '#btnEditOfficeTypeID', function (e) {
     var OfficeTypeID = $(this).attr('OfficeTypeAttr');
     GetOfficeTypeForm(2, OfficeTypeID);
-
+});
+//Click Delete in action button
+$(document).on('click', "#btnDeleteOfficeTypeID", function () {
+    var PrimaryID = $(this).attr('OfficeTypeAttr');
+    DeleteRecord(PrimaryID, '/FileMaintenanceOfficeType/DeleteOfficeType', '/FileMaintenanceOfficeType/ConfirmDelete', ' GetOfficeTypeForm(1, 0)');
 });

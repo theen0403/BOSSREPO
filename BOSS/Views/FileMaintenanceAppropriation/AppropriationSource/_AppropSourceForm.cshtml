@@ -1,0 +1,52 @@
+﻿@model BOSS.Models.FMmodels.FMAppropriarionSouceModels.AppropSourceModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveAppropSource", "FileMaintenanceAppropriation", new AjaxOptions { OnSuccess = "ifExists(data, GetAppropSourceForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.AppropSourceList.AppropriationID, new { @id = "AppropriationID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin ">Appropriation Source Type</label>
+                @Html.DropDownListFor(m => m.AppropSourceTypeID, Model.AppropriationSourceTypeList, new { @class = "form-control select2nosearch ", id= "AppropSourceDropDown", onchange = "onChangeFundSource()" })
+
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mx-0" id="FundSourcetempID">
+            <div class="form-group">
+                <label style="margin-bottom:2px;">Fund Source</label>
+                @Html.DropDownListFor(m => m.FundSourceID, Model.FundSourceList, new { @class = "form-control select2nosearch ", id = "FundSourceID" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Appropriation Source</label>
+                @Html.TextBoxFor(m => m.AppropSourceList.Description, new { @class = "form-control", type = "text", id = "Description" })
+                @Html.ValidationMessageFor(m => m.AppropSourceList.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mx-0">
+            <div class="form-group">
+                <label class="custom-form-margin">Budget Year</label>
+                @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "BudgetYearID" })
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetAppropSourceForm(1, 0)">Cancel</button>
+                <button type="submit" id="btnAddAppropSource" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        select2nosearch();
+    })
+</script>

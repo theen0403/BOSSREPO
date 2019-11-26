@@ -25,13 +25,13 @@ namespace BOSS.Controllers
             OfficeTypeModel model = new OfficeTypeModel();
             return View();
         }
-        public ActionResult GetOfficeTypeForm(int ActionID, int OfficeTypeID)
+        public ActionResult GetOfficeTypeForm(int ActionID, int PrimaryID)
         {
             OfficeTypeModel model = new OfficeTypeModel();
 
             if (ActionID == 2)
             {
-                var officeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == OfficeTypeID select e).FirstOrDefault();
+                var officeType = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == PrimaryID select e).FirstOrDefault();
                 model.OfficeTypeList.OfficeTypeTitle = officeType.OfficeTypeTitle;
                 model.OfficeTypeList.OfficeTypeCode = officeType.OfficeTypeCode;
                 model.OfficeTypeList.OfficeTypeID = officeType.OfficeTypeID;
@@ -74,18 +74,17 @@ namespace BOSS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOfficeType(OfficeTypeModel model)
+        public ActionResult SaveOfficeType(OfficeTypeModel model)
         {
             var isExist = "";
             if (ModelState.IsValid)
             {
-                var officetypetitle = model.OfficeTypeList.OfficeTypeTitle;
-                officetypetitle = Regex.Replace(officetypetitle, @"\s\s+", "");
-                officetypetitle = Regex.Replace(officetypetitle, @"^\s+", "");
-                officetypetitle = Regex.Replace(officetypetitle, @"\s+$", "");
-                officetypetitle = new CultureInfo("en-US").TextInfo.ToTitleCase(officetypetitle);
-                //check if has duplicate
-                Tbl_FMOfficeType checkofficetype = (from a in BOSSDB.Tbl_FMOfficeType where (a.OfficeTypeTitle == officetypetitle && a.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) select a).FirstOrDefault();
+                var offtypetitle = model.OfficeTypeList.OfficeTypeTitle;
+                offtypetitle = Regex.Replace(offtypetitle, @"\s\s+", "");
+                offtypetitle = Regex.Replace(offtypetitle, @"^\s+", "");
+                offtypetitle = Regex.Replace(offtypetitle, @"\s+$", "");
+                offtypetitle = new CultureInfo("en-US").TextInfo.ToTitleCase(offtypetitle);
+                Tbl_FMOfficeType checkofficetype = (from a in BOSSDB.Tbl_FMOfficeType where (a.OfficeTypeTitle == offtypetitle || a.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) select a).FirstOrDefault();
 
                 if (model.ActionID == 1)
                 {
@@ -107,26 +106,38 @@ namespace BOSS.Controllers
                 else if (model.ActionID == 2)
                 {
                     Tbl_FMOfficeType officetype = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeID == model.OfficeTypeList.OfficeTypeID select e).FirstOrDefault();
+                    List<Tbl_FMOfficeType> officeTitle = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeTitle == offtypetitle select e).ToList();
+                    List<Tbl_FMOfficeType> officeCode = (from e in BOSSDB.Tbl_FMOfficeType where e.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode select e).ToList();
 
                     if (checkofficetype != null)
                     {
-                        if (officetype.OfficeTypeTitle == officetypetitle && officetype.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) //walang binago 
+                        if (officetype.OfficeTypeTitle == offtypetitle && officetype.OfficeTypeCode == model.OfficeTypeList.OfficeTypeCode) //walang binago 
                         {
-                            officetype.OfficeTypeTitle = officetypetitle;
+                            officetype.OfficeTypeTitle = offtypetitle;
                             officetype.OfficeTypeCode = model.OfficeTypeList.OfficeTypeCode;
                             BOSSDB.Entry(officetype);
                             BOSSDB.SaveChanges();
                             isExist = "justUpdate";
-
                         }
                         else
                         {
-                            isExist = "true";
+                            if (officetype.OfficeTypeTitle != offtypetitle && officeTitle.Count >= 1 || officetype.OfficeTypeCode != model.OfficeTypeList.OfficeTypeCode && officeCode.Count >= 1)
+                            {
+                                isExist = "true";
+                            }
+                            else
+                            {
+                                officetype.OfficeTypeTitle = offtypetitle;
+                                officetype.OfficeTypeCode = model.OfficeTypeList.OfficeTypeCode;
+                                BOSSDB.Entry(officetype);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                            }
                         }
                     }
                     else if (checkofficetype == null)
                     {
-                        officetype.OfficeTypeTitle = officetypetitle;
+                        officetype.OfficeTypeTitle = offtypetitle;
                         officetype.OfficeTypeCode = model.OfficeTypeList.OfficeTypeCode;
                         BOSSDB.Entry(officetype);
                         BOSSDB.SaveChanges();
@@ -140,6 +151,38 @@ namespace BOSS.Controllers
                 Data = new { isExist = isExist }
             };
         }
+
+        public ActionResult DeleteOfficeType(int PrimaryID)
+        {
+            Tbl_FMOfficeType officetype = (from a in BOSSDB.Tbl_FMOfficeType where a.OfficeTypeID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMRes_Department dept = (from e in BOSSDB.Tbl_FMRes_Department where e.OfficeTypeID == PrimaryID select e).FirstOrDefault();
+            Tbl_FMRes_Function func = (from e in BOSSDB.Tbl_FMRes_Function where e.OfficeTypeID == PrimaryID select e).FirstOrDefault();
+            var confirmDelete = "";
+            if (officetype != null)
+            {
+                if (dept != null || func != null)
+                {
+                    confirmDelete = "restricted";
+                }
+                else
+                {
+                    confirmDelete = "false";
+                }
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDelete(int PrimaryID)
+        {
+           Tbl_FMOfficeType officetype = (from a in BOSSDB.Tbl_FMOfficeType where a.OfficeTypeID == PrimaryID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMOfficeType.Remove(officetype);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         ////Display Data Table
 
         ////Get Add Partial View

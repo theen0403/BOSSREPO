@@ -12,10 +12,10 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         public GeneralAccountModel()
         {
             getGenAcctList = new List<GeneralAccountList>();
-            getGenAcctColumns = new Tbl_FMGeneralAccount();
+            getGenAcctColumns = new Tbl_FMCOA_GeneralAccount();
         }
         public List<GeneralAccountList> getGenAcctList { get; set; }
-        public Tbl_FMGeneralAccount getGenAcctColumns { get; set; }
+        public Tbl_FMCOA_GeneralAccount getGenAcctColumns { get; set; }
 
         public int RevID { get; set; }
         public int AllotmentID { get; set; }

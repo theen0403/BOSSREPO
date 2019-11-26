@@ -12,12 +12,14 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSubFund
+    public partial class Tbl_FMApprop_AppropriationSource
     {
-        public int SubFundID { get; set; }
-        public string SubFundTitle { get; set; }
-        public Nullable<int> FundID { get; set; }
+        public int AppropriationID { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> FundSourceID { get; set; }
+        public Nullable<int> BudgetYearID { get; set; }
     
-        public virtual Tbl_FMFund Tbl_FMFund { get; set; }
+        public virtual FMApprop_BudgetYear FMApprop_BudgetYear { get; set; }
+        public virtual Tbl_FMApprop_FundSource Tbl_FMApprop_FundSource { get; set; }
     }
 }

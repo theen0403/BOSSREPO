@@ -12,12 +12,12 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMFunction
+    public partial class Tbl_FMRes_Function
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMFunction()
+        public Tbl_FMRes_Function()
         {
-            this.Tbl_FMSection = new HashSet<Tbl_FMSection>();
+            this.Tbl_FMRes_Section = new HashSet<Tbl_FMRes_Section>();
             this.Tbl_FMSignatory = new HashSet<Tbl_FMSignatory>();
         }
     
@@ -31,12 +31,12 @@ namespace BOSS.Models
         public string DeptOfficeCodefunc { get; set; }
         public Nullable<int> DeptID { get; set; }
     
-        public virtual Tbl_FMDepartment Tbl_FMDepartment { get; set; }
         public virtual Tbl_FMOfficeType Tbl_FMOfficeType { get; set; }
-        public virtual Tbl_FMSector Tbl_FMSector { get; set; }
-        public virtual Tbl_FMSubSector Tbl_FMSubSector { get; set; }
+        public virtual Tbl_FMRes_Department Tbl_FMRes_Department { get; set; }
+        public virtual Tbl_FMSector_Sector Tbl_FMSector_Sector { get; set; }
+        public virtual Tbl_FMSector_SubSector Tbl_FMSector_SubSector { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMSection> Tbl_FMSection { get; set; }
+        public virtual ICollection<Tbl_FMRes_Section> Tbl_FMRes_Section { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
     }

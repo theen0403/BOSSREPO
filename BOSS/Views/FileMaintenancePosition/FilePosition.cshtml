@@ -19,118 +19,20 @@
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-3">
                 <div class="card-content collapse show">
-
-
                     <div class="card-body rounded m-0" style="border: 1px solid; border-color: #9BC69D;">
                         <div class="card-content collapse show">
-                                <div class="card-body px-1 card-body rounded menubackground">
-                                    <div id="PositionSPTempID">
-
-                                    </div>
-                                </div>
-                                <div class="mt-2" id="FMPositionSPID">
+                            <div class="card-body px-1 card-body rounded menubackground">
+                                <div id="PositionSPTempID">
 
                                 </div>
                             </div>
+                            <div class="mt-2" id="PositionTableID">
+
+                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    $(function () {
-        GetPositionSPDTable();
-    })
-    function GetPositionSPDTable() {
-        $.ajax({
-            url: '/FileMaintenancePosition/GetPositionSPDTable',
-            //data: { DeptID: DeptID },
-            success: function (result) {
-                $("#FMPositionSPID").html(result);
-                GetAddPositionSP();
-            }
-        })
-    }
-    function GetAddPositionSP() {
-        $.ajax({
-            url: '/FileMaintenancePosition/GetAddPositionSP',
-            success: function (result) {
-                $("#PositionSPTempID").html(result);
-            }
-        })
-    }
-    function Get_UpdatePosition(PositionID) {
-        $.ajax({
-            url: '/FileMaintenancePosition/Get_UpdatePosition',
-            data: { PositionID: PositionID },
-            success: function (result) {
-                $("#PositionSPTempID").html(result);
-            }
-        })
-    }
-    function DeletePosition(PositionID) {
-        $.ajax({
-            url: '/FileMaintenancePosition/DeletePosition',
-            data: { PositionID: PositionID },
-            success: function (result) {
-                GetPositionSPDTable();
-            }
-        })
-    }
-    
-    //app.controller('FMPositionSPController', function ($scope, $http, $sce) {
-    //    var F = $scope, P = $http, D = $sce.trustAsHtml;
-    //    Calling all Init Function
-    //    F.InitFunctions = function () {
-    //        F.GetPositionSPDTable();
-    //    }
-    //    Get Position and Staffing Profile Datatable Partial View
-    //    F.GetPositionSPDTable = function () {
-    //        F.FMPositionSPID = null;
-    //        P({
-    //            url: '/FileMaintenancePosition/GetPositionSPDTable',
-    //        }).then(function (response) {
-    //            F.FMPositionSPID = D(response.data);
-    //            F.GetAddPositionSP();
-    //        });
-    //    }
-    //    Get Add Position View
-    //    F.GetAddPositionSP = function () {
-    //        P({
-    //            url: '/FileMaintenancePosition/GetAddPositionSP',
-    //        }).then(function (response) {
-    //            $('#PositionSPTempID').html(response.data);
-
-    //        });
-    //    }
-    //    F.GetAddDynamicClassification = function () {
-    //        var PSID = $("#PSID").val();
-    //        P({
-    //            url: '/FileMaintenancePosition/GetAddDynamicClassification',
-    //            params: { PSID: PSID }
-    //        }).then(function (response) {
-    //            $('#PositionClassificationID').html(response.data);
-    //        });
-    //    }
-    //    F.GetUpdateDynamicClassification = function () {
-    //        var PSID = $("#PSID").val();
-    //        P({
-    //            url: '/FileMaintenancePosition/GetUpdateDynamicClassification',
-    //            params: { PSID: PSID }
-    //        }).then(function (response) {
-    //            $('#PositionClassificationID').html(response.data);
-    //        });
-    //    }
-    //    F.Get_UpdatePosition = function (PositionID) {
-    //        P({
-    //            url: '/FileMaintenancePosition/Get_UpdatePosition',
-    //            params: { PositionID: PositionID }
-    //        }).then(function (response) {
-    //            $('#PositionSPTempID').html(response.data);
-
-    //        });
-    //    }
-    //});
-</script>

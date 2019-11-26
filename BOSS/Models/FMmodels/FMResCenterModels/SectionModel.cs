@@ -13,10 +13,10 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         public SectionModel()
         {
             getSectionList = new List<SectionList>();
-            getSectionColumns = new Tbl_FMSection();
+            getSectionColumns = new Tbl_FMRes_Section();
         }
         public List<SectionList> getSectionList { get; set; }
-        public Tbl_FMSection getSectionColumns { get; set; }
+        public Tbl_FMRes_Section getSectionColumns { get; set; }
         public int SectionID { get; set; }
         public int FunctionIDHidden { get; set; }
         public string SectionTitle { get; set; }
@@ -28,7 +28,7 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         {
             get
             {
-                List<Tbl_FMDepartment> DeptSelectionLists = BOSSDB.Tbl_FMDepartment.ToList();
+                List<Tbl_FMRes_Department> DeptSelectionLists = BOSSDB.Tbl_FMRes_Department.ToList();
                 return new System.Web.Mvc.SelectList(DeptSelectionLists, "DeptID", "DeptTitle");
             }
         }

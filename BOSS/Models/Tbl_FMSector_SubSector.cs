@@ -12,25 +12,24 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSector
+    public partial class Tbl_FMSector_SubSector
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMSector()
+        public Tbl_FMSector_SubSector()
         {
-            this.Tbl_FMDepartment = new HashSet<Tbl_FMDepartment>();
-            this.Tbl_FMFunction = new HashSet<Tbl_FMFunction>();
-            this.Tbl_FMSubSector = new HashSet<Tbl_FMSubSector>();
+            this.Tbl_FMRes_Department = new HashSet<Tbl_FMRes_Department>();
+            this.Tbl_FMRes_Function = new HashSet<Tbl_FMRes_Function>();
         }
     
-        public int SectorID { get; set; }
-        public string SectorTitle { get; set; }
-        public string SectorCode { get; set; }
+        public int SubSectorID { get; set; }
+        public string SubSectorTitle { get; set; }
+        public string SubSectorCode { get; set; }
+        public Nullable<int> SectorID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMDepartment> Tbl_FMDepartment { get; set; }
+        public virtual ICollection<Tbl_FMRes_Department> Tbl_FMRes_Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMFunction> Tbl_FMFunction { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMSubSector> Tbl_FMSubSector { get; set; }
+        public virtual ICollection<Tbl_FMRes_Function> Tbl_FMRes_Function { get; set; }
+        public virtual Tbl_FMSector_Sector Tbl_FMSector_Sector { get; set; }
     }
 }

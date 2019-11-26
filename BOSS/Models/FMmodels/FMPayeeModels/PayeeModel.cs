@@ -12,29 +12,29 @@ namespace BOSS.Models.FMmodels.FMPayeeModels
         public PayeeModel()
         {
             getPayeeList = new List<PayeeList>();
-            getPayeeColumns = new Tbl_FMPayee();
+            PayeeList = new PayeeList();
         }
+        public int ActionID { get; set; }
         public List<PayeeList> getPayeeList { get; set; }
-        public Tbl_FMPayee getPayeeColumns { get; set; }
-        public int PayeeID { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public int DeptID { get; set; }
+        public PayeeList PayeeList { get; set; }
+        
         public IEnumerable<System.Web.Mvc.SelectListItem> DeptSelectionListPayee
         {
             get
             {
-                List<Tbl_FMDepartment> departments = BOSSDB.Tbl_FMDepartment.ToList();
+                List<Tbl_FMRes_Department> departments = BOSSDB.Tbl_FMRes_Department.ToList();
                 return new System.Web.Mvc.SelectList(departments, "DeptID", "DeptTitle");
             }
         }
+        public int DeptID { get; set; }
     }
     public class PayeeList
     {
         public int PayeeID { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Address { get; set; }
         public string DeptTitle { get; set; }
-
     }
 }

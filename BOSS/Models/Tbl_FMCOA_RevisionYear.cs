@@ -12,21 +12,20 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMAccountGroup
+    public partial class Tbl_FMCOA_RevisionYear
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMAccountGroup()
+        public Tbl_FMCOA_RevisionYear()
         {
-            this.Tbl_FMMajorAccountGroup = new HashSet<Tbl_FMMajorAccountGroup>();
+            this.Tbl_FMCOA_AllotmentClass = new HashSet<Tbl_FMCOA_AllotmentClass>();
         }
     
-        public int AGID { get; set; }
-        public string AGTitle { get; set; }
-        public string AGCode { get; set; }
-        public Nullable<int> AllotmentClassID { get; set; }
+        public int RevID { get; set; }
+        public Nullable<int> RevYear { get; set; }
+        public Nullable<bool> isUsed { get; set; }
+        public string Remarks { get; set; }
     
-        public virtual Tbl_FMAllotmentClass Tbl_FMAllotmentClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMMajorAccountGroup> Tbl_FMMajorAccountGroup { get; set; }
+        public virtual ICollection<Tbl_FMCOA_AllotmentClass> Tbl_FMCOA_AllotmentClass { get; set; }
     }
 }

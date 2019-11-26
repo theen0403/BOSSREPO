@@ -10,10 +10,10 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public MajorAccountGroupModel()
         {
-            getMajorAccntGrpColumns = new Tbl_FMMajorAccountGroup();
+            getMajorAccntGrpColumns = new Tbl_FMCOA_MajorAccountGroup();
             getMajorAccntGrpList = new List<MajorAccountGroupList>();
         }
-        public Tbl_FMMajorAccountGroup getMajorAccntGrpColumns { get; set; }
+        public Tbl_FMCOA_MajorAccountGroup getMajorAccntGrpColumns { get; set; }
         public List<MajorAccountGroupList> getMajorAccntGrpList { get; set; }
         public int MAGID { get; set; }
         public int AGID { get; set; }

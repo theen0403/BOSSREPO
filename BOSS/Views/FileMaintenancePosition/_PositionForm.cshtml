@@ -1,0 +1,54 @@
+﻿@model BOSS.Models.FMmodels.FMPositionModels.PositionModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SavePosition", "FileMaintenancePosition", new AjaxOptions { OnSuccess = "ifExists(data, GetPositionForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.PositionList.PositionID, new { @id = "PositionID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-8">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Position</label>
+                        <fieldset class="form-group">
+                            @Html.TextAreaFor(m => m.PositionList.PositionTitle, new { @class = "form-control ", @rows = 1, id = "PositionTitle" })
+                            @Html.ValidationMessageFor(m => m.PositionList.PositionTitle, "", new { @class = "text-danger" })
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Position Code</label>
+                        <fieldset class="form-group">
+                            @Html.TextBoxFor(m => m.PositionList.PositionCode, new { @class = "form-control noSpeChar uppercase", id = "PositionCode" })
+                            @Html.ValidationMessageFor(m => m.PositionList.PositionCode, "", new { @class = "text-danger" })
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetPositionForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddPosition" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function () {
+        select2nosearch();
+    })
+</script>
+<style type="text/css">
+    .uppercase {
+        text-transform: uppercase;
+    }
+</style>

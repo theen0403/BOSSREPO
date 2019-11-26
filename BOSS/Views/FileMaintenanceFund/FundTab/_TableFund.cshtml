@@ -13,21 +13,15 @@
                     <th>Fund</th>
                     <th>Code</th>
                     <th width="5%">Action</th>
-
                 </tr>
             </thead>
             <tbody>
                 @{
                     foreach (var Items in Model)
                     {
-
-                        //var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                        //var DeleteSuccesMess = "Successfully Deleted";
-                        var DeleteAction = "DeleteFund(" + Items.FundID + ")";
-
                         var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditFundID' FundAttr='" + Items.FundID + "'><i class='ft-edit'></i> Edit</button>";
                         var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteFundID' FundAttr='" + Items.FundID + "'><i class='la la-trash'></i> Delete</button>";
-
+                   
                         var Action = Update + Remove;
 
                 <tr>

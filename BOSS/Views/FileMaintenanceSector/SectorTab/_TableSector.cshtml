@@ -19,13 +19,9 @@
                 @{
                     foreach (var Items in Model)
                     {
-
-                        var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                        var DeleteSuccesMess = "Successfully Deleted";
-                        var DeleteAction = "DeleteSector(" + Items.SectorID + ")";
-
                         var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSectorID' SectorAttr='" + Items.SectorID + "'><i class='ft-edit'></i> Edit</button>";
-                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSectorID' onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "','" + @DeleteAction + "')\"><i class='la la-trash'></i> Delete</button>";
+                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSectorID' SectorAttr='" + Items.SectorID + "'><i class='la la-trash'></i> Delete</button>";
+
                         var Action = Update + Remove;
 
                         <tr>

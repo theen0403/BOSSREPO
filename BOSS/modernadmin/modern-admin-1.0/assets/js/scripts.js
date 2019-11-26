@@ -149,9 +149,7 @@ function swalConfirmation(questionMessage, confirmationMessage, successTitle, ac
             if (willDelete) {
                 eval(action)
                 swalSuccess(successTitle)
-
             } else {
-
             }
         });
 }
@@ -187,7 +185,7 @@ $(document).on('click', '.ft-delete', function () {
         $(this).remove();
     });
 });
-//ANGULAR
+//Angular------------------------------------------------------------------------------
 function AngularGlobalFunctions(ControllerName, ActionName, IDParams) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
@@ -197,7 +195,7 @@ function AngularGlobalFunctions(ControllerName, ActionName, IDParams) {
 function AngularGlobalFunctionsTwoParams(ControllerName, ActionName, IDParams1, IDParams2) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
     scope.$apply(function () {
-        eval("scope." + ActionName + "(" + IDParams1 + "," + IDParams2+");");
+        eval("scope." + ActionName + "(" + IDParams1 + "," + IDParams2 + ");");
     })
 }
 function AngularGlobalEdit(ControllerName, ActionName, IDParams) {
@@ -205,9 +203,6 @@ function AngularGlobalEdit(ControllerName, ActionName, IDParams) {
     scope.$apply(function () {
         eval("scope." + ActionName + "(" + IDParams + ");");
     })
-}
-function GlobalEdit( ActionName, IDParams) {
-    eval(ActionName + "(" + IDParams + ");");
 }
 function AngularGlobalView(ControllerName, ActionName, IDParams) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
@@ -220,9 +215,6 @@ function AngularGlobalDelete(IDParams, ActionName, ControllerName) {
     scope.$apply(function () {
         eval("scope." + ActionName + "(" + IDParams + ");");
     })
-}
-function GlobalDelete(IDParams, ActionName) {
-    eval(ActionName + "(" + IDParams + ");");
 }
 function AngularGlobalAlertsCalling(ControllerName, ActionName, ModalName, SuccessMess) {
     var scope = angular.element(document.getElementById(ControllerName)).scope();
@@ -239,22 +231,30 @@ function AngularGlobalAlertsCallingwoModal(ControllerName, ActionName, SuccessMe
         swalSuccess("Success", SuccessMess);
     });
 }
+//End Angular------------------------------------------------------------------------------
+//Gloabal Function-------------------------------------------------------------------------
+function GlobalEdit(ActionName, IDParams) {
+    eval(ActionName + "(" + IDParams + ");");
+}
+function GlobalDelete(IDParams, ActionName) {
+    eval(ActionName + "(" + IDParams + ");");
+}
 function GlobalAlertsCallingwoModal( ActionName, SuccessMess,Param1) {
     eval(ActionName + "(" + Param1+");");
     swalSuccess("Success", SuccessMess);
-
 }
 function GlobalFunctionsTwoParams( ActionName, IDParams1, IDParams2) {
         eval(ActionName + "(" + IDParams1 + "," + IDParams2 + ");");
 }
+//End Gloabal Function---------------------------------------------------------------------
 
 //FROM OPPA OSCAR
 function DeleteRecord(PrimaryID, ControllerUrl, ControllerUrl2, FormField) {
-    var ActionDeleteFund = " ConfirmDelete(" + PrimaryID + ",'" + ControllerUrl2 + "'," + FormField + ")";
-    var confirmMess2 = "Are you sure you want to delete this record?";
+    var ActionDelete = " ConfirmDelete(" + PrimaryID + ",'" + ControllerUrl2 + "'," + FormField + ")";
+    var confirmMess2 = "Are you sure you want to delete this?";
     var titleMess = "Warning";
-    var confirmMess = "This record is used by other table. Deleting this will also delete the records on other table. Are you sure to delete this?";
-    var successDeleteMess = "Successfully deleted!";
+    var confirmMess = "This record is used by other table. Once deleted, you will not be able to recover this record! Are you sure you want to delete this?";
+    var successDeleteMess = "Your record has been deleted!";
     var warningMsgTitle = "Warning";
     var cancelMsg = "Cancelled";
     $.ajax({
@@ -262,13 +262,13 @@ function DeleteRecord(PrimaryID, ControllerUrl, ControllerUrl2, FormField) {
         data: { PrimaryID: PrimaryID },
         success: function (result) {
             if (result.confirmDelete == "true") {
-                swalConfirmation(titleMess, confirmMess, successDeleteMess, ActionDeleteFund);
+                swalConfirmation(titleMess, confirmMess, successDeleteMess, ActionDelete);
             }
             else if (result.confirmDelete == "false") {
-                swalConfirmation(titleMess, confirmMess2, successDeleteMess, ActionDeleteFund);
+                swalConfirmation(titleMess, confirmMess2, successDeleteMess, ActionDelete);
             }
             else if (result.confirmDelete == "restricted") {
-                swalError("Error", "This record is used by other table. Deletion is prohibited.");
+                swalError("Error", "Unable to delete. This record is used by other table.");
             }
         }
     })
@@ -278,10 +278,62 @@ function ConfirmDelete(PrimaryID, ControllerUrl2, FormField) {
         url: ControllerUrl2,
         data: { PrimaryID: PrimaryID },
         success: function (result) {
-            FormField;
+        FormField;
         }
     })
 }
+function changeBtnTxt(addBtnID) {
+    if ($(".ActionID").val() == 1) {
+        $("#" + addBtnID).text("Add");
+    }
+    else if ($(".ActionID").val() == 2) {
+        $("#" + addBtnID).text("Save Changes");
+        //$("#" + addBtnID).attr("disabled", true);
+    }
+}
+//END FROM OPPA OSCAR
+
+//Start Class Numbers only
+function numbersOnly() {
+    $('.numbersOnly').keypress(validateNumber);
+}
+function validateNumber(event) {
+    var key = window.event ? event.keyCode : event.which;
+    if (event.keyCode === 8 || event.keyCode === 46) {
+        return true;
+    } else if (key < 48 || key > 57) {
+        return false;
+    } else {
+        return true;
+    }
+};
+// Do not allow Special Characters
+function noSpeChar() {
+    $(".noSpeChar").keypress(function (e) {
+        var keyCode = e.which;
+        /* 
+        48-57 - (0-9)Numbers
+        65-90 - (A-Z)
+        97-122 - (a-z)
+        8 - (backspace)
+        32 - (space)
+        */
+        // Not allow special 
+        if (!((keyCode < 48 && keyCode > 57)
+            || (keyCode >= 65 && keyCode <= 90)
+            || (keyCode >= 97 && keyCode <= 122))
+            && keyCode != 8 && keyCode != 32) {
+            e.preventDefault();
+        }
+    });
+}
+function validateCharacters() {
+    $("#sub").click(function () {
+        var fn = $("#folderName").val();
+        var regex = /^[0-9a-zA-Z\_]+$/
+    });
+}
+
 (function (window, undefined) {
   'use strict';
 

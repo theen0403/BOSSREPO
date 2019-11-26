@@ -12,18 +12,18 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BudgetYear
+    public partial class FMApprop_BudgetYear
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BudgetYear()
+        public FMApprop_BudgetYear()
         {
-            this.Tbl_FMAppropriationSource = new HashSet<Tbl_FMAppropriationSource>();
+            this.Tbl_FMApprop_AppropriationSource = new HashSet<Tbl_FMApprop_AppropriationSource>();
         }
     
         public int BudgetYearID { get; set; }
         public string BudgetYearTitle { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMAppropriationSource> Tbl_FMAppropriationSource { get; set; }
+        public virtual ICollection<Tbl_FMApprop_AppropriationSource> Tbl_FMApprop_AppropriationSource { get; set; }
     }
 }

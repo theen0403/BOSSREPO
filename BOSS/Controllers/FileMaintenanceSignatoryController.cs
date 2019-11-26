@@ -30,7 +30,7 @@ namespace BOSS.Controllers
 
             List<SignatoryDTList> getSignatoryList = new List<SignatoryDTList>();
 
-            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMDepartment].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead], [isActive]  FROM [Tbl_FMSignatory], [Tbl_FMFunction], [Tbl_FMPosition], [Tbl_FMDepartment] where[Tbl_FMDepartment].DeptID = [Tbl_FMFunction].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMFunction].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
+            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMRes_Department].DeptTitle, [Tbl_FMSignatory].[FunctionID], [isHead], [isActive]  FROM [Tbl_FMSignatory], [Tbl_FMRes_Function], [Tbl_FMPosition], [Tbl_FMRes_Department] where[Tbl_FMRes_Department].DeptID = [Tbl_FMRes_Function].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMRes_Function].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -69,10 +69,13 @@ namespace BOSS.Controllers
         {
             SignatoryModel model = new SignatoryModel();
 
-            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMFunction.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
+            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMRes_Function.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
 
             return PartialView("_AddDynamicFunctionList", model);
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public JsonResult AddNewSignatory(SignatoryModel model)
         {
             Tbl_FMSignatory signatorytbl = new Tbl_FMSignatory();
@@ -92,7 +95,7 @@ namespace BOSS.Controllers
         }
         public ActionResult GetUpdateDynamicFunction(SignatoryModel model, int DeptID, int funcTempID)
         {
-            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMFunction.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
+            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMRes_Function.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
             model.FunctionID = funcTempID;
             return PartialView("_AddDynamicFunctionList", model);
         }
@@ -104,7 +107,7 @@ namespace BOSS.Controllers
             model.getSignatoryColumns.PreferredName = signatoryTable.PreferredName;
             model.isHead = Convert.ToBoolean(signatoryTable.isHead);
             model.PositionID = Convert.ToInt32(signatoryTable.PositionID);
-            model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMFunction.DeptID);
+            model.DeptID = Convert.ToInt32(signatoryTable.Tbl_FMRes_Function.DeptID);
             model.getSignatoryColumns.Division = signatoryTable.Division;
             model.funcTempID = Convert.ToInt32(signatoryTable.FunctionID);
             model.isActive = Convert.ToBoolean(signatoryTable.isActive);

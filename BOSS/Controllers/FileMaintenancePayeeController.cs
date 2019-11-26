@@ -3,10 +3,11 @@ using BOSS.Models;
 using BOSS.Models.FMmodels.FMPayeeModels;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -27,10 +28,9 @@ namespace BOSS.Controllers
         public ActionResult GetPayeeDTable()
         {
             PayeeModel model = new PayeeModel();
-
             List<PayeeList> getPayeeList = new List<PayeeList>();
 
-            var SQLQuery = "SELECT [PayeeID],[Name],[Address],[DeptTitle] FROM [BOSS].[dbo].[Tbl_FMPayee], [dbo].[Tbl_FMDepartment] where [dbo].[Tbl_FMPayee].DeptID = [dbo].[Tbl_FMDepartment].DeptID";
+            var SQLQuery = "SELECT [PayeeID],[Name],[Address],[DeptTitle] FROM [BOSS].[dbo].[Tbl_FMPayee], [dbo].[Tbl_FMRes_Department] where [dbo].[Tbl_FMPayee].DeptID = [dbo].[Tbl_FMRes_Department].DeptID";
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -56,53 +56,120 @@ namespace BOSS.Controllers
 
             return PartialView("_TablePayee", model.getPayeeList);
         }
-        //Get Add Partial View
-        public ActionResult Get_AddPayee()
+        public ActionResult GetPayeeForm(int ActionID, int PrimaryID)
         {
             PayeeModel model = new PayeeModel();
-            return PartialView("_AddPayee", model);
+
+            if (ActionID == 2)
+            {
+                var payee = (from a in BOSSDB.Tbl_FMPayee where a.PayeeID == PrimaryID select a).FirstOrDefault();
+                model.PayeeList.Name = payee.Name;
+                model.PayeeList.Address = payee.Address;
+                model.DeptID = Convert.ToInt32(payee.DeptID);
+                model.PayeeList.PayeeID = payee.PayeeID;
+            }
+            model.ActionID = ActionID;
+            return PartialView("_PayeeForm", model);
         }
-        public JsonResult AddNewPayee(PayeeModel model)
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SavePayee(PayeeModel model)
         {
-            Tbl_FMPayee payeeTBL = new Tbl_FMPayee();
-            payeeTBL.Name = GlobalFunction.ReturnEmptyString(model.getPayeeColumns.Name);
-            payeeTBL.Address = GlobalFunction.ReturnEmptyString(model.getPayeeColumns.Address);
-            payeeTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
+            var isExist = "";
+            if (ModelState.IsValid)
+            {
+                var payeeName = model.PayeeList.Name;
+                var payeeAddress = model.PayeeList.Address;
+                payeeName = Regex.Replace(payeeName, @"\s\s+", "");
+                payeeName = Regex.Replace(payeeName, @"^\s+", "");
+                payeeName = Regex.Replace(payeeName, @"\s+$", "");
+                payeeName = new CultureInfo("en-US").TextInfo.ToTitleCase(payeeName);
+                payeeAddress = new CultureInfo("en-us").TextInfo.ToTitleCase(payeeAddress);
+                Tbl_FMPayee checkPayee = (from a in BOSSDB.Tbl_FMPayee where (a.Name == payeeName || a.Address == payeeAddress) select a).FirstOrDefault();
 
-            BOSSDB.Tbl_FMPayee.Add(payeeTBL);
-
-            BOSSDB.SaveChanges();
-            return Json(payeeTBL);
+                if (model.ActionID == 1)
+                {
+                    if (checkPayee == null)
+                    {
+                        isExist = "false";
+                    }
+                    else if (checkPayee != null)
+                    {
+                        isExist = "true";
+                    }
+                }
+                if (isExist == "false")
+                {
+                    Tbl_FMPayee payee = new Tbl_FMPayee();
+                    payee.Name = payeeName;
+                    payee.Address = payeeAddress;
+                    payee.DeptID = model.DeptID;
+                    BOSSDB.Tbl_FMPayee.Add(payee);
+                    BOSSDB.SaveChanges();
+                }
+                else if (model.ActionID == 2)
+                {                                                                                                                                                                                                                                                                                                                                           
+                    Tbl_FMPayee payeeTbl = (from a in BOSSDB.Tbl_FMPayee where a.PayeeID == model.PayeeList.PayeeID select a).FirstOrDefault();
+                    List<Tbl_FMPayee> namePay = (from e in BOSSDB.Tbl_FMPayee where e.Name == payeeName select e).ToList();
+                    List<Tbl_FMPayee> addPay = (from e in BOSSDB.Tbl_FMPayee where e.Address == payeeAddress select e).ToList();
+                    List<Tbl_FMPayee> deptPay = (from e in BOSSDB.Tbl_FMPayee where e.DeptID == model.DeptID select e).ToList();
+                    if (checkPayee != null)
+                    {
+                        if (payeeTbl.Name == payeeName && payeeTbl.Address == payeeAddress && payeeTbl.DeptID == model.DeptID)
+                        {
+                            isExist = "justUpdate";
+                        }
+                        else
+                        {
+                            if (payeeTbl.Name != payeeName && namePay.Count >= 1 || payeeTbl.Address != payeeAddress && addPay.Count >= 1)
+                            {
+                                isExist = "true";
+                            }
+                            else
+                            {
+                                isExist = "justUpdate";
+                            }
+                        }
+                    }
+                    else if (checkPayee == null)
+                    {
+                        isExist = "justUpdate";
+                    }
+                    if (isExist == "justUpdate")
+                    {
+                        payeeTbl.Name = payeeName;
+                        payeeTbl.Address = payeeAddress;
+                        payeeTbl.DeptID = model.DeptID;
+                        BOSSDB.Entry(payeeTbl);
+                        BOSSDB.SaveChanges();
+                    }
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
         }
-        public ActionResult Get_UpdatePayee(PayeeModel model, int PayeeID)
+        public ActionResult DeletePayee(int PrimaryID)
         {
-            Tbl_FMPayee tblPayee= (from e in BOSSDB.Tbl_FMPayee where e.PayeeID == PayeeID select e).FirstOrDefault();
-
-            model.getPayeeColumns.Name = tblPayee.Name;
-            model.getPayeeColumns.Address = tblPayee.Address;
-            model.DeptID = Convert.ToInt32(tblPayee.DeptID);
-            model.PayeeID = PayeeID;
-            return PartialView("_UpdatePayee", model);
-        }
-        public ActionResult UpdatePayee(PayeeModel model)
-        {
-            Tbl_FMPayee payeeTBL = (from e in BOSSDB.Tbl_FMPayee where e.PayeeID == model.PayeeID select e).FirstOrDefault();
-
-            payeeTBL.Name = GlobalFunction.ReturnEmptyString(model.getPayeeColumns.Name);
-            payeeTBL.Address = GlobalFunction.ReturnEmptyString(model.getPayeeColumns.Address);
-            payeeTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
-            BOSSDB.Entry(payeeTBL);
-            BOSSDB.SaveChanges();
-
-            var result = "";
+            Tbl_FMPayee payii = (from a in BOSSDB.Tbl_FMPayee where a.PayeeID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (payii != null)
+            {
+                confirmDelete = "false";
+            }
+            var result = new { confirmDelete = confirmDelete };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult DeletePayee(PayeeModel model, int PayeeID)
+        public ActionResult ConfirmDelete(int PrimaryID)
         {
-            Tbl_FMPayee tblPayee = (from e in BOSSDB.Tbl_FMPayee where e.PayeeID == PayeeID select e).FirstOrDefault();
+            Tbl_FMPayee tblPayee = (from e in BOSSDB.Tbl_FMPayee where e.PayeeID == PrimaryID select e).FirstOrDefault();
             BOSSDB.Tbl_FMPayee.Remove(tblPayee);
             BOSSDB.SaveChanges();
-            return RedirectToAction("FilePayee");
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

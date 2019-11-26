@@ -27,12 +27,13 @@ function GetSectorTab() {
         }
     })
 }
-function GetSectorForm(ActionID, SectorID) {
+function GetSectorForm(ActionID, PrimaryID) {
     $.ajax({
         url: "/FileMaintenanceSector/GetSectorForm",
-        data: { ActionID: ActionID, SectorID: SectorID },
+        data: { ActionID: ActionID, PrimaryID: PrimaryID },
         success: function (result) {
             $('#sectortempID').html(result);
+
             GetSectorDTable();
             changeBtnTxt('btnAddSector');
             $('form').removeData("validator");
@@ -51,62 +52,16 @@ function GetSectorDTable() {
         }
     })
 }
-function ConfirmDeleteSector(SectorID) {
-    $.ajax({
-        url: "/FileMaintenanceSector/ConfirmDeleteSector",
-        data: { SectorID: SectorID },
-        success: function (result) {
-            GetSectorForm(1, 0);
-        }
-    })
-}
-function DeleteSector(SectorID) {
-    var titleMess = "Warning";
-    var confirmMess = "This record is used by other table. Deleting this will also delete the records on other table. Are you sure to delete this?";
-    var successDeleteMess = "Succsessfully deleted!";
-    var confirmDelSector = "ConfirmDeleteSector(" + SectorID + ")";
-    $.ajax({
-        url: "/FileMaintenanceSector/DeleteSector",
-        data: { SectorID: SectorID },
-        success: function (result) {
-            if (result.confirmDeleteSector == "confirm") {
-
-                swalConfirmation(titleMess, confirmMess, successDeleteMess, confirmDelSector);
-            }
-            else if (result.confirmDeleteSector == "delete") {
-                GetSectorForm(1, 0);
-                swalSuccess('Success', 'Sector Deleted.');
-            }
-        }
-    })
-}
+//Click Edit in action button
 $(document).on('click', '#btnEditSectorID', function (e) {
     var SectorID = $(this).attr('SectorAttr');
     GetSectorForm(2, SectorID);
 });
-function changeBtnTxt(addBtnID) {
-    if ($(".ActionID").val() == 1) {
-        $("#" + addBtnID).text("Add");
-    }
-    else if ($(".ActionID").val() == 2) {
-        $("#" + addBtnID).text("Save Changes");
-        //$("#" + addBtnID).attr("disabled", true);
-    }
-}
-var ifExists = function (data, getForm) {
-    if (data.isExist == "true") {
-        getForm;
-        swalError("Error saving", "Record already exists.")
-    }
-    else if (data.isExist == "false") {
-        getForm;
-        swalSuccess('Success', 'Successfully Saved.');
-    }
-    else {
-        getForm;
-        swalSuccess('Success', 'Updated Successfully.');
-    }
-}
+//Click Delete in action button
+$(document).on('click', "#btnDeleteSectorID", function () {
+    var PrimaryID = $(this).attr('SectorAttr');
+    DeleteRecord(PrimaryID, '/FileMaintenanceSector/DeleteSector', '/FileMaintenanceSector/ConfirmDelete', ' GetSectorForm(1, 0)');
+});
 //---------------------------------------------------------------------------------------------------------------------
 //SubSector Tab
 //---------------------------------------------------------------------------------------------------------------------
@@ -120,10 +75,10 @@ function GetSubSectorTab() {
         }
     })
 }
-function GetSubSectorForm(ActionID, SubSectorID) {
+function GetSubSectorForm(ActionID, PrimaryID) {
     $.ajax({
         url: "/FileMaintenanceSector/GetSubSectorForm",
-        data: { ActionID: ActionID, SubSectorID: SubSectorID },
+        data: { ActionID: ActionID, PrimaryID: PrimaryID },
         success: function (result) {
             $('#subsectortempID').html(result);
             GetSubSectorDTable();
@@ -140,12 +95,23 @@ function GetSubSectorForm(ActionID, SubSectorID) {
 }
 function GetSubSectorDTable() {
     $.ajax({
+        //btnDeleteSectorID
         url: '/FileMaintenanceSector/GetSubSectorDTable',
         success: function (result) {
             $("#subsectorTableID").html(result);
         }
     })
 }
+//Click Edit in action button
+$(document).on('click', '#btnEditSubSectorID', function (e) {
+    var SubSectorID = $(this).attr('SubSectorAttr');
+    GetSubSectorForm(2, SubSectorID);
+});
+//Click Delete in action button
+$(document).on('click', "#btnDeleteSubSectorID", function () {
+    var PrimaryID = $(this).attr('SubSectorAttr');
+    DeleteRecord(PrimaryID, '/FileMaintenanceSector/DeleteSubSector', '/FileMaintenanceSector/ConfirmDeleteSubFund', ' GetSubSectorForm(1, 0)');
+});
 function GetSectorCodeField(SectorID = $('#SectorIDtemp option:selected').val()) {
     $.ajax({
         url: "/FileMaintenanceSector/GetSectorCodeField",
@@ -157,20 +123,6 @@ function GetSectorCodeField(SectorID = $('#SectorIDtemp option:selected').val())
             else {
                 alert(null)
             }
-        }
-    })
-}
-$(document).on('click', '#btnEditSubSectorID', function (e) {
-    var SubSectorID = $(this).attr('SubSectorAttr');
-    GetSubSectorForm(2, SubSectorID);
-});
-
-function DeleteSubSector(SubSectorID) {
-    $.ajax({
-        url: "/FileMaintenanceSector/DeleteSubSector",
-        data: { SubSectorID: SubSectorID },
-        success: function (result) {
-            GetSubSectorForm(1, 0);
         }
     })
 }

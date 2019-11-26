@@ -48,7 +48,7 @@
             <td>
                 @{
                     var FUncID = Items.FunctionID;
-                    var FunctionName = (from e in BOSSDB.Tbl_FMFunction where e.FunctionID == FUncID select e).FirstOrDefault();
+                    var FunctionName = (from e in BOSSDB.Tbl_FMRes_Function where e.FunctionID == FUncID select e).FirstOrDefault();
                     var TDValue = "";
                     if (FunctionName == null)
                     {
@@ -89,7 +89,7 @@
                 <td>
                     @{
                         var FUncID = Items.FunctionID;
-                        var FunctionName = (from e in BOSSDB.Tbl_FMFunction where e.FunctionID == FUncID select e).FirstOrDefault();
+                        var FunctionName = (from e in BOSSDB.Tbl_FMRes_Function where e.FunctionID == FUncID select e).FirstOrDefault();
                         var TDValue = "";
                         if (FunctionName == null)
                         {

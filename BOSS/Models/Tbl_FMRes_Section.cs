@@ -12,18 +12,14 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSignatory
+    public partial class Tbl_FMRes_Section
     {
-        public int SignatoryID { get; set; }
-        public string SignatoryName { get; set; }
-        public string PreferredName { get; set; }
-        public Nullable<int> PositionID { get; set; }
+        public int SectionID { get; set; }
+        public string SectionTitle { get; set; }
+        public Nullable<int> DeptID { get; set; }
         public Nullable<int> FunctionID { get; set; }
-        public string Division { get; set; }
-        public Nullable<bool> isHead { get; set; }
-        public Nullable<bool> isActive { get; set; }
     
-        public virtual Tbl_FMPosition Tbl_FMPosition { get; set; }
+        public virtual Tbl_FMRes_Department Tbl_FMRes_Department { get; set; }
         public virtual Tbl_FMRes_Function Tbl_FMRes_Function { get; set; }
     }
 }

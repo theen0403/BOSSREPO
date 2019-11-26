@@ -18,11 +18,9 @@
                 @{
                     foreach (var Items in Model)
                     {
-                        var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                        var DeleteSuccesMess = "Successfully Deleted";
-                        var DeleteAction = "DeleteOfficeType(" + Items.OfficeTypeID + ")";
                         var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditOfficeTypeID' OfficeTypeAttr='" + Items.OfficeTypeID + "'><i class='ft-edit'></i> Edit</button>";
-                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteOfficeTypeID' onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "','" + @DeleteAction + "')\"><i class='la la-trash'></i> Delete</button>";
+                        var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteOfficeTypeID' OfficeTypeAttr='" + Items.OfficeTypeID + "'><i class='la la-trash'></i> Delete</button>";
+
                         var Action = Update + Remove;
 
 

@@ -12,21 +12,20 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMMajorAccountGroup
+    public partial class Tbl_FMApprop_FundSource
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMMajorAccountGroup()
+        public Tbl_FMApprop_FundSource()
         {
-            this.Tbl_FMSubMajorAccountGroup = new HashSet<Tbl_FMSubMajorAccountGroup>();
+            this.Tbl_FMApprop_AppropriationSource = new HashSet<Tbl_FMApprop_AppropriationSource>();
         }
     
-        public int MAGID { get; set; }
-        public string MAGTitle { get; set; }
-        public string MAGCode { get; set; }
-        public Nullable<int> AGID { get; set; }
+        public int FundSourceID { get; set; }
+        public string FundSourceTitle { get; set; }
+        public Nullable<int> AppropSourceTypeID { get; set; }
     
-        public virtual Tbl_FMAccountGroup Tbl_FMAccountGroup { get; set; }
+        public virtual FMApprop_AppropriationSourceType FMApprop_AppropriationSourceType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMSubMajorAccountGroup> Tbl_FMSubMajorAccountGroup { get; set; }
+        public virtual ICollection<Tbl_FMApprop_AppropriationSource> Tbl_FMApprop_AppropriationSource { get; set; }
     }
 }

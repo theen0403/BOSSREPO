@@ -41,7 +41,7 @@
             <td>
                 @{ 
                     var SubsectorTitleValue = "N/A";
-                    var departmentTable = (from e in BOSSDB.Tbl_FMSubSector where e.SubSectorID == Items.SubSectorID select e).FirstOrDefault();
+                    var departmentTable = (from e in BOSSDB.Tbl_FMSector_SubSector where e.SubSectorID == Items.SubSectorID select e).FirstOrDefault();
 
                     if (departmentTable != null)
                     {

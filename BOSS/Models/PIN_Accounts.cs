@@ -12,14 +12,9 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMAppropriationSource
+    public partial class PIN_Accounts
     {
-        public int AppropriationID { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> FundSourceID { get; set; }
-        public Nullable<int> BudgetYearID { get; set; }
-    
-        public virtual BudgetYear BudgetYear { get; set; }
-        public virtual Tbl_FMFundSource Tbl_FMFundSource { get; set; }
+        public int PinID { get; set; }
+        public string Pin_Acct { get; set; }
     }
 }

@@ -1,0 +1,44 @@
+﻿@model BOSS.Models.FMmodels.FMBanksModels.BanksModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveBank", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "ifExists(data, GetBankForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.BankList.BankID, new { @id = "BankID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+<div class="row">
+    <div class="col-xl-5 col-lg-4 col-md-4">
+        <div class="form-group required1">
+            <label class="custom-form-margin">Bank Name</label>
+            @Html.TextAreaFor(m => m.BankList.BankTitle, new { @class = "form-control noSpeChar", @rows = "1", type = "text", id = "BankTitle" })
+            @Html.ValidationMessageFor(m => m.BankList.BankTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group required1">
+            <label class="custom-form-margin">Bank Code</label>
+            @Html.TextBoxFor(m => m.BankList.BankCode, new { @class = "form-control noSpeChar", type = "text", id = "BankCode" })
+            @Html.ValidationMessageFor(m => m.BankList.BankCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-5 col-lg-5 col-md-5">
+        <div class="form-group required1">
+            <label class="custom-form-margin">Bank Address</label>
+            @Html.TextAreaFor(m => m.BankList.BankAddress, new { @class = "form-control noSpeChar", @rows = "1", type = "text", id = "BankAddress" })
+            @Html.ValidationMessageFor(m => m.BankList.BankAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetBankForm(1, 0)">Cancel</button>
+            <button type="submit" id="btnAddBank" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+        </div>
+    </div>
+</div>
+}
+
+

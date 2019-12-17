@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
+
 namespace BOSS.Models.FMmodels.FMSignatoryModels
 {
     public class SignatoryModel
@@ -11,23 +13,17 @@ namespace BOSS.Models.FMmodels.FMSignatoryModels
 
         public SignatoryModel()
         {
-            getSignatoryList = new List<SignatoryDTList>();
-            getSignatoryColumns = new Tbl_FMSignatory();
-
+            getSignatoryList = new List<SignatoryList>();
+            SignatoryList = new SignatoryList();
+            FunctionList = new List<SelectListItem>();
         }
-        public List<SignatoryDTList> getSignatoryList { get; set; }
-        public Tbl_FMSignatory getSignatoryColumns { get; set; }
-        public int SignatoryID { get; set; }
-        [Required]
-        public string SignatoryName { get; set; }
+        public List<SignatoryList> getSignatoryList { get; set; }
+        public SignatoryList SignatoryList { get; set; }
+
+        public int ActionID { get; set; }
         public int PositionID { get; set; }
-        public int FunctionID { get; set; }
-        public bool isHead { get; set; }
         public int DeptID { get; set; }
-        public int funcTempID { get; set; }
-        public string PreferredName { get; set; }
-        public string Division { get; set; }
-        public bool isActive { get; set; }
+        public int FunctionID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> PositionList
         {
             get
@@ -46,18 +42,19 @@ namespace BOSS.Models.FMmodels.FMSignatoryModels
         }
         public IEnumerable<System.Web.Mvc.SelectListItem> FunctionList { get; set; }
     }
-    public class SignatoryDTList
+    public class SignatoryList
     {
         public int SignatoryID { get; set; }
+        [Required]
         public string SignatoryName { get; set; }
-        public int PositionID { get; set; }
+        [Required]
+        public string PreferredName { get; set; }
         public string PositionTitle { get; set; }
         public string DeptTitle { get; set; }
-        public int FunctionID { get; set; }
-        public int isHead { get; set; }
-        public int DeptID { get; set; }
-        public string PreferredName { get; set; }
+        [Required]
         public string Division { get; set; }
-        public int isActive { get; set; }
+        public string FunctionTitle { get; set; }
+        public bool isHead { get; set; }
+        public bool isActive { get; set; }
     }
 }

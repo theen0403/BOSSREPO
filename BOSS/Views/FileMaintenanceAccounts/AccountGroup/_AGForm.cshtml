@@ -1,0 +1,57 @@
+﻿@model  BOSS.Models.FMmodels.FMAccountsModels.AccountGroupModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveAG", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetAGForm(1, 0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.AccountGrpList.AGID, new { @id = "AGID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Revision Year</label>
+                @Html.DropDownListFor(m => m.AccountGrpList.RevID, Model.RevYearList, new { @class = "form-control select2nosearch revYearDropDown", id = "RevID", onchange = "onChangeRevisionYear_AllotClass(); GetAGDTable();" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-8 col-md-8">
+            <div class="form-group">
+                <label class="custom-form-margin">Allotment Class</label>
+                @Html.DropDownListFor(m => m.AccountGrpList.AllotmentClassID, Model.AllotClassList, new { @class = "form-control hide-search allotClassDropDown", id = "", onchange = "" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Accounts</label>
+                @Html.TextBoxFor(m => m.AccountGrpList.AGTitle, new { @class = "form-control", type = "text", id = "AGTitle" })
+                @Html.ValidationMessageFor(m => m.AccountGrpList.AGTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Account Code</label>
+                @Html.TextBoxFor(m => m.AccountGrpList.AGCode, new { @class = "form-control numbersOnly", type = "text", id = "AGCode" })
+                @Html.ValidationMessageFor(m => m.AccountGrpList.AGCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-xl-1 col-xl-10">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetAGForm(1, 0)">Cancel</button>
+                <button type="submit" id="btnAddAG" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        select2nosearch();
+        numbersOnly();
+    })
+</script>

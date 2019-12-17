@@ -1,8 +1,10 @@
-﻿using System;
+﻿//using ExpressiveAnnotations.Attributes;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace BOSS.Models.FMmodels.FMAccountsModels
 {
@@ -11,53 +13,86 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public GeneralAccountModel()
         {
-            getGenAcctList = new List<GeneralAccountList>();
-            getGenAcctColumns = new Tbl_FMCOA_GeneralAccount();
+            getGeneralAccountList = new List<GeneralAccountList>();
+            GeneralAccountList = new GeneralAccountList();
+
+            RevYearList = new List<SelectListItem>();
+            AllotClassList = new List<SelectListItem>();
+            AccntGrpList = new List<SelectListItem>();
+            MajAccntGrpList = new List<SelectListItem>();
+            SubMajAccntGrpList = new List<SelectListItem>();
+            GenAccntGrpList = new List<SelectListItem>();
         }
-        public List<GeneralAccountList> getGenAcctList { get; set; }
-        public Tbl_FMCOA_GeneralAccount getGenAcctColumns { get; set; }
+        public int ActionID { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearList { get; set; }
+        public List<SelectListItem> AllotClassList { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> AccntGrpList { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> MajAccntGrpList { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> SubMajAccntGrpList { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> GenAccntGrpList { get; set; }
+        public List<GeneralAccountList> getGeneralAccountList { get; set; }
+        public GeneralAccountList GeneralAccountList { get; set; }
 
-        public int RevID { get; set; }
-        public int AllotmentID { get; set; }
-        public int AGID { get; set; }
-        public int MAGID { get; set; }
-        public int SMAGID { get; set; }
-        public int GAID { get; set; }
-        public string GATitle { get; set; }
-        public string GACode { get; set; }
-        public int isSelected { get; set; }
-
-
-
-        public bool isReserve { get; set; }
-        public int ReservePercent { get; set; }
-        public bool isFullRelease { get; set; }
-        public bool isContinuing { get; set; }
-        public bool isOBRCashAdvance { get; set; }
-        public int BalanceID { get; set; }
-
-        public IEnumerable<System.Web.Mvc.SelectListItem> SubMajorAccountGrpList { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> GeneralAccountList { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> NormalBalanceList
-        {
-            get
-            {
-                List<Tbl_FMBalance> BalanceList = BOSSDB.Tbl_FMBalance.ToList();
-                return new System.Web.Mvc.SelectList(BalanceList, "BalanceID", "BalanceTitle");
-            }
-        }
     }
     public class GeneralAccountList
     {
-        public int GAID { get; set; }
-        public string GACode { get; set; }
+        //Required Fields
+        [Required(ErrorMessage = "Please enter Sub Major Account Group Title")]
         public string GATitle { get; set; }
-        public int isReserve { get; set; }
-        public int ReservePercent { get; set; }
-        public int isFullRelease { get; set; }
-        public int isContinuing { get; set; }
-        public int isOBRCashAdvance { get; set; }
-        public int BalanceID { get; set; }
 
+        [Required(ErrorMessage = "Please enter Sub Major Account Group Code")]
+        public string GACode { get; set; }
+
+        [Required(ErrorMessage = "Please select IsReserve")]
+        public bool IsReserve { get; set; }
+
+        [Required(ErrorMessage = "Please select IsRelease")]
+        public bool IsRelease { get; set; }
+
+        [Required(ErrorMessage = "Please select IsContinuing")]
+        public bool IsContinuing { get; set; }
+
+        [Required(ErrorMessage = "Please select IsOBRCash")]
+        public bool IsOBRCash { get; set; }
+
+        [Required(ErrorMessage = "Please select NormalBal")]
+        public string NormalBal { get; set; }
+
+        [Required(ErrorMessage = "Please select Major Account Group Title")]
+        public int SMAGID { get; set; }
+
+        //Optional Fields
+        public bool IsMiscellaneous { get; set; }
+
+        public bool isContraAccountCheckBox { get; set; }
+        public bool isSubAccountCheckBox { get; set; }
+
+        //Conditional Validation
+        //[AssertThat("IsContra == true || IsSubAccnt == true", ErrorMessage = "Please select General AccntID")]
+        //[RequiredIf("IsContraCheckBox == true || IsSubAccntCheckBox == true", ErrorMessage = "Please enter Reserved Pecent")]
+        public int? GAID { get; set; }
+
+        public int GeneralAccountID { get; set; }
+
+      //  [RequiredIf("IsReserve == true", ErrorMessage = "Please enter Reserved Pecent")]
+        public string ReservePercent { get; set; }
+
+
+
+        public string RevYear { get; set; }
+        public int RevID { get; set; }
+
+        public string AllotmentClassTitle { get; set; }
+        public int AllotmentClassID { get; set; }
+
+        public string AGTitle { get; set; }
+        public int AGID { get; set; }
+
+        public string MAGTitle { get; set; }
+        public int MAGID { get; set; }
+
+        public string SMAGTitle { get; set; }
+        public string SubGenCode { get; set; }
+        public string GenAccountCode { get; set; }
     }
 }

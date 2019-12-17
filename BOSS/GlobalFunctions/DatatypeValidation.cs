@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace BOSS.GlobalFunctions
@@ -69,6 +71,31 @@ namespace BOSS.GlobalFunctions
                 return Convert.ToBoolean(data);
             }
             return true;
+        }
+        public string AutoCaps_RemoveSpaces(string data)
+        {
+            if (data != null)
+            {
+
+                data = Regex.Replace(data, @"\s\s+", " ");
+                data = Regex.Replace(data, @"^\s+", "");
+                data = Regex.Replace(data, @"\s+$", "");
+                data = new CultureInfo("en-US").TextInfo.ToTitleCase(data);
+                return data.ToString();
+            }
+            return "N/A";
+        }
+        public string RemoveSpaces(object data)
+        {
+            if (data != null)
+            {
+                var dataString = data.ToString();
+                data = Regex.Replace(dataString, @"\s\s+", " ");
+                data = Regex.Replace(dataString, @"^\s+", "");
+                data = Regex.Replace(dataString, @"\s+$", "");
+                return dataString;
+            }
+            return "N/A";
         }
     }
 }

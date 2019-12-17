@@ -55,7 +55,6 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
                 return new System.Web.Mvc.SelectList(officeTypesfunc, "OfficeTypeID", "OfficeTypeTitle");
             }
         }
-        // public DepartmentModel deptmodel { get; set; }
     }
     public class FunctionList
     {

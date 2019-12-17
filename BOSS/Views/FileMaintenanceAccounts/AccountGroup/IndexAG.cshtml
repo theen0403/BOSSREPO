@@ -1,0 +1,105 @@
+﻿<div class="card-body px-1 card-body rounded menubackground">
+    <div id="accntGrpTempID">
+
+    </div>
+</div>
+
+<div class="mt-1" id="AccntGrpTableID">
+
+</div>
+
+@*<script>
+    $(function () {
+        GetAccountGroupDT();
+    })
+    //Call Account Group Datatable
+    function GetAccountGroupDT() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAccountGroupDT',
+            success: function (result) {
+                $("#TableAccntGrpID").html(result);
+                GetAddAccountGroup();
+            }
+        })
+    }
+    //Call Add input fields
+    function GetAddAccountGroup() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAddAccountGroup',
+            success: function (result) {
+                $("#accntGrpTempID").html(result);
+                GetDynamicRevYearAG();
+            }
+        })
+    }
+    //Call Dynamic Revision Year Input Field
+    function GetDynamicRevYearAG() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
+            success: function (result) {
+                $("#revYearAGID").html(result);
+                GetDynamicAllotClass();
+                onchangeRevYearAG();
+            }
+        })
+    }
+    //Revision Year onchange event
+    function onchangeRevYearAG() {
+        $("#RevID").on("change", function () {
+            GetDynamicAllotClass();
+        });
+    }
+    //Call Dynamic Allotment Class Input Field
+    function GetDynamicAllotClass() {
+        var RevID = $("#RevID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClass',
+            data: { RevID: RevID },
+            success: function (result) {
+                $("#allotClassAGID").html(result);
+            }
+        })
+    }
+    //Call Update Input Fields
+    function Get_UpdateAccountGroup(AGID) {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/Get_UpdateAccountGroup',
+            data: { AGID: AGID },
+            success: function (result) {
+                $('#accntGrpTempID').html(result);
+            }
+        })
+    }
+     //Call Dynamic Revision Year Input Field for Update
+    function GetDynamicRevYearAGUpdate() {
+        var RevTempID = $("#RevTempID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYearAGUpdate',
+            data: { RevTempID: RevTempID },
+            success: function (result) {
+                $("#revYearAGID").html(result);
+                onchangeRevYearAG();
+            }
+        })
+    }
+    //Call Dynamic Allotment Class Input Field for Update
+    function GetDynamicAllotClassAGUpdate(RevID, allotclasssTempID) {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClassAGUpdate',
+            data: { RevID: RevID, allotclasssTempID: allotclasssTempID },
+            success: function (result) {
+                $("#allotClassAGID").html(result);
+            }
+        })
+    }
+    //Delete Account Group Function
+    function DeleteAccountGroup(AGID) {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/DeleteAccountGroup',
+            data: { AGID: AGID },
+            success: function (result) {
+                GetAccountGroupDT();
+            }
+        })
+    }
+</script>*@

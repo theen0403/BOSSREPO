@@ -5,70 +5,70 @@
 @using BOSS.Models;
 
 <div class="card-body px-1 card-body rounded menubackground">
-    <div id="allotmentTempID">
+        <div id="allotmentTempID">
+
+        </div>
+    </div>
+    <div class="mt-2 allotClassList-container">
 
     </div>
-</div>
-<div class="mt-2" id="tableAllotmentID">
 
-</div>
+@*<script>
+        $(function () {
+            GetAllotmentClassDT();
+        })
+        function GetAllotmentClassDT() {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetAllotmentClassDT',
+                success: function (result) {
+                    $("#tableAllotmentID").html(result);
+                    GetAddAllotmentClass();
+                }
+            })
+        }
+        function GetDynamicRevYear() {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetDynamicRevYear',
+                success: function (result) {
+                    $("#revYearAllotID").html(result);
+                }
+            })
+        }
+        function GetAddAllotmentClass() {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetAddAllotmentClass',
+                success: function (result) {
+                    $("#allotmentTempID").html(result);
+                }
+            })
+        }
+        function GetDynamicRevYearUpdate(RevIDtemp) {
+            var RevIDtemp = $("#RevIDtemp").val();
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetDynamicRevYearUpdate',
+                data: { RevIDtemp: RevIDtemp },
+                success: function (result) {
+                    $("#revYearAllotID").html(result);
+                }
+            })
+        }
+        function Get_UpdateAllotmentClass(AllotmentClassID) {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/Get_UpdateAllotmentClass',
+                data: { AllotmentClassID: AllotmentClassID },
+                success: function (result) {
+                    $('#allotmentTempID').html(result);
 
-<script>
-    $(function () {
-        GetAllotmentClassDT();
-    })
-    function GetAllotmentClassDT() {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetAllotmentClassDT',
-            success: function (result) {
-                $("#tableAllotmentID").html(result);
-                GetAddAllotmentClass();
-            }
-        })
-    }
-    function GetDynamicRevYear() {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
-            success: function (result) {
-                $("#revYearAllotID").html(result);
-            }
-        })
-    }
-    function GetAddAllotmentClass() {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetAddAllotmentClass',
-            success: function (result) {
-                $("#allotmentTempID").html(result);
-            }
-        })
-    }
-    function GetDynamicRevYearUpdate(RevIDtemp) {
-        var RevIDtemp = $("#RevIDtemp").val();
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetDynamicRevYearUpdate',
-            data: { RevIDtemp: RevIDtemp },
-            success: function (result) {
-                $("#revYearAllotID").html(result);
-            }
-        })
-    }
-    function Get_UpdateAllotmentClass(AllotmentClassID) {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/Get_UpdateAllotmentClass',
-            data: { AllotmentClassID: AllotmentClassID },
-            success: function (result) {
-                $('#allotmentTempID').html(result);
-                
-            }
-        })
-    }
-    function DeleteAllotmentClass(AllotmentClassID) {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/DeleteAllotmentClass',
-            data: { AllotmentClassID: AllotmentClassID },
-            success: function (result) {
-                GetAllotmentClassDT();
-            }
-        })
-    }
-</script>
+                }
+            })
+        }
+        function DeleteAllotmentClass(AllotmentClassID) {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/DeleteAllotmentClass',
+                data: { AllotmentClassID: AllotmentClassID },
+                success: function (result) {
+                    GetAllotmentClassDT();
+                }
+            })
+        }
+    </script>*@

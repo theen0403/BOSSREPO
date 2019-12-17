@@ -9,47 +9,46 @@
 
     </div>
 </div>
-
 <div class="mt-2" id="tableRCOAID">
-</div>
 
-<script>
-    $(function () {
-        GetRevisionCOADT();
-    })
-    function GetRevisionCOADT() {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetRevisionCOADT',
-            success: function (result) {
-                $("#tableRCOAID").html(result);
-                GetAddRevision();
-            }
+</div>
+@*<script>
+        $(function () {
+            GetRevisionCOADT();
         })
-    }
-    function GetAddRevision() {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/GetAddRevision',
-            success: function (result) {
-                $("#RCOATempID").html(result);
-            }
-        })
-    }
-    function Get_UpdateRevCOA(RevID) {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/Get_UpdateRevCOA',
-            data: { RevID: RevID },
-            success: function (result) {
-                $('#RCOATempID').html(result);
-            }
-        })
-    }
-    function DeleteRCOA(RevID) {
-        $.ajax({
-            url: '/FileMaintenanceAccounts/DeleteRCOA',
-            data: { RevID: RevID },
-            success: function (result) {
-                GetRevisionCOADT();
-            }
-        })
-    }
-</script>
+        function GetRevisionCOADT() {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetRevisionCOADT',
+                success: function (result) {
+                    $("#tableRCOAID").html(result);
+                    GetAddRevision();
+                }
+            })
+        }
+        function GetAddRevision() {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/GetAddRevision',
+                success: function (result) {
+                    $("#RCOATempID").html(result);
+                }
+            })
+        }
+        function Get_UpdateRevCOA(RevID) {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/Get_UpdateRevCOA',
+                data: { RevID: RevID },
+                success: function (result) {
+                    $('#RCOATempID').html(result);
+                }
+            })
+        }
+        function DeleteRCOA(RevID) {
+            $.ajax({
+                url: '/FileMaintenanceAccounts/DeleteRCOA',
+                data: { RevID: RevID },
+                success: function (result) {
+                    GetRevisionCOADT();
+                }
+            })
+        }
+    </script>*@

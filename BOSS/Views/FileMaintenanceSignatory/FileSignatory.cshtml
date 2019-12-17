@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "FileSignatory";
 }
-
 <script>
     $("#FileMaintenanceSignatoryID").addClass("active");
 </script>
@@ -33,74 +32,3 @@
         </div>
     </div>
 </div>
-@*<script>
-    app.controller('FMSignatoryController', function ($scope, $http, $sce) {
-        var F = $scope, P = $http, D = $sce.trustAsHtml;
-        //Get Signatory Datatable Partial View
-        F.InitFunctions = function () {
-            F.GetSignatoryDTable();
-        }//Get Table Appropriation Source Datatable Partial View
-        F.GetSignatoryDTable = function () {
-            F.FMSignatoryID = null;
-            P({
-                url: '/FileMaintenanceSignatory/GetSignatoryDTable',
-            }).then(function (response) {
-                F.FMSignatoryID = D(response.data);
-                F.GetAddSignatory();
-            });
-        }
-        F.GetAddSignatory = function () {
-            P({
-                url: '/FileMaintenanceSignatory/GetAddSignatory',
-            }).then(function (response) {
-                $('#SignatoryTempID').html(response.data);
-
-            });
-        }
-        F.GetAddDynamicFunction = function () {
-            var DeptID = $("#DeptID").val();
-            P({
-                url: '/FileMaintenanceSignatory/GetAddDynamicFunction',
-                params: { DeptID: DeptID }
-            }).then(function (response) {
-                $('#functionlistID').html(response.data);
-
-            });
-        }
-        F.GetUpdateDynamicFunction = function (DeptID, funcTempID ) {
-            P({
-                url: '/FileMaintenanceSignatory/GetUpdateDynamicFunction',
-                params: { DeptID: DeptID, funcTempID: funcTempID }
-            }).then(function (response) {
-                $('#functionlistID').html(response.data);
-
-            });
-        }
-        F.GetUpdateDynamicFunction3 = function (DeptID) {
-            var DeptID = $("#DeptID2").val();
-            P({
-                url: '/FileMaintenanceSignatory/GetAddDynamicFunction',
-                params: { DeptID: DeptID}
-            }).then(function (response) {
-                $('#functionlistID').html(response.data);
-
-            });
-        }
-        F.Get_UpdateSignatory = function (SignatoryID) {
-            P({
-                url: '/FileMaintenanceSignatory/Get_UpdateSignatory',
-                params: { SignatoryID: SignatoryID }
-            }).then(function (response) {
-                $('#SignatoryTempID').html(response.data);
-            });
-        }
-        F.DeleteSignatory = function (SignatoryID) {
-            P({
-                url: '/FileMaintenanceSignatory/DeleteSignatory',
-                params: { SignatoryID: SignatoryID }
-            }).then(function (response) {
-                F.GetSignatoryDTable();
-            });
-        }
-    });
-</script>*@

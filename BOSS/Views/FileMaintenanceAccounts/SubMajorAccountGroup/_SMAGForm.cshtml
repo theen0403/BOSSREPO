@@ -1,0 +1,74 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.SubMajorAccountGroupModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveSMAG", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetSMAGForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.SubMajorAccntGrpList.SMAGID, new { @id = "SMAGID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-2 col-lg-4 col-md-3">
+            <div class="form-group">
+                <label><b>Revision Year</b></label>
+                @Html.DropDownListFor(m => m.SubMajorAccntGrpList.RevID, Model.RevYearList, new { @class = "form-control select2nosearch revYearDropDown", id = "RevID", onchange = "onChangeRevisionYear_AllotClass(); GetSMAGDTable();" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-5">
+            <div class="form-group">
+                <label><b>Allotment Class</b></label>
+                @Html.DropDownListFor(m => m.SubMajorAccntGrpList.AllotmentClassID, Model.AllotClassList, new { @class = "form-control select2 allotClassDropDown", id = "AllotmentClassID", onchange = "onChangeAllotClass_AccntGrp()" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label>Accounts</label>
+                @Html.DropDownListFor(m => m.SubMajorAccntGrpList.AGID, Model.AccntGrpList, new { @class = "form-control select2 accntGrpDropDown", id = "AGID", onchange = "onChangeAccntGrp_MajAccntGrp()" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-4 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label>Major Account Group</label>
+                @Html.DropDownListFor(m => m.SubMajorAccntGrpList.MAGID, Model.MajAccntGrpList, new { @class = "form-control select2 majAccntGrpDropDown", id = "MAGID", onchange = "ChangeMajorAccountCode()" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-5">
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Major Account Group</label>
+                @Html.TextBoxFor(m => m.SubMajorAccntGrpList.SMAGTitle, new { @class = "form-control", type = "text", id = "SMAGTitle" })
+                @Html.ValidationMessageFor(m => m.SubMajorAccntGrpList.SMAGTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label>Account Code</label>
+                <div class="input-group mt-0">
+                    <span class="input-group-addon majAccntCode menubackground" id=""><b></b></span>
+                    @Html.TextBoxFor(m => m.SubMajorAccntGrpList.SMAGCode, new { @class = "form-control numbersOnly", type = "text", id = "SMAGCode", maxlength = "2" })
+                    @Html.ValidationMessageFor(m => m.SubMajorAccntGrpList.SMAGCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-10">
+            <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSMAGForm(1, 0)">Cancel</button>
+            <button type="submit" id="btnAddSMAG" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+        </div>
+    </div>
+}
+    <script>
+        $(function () {
+            LoadICheck();
+            select2nosearch();
+            numbersOnly();
+        })
+    </script>

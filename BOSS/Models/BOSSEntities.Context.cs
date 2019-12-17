@@ -40,6 +40,12 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMApprop_AppropriationSource> Tbl_FMApprop_AppropriationSource { get; set; }
         public virtual DbSet<Tbl_FMApprop_FundSource> Tbl_FMApprop_FundSource { get; set; }
         public virtual DbSet<Tbl_FMBalance> Tbl_FMBalance { get; set; }
+        public virtual DbSet<Tbl_FMBank_AccountType> Tbl_FMBank_AccountType { get; set; }
+        public virtual DbSet<Tbl_FMBank_BankAccounts> Tbl_FMBank_BankAccounts { get; set; }
+        public virtual DbSet<Tbl_FMBank_Banks> Tbl_FMBank_Banks { get; set; }
+        public virtual DbSet<Tbl_FMBrgy_Barangay> Tbl_FMBrgy_Barangay { get; set; }
+        public virtual DbSet<Tbl_FMBrgy_BrgyBankAccount> Tbl_FMBrgy_BrgyBankAccount { get; set; }
+        public virtual DbSet<Tbl_FMBrgy_BrgyCollector> Tbl_FMBrgy_BrgyCollector { get; set; }
         public virtual DbSet<Tbl_FMCOA_AccountGroup> Tbl_FMCOA_AccountGroup { get; set; }
         public virtual DbSet<Tbl_FMCOA_AllotmentClass> Tbl_FMCOA_AllotmentClass { get; set; }
         public virtual DbSet<Tbl_FMCOA_GeneralAccount> Tbl_FMCOA_GeneralAccount { get; set; }
@@ -57,87 +63,7 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMSector_Sector> Tbl_FMSector_Sector { get; set; }
         public virtual DbSet<Tbl_FMSector_SubSector> Tbl_FMSector_SubSector { get; set; }
         public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
-    
-        public virtual int SP_AppropriationSource(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AppropriationSource", sQLStatementParameter);
-        }
-    
-        public virtual int SP_FMResponsibility(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMResponsibility", sQLStatementParameter);
-        }
-    
-        public virtual int SP_FMAccounts(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMAccounts", sQLStatementParameter);
-        }
-    
-        public virtual int SP_PositionSP(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_PositionSP", sQLStatementParameter);
-        }
-    
-        public virtual int SP_Signatory(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Signatory", sQLStatementParameter);
-        }
-    
-        public virtual int SP_Fund(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Fund", sQLStatementParameter);
-        }
-    
-        public virtual int SP_Sector(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Sector", sQLStatementParameter);
-        }
-    
-        public virtual int SP_OfficeType(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_OfficeType", sQLStatementParameter);
-        }
-    
-        public virtual int SP_Payee(string sQLStatement)
-        {
-            var sQLStatementParameter = sQLStatement != null ?
-                new ObjectParameter("SQLStatement", sQLStatement) :
-                new ObjectParameter("SQLStatement", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Payee", sQLStatementParameter);
-        }
+        public virtual DbSet<Tbl_FMTax> Tbl_FMTax { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -158,6 +84,15 @@ namespace BOSS.Models
                 new ObjectParameter("definition", typeof(byte[]));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int SP_AppropriationSource(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_AppropriationSource", sQLStatementParameter);
         }
     
         public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -194,6 +129,33 @@ namespace BOSS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
         }
     
+        public virtual int SP_FMAccounts(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMAccounts", sQLStatementParameter);
+        }
+    
+        public virtual int SP_FMResponsibility(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMResponsibility", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Fund(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Fund", sQLStatementParameter);
+        }
+    
         public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
         {
             var diagramnameParameter = diagramname != null ?
@@ -220,6 +182,33 @@ namespace BOSS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
         }
     
+        public virtual int SP_OfficeType(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_OfficeType", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Payee(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Payee", sQLStatementParameter);
+        }
+    
+        public virtual int SP_PositionSP(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_PositionSP", sQLStatementParameter);
+        }
+    
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
         {
             var diagramnameParameter = diagramname != null ?
@@ -237,9 +226,72 @@ namespace BOSS.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
         }
     
+        public virtual int SP_Sector(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Sector", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Signatory(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Signatory", sQLStatementParameter);
+        }
+    
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int SP_Banks(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Banks", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Tax(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Tax", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Banks1(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Banks1", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Tax1(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Tax1", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Brgy(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Brgy", sQLStatementParameter);
         }
     }
 }

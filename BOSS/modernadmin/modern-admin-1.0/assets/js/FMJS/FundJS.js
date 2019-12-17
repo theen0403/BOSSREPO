@@ -28,14 +28,6 @@ function GetFundTab() {
         }
     })
 }
-function GetFundDTable() {
-    $.ajax({
-        url: '/FileMaintenanceFund/GetFundDTable',
-        success: function (result) {
-            $('#fundTableID').html(result);
-        }
-    })
-}
 function GetFundForm(ActionID, PrimaryID) {
     $.ajax({
         url: "/FileMaintenanceFund/GetFundForm",
@@ -50,6 +42,14 @@ function GetFundForm(ActionID, PrimaryID) {
         },
         error: function () {
             alert('An error occured while attempting to get the content');
+        }
+    })
+}
+function GetFundDTable() {
+    $.ajax({
+        url: '/FileMaintenanceFund/GetFundDTable',
+        success: function (result) {
+            $('#fundTableID').html(result);
         }
     })
 }
@@ -112,7 +112,6 @@ function DeleteSubFund(SubFundID) {
 $(document).on('click', '#btnEditSubFundID', function (e) {
     var SubFundID = $(this).attr('SubFundAttr');
     GetSubFundForm(2, SubFundID);
-
 });
 // Dynamic var --------------------------------------------------
 var ifExists = function (data, getForm) {
@@ -124,12 +123,15 @@ var ifExists = function (data, getForm) {
         getForm;
         swalSuccess('Success', 'Successfully Saved.');
     }
+    else if (data.isExist == "activeIsUsed") {
+        getForm;
+        swalError("Error saving", "Only one Revision Year shall be set as Active. Please deactivate the current Revision Year to save this information.")
+    }
     else {
         getForm;
         swalSuccess('Success', 'Updated Successfully.');
     }
 }
-
 //var tabSelect = function (tabid) {
 //    var tabactive = $(".tab-pane.active").attr("id");
 //    if (tabactive == "tabFundID") {

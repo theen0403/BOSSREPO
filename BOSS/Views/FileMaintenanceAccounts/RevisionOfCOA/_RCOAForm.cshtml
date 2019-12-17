@@ -1,0 +1,66 @@
+@model BOSS.Models.FMmodels.FMAccountsModels.RevisionYearModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveRevision", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data, GetRevisionForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.RevisionList.RevID, new { @id = "RevID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-xl-2 col-lg-1 col-md-1"></div>
+        <div class="col-xl-8 col-lg-10 col-md-10">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-4">
+                    <div class="form-group ">
+                        <label class="custom-form-margin">Revision Year</label>
+                        @Html.TextBoxFor(m => m.RevisionList.RevYear, new { @class = "form-control numbersOnly", maxlength = "4", type = "text", id = "RevYear" })
+                        @Html.ValidationMessageFor(m => m.RevisionList.RevYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="form-group ">
+                        <label class="custom-form-margin">Is Used</label>
+                        @{
+                            List<SelectListItem> listItems = new List<SelectListItem>();
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "No",
+                                Value = "false",
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "Yes",
+                                Value = "true",
+
+                            });
+                        }
+                        @Html.DropDownListFor(m => m.RevisionList.isUsed, listItems, new { @class = "form-control select2nosearch", type = "text", id = "" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Remarks</label>
+                        @Html.TextBoxFor(m => m.RevisionList.Remarks, new { @class = "form-control", type = "text", id = "Remarks" })
+                        @Html.ValidationMessageFor(m => m.RevisionList.Remarks, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetRevisionForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddRev" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        select2nosearch();
+        numbersOnly();
+    })
+</script>

@@ -1,0 +1,44 @@
+﻿@model  BOSS.Models.FMmodels.FMAccountsModels.AllotmentClassModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveAllotmentClass", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetAllotClassForm(1, 0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.AllotmentClassList.AllotmentClassID, new { @id = "AllotmentClassID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label><b>Revision Year</b></label>
+                        @Html.DropDownListFor(m => m.AllotmentClassList.RevID, Model.RevYearList, new { @class = "form-control select2nosearch", id = "RevID", onchange = "GetAllotmentClassDT()" })
+                        @Html.ValidationMessageFor(m => m.AllotmentClassList.RevID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-8">
+                    <div class="form-group">
+                        <label><b>Allotment Class</b></label>
+                        @Html.TextBoxFor(m => m.AllotmentClassList.AllotmentClassTitle, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "" })
+                        @Html.ValidationMessageFor(m => m.AllotmentClassList.AllotmentClassTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetAllotClassForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddAllot" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+    <script>
+        $(function () {
+            select2nosearch();
+        })
+    </script>

@@ -10,22 +10,25 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AllotmentClassModel()
         {
-            getAllotmentClassColumns = new Tbl_FMCOA_AllotmentClass();
             getAllotmentClassList = new List<AllotmentClassList>();
+            AllotmentClassList = new AllotmentClassList();
         }
-        public Tbl_FMCOA_AllotmentClass getAllotmentClassColumns { get; set; }
+        public int ActionID { get; set; }
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearList { get; set; }
         public List<AllotmentClassList> getAllotmentClassList { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearDropDownList { get; set; }
-        public int AllotmentClassID { get; set; }
-        public string AllotmentClassTitle { get; set; }
-        public int RevID { get; set; }
-        public int RevIDtemp { get; set; }
-        public string RevYear { get; set; }
+        public AllotmentClassList AllotmentClassList { get; set; }
     }
     public class AllotmentClassList
     {
         public int AllotmentClassID { get; set; }
+
+        [Required(ErrorMessage = "Please enter Allotment Class Title")]
         public string AllotmentClassTitle { get; set; }
+
+        [Required(ErrorMessage = "Please select Revision Year")]
+        public int RevID { get; set; }
+
         public string RevYear { get; set; }
     }
 

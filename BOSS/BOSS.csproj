@@ -192,6 +192,8 @@
     <Compile Include="Controllers\ExecutionReportSummaryofOBRController.cs" />
     <Compile Include="Controllers\FileMaintenanceAccountsController.cs" />
     <Compile Include="Controllers\FileMaintenanceAppropriationController.cs" />
+    <Compile Include="Controllers\FileMaintenanceBankController.cs" />
+    <Compile Include="Controllers\FileMaintenanceBarangayController.cs" />
     <Compile Include="Controllers\FileMaintenanceFundController.cs" />
     <Compile Include="Controllers\FileMaintenanceOfficeTypeController.cs" />
     <Compile Include="Controllers\FileMaintenancePayeeController.cs" />
@@ -199,6 +201,8 @@
     <Compile Include="Controllers\FileMaintenanceResponsibilityController.cs" />
     <Compile Include="Controllers\FileMaintenanceSectorController.cs" />
     <Compile Include="Controllers\FileMaintenanceSignatoryController.cs" />
+    <Compile Include="Controllers\FileMaintenanceSupplierController.cs" />
+    <Compile Include="Controllers\FileMaintenanceTaxController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PreparationAnnualInvestmentPlanController.cs" />
@@ -300,6 +304,12 @@
     <Compile Include="Models\FMmodels\FMAccountsModels\SubMajorAccountGroupModel.cs" />
     <Compile Include="Models\FMmodels\FMAppropriarionSouceModels\AppropSourceModel.cs" />
     <Compile Include="Models\FMmodels\FMAppropriarionSouceModels\FundSourceModel.cs" />
+    <Compile Include="Models\FMmodels\FMBanksModels\AccountTypeModel.cs" />
+    <Compile Include="Models\FMmodels\FMBanksModels\BankAccountsModel.cs" />
+    <Compile Include="Models\FMmodels\FMBanksModels\BanksModel.cs" />
+    <Compile Include="Models\FMmodels\FMBarangayModels\BrgyBankAccountModel.cs" />
+    <Compile Include="Models\FMmodels\FMBarangayModels\BrgyCollectorModel.cs" />
+    <Compile Include="Models\FMmodels\FMBarangayModels\BrgyNameModel.cs" />
     <Compile Include="Models\FMmodels\FMFundModels\FundModel.cs" />
     <Compile Include="Models\FMmodels\FMFundModels\SubFundModel.cs" />
     <Compile Include="Models\FMmodels\FMMainModel.cs" />
@@ -312,6 +322,7 @@
     <Compile Include="Models\FMmodels\FMSectorModels\SectorModel.cs" />
     <Compile Include="Models\FMmodels\FMSectorModels\SubSectorModel.cs" />
     <Compile Include="Models\FMmodels\FMSignatoryModels\SignatoryModel.cs" />
+    <Compile Include="Models\FMmodels\FMTaxModels\TaxModel.cs" />
     <Compile Include="Models\Level1Modules.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
@@ -347,6 +358,24 @@
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMBalance.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBank_AccountType.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBank_BankAccounts.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBank_Banks.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBrgy_Barangay.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBrgy_BrgyBankAccount.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tbl_FMBrgy_BrgyCollector.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tbl_FMCOA_AccountGroup.cs">
@@ -400,6 +429,9 @@
     <Compile Include="Models\Tbl_FMSignatory.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Tbl_FMTax.cs">
+      <DependentUpon>BOSSEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -414,8 +446,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\BOSSEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BOSSEntities.Context.cs</LastGenOutput>
       <DependentUpon>BOSSEntities.edmx</DependentUpon>
+      <LastGenOutput>BOSSEntities.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\BOSSEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -5401,11 +5433,17 @@
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style-rtl.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\AppropSourceJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\BankJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\BarangayJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\ChartofAccountsJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\FundJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\OfficeTypeJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\PayeeJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\PositionJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\SectorJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\SignatoryJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\SupplierJS.js" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\TaxJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\scripts.js" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-2-columns.html" />
     <Content Include="modernadmin\modern-admin-1.0\documentation\documentation-block-ui.html" />
@@ -8182,13 +8220,6 @@
     <Content Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\contents\._.DS_Store" />
     <Content Include="modernadmin\__MACOSX\modern-admin-1.0\src\template-builder\pages\._.DS_Store" />
     <Content Include="modernadmin\__MACOSX\modern-admin-1.0\starter-kit\._.DS_Store" />
-    <EntityDeploy Include="Models\BOSSEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BOSSEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\BOSSEntities.edmx.diagram">
-      <DependentUpon>BOSSEntities.edmx</DependentUpon>
-    </Content>
     <Content Include="Models\BOSSDataSet.xsc">
       <DependentUpon>BOSSDataSet.xsd</DependentUpon>
     </Content>
@@ -8199,6 +8230,13 @@
     </None>
     <Content Include="Models\BOSSDataSet.xss">
       <DependentUpon>BOSSDataSet.xsd</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\BOSSEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BOSSEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BOSSEntities.edmx.diagram">
+      <DependentUpon>BOSSEntities.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Resources\PDF\blank.pdf" />
@@ -8975,7 +9013,9 @@
     <Content Include="Scripts\test-bundles\angular-route.js" />
     <Content Include="Scripts\test-bundles\angular-sanitize.js" />
     <Content Include="Scripts\test-bundles\angular-touch.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -9114,25 +9154,22 @@
     <Content Include="Views\AccountabilityLBAFDashboard\LBAFDashboard.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewPrintPreview.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\IndexRCOA.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_AddRCOA.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_RCOAForm.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_TableRCOA.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\RevisionOfCOA\_UpdateRCOA.cshtml" />
     <Content Include="Views\FileMaintenancePosition\_PositionForm.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatory\_AddSignatory.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatory\_AddDynamicFunctionList.cshtml" />
-    <Content Include="Views\FileMaintenanceSignatory\_UpdateSignatory.cshtml" />
+    <Content Include="Views\FileMaintenanceSignatory\_SignatoryForm.cshtml" />
     <Content Include="Views\PreparationLBPF6\_ViewAddStatutoryContractualObligation.cshtml" />
     <Content Include="Views\PreparationLBPF6\_ViewAddBudgetaryRequirement.cshtml" />
     <Content Include="Views\PreparationLBPF4\_ViewAddMandateAndOrganization.cshtml" />
     <Content Include="Views\PreparationLBPF4\_ViewVissionMission.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\IndexAllotmentClass.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\IndexAccountGroup.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\IndexMajorAccountGroup.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\IndexSubMajorAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\IndexAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\IndexMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\IndexSMAG.cshtml" />
     <Content Include="Views\FileMaintenanceFund\FileFund.cshtml" />
     <Content Include="Views\FileMaintenanceFund\FundTab\IndexFundTab.cshtml" />
     <Content Include="Views\FileMaintenanceFund\SubFundTab\IndexSubFundTab.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\IndexGeneralAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\IndexGA.cshtml" />
     <Content Include="Views\FileMaintenanceOfficeType\FileOfficeType.cshtml" />
     <Content Include="Views\FileMaintenancePayee\FilePayee.cshtml" />
     <Content Include="Views\FileMaintenanceAppropriation\FundSource\FundSourceIndex.cshtml" />
@@ -9174,29 +9211,48 @@
     <Content Include="Views\FileMaintenancePayee\_PayeeForm.cshtml" />
     <Content Include="Views\FileMaintenancePayee\_TablePayee.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\SubsidiaryLedger\_IndexSubsidiaryLedger.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AddAllotment.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_AllotClassForm.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_TableAllotment.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\AllotmentClass\_UpdateAllotmentClass.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_AddAccountGroup.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_TableAccountGroup.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_AGForm.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_TableAG.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAllotmentClass.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\AccountGroup\_UpdateAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_TableMAG.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_AddMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_MAGForm.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicRevYear.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAccountGroupCode.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicAccountGroup.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\MajorAccountGroup\_UpdateMAG.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_AddSMAG.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_SMAGForm.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_TableSMAG.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\SubMajorAccountGroup\_UpdateSMAG.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicMajorAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicMajorAccountGroupCode.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\_AddGeneralAccount.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\_TableGeneralAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\_GAForm.cshtml" />
+    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\_TableGA.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicSubMajorAccountGroup.cshtml" />
     <Content Include="Views\FileMaintenanceAccounts\DynamicFields\_DynamicSubMajorAccountGroupCode.cshtml" />
-    <Content Include="Views\FileMaintenanceAccounts\GeneralAccount\_DynamicGeneralLedgerAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\FileBarangay.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyNameTab\IndexBrgyName.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyNameTab\_BrgyNameForm.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyCollectorTab\IndexBrgyCollector.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyCollectorTab\_BrgyCollectorForm.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyBankAccountTab\IndexBrgyBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyBankAccountTab\_BrgyBankAccountForm.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\FileMaintenanceBank.cshtml" />
+    <Content Include="Views\FileMaintenanceTax\FileMaintenanceTax.cshtml" />
+    <Content Include="Views\FileMaintenanceSupplier\FileMaintenanceSupplier.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankTab\IndexBank.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankTab\_BankForm.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountTypeTab\IndexAccountType.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountTypeTab\_AccountTypeForm.cshtml" />
+    <Content Include="Views\FileMaintenanceTax\_TaxForm.cshtml" />
+    <Content Include="Views\FileMaintenanceTax\_TableTax.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyNameTab\_TableBrgyName.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankTab\_TableBank.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\AccountTypeTab\_TableAccountType.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccountsTab\_BankAccountForm.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccountsTab\_TableBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBank\BankAccountsTab\IndexBankAccount.cshtml" />
+    <Content Include="Views\FileMaintenanceBarangay\BrgyCollectorTab\_TableBrgyCollector.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

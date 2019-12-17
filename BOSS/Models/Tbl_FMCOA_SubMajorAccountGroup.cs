@@ -14,11 +14,19 @@ namespace BOSS.Models
     
     public partial class Tbl_FMCOA_SubMajorAccountGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tbl_FMCOA_SubMajorAccountGroup()
+        {
+            this.Tbl_FMCOA_GeneralAccount = new HashSet<Tbl_FMCOA_GeneralAccount>();
+        }
+    
         public int SMAGID { get; set; }
         public string SMAGTitle { get; set; }
         public string SMAGCode { get; set; }
         public Nullable<int> MAGID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMCOA_GeneralAccount> Tbl_FMCOA_GeneralAccount { get; set; }
         public virtual Tbl_FMCOA_MajorAccountGroup Tbl_FMCOA_MajorAccountGroup { get; set; }
     }
 }

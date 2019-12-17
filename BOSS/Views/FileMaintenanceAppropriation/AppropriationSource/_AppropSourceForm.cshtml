@@ -49,4 +49,16 @@
         LoadICheck();
         select2nosearch();
     })
+    function isHeadOnChange() {
+        var isHeadValue = $("#isHeadIDD").val();
+
+        if (isHeadValue == 0) {
+            $("#isHeadID").val(true);
+        } else {
+            $("#isHeadID").val(false);
+        }
+    }
+    function isActiveonChange() {
+        $('#isActiveID').val($('#IsChecked').is(':checked'));
+    }
 </script>

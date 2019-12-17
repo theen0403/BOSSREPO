@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace BOSS.Models.FMmodels.FMAccountsModels
 {
@@ -11,30 +12,28 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public AccountGroupModel()
         {
-            getAccountGroupColumns = new Tbl_FMCOA_AccountGroup();
-            getAccountGroupList = new List<AccountGroupList>();
-            allotModel = new AllotmentClassModel();
+            getAccountGroupList = new List<AccountGrpList>();
+            AllotClassList = new List<SelectListItem>();
+            AccountGrpList = new AccountGrpList();
         }
-        public Tbl_FMCOA_AccountGroup getAccountGroupColumns { get; set; }
-        public List<AccountGroupList> getAccountGroupList { get; set; }
-        public AllotmentClassModel allotModel { get; set; }
-        public int AGID { get; set; }
-        public int allotclasssTempID { get; set; }
-        public int RevTempID { get; set; }
-        public string AGTitle { get; set; }
-        public string AGCode { get; set; }
-        //public int RevIDdynamic { get; set; }
-        public int AllotmentClassID { get; set; }
-       //public IEnumerable<System.Web.Mvc.SelectListItem> RevYearDropDownListAG { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> AllotClasslist { get; set; }
+        public int ActionID { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearList { get; set; }
+        public List<SelectListItem> AllotClassList { get; set; }
+        public List<AccountGrpList> getAccountGroupList { get; set; }
+        public AccountGrpList AccountGrpList { get; set; }
 
     }
-    public class AccountGroupList
+    public class AccountGrpList
     {
         public int AGID { get; set; }
+        [Required(ErrorMessage = "Please enter Account Group Title")]
         public string AGTitle { get; set; }
+        [Required(ErrorMessage = "Please enter Account Group Code")]
         public string AGCode { get; set; }
         public string RevYear { get; set; }
         public string AllotmentClassTitle { get; set; }
+
+        public int RevID { get; set; }
+        public int AllotmentClassID { get;set;}
     }
 }

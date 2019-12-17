@@ -1,0 +1,74 @@
+﻿@model BOSS.Models.FMmodels.FMTaxModels.TaxModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveTax", "FileMaintenanceTax", new AjaxOptions { OnSuccess = "ifExists(data,  GetTaxForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.TaxList.TaxID, new { @id = "TaxID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-xl-1 col-lg-1"></div>
+        <div class="col-xl-10 col-lg-10">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Description</label>
+                        @Html.TextBoxFor(m => m.TaxList.Description, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "Description" })
+                        @Html.ValidationMessageFor(m => m.TaxList.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Short Description</label>
+                        @Html.TextBoxFor(m => m.TaxList.ShortDescrption, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "ShortDescrption" })
+                        @Html.ValidationMessageFor(m => m.TaxList.ShortDescrption, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-2 text-center mt-xl-2 mt-md-2">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Is Used?</label>
+                        <fieldset class="skin skin-square">
+                            @Html.CheckBoxFor(m => m.TaxList.isUsed, new { @class = "form-control icheckbox_square-orange", onclick = "", id = "isUsed" })
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Percentage</label>
+                        @Html.TextBoxFor(m => m.TaxList.Percentage, new { @class = "form-control numbersOnly", type = "text", id = "Percentage" })
+                        @Html.ValidationMessageFor(m => m.TaxList.Percentage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Base</label>
+                        @Html.TextBoxFor(m => m.TaxList.BaseTax, new { @class = "form-control numbersOnly", type = "text", id = "BaseTax" })
+                        @Html.ValidationMessageFor(m => m.TaxList.BaseTax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">General Account Class</label>
+                        @Html.DropDownListFor(m => m.GAID, Model.GenAccntList, new { @class = "form-control select2", id = "GAID" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetTaxForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddTax" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        numbersOnly();
+    });
+</script>

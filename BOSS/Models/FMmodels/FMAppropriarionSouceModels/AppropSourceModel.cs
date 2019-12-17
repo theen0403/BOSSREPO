@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
 {
@@ -16,10 +16,10 @@ namespace BOSS.Models.FMmodels.FMAppropriarionSouceModels
             AppropSourceList = new AppropSourceList();
             FundSourceList = new List<SelectListItem>();
         }
-        public int ActionID { get; set; }
         public List<AppropSourceList> getAppropSourceList { get; set; }
         public AppropSourceList AppropSourceList { get; set; }
 
+        public int ActionID { get; set; }
         public int AppropSourceTypeID { get; set; }
         public int FundSourceID { get; set; }
         public int BudgetYearID { get; set; }

@@ -1,0 +1,110 @@
+﻿@model BOSS.Models.FMmodels.FMSignatoryModels.SignatoryModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveSignatory", "FileMaintenanceSignatory", new AjaxOptions { OnSuccess = "ifExists(data, GetSignatoryForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.SignatoryList.SignatoryID, new { @id = "SignatoryID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-xl-1 col-lg-1"></div>
+        <div class="col-xl-10 col-lg-10">
+            <div class="row">
+                <div class="col-xl-5 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Employee Name</label>
+                        @Html.TextBoxFor(m => m.SignatoryList.SignatoryName, new { @class = "form-control", id = "SignatoryName" })
+                        @Html.ValidationMessageFor(m => m.SignatoryList.SignatoryName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Preferred Name</label>
+                        @Html.TextBoxFor(m => m.SignatoryList.PreferredName, new { @class = "form-control", id = "PreferredName" })
+                        @Html.ValidationMessageFor(m => m.SignatoryList.PreferredName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Dept. Head</label>
+                        @{
+                            List<SelectListItem> listItems = new List<SelectListItem>();
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "No",
+                                Value = "false",
+                            });
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "Yes",
+                                Value = "true",
+
+                            });
+                        }
+                        @Html.DropDownListFor(m => m.SignatoryList.isHead, listItems, new { @class = "form-control select2nosearch", type = "text", id = "" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-6 col-md-5 col-sm-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Position</label>
+                        @Html.DropDownListFor(m => m.PositionID, Model.PositionList, new { @class = "form-control select2", id = "PosID" })
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-6 col-md-7">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Department</label>
+                        @Html.DropDownListFor(m => m.DeptID, Model.DepartmentList, new { @class = "form-control select2", id = "DeptDropDown", onchange = "onChangeSignatory()" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="form-group">
+                        <label style="margin-bottom:2px;">Function</label>
+                        @Html.DropDownListFor(m => m.FunctionID, Model.FunctionList, new { @class = "form-control select2nosearch", id = "FunctionID" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Division</label>
+                        @Html.TextBoxFor(m => m.SignatoryList.Division, new { @class = "form-control", id = "Division" })
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-3 col-md-3">
+                    @Html.TextBoxFor(m => m.SignatoryList.isActive, new { id = "isActiveID", @class = "hidden" })
+                    <fieldset class="form-group">
+                        <label class=" mt-md-2">
+                            <input type="checkbox" id="IsChecked" onchange="isActiveonChange()">
+                            Is Active
+                        </label>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSignatoryForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddSignatory" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        select2nosearch();
+        isActiveOnLoad();
+    })
+    function isActiveonChange() {
+        $('#isActiveID').val($('#IsChecked').is(':checked'));
+    }
+    function isActiveOnLoad() {
+        var isActiveValue = $("#isActiveID").val();
+        if (isActiveValue == "True") {
+            $("#IsChecked").attr("checked", true);
+        } else {
+            $("#IsChecked").attr("checked", false);
+        }
+    }
+</script>

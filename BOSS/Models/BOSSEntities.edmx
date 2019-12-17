@@ -126,6 +126,58 @@
           <Property Name="BalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BalanceTitle" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Tbl_FMBank_AccountType">
+          <Key>
+            <PropertyRef Name="AccntTypeID" />
+          </Key>
+          <Property Name="AccntTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccntType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBank_BankAccounts">
+          <Key>
+            <PropertyRef Name="BankAccntID" />
+          </Key>
+          <Property Name="BankAccntID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccntNo" Type="varchar" MaxLength="50" />
+          <Property Name="AccntName" Type="varchar" MaxLength="50" />
+          <Property Name="BankID" Type="int" />
+          <Property Name="FundID" Type="int" />
+          <Property Name="GAID" Type="int" />
+          <Property Name="AccntTypeID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBank_Banks">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankTitle" Type="varchar" MaxLength="50" />
+          <Property Name="BankCode" Type="varchar" MaxLength="50" />
+          <Property Name="BankAddress" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_Barangay">
+          <Key>
+            <PropertyRef Name="BrgyID" />
+          </Key>
+          <Property Name="BrgyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrgyName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_BrgyBankAccount">
+          <Key>
+            <PropertyRef Name="BrgyBankAccntID" />
+          </Key>
+          <Property Name="BrgyBankAccntID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BrgyID" Type="int" />
+          <Property Name="BankAccntID" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_BrgyCollector">
+          <Key>
+            <PropertyRef Name="BrgyCollectorID" />
+          </Key>
+          <Property Name="BrgyCollectorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fname" Type="varchar" MaxLength="50" />
+          <Property Name="Mname" Type="varchar" MaxLength="50" />
+          <Property Name="Lname" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Tbl_FMCOA_AccountGroup">
           <Key>
             <PropertyRef Name="AGID" />
@@ -134,6 +186,7 @@
           <Property Name="AGTitle" Type="varchar" MaxLength="50" />
           <Property Name="AGCode" Type="varchar" MaxLength="50" />
           <Property Name="AllotmentClassID" Type="int" />
+          <Property Name="RevID" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMCOA_AllotmentClass">
           <Key>
@@ -148,22 +201,18 @@
             <PropertyRef Name="GAID" />
           </Key>
           <Property Name="GAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RevID" Type="int" />
           <Property Name="SMAGID" Type="int" />
           <Property Name="GATitle" Type="varchar" MaxLength="50" />
           <Property Name="GACode" Type="varchar" MaxLength="50" />
           <Property Name="isReserve" Type="bit" />
-          <Property Name="ReservePercent" Type="int" />
+          <Property Name="ReservePercent" Type="varchar" MaxLength="10" />
           <Property Name="isFullRelease" Type="bit" />
           <Property Name="isContinuing" Type="bit" />
           <Property Name="isOBRCashAdvance" Type="bit" />
-          <Property Name="BalanceID" Type="int" />
-          <Property Name="isMiscellaneousAccount" Type="bit" />
-          <Property Name="GAIDMA" Type="int" />
-          <Property Name="isContraAccount" Type="bit" />
-          <Property Name="GAIDCA" Type="int" />
-          <Property Name="isSubAccount" Type="bit" />
-          <Property Name="GAIDSA" Type="int" />
+          <Property Name="NormalBalance" Type="varchar" MaxLength="10" />
+          <Property Name="isMiscellaneousAccount" Type="int" />
+          <Property Name="isContraAccount" Type="int" />
+          <Property Name="isSubAccount" Type="int" />
         </EntityType>
         <EntityType Name="Tbl_FMCOA_MajorAccountGroup">
           <Key>
@@ -300,6 +349,18 @@
           <Property Name="isHead" Type="bit" />
           <Property Name="isActive" Type="bit" />
         </EntityType>
+        <EntityType Name="Tbl_FMTax">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="ShortDepscription" Type="varchar" MaxLength="50" />
+          <Property Name="isUsed" Type="bit" />
+          <Property Name="Percentage" Type="varchar" MaxLength="50" />
+          <Property Name="BaseTax" Type="varchar" MaxLength="50" />
+          <Property Name="GAID" Type="int" />
+        </EntityType>
         <Association Name="FK_Accounts_PersonalInformation">
           <End Role="PersonalInformation" Type="Self.PersonalInformation" Multiplicity="0..1" />
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="*" />
@@ -372,6 +433,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType">
+          <End Role="Tbl_FMBank_AccountType" Type="Self.Tbl_FMBank_AccountType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FMBank_BankAccounts" Type="Self.Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_AccountType">
+              <PropertyRef Name="AccntTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="AccntTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks">
+          <End Role="Tbl_FMBank_Banks" Type="Self.Tbl_FMBank_Banks" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FMBank_BankAccounts" Type="Self.Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_Banks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount">
+          <End Role="Tbl_FMCOA_GeneralAccount" Type="Self.Tbl_FMCOA_GeneralAccount" Multiplicity="0..1" />
+          <End Role="Tbl_FMBank_BankAccounts" Type="Self.Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="GAID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="GAID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund">
+          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Role="Tbl_FMBank_BankAccounts" Type="Self.Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay">
+          <End Role="Tbl_FMBrgy_Barangay" Type="Self.Tbl_FMBrgy_Barangay" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FMBrgy_BrgyBankAccount" Type="Self.Tbl_FMBrgy_BrgyBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBrgy_Barangay">
+              <PropertyRef Name="BrgyID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBrgy_BrgyBankAccount">
+              <PropertyRef Name="BrgyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts">
+          <End Role="Tbl_FMBank_BankAccounts" Type="Self.Tbl_FMBank_BankAccounts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tbl_FMBrgy_BrgyBankAccount" Type="Self.Tbl_FMBrgy_BrgyBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="BankAccntID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBrgy_BrgyBankAccount">
+              <PropertyRef Name="BankAccntID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
           <End Role="Tbl_FMCOA_AllotmentClass" Type="Self.Tbl_FMCOA_AllotmentClass" Multiplicity="0..1" />
           <End Role="Tbl_FMCOA_AccountGroup" Type="Self.Tbl_FMCOA_AccountGroup" Multiplicity="*" />
@@ -384,6 +525,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear">
+          <End Role="Tbl_FMCOA_RevisionYear" Type="Self.Tbl_FMCOA_RevisionYear" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_AccountGroup" Type="Self.Tbl_FMCOA_AccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_RevisionYear">
+              <PropertyRef Name="RevID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
           <End Role="Tbl_FMCOA_RevisionYear" Type="Self.Tbl_FMCOA_RevisionYear" Multiplicity="0..1" />
           <End Role="Tbl_FMCOA_AllotmentClass" Type="Self.Tbl_FMCOA_AllotmentClass" Multiplicity="*" />
@@ -393,6 +546,18 @@
             </Principal>
             <Dependent Role="Tbl_FMCOA_AllotmentClass">
               <PropertyRef Name="RevID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup">
+          <End Role="Tbl_FMCOA_SubMajorAccountGroup" Type="Self.Tbl_FMCOA_SubMajorAccountGroup" Multiplicity="0..1" />
+          <End Role="Tbl_FMCOA_GeneralAccount" Type="Self.Tbl_FMCOA_GeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_SubMajorAccountGroup">
+              <PropertyRef Name="SMAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="SMAGID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -421,7 +586,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
-          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Tbl_FMFund_SubFund" Type="Self.Tbl_FMFund_SubFund" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFund_Fund">
@@ -612,6 +779,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount">
+          <End Role="Tbl_FMCOA_GeneralAccount" Type="Self.Tbl_FMCOA_GeneralAccount" Multiplicity="0..1" />
+          <End Role="Tbl_FMTax" Type="Self.Tbl_FMTax" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="GAID" />
+            </Principal>
+            <Dependent Role="Tbl_FMTax">
+              <PropertyRef Name="GAID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -620,6 +799,12 @@
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
         <Function Name="SP_AppropriationSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Banks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_Brgy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -669,6 +854,9 @@
         <Function Name="SP_Signatory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
         </Function>
+        <Function Name="SP_Tax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SQLStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BOSSModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
@@ -684,6 +872,12 @@
           <EntitySet Name="Tbl_FMApprop_AppropriationSource" EntityType="Self.Tbl_FMApprop_AppropriationSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMApprop_FundSource" EntityType="Self.Tbl_FMApprop_FundSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMBalance" EntityType="Self.Tbl_FMBalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBank_AccountType" EntityType="Self.Tbl_FMBank_AccountType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBank_BankAccounts" EntityType="Self.Tbl_FMBank_BankAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBank_Banks" EntityType="Self.Tbl_FMBank_Banks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBrgy_Barangay" EntityType="Self.Tbl_FMBrgy_Barangay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBrgy_BrgyBankAccount" EntityType="Self.Tbl_FMBrgy_BrgyBankAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMBrgy_BrgyCollector" EntityType="Self.Tbl_FMBrgy_BrgyCollector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMCOA_AccountGroup" EntityType="Self.Tbl_FMCOA_AccountGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMCOA_AllotmentClass" EntityType="Self.Tbl_FMCOA_AllotmentClass" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMCOA_GeneralAccount" EntityType="Self.Tbl_FMCOA_GeneralAccount" Schema="dbo" store:Type="Tables" />
@@ -701,6 +895,7 @@
           <EntitySet Name="Tbl_FMSector_Sector" EntityType="Self.Tbl_FMSector_Sector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSector_SubSector" EntityType="Self.Tbl_FMSector_SubSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="Self.Tbl_FMSignatory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_FMTax" EntityType="Self.Tbl_FMTax" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformation" />
             <End Role="Accounts" EntitySet="Accounts" />
@@ -725,13 +920,45 @@
             <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
             <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType" Association="Self.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType">
+            <End Role="Tbl_FMBank_AccountType" EntitySet="Tbl_FMBank_AccountType" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks" Association="Self.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks">
+            <End Role="Tbl_FMBank_Banks" EntitySet="Tbl_FMBank_Banks" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount" Association="Self.FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount">
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" Association="Self.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay" Association="Self.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay">
+            <End Role="Tbl_FMBrgy_Barangay" EntitySet="Tbl_FMBrgy_Barangay" />
+            <End Role="Tbl_FMBrgy_BrgyBankAccount" EntitySet="Tbl_FMBrgy_BrgyBankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts" Association="Self.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts">
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+            <End Role="Tbl_FMBrgy_BrgyBankAccount" EntitySet="Tbl_FMBrgy_BrgyBankAccount" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" Association="Self.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
             <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear" Association="Self.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear">
+            <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
             <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" Association="Self.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
             <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
             <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup" Association="Self.FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup">
+            <End Role="Tbl_FMCOA_SubMajorAccountGroup" EntitySet="Tbl_FMCOA_SubMajorAccountGroup" />
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" Association="Self.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
             <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
@@ -805,44 +1032,24 @@
             <End Role="Tbl_FMRes_Function" EntitySet="Tbl_FMRes_Function" />
             <End Role="Tbl_FMSignatory" EntitySet="Tbl_FMSignatory" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount" Association="Self.FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount">
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
+            <End Role="Tbl_FMTax" EntitySet="Tbl_FMTax" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BOSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="BOSSEFConnectionString" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="SP_AppropriationSource">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_FMResponsibility">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_FMAccounts">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_PositionSP">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Signatory">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Fund">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Sector">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_OfficeType">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Payee">
-          <Parameter Name="SQLStatement" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
             <Parameter Name="version" Mode="In" Type="Int32" />
             <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AppropriationSource">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_creatediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -854,6 +1061,15 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_FMAccounts">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_FMResponsibility">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Fund">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BOSSModel.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -862,12 +1078,42 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_OfficeType">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Payee">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PositionSP">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="SP_Sector">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Signatory">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SP_Banks">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Tax">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Banks1">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Tax1">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Brgy">
+          <Parameter Name="SQLStatement" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="Accounts" EntityType="BOSSModel.Account" />
           <EntitySet Name="FMApprop_AppropriationSourceType" EntityType="BOSSModel.FMApprop_AppropriationSourceType" />
           <EntitySet Name="FMApprop_BudgetYear" EntityType="BOSSModel.FMApprop_BudgetYear" />
@@ -881,6 +1127,12 @@
           <EntitySet Name="Tbl_FMApprop_AppropriationSource" EntityType="BOSSModel.Tbl_FMApprop_AppropriationSource" />
           <EntitySet Name="Tbl_FMApprop_FundSource" EntityType="BOSSModel.Tbl_FMApprop_FundSource" />
           <EntitySet Name="Tbl_FMBalance" EntityType="BOSSModel.Tbl_FMBalance" />
+          <EntitySet Name="Tbl_FMBank_AccountType" EntityType="BOSSModel.Tbl_FMBank_AccountType" />
+          <EntitySet Name="Tbl_FMBank_BankAccounts" EntityType="BOSSModel.Tbl_FMBank_BankAccounts" />
+          <EntitySet Name="Tbl_FMBank_Banks" EntityType="BOSSModel.Tbl_FMBank_Banks" />
+          <EntitySet Name="Tbl_FMBrgy_Barangay" EntityType="BOSSModel.Tbl_FMBrgy_Barangay" />
+          <EntitySet Name="Tbl_FMBrgy_BrgyBankAccount" EntityType="BOSSModel.Tbl_FMBrgy_BrgyBankAccount" />
+          <EntitySet Name="Tbl_FMBrgy_BrgyCollector" EntityType="BOSSModel.Tbl_FMBrgy_BrgyCollector" />
           <EntitySet Name="Tbl_FMCOA_AccountGroup" EntityType="BOSSModel.Tbl_FMCOA_AccountGroup" />
           <EntitySet Name="Tbl_FMCOA_AllotmentClass" EntityType="BOSSModel.Tbl_FMCOA_AllotmentClass" />
           <EntitySet Name="Tbl_FMCOA_GeneralAccount" EntityType="BOSSModel.Tbl_FMCOA_GeneralAccount" />
@@ -898,6 +1150,7 @@
           <EntitySet Name="Tbl_FMSector_Sector" EntityType="BOSSModel.Tbl_FMSector_Sector" />
           <EntitySet Name="Tbl_FMSector_SubSector" EntityType="BOSSModel.Tbl_FMSector_SubSector" />
           <EntitySet Name="Tbl_FMSignatory" EntityType="BOSSModel.Tbl_FMSignatory" />
+          <EntitySet Name="Tbl_FMTax" EntityType="BOSSModel.Tbl_FMTax" />
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="BOSSModel.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformations" />
             <End Role="Account" EntitySet="Accounts" />
@@ -926,8 +1179,36 @@
             <End Role="Tbl_FMApprop_FundSource" EntitySet="Tbl_FMApprop_FundSource" />
             <End Role="Tbl_FMApprop_AppropriationSource" EntitySet="Tbl_FMApprop_AppropriationSource" />
           </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType" Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType">
+            <End Role="Tbl_FMBank_AccountType" EntitySet="Tbl_FMBank_AccountType" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks" Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks">
+            <End Role="Tbl_FMBank_Banks" EntitySet="Tbl_FMBank_Banks" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount" Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount">
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts" Association="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts">
+            <End Role="Tbl_FMBank_BankAccounts" EntitySet="Tbl_FMBank_BankAccounts" />
+            <End Role="Tbl_FMBrgy_BrgyBankAccount" EntitySet="Tbl_FMBrgy_BrgyBankAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay" Association="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay">
+            <End Role="Tbl_FMBrgy_Barangay" EntitySet="Tbl_FMBrgy_Barangay" />
+            <End Role="Tbl_FMBrgy_BrgyBankAccount" EntitySet="Tbl_FMBrgy_BrgyBankAccount" />
+          </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" Association="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
             <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+            <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear" Association="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear">
+            <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
             <End Role="Tbl_FMCOA_AccountGroup" EntitySet="Tbl_FMCOA_AccountGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" Association="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup">
@@ -937,6 +1218,14 @@
           <AssociationSet Name="FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" Association="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear">
             <End Role="Tbl_FMCOA_RevisionYear" EntitySet="Tbl_FMCOA_RevisionYear" />
             <End Role="Tbl_FMCOA_AllotmentClass" EntitySet="Tbl_FMCOA_AllotmentClass" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup" Association="BOSSModel.FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup">
+            <End Role="Tbl_FMCOA_SubMajorAccountGroup" EntitySet="Tbl_FMCOA_SubMajorAccountGroup" />
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount" Association="BOSSModel.FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount">
+            <End Role="Tbl_FMCOA_GeneralAccount" EntitySet="Tbl_FMCOA_GeneralAccount" />
+            <End Role="Tbl_FMTax" EntitySet="Tbl_FMTax" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" Association="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
             <End Role="Tbl_FMCOA_MajorAccountGroup" EntitySet="Tbl_FMCOA_MajorAccountGroup" />
@@ -1149,6 +1438,68 @@
           <Property Name="BalanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="BalanceTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="Tbl_FMBank_AccountType">
+          <Key>
+            <PropertyRef Name="AccntTypeID" />
+          </Key>
+          <Property Name="AccntTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccntType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType" FromRole="Tbl_FMBank_AccountType" ToRole="Tbl_FMBank_BankAccounts" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBank_BankAccounts">
+          <Key>
+            <PropertyRef Name="BankAccntID" />
+          </Key>
+          <Property Name="BankAccntID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccntNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccntName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankID" Type="Int32" />
+          <Property Name="FundID" Type="Int32" />
+          <Property Name="GAID" Type="Int32" />
+          <Property Name="AccntTypeID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMBank_AccountType" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType" FromRole="Tbl_FMBank_BankAccounts" ToRole="Tbl_FMBank_AccountType" />
+          <NavigationProperty Name="Tbl_FMBank_Banks" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks" FromRole="Tbl_FMBank_BankAccounts" ToRole="Tbl_FMBank_Banks" />
+          <NavigationProperty Name="Tbl_FMCOA_GeneralAccount" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount" FromRole="Tbl_FMBank_BankAccounts" ToRole="Tbl_FMCOA_GeneralAccount" />
+          <NavigationProperty Name="Tbl_FMFund_Fund" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" FromRole="Tbl_FMBank_BankAccounts" ToRole="Tbl_FMFund_Fund" />
+          <NavigationProperty Name="Tbl_FMBrgy_BrgyBankAccount" Relationship="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts" FromRole="Tbl_FMBank_BankAccounts" ToRole="Tbl_FMBrgy_BrgyBankAccount" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBank_Banks">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks" FromRole="Tbl_FMBank_Banks" ToRole="Tbl_FMBank_BankAccounts" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_Barangay">
+          <Key>
+            <PropertyRef Name="BrgyID" />
+          </Key>
+          <Property Name="BrgyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrgyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMBrgy_BrgyBankAccount" Relationship="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay" FromRole="Tbl_FMBrgy_Barangay" ToRole="Tbl_FMBrgy_BrgyBankAccount" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_BrgyBankAccount">
+          <Key>
+            <PropertyRef Name="BrgyBankAccntID" />
+          </Key>
+          <Property Name="BrgyBankAccntID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BrgyID" Type="Int32" />
+          <Property Name="BankAccntID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts" FromRole="Tbl_FMBrgy_BrgyBankAccount" ToRole="Tbl_FMBank_BankAccounts" />
+          <NavigationProperty Name="Tbl_FMBrgy_Barangay" Relationship="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay" FromRole="Tbl_FMBrgy_BrgyBankAccount" ToRole="Tbl_FMBrgy_Barangay" />
+        </EntityType>
+        <EntityType Name="Tbl_FMBrgy_BrgyCollector">
+          <Key>
+            <PropertyRef Name="BrgyCollectorID" />
+          </Key>
+          <Property Name="BrgyCollectorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="Tbl_FMCOA_AccountGroup">
           <Key>
             <PropertyRef Name="AGID" />
@@ -1157,7 +1508,9 @@
           <Property Name="AGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AllotmentClassID" Type="Int32" />
+          <Property Name="RevID" Type="Int32" />
           <NavigationProperty Name="Tbl_FMCOA_AllotmentClass" Relationship="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" FromRole="Tbl_FMCOA_AccountGroup" ToRole="Tbl_FMCOA_AllotmentClass" />
+          <NavigationProperty Name="Tbl_FMCOA_RevisionYear" Relationship="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear" FromRole="Tbl_FMCOA_AccountGroup" ToRole="Tbl_FMCOA_RevisionYear" />
           <NavigationProperty Name="Tbl_FMCOA_MajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" FromRole="Tbl_FMCOA_AccountGroup" ToRole="Tbl_FMCOA_MajorAccountGroup" />
         </EntityType>
         <EntityType Name="Tbl_FMCOA_AllotmentClass">
@@ -1175,22 +1528,21 @@
             <PropertyRef Name="GAID" />
           </Key>
           <Property Name="GAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RevID" Type="Int32" />
           <Property Name="SMAGID" Type="Int32" />
           <Property Name="GATitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="GACode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isReserve" Type="Boolean" />
-          <Property Name="ReservePercent" Type="Int32" />
+          <Property Name="ReservePercent" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="isFullRelease" Type="Boolean" />
           <Property Name="isContinuing" Type="Boolean" />
           <Property Name="isOBRCashAdvance" Type="Boolean" />
-          <Property Name="BalanceID" Type="Int32" />
-          <Property Name="isMiscellaneousAccount" Type="Boolean" />
-          <Property Name="GAIDMA" Type="Int32" />
-          <Property Name="isContraAccount" Type="Boolean" />
-          <Property Name="GAIDCA" Type="Int32" />
-          <Property Name="isSubAccount" Type="Boolean" />
-          <Property Name="GAIDSA" Type="Int32" />
+          <Property Name="NormalBalance" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="isMiscellaneousAccount" Type="Int32" />
+          <Property Name="isContraAccount" Type="Int32" />
+          <Property Name="isSubAccount" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount" FromRole="Tbl_FMCOA_GeneralAccount" ToRole="Tbl_FMBank_BankAccounts" />
+          <NavigationProperty Name="Tbl_FMCOA_SubMajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup" FromRole="Tbl_FMCOA_GeneralAccount" ToRole="Tbl_FMCOA_SubMajorAccountGroup" />
+          <NavigationProperty Name="Tbl_FMTax" Relationship="BOSSModel.FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount" FromRole="Tbl_FMCOA_GeneralAccount" ToRole="Tbl_FMTax" />
         </EntityType>
         <EntityType Name="Tbl_FMCOA_MajorAccountGroup">
           <Key>
@@ -1211,6 +1563,7 @@
           <Property Name="RevYear" Type="Int32" />
           <Property Name="isUsed" Type="Boolean" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMCOA_AccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear" FromRole="Tbl_FMCOA_RevisionYear" ToRole="Tbl_FMCOA_AccountGroup" />
           <NavigationProperty Name="Tbl_FMCOA_AllotmentClass" Relationship="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" FromRole="Tbl_FMCOA_RevisionYear" ToRole="Tbl_FMCOA_AllotmentClass" />
         </EntityType>
         <EntityType Name="Tbl_FMCOA_SubMajorAccountGroup">
@@ -1221,6 +1574,7 @@
           <Property Name="SMAGTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SMAGCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MAGID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMCOA_GeneralAccount" Relationship="BOSSModel.FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup" FromRole="Tbl_FMCOA_SubMajorAccountGroup" ToRole="Tbl_FMCOA_GeneralAccount" />
           <NavigationProperty Name="Tbl_FMCOA_MajorAccountGroup" Relationship="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" FromRole="Tbl_FMCOA_SubMajorAccountGroup" ToRole="Tbl_FMCOA_MajorAccountGroup" />
         </EntityType>
         <EntityType Name="Tbl_FMFund_Fund">
@@ -1230,6 +1584,7 @@
           <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMBank_BankAccounts" />
           <NavigationProperty Name="Tbl_FMFund_SubFund" Relationship="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMFund_SubFund" />
           <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMRes_Department" />
         </EntityType>
@@ -1361,6 +1716,19 @@
           <NavigationProperty Name="Tbl_FMPosition" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMPosition" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMPosition" />
           <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMSignatory_Tbl_FMRes_Function" FromRole="Tbl_FMSignatory" ToRole="Tbl_FMRes_Function" />
         </EntityType>
+        <EntityType Name="Tbl_FMTax">
+          <Key>
+            <PropertyRef Name="TaxID" />
+          </Key>
+          <Property Name="TaxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ShortDepscription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isUsed" Type="Boolean" />
+          <Property Name="Percentage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BaseTax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GAID" Type="Int32" />
+          <NavigationProperty Name="Tbl_FMCOA_GeneralAccount" Relationship="BOSSModel.FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount" FromRole="Tbl_FMTax" ToRole="Tbl_FMCOA_GeneralAccount" />
+        </EntityType>
         <Association Name="FK_Accounts_PersonalInformation">
           <End Type="BOSSModel.PersonalInformation" Role="PersonalInformation" Multiplicity="0..1" />
           <End Type="BOSSModel.Account" Role="Account" Multiplicity="*" />
@@ -1445,6 +1813,86 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType">
+          <End Type="BOSSModel.Tbl_FMBank_AccountType" Role="Tbl_FMBank_AccountType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BOSSModel.Tbl_FMBank_BankAccounts" Role="Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_AccountType">
+              <PropertyRef Name="AccntTypeID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="AccntTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks">
+          <End Type="BOSSModel.Tbl_FMBank_Banks" Role="Tbl_FMBank_Banks" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BOSSModel.Tbl_FMBank_BankAccounts" Role="Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_Banks">
+              <PropertyRef Name="BankID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="BankID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount">
+          <End Type="BOSSModel.Tbl_FMCOA_GeneralAccount" Role="Tbl_FMCOA_GeneralAccount" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMBank_BankAccounts" Role="Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="GAID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="GAID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund">
+          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMBank_BankAccounts" Role="Tbl_FMBank_BankAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts">
+          <End Type="BOSSModel.Tbl_FMBank_BankAccounts" Role="Tbl_FMBank_BankAccounts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BOSSModel.Tbl_FMBrgy_BrgyBankAccount" Role="Tbl_FMBrgy_BrgyBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBank_BankAccounts">
+              <PropertyRef Name="BankAccntID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBrgy_BrgyBankAccount">
+              <PropertyRef Name="BankAccntID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay">
+          <End Type="BOSSModel.Tbl_FMBrgy_Barangay" Role="Tbl_FMBrgy_Barangay" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BOSSModel.Tbl_FMBrgy_BrgyBankAccount" Role="Tbl_FMBrgy_BrgyBankAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMBrgy_Barangay">
+              <PropertyRef Name="BrgyID" />
+            </Principal>
+            <Dependent Role="Tbl_FMBrgy_BrgyBankAccount">
+              <PropertyRef Name="BrgyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass">
           <End Type="BOSSModel.Tbl_FMCOA_AllotmentClass" Role="Tbl_FMCOA_AllotmentClass" Multiplicity="0..1" />
           <End Type="BOSSModel.Tbl_FMCOA_AccountGroup" Role="Tbl_FMCOA_AccountGroup" Multiplicity="*" />
@@ -1454,6 +1902,18 @@
             </Principal>
             <Dependent Role="Tbl_FMCOA_AccountGroup">
               <PropertyRef Name="AllotmentClassID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear">
+          <End Type="BOSSModel.Tbl_FMCOA_RevisionYear" Role="Tbl_FMCOA_RevisionYear" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_AccountGroup" Role="Tbl_FMCOA_AccountGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_RevisionYear">
+              <PropertyRef Name="RevID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_AccountGroup">
+              <PropertyRef Name="RevID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1481,6 +1941,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup">
+          <End Type="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" Role="Tbl_FMCOA_SubMajorAccountGroup" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMCOA_GeneralAccount" Role="Tbl_FMCOA_GeneralAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_SubMajorAccountGroup">
+              <PropertyRef Name="SMAGID" />
+            </Principal>
+            <Dependent Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="SMAGID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount">
+          <End Type="BOSSModel.Tbl_FMCOA_GeneralAccount" Role="Tbl_FMCOA_GeneralAccount" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMTax" Role="Tbl_FMTax" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMCOA_GeneralAccount">
+              <PropertyRef Name="GAID" />
+            </Principal>
+            <Dependent Role="Tbl_FMTax">
+              <PropertyRef Name="GAID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup">
           <End Type="BOSSModel.Tbl_FMCOA_MajorAccountGroup" Role="Tbl_FMCOA_MajorAccountGroup" Multiplicity="0..1" />
           <End Type="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" Role="Tbl_FMCOA_SubMajorAccountGroup" Multiplicity="*" />
@@ -1494,7 +1978,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund">
-          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="BOSSModel.Tbl_FMFund_SubFund" Role="Tbl_FMFund_SubFund" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tbl_FMFund_Fund">
@@ -1679,18 +2165,13 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BOSSModelStoreContainer" CdmEntityContainer="BOSSEFConnectionString">
-          <FunctionImportMapping FunctionImportName="SP_AppropriationSource" FunctionName="BOSSModel.Store.SP_AppropriationSource" />
-          <FunctionImportMapping FunctionImportName="SP_FMResponsibility" FunctionName="BOSSModel.Store.SP_FMResponsibility" />
-          <FunctionImportMapping FunctionImportName="SP_FMAccounts" FunctionName="BOSSModel.Store.SP_FMAccounts" />
-          <FunctionImportMapping FunctionImportName="SP_PositionSP" FunctionName="BOSSModel.Store.SP_PositionSP" />
-          <FunctionImportMapping FunctionImportName="SP_Signatory" FunctionName="BOSSModel.Store.SP_Signatory" />
-          <FunctionImportMapping FunctionImportName="SP_Fund" FunctionName="BOSSModel.Store.SP_Fund" />
-          <FunctionImportMapping FunctionImportName="SP_Sector" FunctionName="BOSSModel.Store.SP_Sector" />
-          <FunctionImportMapping FunctionImportName="SP_OfficeType" FunctionName="BOSSModel.Store.SP_OfficeType" />
-          <FunctionImportMapping FunctionImportName="SP_Payee" FunctionName="BOSSModel.Store.SP_Payee" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BOSSModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="SP_AppropriationSource" FunctionName="BOSSModel.Store.SP_AppropriationSource" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BOSSModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BOSSModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="SP_FMAccounts" FunctionName="BOSSModel.Store.SP_FMAccounts" />
+          <FunctionImportMapping FunctionImportName="SP_FMResponsibility" FunctionName="BOSSModel.Store.SP_FMResponsibility" />
+          <FunctionImportMapping FunctionImportName="SP_Fund" FunctionName="BOSSModel.Store.SP_Fund" />
           <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BOSSModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
               <ComplexTypeMapping TypeName="BOSSModel.sp_helpdiagramdefinition_Result">
@@ -1710,8 +2191,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_OfficeType" FunctionName="BOSSModel.Store.SP_OfficeType" />
+          <FunctionImportMapping FunctionImportName="SP_Payee" FunctionName="BOSSModel.Store.SP_Payee" />
+          <FunctionImportMapping FunctionImportName="SP_PositionSP" FunctionName="BOSSModel.Store.SP_PositionSP" />
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BOSSModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="SP_Sector" FunctionName="BOSSModel.Store.SP_Sector" />
+          <FunctionImportMapping FunctionImportName="SP_Signatory" FunctionName="BOSSModel.Store.SP_Signatory" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BOSSModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SP_Banks1" FunctionName="BOSSModel.Store.SP_Banks" />
+          <FunctionImportMapping FunctionImportName="SP_Tax1" FunctionName="BOSSModel.Store.SP_Tax" />
+          <FunctionImportMapping FunctionImportName="SP_Brgy" FunctionName="BOSSModel.Store.SP_Brgy" />
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="BOSSModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
@@ -1846,9 +2335,68 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBank_AccountType">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBank_AccountType">
+              <MappingFragment StoreEntitySet="Tbl_FMBank_AccountType">
+                <ScalarProperty Name="AccntType" ColumnName="AccntType" />
+                <ScalarProperty Name="AccntTypeID" ColumnName="AccntTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBank_BankAccounts">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBank_BankAccounts">
+              <MappingFragment StoreEntitySet="Tbl_FMBank_BankAccounts">
+                <ScalarProperty Name="AccntTypeID" ColumnName="AccntTypeID" />
+                <ScalarProperty Name="GAID" ColumnName="GAID" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="AccntName" ColumnName="AccntName" />
+                <ScalarProperty Name="AccntNo" ColumnName="AccntNo" />
+                <ScalarProperty Name="BankAccntID" ColumnName="BankAccntID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBank_Banks">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBank_Banks">
+              <MappingFragment StoreEntitySet="Tbl_FMBank_Banks">
+                <ScalarProperty Name="BankAddress" ColumnName="BankAddress" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="BankTitle" ColumnName="BankTitle" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBrgy_Barangay">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBrgy_Barangay">
+              <MappingFragment StoreEntitySet="Tbl_FMBrgy_Barangay">
+                <ScalarProperty Name="BrgyName" ColumnName="BrgyName" />
+                <ScalarProperty Name="BrgyID" ColumnName="BrgyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBrgy_BrgyBankAccount">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBrgy_BrgyBankAccount">
+              <MappingFragment StoreEntitySet="Tbl_FMBrgy_BrgyBankAccount">
+                <ScalarProperty Name="BankAccntID" ColumnName="BankAccntID" />
+                <ScalarProperty Name="BrgyID" ColumnName="BrgyID" />
+                <ScalarProperty Name="BrgyBankAccntID" ColumnName="BrgyBankAccntID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMBrgy_BrgyCollector">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMBrgy_BrgyCollector">
+              <MappingFragment StoreEntitySet="Tbl_FMBrgy_BrgyCollector">
+                <ScalarProperty Name="Lname" ColumnName="Lname" />
+                <ScalarProperty Name="Mname" ColumnName="Mname" />
+                <ScalarProperty Name="Fname" ColumnName="Fname" />
+                <ScalarProperty Name="BrgyCollectorID" ColumnName="BrgyCollectorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Tbl_FMCOA_AccountGroup">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_AccountGroup">
               <MappingFragment StoreEntitySet="Tbl_FMCOA_AccountGroup">
+                <ScalarProperty Name="RevID" ColumnName="RevID" />
                 <ScalarProperty Name="AllotmentClassID" ColumnName="AllotmentClassID" />
                 <ScalarProperty Name="AGCode" ColumnName="AGCode" />
                 <ScalarProperty Name="AGTitle" ColumnName="AGTitle" />
@@ -1868,13 +2416,10 @@
           <EntitySetMapping Name="Tbl_FMCOA_GeneralAccount">
             <EntityTypeMapping TypeName="BOSSModel.Tbl_FMCOA_GeneralAccount">
               <MappingFragment StoreEntitySet="Tbl_FMCOA_GeneralAccount">
-                <ScalarProperty Name="GAIDSA" ColumnName="GAIDSA" />
                 <ScalarProperty Name="isSubAccount" ColumnName="isSubAccount" />
-                <ScalarProperty Name="GAIDCA" ColumnName="GAIDCA" />
                 <ScalarProperty Name="isContraAccount" ColumnName="isContraAccount" />
-                <ScalarProperty Name="GAIDMA" ColumnName="GAIDMA" />
                 <ScalarProperty Name="isMiscellaneousAccount" ColumnName="isMiscellaneousAccount" />
-                <ScalarProperty Name="BalanceID" ColumnName="BalanceID" />
+                <ScalarProperty Name="NormalBalance" ColumnName="NormalBalance" />
                 <ScalarProperty Name="isOBRCashAdvance" ColumnName="isOBRCashAdvance" />
                 <ScalarProperty Name="isContinuing" ColumnName="isContinuing" />
                 <ScalarProperty Name="isFullRelease" ColumnName="isFullRelease" />
@@ -1883,7 +2428,6 @@
                 <ScalarProperty Name="GACode" ColumnName="GACode" />
                 <ScalarProperty Name="GATitle" ColumnName="GATitle" />
                 <ScalarProperty Name="SMAGID" ColumnName="SMAGID" />
-                <ScalarProperty Name="RevID" ColumnName="RevID" />
                 <ScalarProperty Name="GAID" ColumnName="GAID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2037,6 +2581,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_FMTax">
+            <EntityTypeMapping TypeName="BOSSModel.Tbl_FMTax">
+              <MappingFragment StoreEntitySet="Tbl_FMTax">
+                <ScalarProperty Name="GAID" ColumnName="GAID" />
+                <ScalarProperty Name="BaseTax" ColumnName="BaseTax" />
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="isUsed" ColumnName="isUsed" />
+                <ScalarProperty Name="ShortDepscription" ColumnName="ShortDepscription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="TaxID" ColumnName="TaxID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2051,7 +2608,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

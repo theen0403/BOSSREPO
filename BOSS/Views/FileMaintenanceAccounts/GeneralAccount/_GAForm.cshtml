@@ -1,0 +1,183 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.GeneralAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveGA", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetGAForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.GeneralAccountList.GAID, new { @id = "GAID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div class="row">
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Revision Year</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.RevID, Model.RevYearList, new { @class = "form-control select2nosearch revYearDropDown", id = "RevID", onchange = "onChangeRevisionYear_AllotClass(); GetGADTable();" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-5 col-md-5">
+        <div class="form-group">
+            <label class="custom-form-margin"><b>Allotment Class</b></label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.AllotmentClassID, Model.AllotClassList, new { @class = "form-control select2 allotClassDropDown", id = "", onchange = "onChangeAllotClass_AccntGrp()" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Accounts</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.AGID, Model.AccntGrpList, new { @class = "form-control select2 accntGrpDropDown", id = "AGID", onchange = "onChangeAccntGrp_MajAccntGrp()" })
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">Major Account Group</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.MAGID, Model.MajAccntGrpList, new { @class = "form-control select2 majAccntGrpDropDown", id = "MAGID", onchange = "onChangeMajAccntGrp_SubMajAccntGrp()" })
+
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">Sub Major Account Group</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.SMAGID, Model.SubMajAccntGrpList, new { @class = "form-control select2 subMajAccntGrpDropDown", id = "SMAGID", onchange = "onChangeSubMajAccntGrp_GenAccntGrp()" })
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin" id="GenLedgerID">General Ledger Account</label>
+            <div class="controls">
+                @Html.DropDownListFor(m => m.GeneralAccountList.GeneralAccountID, Model.GenAccntGrpList, new { @class = "form-control select2 genAccntGrpDropDown", id = "genAccntGrpDropDownID", onchange = "ChangeGenAccountCode()", disabled = "true" })
+                @Html.ValidationMessageFor(m => m.GeneralAccountList.GeneralAccountID, "", new { @class = "text-danger", id = "genIDError" })
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-1 text-center">
+        <div class="form-group">
+            <label class="custom-form-margin">Miscellaneous Account?</label>
+            <fieldset class="skin skin-square">
+                @Html.CheckBoxFor(m => m.GeneralAccountList.IsMiscellaneous, new { @class = "form-control icheckbox_square-orange" })
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-xl-1 col-lg-2 col-md-2 px-0 mx-xl-1 text-center">
+        <div class="form-group">
+            <label class="custom-form-margin">Contra Account?</label>
+            <fieldset class="skin skin-square">
+                @Html.CheckBoxFor(m => m.GeneralAccountList.isContraAccountCheckBox, new { @class = "form-control icheckbox_square-orange", onclick = "", id = "contraAccntIDCheckBox" })
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-xl-1 col-lg-2 col-md-2 px-0 text-center">
+        <div class="form-group">
+            <label class="custom-form-margin">Sub Account?</label>
+            <fieldset class="skin skin-square">
+                @Html.CheckBoxFor(m => m.GeneralAccountList.isSubAccountCheckBox, new { @class = "form-control icheckbox_square-orange", onclick = "", id = "subAccntIDCheckBox" })
+            </fieldset>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin">General Ledger Account</label>
+            @Html.TextBoxFor(m => m.GeneralAccountList.GATitle, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.GATitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Account Code</label>
+            <div class="input-group mt-0">
+                <span class="input-group-addon pr-xl-0 subMajAccntCode menubackground" id=""><b></b></span>
+                <span class="input-group-addon pr-xl-0 genAccntCode hidden menubackground"><b></b></span>
+                @Html.TextBoxFor(m => m.GeneralAccountList.GACode, new { @class = "form-control numbersOnly", type = "text", id = "accntCodeID", maxlength = "3" })
+                @Html.ValidationMessageFor(m => m.GeneralAccountList.GACode, "", new { @class = "text-danger" }) @*okie*@
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">With Reserve?</label>
+            @{
+                List<SelectListItem> listItems = new List<SelectListItem>();
+                listItems.Add(new SelectListItem
+                {
+                    Text = "No",
+                    Value = "false",
+                });
+                listItems.Add(new SelectListItem
+                {
+                    Text = "Yes",
+                    Value = "true",
+
+                });
+            }
+
+            @Html.DropDownListFor(m => m.GeneralAccountList.IsReserve, listItems, new { @class = "form-control select2nosearch withReserve", type = "text", id = "" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.IsReserve, "", new { @class = "text-danger" }) @*okie*@
+
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Reserve %?</label>
+            @Html.TextBoxFor(m => m.GeneralAccountList.ReservePercent, new { @class = "form-control numbersOnly rsrvedPercent", type = "text", id = "", maxlength = "2", disabled = "true" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.ReservePercent, "", new { @class = "text-danger" }) @*okie*@
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Full Release?</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.IsRelease, listItems, new { @class = "form-control select2nosearch", type = "text", id = "", placeholder = "--Select Civil Status--" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.IsRelease, "", new { @class = "text-danger" }) @*okie*@
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">For Continuing?</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.IsContinuing, listItems, new { @class = "form-control select2nosearch", type = "text", id = "", placeholder = "--Select Civil Status--" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.IsContinuing, "", new { @class = "text-danger" }) @*okie*@
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">OBR Cash Adv?</label>
+            @Html.DropDownListFor(m => m.GeneralAccountList.IsOBRCash, listItems, new { @class = "form-control select2nosearch", type = "text", id = "", placeholder = "--Select Civil Status--" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.IsOBRCash, "", new { @class = "text-danger" }) @*okie*@
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Normal Balance</label>
+            @{
+                List<SelectListItem> normalBal = new List<SelectListItem>();
+                normalBal.Add(new SelectListItem
+                {
+                    Text = "Debit",
+                    Value = "Debit",
+
+
+                });
+                normalBal.Add(new SelectListItem
+                {
+                    Text = "Credit",
+                    Value = "Credit",
+
+                });
+            }
+
+            @Html.DropDownListFor(m => m.GeneralAccountList.NormalBal, normalBal, new { @class = "form-control select2nosearch", type = "text", id = "isUsedDD" })
+            @Html.ValidationMessageFor(m => m.GeneralAccountList.NormalBal, "", new { @class = "text-danger" }) @*okie*@
+        </div>
+    </div>
+    <div class="col mt-2">
+        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetGAForm(1, 0)">Cancel</button>
+        <button type="submit" id="btnAddGA" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+    </div>
+
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        select2nosearch();
+    });
+</script>

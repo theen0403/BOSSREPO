@@ -4,37 +4,44 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="42a3f8980ba2492199562ce65227148a" Name="Diagram1" ZoomLevel="56">
-        <EntityTypeShape EntityType="BOSSModel.Account" Width="1.5" PointX="17" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.FMApprop_AppropriationSourceType" Width="1.5" PointX="11.75" PointY="1.25" />
-        <EntityTypeShape EntityType="BOSSModel.FMApprop_BudgetYear" Width="1.5" PointX="14" PointY="12.25" />
-        <EntityTypeShape EntityType="BOSSModel.Level1Modules" Width="1.5" PointX="8" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.Level2Modules" Width="1.5" PointX="10.25" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.Level3Modules" Width="1.5" PointX="12.5" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.ParentModule" Width="1.5" PointX="5.75" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.PersonalInformation" Width="1.5" PointX="14.75" PointY="15" />
-        <EntityTypeShape EntityType="BOSSModel.PIN_Accounts" Width="1.5" PointX="2.75" PointY="4.75" />
-        <EntityTypeShape EntityType="BOSSModel.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMApprop_AppropriationSource" Width="1.5" PointX="16.25" PointY="0.875" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMApprop_FundSource" Width="1.5" PointX="14" PointY="1" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBalance" Width="1.5" PointX="7.75" PointY="4.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_AccountGroup" Width="1.5" PointX="5.25" PointY="0.875" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_AllotmentClass" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_GeneralAccount" Width="1.5" PointX="0.75" PointY="17.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_MajorAccountGroup" Width="1.5" PointX="7.5" PointY="0.875" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_RevisionYear" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" Width="1.5" PointX="9.75" PointY="1" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMFund_Fund" Width="1.5" PointX="3" PointY="14.125" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMFund_SubFund" Width="1.5" PointX="5.25" PointY="18.25" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMOfficeType" Width="1.5" PointX="3" PointY="7.375" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMPayee" Width="1.5" PointX="7.5" PointY="8.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMPosition" Width="1.5" PointX="13.5" PointY="5.875" />
+      <Diagram DiagramId="a7f6531e0bda4624aced7e5d5762867a" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="BOSSModel.Account" Width="1.5" PointX="15" PointY="5" />
+        <EntityTypeShape EntityType="BOSSModel.FMApprop_AppropriationSourceType" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="BOSSModel.FMApprop_BudgetYear" Width="1.5" PointX="3" PointY="42.25" />
+        <EntityTypeShape EntityType="BOSSModel.Level1Modules" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="BOSSModel.Level2Modules" Width="1.5" PointX="12.25" PointY="1" />
+        <EntityTypeShape EntityType="BOSSModel.Level3Modules" Width="1.5" PointX="14.5" PointY="1" />
+        <EntityTypeShape EntityType="BOSSModel.ParentModule" Width="1.5" PointX="7.75" PointY="1" />
+        <EntityTypeShape EntityType="BOSSModel.PersonalInformation" Width="1.5" PointX="12.75" PointY="5" />
+        <EntityTypeShape EntityType="BOSSModel.PIN_Accounts" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="BOSSModel.sysdiagram" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMApprop_AppropriationSource" Width="1.5" PointX="5.25" PointY="0.875" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMApprop_FundSource" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBalance" Width="1.5" PointX="9.75" PointY="11.75" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBank_AccountType" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBank_BankAccounts" Width="1.5" PointX="5.25" PointY="14.5" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBank_Banks" Width="1.5" PointX="3" PointY="18.875" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBrgy_Barangay" Width="1.5" PointX="5.25" PointY="22.25" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBrgy_BrgyBankAccount" Width="1.5" PointX="7.5" PointY="16.125" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMBrgy_BrgyCollector" Width="1.5" PointX="11.75" PointY="12.75" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_AccountGroup" Width="1.5" PointX="1.5" PointY="31.375" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_AllotmentClass" Width="1.5" PointX="1.5" PointY="35.625" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_GeneralAccount" Width="1.5" PointX="3" PointY="21.625" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_MajorAccountGroup" Width="1.5" PointX="1.5" PointY="27.5" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_RevisionYear" Width="1.5" PointX="1.5" PointY="38.5" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMCOA_SubMajorAccountGroup" Width="1.5" PointX="0.75" PointY="22.5" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMFund_Fund" Width="1.5" PointX="3" PointY="15" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMFund_SubFund" Width="1.5" PointX="5.25" PointY="19.25" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMOfficeType" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMPayee" Width="1.5" PointX="7.5" PointY="13.375" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMPosition" Width="1.5" PointX="10.5" PointY="5.875" />
         <EntityTypeShape EntityType="BOSSModel.Tbl_FMRes_Department" Width="1.5" PointX="5.25" PointY="7.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMRes_Function" Width="1.5" PointX="10.5" PointY="7.75" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMRes_Section" Width="1.5" PointX="12.75" PointY="8.625" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMRes_Function" Width="1.5" PointX="7.5" PointY="7.75" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMRes_Section" Width="1.5" PointX="9.75" PointY="8.625" />
         <EntityTypeShape EntityType="BOSSModel.Tbl_FMSector_Sector" Width="1.5" PointX="0.75" PointY="6.125" />
         <EntityTypeShape EntityType="BOSSModel.Tbl_FMSector_SubSector" Width="1.5" PointX="3" PointY="10.875" />
-        <EntityTypeShape EntityType="BOSSModel.Tbl_FMSignatory" Width="1.5" PointX="15.75" PointY="8.25" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMSignatory" Width="1.5" PointX="12.75" PointY="8.25" />
+        <EntityTypeShape EntityType="BOSSModel.Tbl_FMTax" Width="1.5" PointX="5.25" PointY="25.375" />
         <AssociationConnector Association="BOSSModel.FK_Accounts_PersonalInformation" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMAppropriationSource_BudgetYear" />
@@ -42,9 +49,18 @@
         <AssociationConnector Association="BOSSModel.FK_Level2Modules_Level1Modules" />
         <AssociationConnector Association="BOSSModel.FK_Level3Modules_Level2Modules" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMAppropriationSource_Tbl_FMFundSource" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_AccountType" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMBank_Banks" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMCOA_GeneralAccount" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_FMBank_BankAccounts" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMBrgy_BrgyBankAccount_Tbl_Brgy_Barangay" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_AllotmentClass" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_AccountGroup_Tbl_FMCOA_RevisionYear" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_MajorAccountGroup_Tbl_FMCOA_AccountGroup" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_AllotmentClass_Tbl_FMCOA_RevisionYear" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_GeneralAccount_Tbl_FMCOA_SubMajorAccountGroup" />
+        <AssociationConnector Association="BOSSModel.FK_Tbl_FMTax_Tbl_FMCOA_GeneralAccount" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMCOA_SubMajorAccountGroup_Tbl_FMCOA_MajorAccountGroup" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" />
         <AssociationConnector Association="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" />

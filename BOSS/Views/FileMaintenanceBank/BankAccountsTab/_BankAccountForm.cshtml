@@ -1,0 +1,72 @@
+﻿@model BOSS.Models.FMmodels.FMBanksModels.BankAccountsModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveBankAccnt", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "ifExists(data, GetBankAccntForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.BankAccntList.BankAccntID, new { @id = "BankAccntID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Bank Name</label>
+            @Html.DropDownListFor(m => m.BankAccntList.BankID, Model.BankList, new { @class = "form-control select2", id = "BankID" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Account Number</label>
+            @Html.TextBoxFor(m => m.BankAccntList.AccntNo, new { @class = "form-control noSpeChar", type = "text", id = "AccntNo" })
+            @Html.ValidationMessageFor(m => m.BankAccntList.AccntNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Account Name</label>
+            @Html.TextAreaFor(m => m.BankAccntList.AccntName, new { @class = "form-control noSpeChar", @rows = "1", type = "text", id = "AccntName" })
+            @Html.ValidationMessageFor(m => m.BankAccntList.AccntName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Fund Type</label>
+            @Html.DropDownListFor(m => m.BankAccntList.FundID, Model.FundtypeList, new { @class = "form-control select2", id = "FundID" })
+        </div>
+    </div>
+    <div class="col-xl-5 col-lg-5 col-md-5">
+        <div class="form-group">
+            <label class="custom-form-margin">General Ledger Account</label>
+            @Html.DropDownListFor(m => m.BankAccntList.GAID, Model.GenAccntList, new { @class = "form-control select2 GenAccntdropdown", id = "GAID", onchange = "GetchangeGACode()" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Code</label>
+            @Html.TextBoxFor(m => m.BankAccntList.GACode, new { @class = "form-control noSpeChar GACodetext", @disabled = "disabled", type = "text", id = "GACode" })
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4">
+        <div class="form-group">
+            <label class="custom-form-margin">Account Type</label>
+            @Html.DropDownListFor(m => m.BankAccntList.AccntTypeID, Model.AccntTypeList, new { @class = "form-control select2", id = "AccntTypeID" })
+        </div>
+    </div>
+    <div class="col mt-xl-2">
+        <div class="form-group">
+            <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetBankAccntForm(1, 0)">Cancel</button>
+            <button type="submit" id="btnAddBankAccnt" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+        </div>
+    </div>
+</div>
+
+}
+<script>
+    $(function () {
+        LoadICheck();
+        GetchangeGACode();
+    })
+</script>

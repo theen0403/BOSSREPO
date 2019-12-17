@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMBanksModels.BankAccntList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<div class="col">
+    <table class="table table-striped zero-configuration table-bordered dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
+        <thead>
+            <tr class="text-center">
+                <th>Bank Name</th>
+                <th>Account Number</th>
+                <th>Account Name</th>
+                <th>General Ledger Account</th>
+                <th>Code</th>
+                <th>Account Type</th>
+                <th>Fund</th>
+                <th width="5px">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var Items in Model)
+                {
+                    var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditBankAccntID' BankAccntAttr='" + Items.BankAccntID + "'><i class='ft-edit'></i> Edit</button>";
+                    var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteBankAccntID' BankAccntAttr='" + Items.BankAccntID + "'><i class='la la-trash'></i> Delete</button>";
+                    var Action = Update + Remove;
+            <tr>
+
+                <td>@Items.BankTitle</td>
+                <td>@Items.AccntNo</td>
+                <td>@Items.AccntName</td>
+                <td>@Items.GATitle</td>
+                <td>@Items.concatCode</td>
+                <td>@Items.AccntType</td>
+                <td>@Items.FundTitle</td>
+                <td class="text-center">
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger"
+                            data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
+                        <i class="la la-bars"></i>
+                    </button>
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

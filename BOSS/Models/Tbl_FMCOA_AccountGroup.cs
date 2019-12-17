@@ -24,8 +24,10 @@ namespace BOSS.Models
         public string AGTitle { get; set; }
         public string AGCode { get; set; }
         public Nullable<int> AllotmentClassID { get; set; }
+        public Nullable<int> RevID { get; set; }
     
         public virtual Tbl_FMCOA_AllotmentClass Tbl_FMCOA_AllotmentClass { get; set; }
+        public virtual Tbl_FMCOA_RevisionYear Tbl_FMCOA_RevisionYear { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMCOA_MajorAccountGroup> Tbl_FMCOA_MajorAccountGroup { get; set; }
     }

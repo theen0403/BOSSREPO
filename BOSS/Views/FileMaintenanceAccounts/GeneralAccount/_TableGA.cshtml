@@ -1,0 +1,68 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMAccountsModels.GeneralAccountList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th width="5%">Revision Year</th>
+            <th>Allotment Class</th>
+            <th>Accounts</th>
+            <th>Major Account Group</th>
+            <th>Sub Major Account Group</th>
+            <th>General Account</th>
+            <th>Account Code</th>
+            <th width="5%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+        <tr>
+            <td class="text-center">@Items.RevYear</td>
+            <td>@Items.AllotmentClassTitle</td>
+            <td>@Items.AGTitle</td>
+            <td>@Items.MAGTitle</td>
+            <td>@Items.SMAGTitle</td>
+            <td>@Items.GATitle</td>
+            <td class="text-center">
+                @{
+                    var SubAccntID = Items.GAID;
+                    var SubSector = (from e in BOSSDB.Tbl_FMCOA_GeneralAccount where e.GAID == SubAccntID select e).FirstOrDefault();
+                    if (SubSector.isSubAccount != 0)
+                    {
+                        var getGenAccntCode = (from e in BOSSDB.Tbl_FMCOA_GeneralAccount where e.GAID == SubSector.isSubAccount select e.Tbl_FMCOA_SubMajorAccountGroup.Tbl_FMCOA_MajorAccountGroup.Tbl_FMCOA_AccountGroup.AGCode + "-" + e.Tbl_FMCOA_SubMajorAccountGroup.Tbl_FMCOA_MajorAccountGroup.MAGCode + "-" + e.Tbl_FMCOA_SubMajorAccountGroup.SMAGCode + "-" + e.GACode + "-" + SubSector.GACode).FirstOrDefault();
+                        @getGenAccntCode;
+                    }
+                    else
+                    {
+                        @Items.GenAccountCode
+                    }
+              }
+            </td>
+            <td class="text-center">
+                @{
+                    var btnEdit = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditGAID' GAAttr='" + Items.AGID + "'><i class='ft-edit'></i> Edit</button>";
+                    var btnDelete = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteGAID' GAAttr='" + Items.AGID + "'><i class='la la-trash'></i> Delete</button>";
+                    var btnQty = btnEdit + btnDelete;
+
+                    <button type="button" onfocusout="PopoveLostFocus()"
+                            class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
+                            data-toggle="popover" data-content="@btnQty">
+                        <i class="la la-bars"></i>
+                    </button>
+                }
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

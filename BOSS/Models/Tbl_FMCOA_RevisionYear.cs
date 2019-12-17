@@ -17,6 +17,7 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_FMCOA_RevisionYear()
         {
+            this.Tbl_FMCOA_AccountGroup = new HashSet<Tbl_FMCOA_AccountGroup>();
             this.Tbl_FMCOA_AllotmentClass = new HashSet<Tbl_FMCOA_AllotmentClass>();
         }
     
@@ -25,6 +26,8 @@ namespace BOSS.Models
         public Nullable<bool> isUsed { get; set; }
         public string Remarks { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMCOA_AccountGroup> Tbl_FMCOA_AccountGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMCOA_AllotmentClass> Tbl_FMCOA_AllotmentClass { get; set; }
     }

@@ -2,7 +2,6 @@
 $(document).ready(function () {
     GetPayeeForm(1, 0);
 })
-
 function GetPayeeDTable() {
     $.ajax({
         url: '/FileMaintenancePayee/GetPayeeDTable',

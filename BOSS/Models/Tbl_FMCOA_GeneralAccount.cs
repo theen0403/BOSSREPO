@@ -14,22 +14,31 @@ namespace BOSS.Models
     
     public partial class Tbl_FMCOA_GeneralAccount
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tbl_FMCOA_GeneralAccount()
+        {
+            this.Tbl_FMBank_BankAccounts = new HashSet<Tbl_FMBank_BankAccounts>();
+            this.Tbl_FMTax = new HashSet<Tbl_FMTax>();
+        }
+    
         public int GAID { get; set; }
-        public Nullable<int> RevID { get; set; }
         public Nullable<int> SMAGID { get; set; }
         public string GATitle { get; set; }
         public string GACode { get; set; }
         public Nullable<bool> isReserve { get; set; }
-        public Nullable<int> ReservePercent { get; set; }
+        public string ReservePercent { get; set; }
         public Nullable<bool> isFullRelease { get; set; }
         public Nullable<bool> isContinuing { get; set; }
         public Nullable<bool> isOBRCashAdvance { get; set; }
-        public Nullable<int> BalanceID { get; set; }
-        public Nullable<bool> isMiscellaneousAccount { get; set; }
-        public Nullable<int> GAIDMA { get; set; }
-        public Nullable<bool> isContraAccount { get; set; }
-        public Nullable<int> GAIDCA { get; set; }
-        public Nullable<bool> isSubAccount { get; set; }
-        public Nullable<int> GAIDSA { get; set; }
+        public string NormalBalance { get; set; }
+        public Nullable<int> isMiscellaneousAccount { get; set; }
+        public Nullable<int> isContraAccount { get; set; }
+        public Nullable<int> isSubAccount { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMBank_BankAccounts> Tbl_FMBank_BankAccounts { get; set; }
+        public virtual Tbl_FMCOA_SubMajorAccountGroup Tbl_FMCOA_SubMajorAccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMTax> Tbl_FMTax { get; set; }
     }
 }

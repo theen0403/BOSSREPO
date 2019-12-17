@@ -10,20 +10,18 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public RevisionYearModel()
         {
-            getRevYearColumns = new Tbl_FMCOA_RevisionYear();
-            getRevisionYearList = new List<RevisionList>();
+            getRevisionList = new List<RevisionList>();
+            RevisionList = new RevisionList();
         }
-        public Tbl_FMCOA_RevisionYear getRevYearColumns { get; set; }
-        public List<RevisionList> getRevisionYearList { get; set; }
-        public int RevID { get; set; }
-        public int RevYEar { get; set; }
-        public bool isUsed { get; set; }
-        public string Remarks { get; set; }
+        public List<RevisionList> getRevisionList { get; set; }
+        public RevisionList RevisionList { get; set; }
+        public int ActionID { get; set; }
     }
     public class RevisionList
     {
         public int RevID { get; set; }
-        public int RevYEar { get; set; }
+        [Required(ErrorMessage = "Please enter Revision Year")]
+        public string RevYear { get; set; }
         public bool isUsed { get; set; }
         public string Remarks { get; set; }
     }

@@ -1,0 +1,50 @@
+﻿@model BOSS.Models.FMmodels.FMBarangayModels.BrgyCollectorModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveBrgyCollector", "FileMaintenanceBarangay", new AjaxOptions { OnSuccess = "ifExists(data, GetBrgyCollertorForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.BrangayCollectorList.BrgyCollectorID, new { @id = "BrgyCollectorID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+
+<div class="card-body px-1 card-body rounded menubackground">
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-1"></div>
+        <div class="col-xl-8 col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group required1">
+                        <label class="custom-form-margin">First Name</label>
+                        @Html.TextBoxFor(m => m.BrangayCollectorList.Fname, new { @class = "form-control noSpeChar", type = "text", id = "Fname" })
+                        @Html.ValidationMessageFor(m => m.BrangayCollectorList.Fname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group required1">
+                        <label class="custom-form-margin">Middle Name</label>
+                        @Html.TextBoxFor(m => m.BrangayCollectorList.Mname, new { @class = "form-control numbersOnly", type = "text", id = "Mname"@*, maxlength = "3"*@})
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4">
+                    <div class="form-group required1">
+                        <label class="custom-form-margin">Last Name</label>
+                        @Html.TextBoxFor(m => m.BrangayCollectorList.Lname, new { @class = "form-control numbersOnly", type = "text", id = "Lname"@*, maxlength = "3"*@})
+                        @Html.ValidationMessageFor(m => m.BrangayCollectorList.Lname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetBrgyCollertorForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddCollector" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+        

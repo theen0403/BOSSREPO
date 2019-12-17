@@ -17,6 +17,7 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_FMFund_Fund()
         {
+            this.Tbl_FMBank_BankAccounts = new HashSet<Tbl_FMBank_BankAccounts>();
             this.Tbl_FMFund_SubFund = new HashSet<Tbl_FMFund_SubFund>();
             this.Tbl_FMRes_Department = new HashSet<Tbl_FMRes_Department>();
         }
@@ -25,6 +26,8 @@ namespace BOSS.Models
         public string FundTitle { get; set; }
         public string FundCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tbl_FMBank_BankAccounts> Tbl_FMBank_BankAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMFund_SubFund> Tbl_FMFund_SubFund { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

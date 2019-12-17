@@ -1,0 +1,33 @@
+﻿@model BOSS.Models.FMmodels.FMBanksModels.AccountTypeModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveAccntType", "FileMaintenanceBank", new AjaxOptions { OnSuccess = "ifExists(data, GetAccntTypeForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.AccntTypeList.AccntTypeID, new { @id = "AccntTypeID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="row">
+        <div class="col-xl-1 col-lg-1"></div>
+        <div class="col-xl-10 col-lg-10">
+            <div class="row">
+                <div class="col-xl-7 col-lg-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Account Type</label>
+                        @Html.TextBoxFor(m => m.AccntTypeList.AccntType, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "AccntType" })
+                        @Html.ValidationMessageFor(m => m.AccntTypeList.AccntType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col mt-xl-2 mt-lg-2">
+                    <div class="form-group">
+                        <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetAccntTypeForm(1, 0)">Cancel</button>
+                        <button type="submit" id="btnAddAccnType" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

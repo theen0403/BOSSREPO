@@ -214,7 +214,7 @@
                     <div class="col-xl-4 col-lg-4 col-md-4">
                         <div class="form-group">
                             <label>SL Category</label>
-                            <select class="form-control select2">
+                            <select class="form-control select2nosearch">
                                 <option>Bank Account</option>
                                 <option>Payee</option>
                                 <option>Supplier</option>
@@ -343,6 +343,7 @@
 <script>
     $(function () {
         LoadDataTable();
+        select2nosearch();
         //clickBtn('btnAddSubLedger');
         //clickBtn('btnAddSubLedgerAcc');
 

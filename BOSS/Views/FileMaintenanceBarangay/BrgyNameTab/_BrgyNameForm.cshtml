@@ -1,0 +1,35 @@
+﻿@model BOSS.Models.FMmodels.FMBarangayModels.BrgyNameModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveBrgyName", "FileMaintenanceBarangay", new AjaxOptions { OnSuccess = "ifExists(data, GetBrgyNameForm(1, 0) )", OnFailure = " swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.BarangayNameList.BrgyID, new { @id = "BrgyID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+
+<div class="row">
+    <div class="col-xl-2 col-lg-2"></div>
+    <div class="col-xl-8 col-lg-8">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="form-group">
+                    <label class="custom-form-margin">Barangay Name</label>
+                    @Html.TextAreaFor(m => m.BarangayNameList.BrgyName, new { @class = "form-control noSpeChar", type = "text", @rows="1", id = "BrgyName" })
+                    @Html.ValidationMessageFor(m => m.BarangayNameList.BrgyName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col mt-xl-2">
+                <div class="form-group">
+                    <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetBrgyNameForm(1, 0)">Cancel</button>
+                    <button type="submit" id="btnAddBrgyName" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+

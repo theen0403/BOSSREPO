@@ -1,0 +1,73 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.MajorAccountGroupModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveMAG", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetMAGForm(1, 0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.MajorAccountGroupList.MAGID, new { @id = "MAGID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-xl-1">
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin">Revision Year</label>
+                @Html.DropDownListFor(m => m.MajorAccountGroupList.RevID, Model.RevYearList, new { @class = "form-control revYearDropDown", id = "RevID", onchange = "GetMAGDTable(); onChangeRevisionYear_AllotClass(); " })
+                @Html.ValidationMessageFor(m => m.MajorAccountGroupList.RevID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-5">
+            <div class="form-group">
+                <label class="custom-form-margin">Allotment Class</label>
+                @Html.DropDownListFor(m => m.MajorAccountGroupList.AllotmentClassID, Model.AllotClassList, new { @class = "form-control hide-search allotClassDropDown", id = "", onchange = "onChangeAllotClass_AccntGrp()" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Accounts</label>
+                @Html.DropDownListFor(m => m.MajorAccountGroupList.AGID, Model.AccntGrpList, new { @class = "form-control hide-search accntGrpDropDown", id = "AGID", onchange = "  ChangeAccountCode()" })
+                @Html.ValidationMessageFor(m => m.MajorAccountGroupList.AGID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-1">
+        </div>
+        <div class="col-xl-5 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Major Account Group</label>
+                @Html.TextBoxFor(m => m.MajorAccountGroupList.MAGTitle, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "MAGTitle" })
+                @Html.ValidationMessageFor(m => m.MajorAccountGroupList.MAGTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-4">
+            <div class="form-group">
+                <label class="custom-form-margin">Account Code</label>
+                <div class="input-group mt-0">
+                    <span class="input-group-addon accntGrpCode menubackground" id=""><b>1-</b></span>
+                    @Html.TextBoxFor(m => m.MajorAccountGroupList.MAGCode, new { @class = "form-control numbersOnly", type = "text", id = "MAGCode", maxlength = "2" })
+                    @Html.ValidationMessageFor(m => m.MajorAccountGroupList.MAGCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-xl-1 col-xl-10">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetMAGForm(1, 0)">Cancel</button>
+                <button type="submit" id="btnAddMAG" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+        numbersOnly();
+    })
+</script>

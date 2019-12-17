@@ -210,12 +210,6 @@ namespace BOSS.Controllers
             model.getAppropSourceList = getAppropSourceList.ToList();
             return PartialView("AppropriationSource/_TableAppropriationSource", model.getAppropSourceList);
         }
-
-        public ActionResult onChangeFundSource(AppropSourceModel model , int AppropSourceTypeID)
-        {
-            var FoundSourceClass = (from a in BOSSDB.Tbl_FMApprop_FundSource where a.AppropSourceTypeID == AppropSourceTypeID select a).ToList();
-            return Json(new SelectList(FoundSourceClass, "FundSourceID", "FundSourceTitle"), JsonRequestBehavior.AllowGet);
-        }
         public ActionResult GetAppropSourceForm(int ActionID, int PrimaryID)
         {
             AppropSourceModel model = new AppropSourceModel();
@@ -250,6 +244,11 @@ namespace BOSS.Controllers
 
             model.ActionID = ActionID;
             return PartialView("AppropriationSource/_AppropSourceForm", model);
+        }
+        public ActionResult onChangeFundSource(AppropSourceModel model, int AppropSourceTypeID)
+        {
+            var FoundSourceClass = (from a in BOSSDB.Tbl_FMApprop_FundSource where a.AppropSourceTypeID == AppropSourceTypeID select a).ToList();
+            return Json(new SelectList(FoundSourceClass, "FundSourceID", "FundSourceTitle"), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         [AllowAnonymous]
@@ -291,11 +290,6 @@ namespace BOSS.Controllers
                     {
                         if (approp.Description == appropDesc)
                         {
-                            approp.Description = appropDesc;
-                            approp.FundSourceID = model.FundSourceID;
-                            approp.BudgetYearID = model.BudgetYearID;
-                            BOSSDB.Entry(approp);
-                            BOSSDB.SaveChanges();
                             isExist = "justUpdate";
                         }
                         else
@@ -306,23 +300,21 @@ namespace BOSS.Controllers
                             }
                             else
                             {
-                                approp.Description = appropDesc;
-                                approp.FundSourceID = model.FundSourceID;
-                                approp.BudgetYearID = model.BudgetYearID;
-                                BOSSDB.Entry(approp);
-                                BOSSDB.SaveChanges();
                                 isExist = "justUpdate";
                             }
                         }
                     }
                     else if (checkApprop == null)
                     {
+                        isExist = "justUpdate";
+                    }
+                    if(isExist == "justUpdate")
+                    {
                         approp.Description = appropDesc;
                         approp.FundSourceID = model.FundSourceID;
                         approp.BudgetYearID = model.BudgetYearID;
                         BOSSDB.Entry(approp);
                         BOSSDB.SaveChanges();
-                        isExist = "justUpdate";
                     }
                 }
             }

@@ -1,0 +1,240 @@
+﻿
+<div class="card-body px-1 card-body rounded menubackground">
+    <div id="SMAGTempID"></div>
+</div>
+
+<div class="mt-2" id="tableSMAGTempID"></div>
+
+@*<script>
+    $(function () {
+        GetSubMajorAccntGrpDT();
+    })
+    //Display Data table
+    function GetSubMajorAccntGrpDT() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetSubMajorAccntGrpDT',
+            success: function (result) {
+                $("#tableSMAGTempID").html(result);
+                GetAddSubMajorAccntGrp();
+            }
+        })
+    }
+    //Get add partial view
+    function GetAddSubMajorAccntGrp() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAddSubMajorAccntGrp',
+            success: function (result) {
+                $("#SMAGTempID").html(result);
+                GetDynamicRevYearSMAG();
+            }
+        })
+    }
+    //Get Dynamic Revision Year Partial View
+    function GetDynamicRevYearSMAG() {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYear',
+            success: function (result) {
+                $("#revYearSMAGID").html(result);
+                GetDynamicAllotClassSMAG();
+                onchangeRevYearSMAG();
+            }
+        })
+    }
+    //Get Dynamic Allotment Class Partial View
+    function GetDynamicAllotClassSMAG() {
+        var RevID = $("#RevID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClass',
+            data: { RevID: RevID },
+            success: function (result) {
+                $("#allotClassSMAGID").html(result);
+                onchangeAllotClassSMAG();
+                GetDynamicAccountGroupSMAG();
+            }
+        })
+    }
+    //Get Dynamic Account Group Partial View
+    function GetDynamicAccountGroupSMAG() {
+        var AllotmentClassID = $("#AllotmentClassID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAccountGroup',
+            data: { AllotmentClassID: AllotmentClassID },
+            success: function (result) {
+                $("#accountGrpSMAGID").html(result);
+                GetAccountGroupCodeSMAG();
+                onchangeAccountGroupSMAG2();
+                GetDynamicMajorAccountGroupSMAG();
+                onchangeGetDynamicMajorAccountGroupSMAG();
+            }
+        })
+    }
+    //Display dynamic Major Account Group Partial View
+    function GetDynamicMajorAccountGroupSMAG() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicMajorAccountGroup',
+            data: { AGID: AGID },
+            success: function (result) {
+                $("#majorAccountGrpSMAGID").html(result);
+               GetMajorAccountGroupCodeSMAG();
+                onchangeMajorAccountCodeGroupMAG2();
+            }
+        })
+    }
+    //Get Account Group Code for onchange in Allotment DropDown
+    function GetAccountGroupCodeSMAG() {
+        var AllotmentClassID = $("#AllotmentClassID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAccountGroupCode',
+            data: { AllotmentClassID: AllotmentClassID },
+            success: function (result) {
+                $('#accountGrpCodeSMAGID').html(result);
+            }
+        })
+    }
+     //Get Account Group Code for onchange in Account Group DropDown
+    function GetAccountGroupCodeSMAG2() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetAccountGroupCode2',
+            data: { AGID: AGID },
+            success: function (result) {
+                $('#accountGrpCodeSMAGID').html(result);
+                GetDynamicMajorAccountGroupSMAG
+            }
+        })
+    }
+    //Display Dynamic Major Account code partial view 
+    function GetMajorAccountGroupCodeSMAG() {
+        var AGID = $("#AGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetMajorAccountGroupCode',
+            data: { AGID: AGID },
+            success: function (result) {
+                $('#majorAccountGrpCodeSMAGID').html(result);
+            }
+        })
+    }
+    function GetMajorAccountGroupCodeSMAG2() {
+        var MAGID = $("#MAGID").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetMajorAccountGroupCode2',
+            data: { MAGID: MAGID },
+            success: function (result) {
+                $('#majorAccountGrpCodeSMAGID').html(result);
+            }
+        })
+    }
+   
+    //===================================================
+    //Update function
+    function Get_UpdateSubMajorAccountGroup(SMAGID) {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/Get_UpdateSubMajorAccountGroup',
+            data: { SMAGID: SMAGID },
+            success: function (result) {
+                $('#SMAGTempID').html(result);
+                GetDynamicRevYearUpdateSMAG();
+            }
+        })
+    }
+    function GetDynamicRevYearUpdateSMAG() {
+        var RevIDSMAG = $("#RevIDSMAG").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicRevYearUpdateSMAG',
+            data: { RevIDSMAG: RevIDSMAG },
+            success: function (result) {
+                $("#revYearSMAGID").html(result);
+                onchangeRevYearSMAG();
+                GetDynamicAllotClassUpdateSMAG();
+            }
+        })
+    }
+    function GetDynamicAllotClassUpdateSMAG() {
+        var RevIDSMAG = $("#RevIDSMAG").val(); 
+        var allotclasssTempIDSMAG = $("#allotclasssTempIDSMAG").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAllotClassUpdateSMAG',
+            data: { RevIDSMAG: RevIDSMAG, allotclasssTempIDSMAG: allotclasssTempIDSMAG },
+            success: function (result) {
+                $("#allotClassSMAGID").html(result);
+                GetDynamicAccntGroupUpdateSMAG();
+                onchangeAllotClassSMAG();
+            }
+        })
+    }
+    function GetDynamicAccntGroupUpdateSMAG() {
+        var allotclasssTempIDSMAG = $("#allotclasssTempIDSMAG").val(); 
+        var AGIDSMag = $("#AGIDSMag").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicAccntGroupUpdateSMAG',
+            data: { allotclasssTempIDSMAG: allotclasssTempIDSMAG, AGIDSMag: AGIDSMag },
+            success: function (result) {
+                $("#accountGrpSMAGID").html(result);
+                GetDynamicMajorAccntGroupUpdateMAG();
+                GetAccountGroupCodeSMAG2();
+                onchangeAccountGroupSMAG2();
+            }
+        })
+    }
+    function GetDynamicMajorAccntGroupUpdateMAG() {
+        var AGIDSMag = $("#AGIDSMag").val(); 
+        var MAGIDSMag = $("#MAGIDSMag").val();
+        $.ajax({
+            url: '/FileMaintenanceAccounts/GetDynamicMajorAccntGroupUpdateMAG',
+            data: { AGIDSMag: AGIDSMag, MAGIDSMag: MAGIDSMag },
+            success: function (result) {
+                $("#majorAccountGrpSMAGID").html(result);
+                GetMajorAccountGroupCodeSMAG2();
+                onchangeMajorAccountCodeGroupMAG2();
+            }
+        })
+    }
+    function DeleteSubMajorAccountGroup(SMAGID) {
+        $.ajax({
+            url: '/FileMaintenanceAccounts/DeleteSubMajorAccountGroup',
+            data: { SMAGID: SMAGID },
+            success: function (result) {
+                GetSubMajorAccntGrpDT();
+            }
+        })
+    }
+    //------------------------------------------------------------------------------------
+    //Onchange Function
+    //------------------------------------------------------------------------------------
+    //Onchange for Revision Year                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    function onchangeRevYearSMAG() {
+        $("#RevID").on("change", function () {
+            GetDynamicAllotClassSMAG();
+        });
+    }
+    //Onchange for Allotment Class    
+    function onchangeAllotClassSMAG() {
+        $("#AllotmentClassID").on("change", function () {
+            GetDynamicAccountGroupSMAG();
+        });
+    }
+    //Onchange for Account Group Code
+    function onchangeAccountGroupSMAG2() {
+        $("#AGID").on("change", function () {
+            GetAccountGroupCodeSMAG2();
+        });
+    }
+    function onchangeGetDynamicMajorAccountGroupSMAG() {
+        $("#AGID").on("change", function () {
+            GetDynamicMajorAccountGroupSMAG();
+        });
+    }
+    function onchangeMajorAccountCodeGroupMAG() {
+        $("#AGID").on("change", function () {
+            GetMajorAccountGroupCodeSMAG();
+        });
+    }
+    function onchangeMajorAccountCodeGroupMAG2() {
+        $("#MAGID").on("change", function () {
+            GetMajorAccountGroupCodeSMAG2();
+        });
+    }
+</script>*@
+
+

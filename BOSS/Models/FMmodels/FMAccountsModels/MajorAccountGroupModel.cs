@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 namespace BOSS.Models.FMmodels.FMAccountsModels
 {
     public class MajorAccountGroupModel
@@ -10,27 +11,34 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public MajorAccountGroupModel()
         {
-            getMajorAccntGrpColumns = new Tbl_FMCOA_MajorAccountGroup();
-            getMajorAccntGrpList = new List<MajorAccountGroupList>();
+            getMajorAccountGroupList = new List<MajorAccountGroupList>();
+            MajorAccountGroupList = new MajorAccountGroupList();
+
+            RevYearList = new List<SelectListItem>();
+            AllotClassList = new List<SelectListItem>();
+            AccntGrpList = new List<SelectListItem>();
         }
-        public Tbl_FMCOA_MajorAccountGroup getMajorAccntGrpColumns { get; set; }
-        public List<MajorAccountGroupList> getMajorAccntGrpList { get; set; }
-        public int MAGID { get; set; }
-        public int AGID { get; set; }
-        public string MAGTitle { get; set; }
-        public string MAGCode { get; set; }
-        public int RevIDMAG { get; set; }
-        public int allotclasssTempID { get; set; }
-        public int AGIDMag { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> AccountGrpList { get; set; }
+        public int ActionID { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> RevYearList { get; set; }
+        public List<SelectListItem> AllotClassList { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> AccntGrpList { get; set; }
+        public List<MajorAccountGroupList> getMajorAccountGroupList { get; set; }
+        public MajorAccountGroupList MajorAccountGroupList { get; set; }
     }
     public class MajorAccountGroupList
     {
         public int MAGID { get; set; }
+        [Required(ErrorMessage = "Please enter Major Account Group Title")]
         public string MAGTitle { get; set; }
-        public string MAGAccountCode { get; set; }
+        [Required(ErrorMessage = "Please enter Major Account Group Code")]
+        public string concatMAGCode { get; set; }
+        public string MAGCode { get; set; }
         public string RevYear { get; set; }
         public string AllotmentClassTitle { get; set; }
         public string AGTitle { get; set; }
+
+        public int RevID { get; set; }
+        public int AllotmentClassID { get; set; }
+        public int AGID { get; set; }
     }
 }

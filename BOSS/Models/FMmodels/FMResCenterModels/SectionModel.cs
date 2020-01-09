@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace BOSS.Models.FMmodels.FMResCenterModels
 {
@@ -13,32 +14,26 @@ namespace BOSS.Models.FMmodels.FMResCenterModels
         public SectionModel()
         {
             getSectionList = new List<SectionList>();
-            getSectionColumns = new Tbl_FMRes_Section();
+            SectionList = new SectionList();
+
+            DeptList = new List<SelectListItem>();
+            FunctionList = new List<SelectListItem>();
         }
-        public List<SectionList> getSectionList { get; set; }
-        public Tbl_FMRes_Section getSectionColumns { get; set; }
-        public int SectionID { get; set; }
-        public int FunctionIDHidden { get; set; }
-        public string SectionTitle { get; set; }
-        public string FunctionTitle { get; set; }
-        public string DeptTitle { get; set; }
-        public int DeptID { get; set; }
-        public int FunctionID { get; set; }
-        public IEnumerable<System.Web.Mvc.SelectListItem> DeptSelectionList2
-        {
-            get
-            {
-                List<Tbl_FMRes_Department> DeptSelectionLists = BOSSDB.Tbl_FMRes_Department.ToList();
-                return new System.Web.Mvc.SelectList(DeptSelectionLists, "DeptID", "DeptTitle");
-            }
-        }
+        public int ActionID { get; set; }
+        public IEnumerable<System.Web.Mvc.SelectListItem> DeptList { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> FunctionList { get; set; }
+        public List<SectionList> getSectionList { get; set; }
+        public SectionList SectionList { get; set; }
     }
     public class SectionList
     {
         public int SectionID { get; set; }
+        [Required(ErrorMessage = "Sectiion title is required.")]
         public string SectionTitle { get; set; }
-        public string FunctionTitle { get; set; }
+        public int FunctionID { get; set; }
+        public int DeptID { get; set; }
+
         public string DeptTitle { get; set; }
+        public string FunctionTitle { get; set; }
     }
 }

@@ -1,0 +1,194 @@
+﻿@model BOSS.Models.FMmodels.FMSupplierModels.SupplierModel
+@using (Ajax.BeginForm("SaveSupplier", "FileMaintenanceSupplier", new AjaxOptions { OnSuccess = "ifExists(data,  GetSupplierForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.SupplierList.SupplierID, new { @id = "SupplierID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    <div class="col-12 col-xl-12 col-sm-12 col-md-12">
+        <div class="card box-shadow-2">
+            <div class="card-header bg-active mt-1">
+                <h4 class="card-title black"><b>Company Profile</b></h4>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body menubackground">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Company Name</label>
+                                @Html.TextBoxFor(m => m.SupplierList.CompanyName, new { @class = "form-control capsFirstLetter", type = "text", id = "CompanyName" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.CompanyName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Address</label>
+                                @Html.TextBoxFor(m => m.SupplierList.Address, new { @class = "form-control capsFirstLetter", type = "text", id = "Address" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Tax Type</label>
+                                @{
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "VAT",
+                                        Value = "VAT",
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "None VAT",
+                                        Value = "None VAT",
+                                    });
+                                }
+
+                                @Html.DropDownListFor(m => m.SupplierList.TaxType, listItems, new { @class = "form-control hide-search", type = "text", id = "isUsedDD", placeholder = "--Select Civil Status--" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.TaxType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Product Services</label>
+                                @Html.TextBoxFor(m => m.SupplierList.ProductServices, new { @class = "form-control ", type = "text", id = "" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.ProductServices, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Telephone Number</label>
+                                @Html.TextBoxFor(m => m.SupplierList.TelNo, new { @class = "form-control telNumber", type = "text", id = "TelNo" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.TelNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Fax Number</label>
+                                @Html.TextBoxFor(m => m.SupplierList.FaxNo, new { @class = "form-control telNumber", type = "text", id = "FaxNo" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.FaxNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">T.I.N.</label>
+                                @Html.TextBoxFor(m => m.SupplierList.TIN, new { @class = "form-control telNumber", type = "text", id = "TIN" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.TIN, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-12 col-sm-12 col-md-12">
+        <div class="card box-shadow-2">
+            <div class="card-header bg-active">
+                <h4 class="card-title black"><b>Accreditation</b></h4>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body menubackground" id="">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Accreditation No.</label>
+                                @Html.TextBoxFor(m => m.SupplierList.AccreNumber, new { @class = "form-control", type = "text", id = "" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.AccreNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Date</label>
+                                @Html.TextBoxFor(m => m.SupplierList.AccreDate, new { @class = "pickadate form-control", id = "AccreDate" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.AccreDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Valid Until</label>
+                                @Html.TextBoxFor(m => m.SupplierList.AccreValidUntil, new { @class = "form-control pickadate", id = "AccreValidUntil" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.AccreValidUntil, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Approved by</label>
+                                @Html.TextBoxFor(m => m.SupplierList.AccreApproveBy, new { @class = "form-control capsFirstLetter", type = "text", id = "" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.AccreApproveBy, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7">
+                            <div class="form-group">
+                                <label class="custom-form-margin">MOA</label>
+                                @Html.TextBoxFor(m => m.SupplierList.AccreMOA, new { @class = "form-control ", type = "text", id = "" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.AccreMOA, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-xl-12 col-sm-12 col-md-12">
+        <div class="card box-shadow-2">
+            <div class="card-header bg-active">
+                <h4 class="card-title black"><b>Owner's Profile</b></h4>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body menubackground">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Name</label>
+                                @Html.TextBoxFor(m => m.SupplierList.MFName, new { @class = "form-control capsFirstLetter", type = "text", id = "MFName" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.MFName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Contact No.</label>
+                                @Html.TextBoxFor(m => m.SupplierList.MFContactNo, new { @class = "form-control telNumber", type = "text", id = "MFContactNo" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.MFContactNo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-5 col-md-5">
+                            <div class="form-group">
+                                <label class="custom-form-margin">Address</label>
+                                @Html.TextBoxFor(m => m.SupplierList.MFAddress, new { @class = "form-control capsFirstLetter", type = "text", id = "MFAddress" })
+                                @Html.ValidationMessageFor(m => m.SupplierList.MFAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pb-1 pr-1">
+        <div class="col">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSupplierForm(1, 0)">Cancel</button>
+                <button type="submit" id="btnAddSupplier" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadDatePicker();
+        //changeBtnTxt('btnAddSupplier');
+        //disableButtonSave('btnAddSupplier');
+        //select2noSearch();
+        //placeholderDD();
+        //$(".genAccntCode1").Attr("readonly", "readonly");
+        //$(".genAccntCode1").css("color", "#c0c0c0");
+        //
+        //LoadICheck();
+
+    });
+</script>

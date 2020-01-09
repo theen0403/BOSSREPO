@@ -1,0 +1,86 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.SubsidiaryLedgerAccountModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+@using (Ajax.BeginForm("SaveSLAccnt", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetSLAccntForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.TextBoxFor(m => m.SLAccntList.SLAccntID, new { @id = "SLAccntID" })
+    @Html.TextBoxFor(m => m.ActionID2, new { @class = "ActionID2" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="card-body px-1 card-body rounded menubackground">
+        <div class="row">
+            <div class="col-xl-5 col-lg-7 col-md-7">
+                <div class="form-group">
+                    <label class="custom-form-margin">Subsidiary Ledger Account</label>
+                    @Html.TextAreaFor(m => m.SLAccntList.SLAccntTitle, new { @class = "form-control ", @rows = 1, type = "text", id = "" })
+                    @Html.ValidationMessageFor(m => m.SLAccntList.SLAccntTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-5 col-md-5">
+                <div class="form-group">
+                    <label class="custom-form-margin">Code</label>
+                    @Html.TextBoxFor(m => m.SLAccntList.SLAccntCode, new { @class = "form-control", type = "text", id = "" })
+                    @Html.ValidationMessageFor(m => m.SLAccntList.SLAccntCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label class="custom-form-margin">Subsidiary Ledger Class</label>
+                    @Html.DropDownListFor(m => m.SLAccntList.SLClassID, Model.SLClassTitleList, new { @class = "form-control select2 ", id = "", onchange = "" })
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label class="custom-form-margin">SL Category</label>
+                    @{
+                        List<SelectListItem> listItems = new List<SelectListItem>();
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Bank Account",
+                            Value = "Bank Account",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Payee",
+                            Value = "Payee",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Supplier",
+                            Value = "Supplier",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "Tax",
+                            Value = "Tax",
+                        });
+                        listItems.Add(new SelectListItem
+                        {
+                            Text = "N/A",
+                            Value = "0",
+                        });
+                    }
+                    @Html.DropDownListFor(m => m.SLAccntList.SLCategory, listItems, new { @class = "form-control select2 slCategoryDD", id = "", onchange = "onChangeSLCategory()" })
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label class="custom-form-margin">Category Description</label>
+                    @Html.DropDownListFor(m => m.SLAccntList.SLDescID, Model.SLDescTitle, new { @class = "form-control select2 slDescDD", id = "", onchange = "" })
+                </div>
+            </div>
+            <div class="col mt-xl-2">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSLAccntForm(1, 0)">Cancel</button>
+                <button type="submit" id="btnAddSLAccnt" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+    });
+</script>

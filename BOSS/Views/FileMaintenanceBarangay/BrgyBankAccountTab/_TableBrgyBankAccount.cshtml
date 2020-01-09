@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMBarangayModels.BrgyBankAccountList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+<table class="table table-striped zero-configuration text-center table-bordered dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
+    <thead>
+        <tr>
+            <th>Barangay</th>
+            <th>Bank Name</th>
+            <th>Account No</th>
+            <th width="5px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditBrgyBankAccntID' BrgyBankAccntAttr='" + Items.BrgyBankAccntID + "'><i class='ft-edit'></i> Edit</button>";
+                var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteBrgyBankAccntID' BrgyBankAccntAttr='" + Items.BrgyBankAccntID + "'><i class='la la-trash'></i> Delete</button>";
+
+                var Action = Update + Remove;
+
+                <tr>
+                    <td>@Items.BrgyName</td>
+                    <td>@Items.BankTitle</td>
+                    <td>@Items.AccntNo</td>
+                    <td class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

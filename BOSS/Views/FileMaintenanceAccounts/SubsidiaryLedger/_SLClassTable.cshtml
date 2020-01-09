@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMAccountsModels.SLClassList>
+@using BOSS.Models;
+
+<table class="table table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+    <thead>
+        <tr>
+            <th>Subsidiary Ledger Class</th>
+            <th>Subsidiary Ledger Code</th>
+            <th>Fund</th>
+            <th>General Account</th>
+            <th width="5px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSLClassID' SLClassAttr='" + Items.SLClassID + "'><i class='ft-edit'></i> Edit</button>";
+                var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSLClassID' SLClassAttr='" + Items.SLClassID + "'><i class='la la-trash'></i> Delete</button>";
+
+                var Action = Update + Remove;
+                <tr>
+                    <td>@Items.SLClassTitle</td>
+                    <td>@Items.SLClassCode</td>
+                    <td>@Items.FundTitle</td>
+                    <td>@Items.FundTitle</td>
+
+                    <td class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
+                                data-toggle="popover" data-content="@Action">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    });
+</script>

@@ -1,0 +1,77 @@
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.DepartmentModel
+@using (Ajax.BeginForm("SaveDept", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "ifExists(data,  GetDeptForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.DepartmentList.DeptID, new { @id = "DeptID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div class="row">
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Department</label>
+            @Html.TextAreaFor(m => m.DepartmentList.DeptTitle, new { @class = "form-control", @rows = 1, id = "DeptTitle" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.DeptTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Department Abbreviation</label>
+            @Html.TextBoxFor(m => m.DepartmentList.DeptAbbrv, new { @class = "form-control", type = "text", id = "DeptAbbrv" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.DeptAbbrv, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Responsibility Center Code</label>
+            @Html.TextBoxFor(m => m.DepartmentList.RCcode, new { @class = "form-control", type = "text", id = "RCcode" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.RCcode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-0">Fund</label>
+            @Html.DropDownListFor(m => m.DepartmentList.FundID, Model.FundList, new { @class = "form-control select2nosearch", id = "", onchange = "" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.FundID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 ">Sector</label>
+            @Html.DropDownListFor(m => m.DepartmentList.SectorID, Model.SectorList, new { @class = "form-control select2nosearch sectorDD", id = "", onchange = "onChangeSector_SubSector()" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.SectorID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-5 mt-lg-0 mt-xl-2  mt-md-2">
+        <div class="form-group">
+            <label class="custom-form-margin">Sub Sector</label>
+            @Html.DropDownListFor(m => m.DepartmentList.SubSectorID, Model.SubSectorList, new { @class = "form-control select2nosearch subSectorDD", id = "", onchange = "" })
+        </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-4">
+        <div class="form-group">
+            <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Office Type</label>
+            @Html.DropDownListFor(m => m.DepartmentList.OfficeTypeID, Model.OfficeTypeList, new { @class = "form-control select2nosearch", id = "", onchange = "" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.OfficeTypeID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-3 col-md-3">
+        <div class="form-group">
+            <label class="custom-form-margin">Department / Office Code</label>
+            @Html.TextBoxFor(m => m.DepartmentList.DeptOfficeCode, new { @class = "form-control ", type = "text", id = "" })
+            @Html.ValidationMessageFor(m => m.DepartmentList.DeptOfficeCode, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetDeptForm(1,0)">Cancel</button>
+            <button type="submit" id="btnAddDept" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+        </div>
+    </div>
+</div>
+}
+
+<script>
+    $(function () {
+        select2nosearch();
+    })
+</script>

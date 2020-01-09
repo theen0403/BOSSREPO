@@ -23,35 +23,81 @@ namespace BOSS.Controllers
             FunctionModel model = new FunctionModel();
             return View(model);
         }
-
-        public ActionResult DepartmentTab()
-        {
-            DepartmentModel model = new DepartmentModel();
-            return PartialView("DepartmentTab/_DepartmentTab", model);
-        }
-
-        public ActionResult FunctionTab()
-        {
-            FunctionModel model = new FunctionModel();
-            return PartialView("FunctionTab/_FunctionTab", model);
-        }
-        public ActionResult SectionTab()
-        {
-            SectionModel model = new SectionModel();
-            return PartialView("SectionTab/_SectionTab", model);
-        }
         //===============================================================================================
         //Department Tab
         //===============================================================================================
-        //View Table For Department Table
-        public ActionResult GetDepartmentDT()
+        public ActionResult GetDeptTab()
+        {
+            return PartialView("DepartmentTab/IndexDeptTab");
+        }
+        public ActionResult GetDeptForm(int ActionID, int DeptID)
         {
             DepartmentModel model = new DepartmentModel();
 
-            List<DepartmentList> getDeptList = new List<DepartmentList>();
+            if (ActionID == 2)
+            {
+                var deptTbl = (from a in BOSSDB.Tbl_FMRes_Department where a.DeptID == DeptID select a).FirstOrDefault();
+                model.DepartmentList.DeptTitle = deptTbl.DeptTitle;
+                model.DepartmentList.DeptAbbrv = deptTbl.DeptAbbrv;
+                model.DepartmentList.DeptOfficeCode = deptTbl.DeptOfficeCode;
+                model.DepartmentList.RCcode = deptTbl.RCcode;
+                model.DepartmentList.FundID = GlobalFunction.ReturnEmptyInt(deptTbl.FundID);
+                model.DepartmentList.SectorID = GlobalFunction.ReturnEmptyInt(deptTbl.SectorID);
+                model.DepartmentList.SubSectorID = GlobalFunction.ReturnEmptyInt(deptTbl.SubSectorID);
+                model.DepartmentList.OfficeTypeID = GlobalFunction.ReturnEmptyInt(deptTbl.OfficeTypeID);
+                model.DepartmentList.DeptID = deptTbl.DeptID;
 
-            //var SQLQuery = "SELECT [DeptID], [DeptTitle], [DeptAbbrv], [DeptOfficeCode], [SectorTitle], [FundTitle], [SubSectorID] FROM [Tbl_FMRes_Department], [FundType], [Sector] where[FundType].FundID = [Tbl_FMRes_Department].FundID and[Sector].SectorID = [Tbl_FMRes_Department].SectorID";
-            var SQLQuery = "SELECT [DeptID], [DeptTitle], [DeptAbbrv], [RCcode], [FundTitle], [SectorTitle], [SubSectorID], [OfficeTypeTitle], [DeptOfficeCode] FROM [Tbl_FMRes_Department], [Tbl_FMFund_Fund], [Tbl_FMSector_Sector] ,[Tbl_FMOfficeType] where [Tbl_FMFund_Fund].FundID = [Tbl_FMRes_Department].FundID and [Tbl_FMSector_Sector].SectorID = [Tbl_FMRes_Department].SectorID and [Tbl_FMOfficeType].OfficeTypeID = [Tbl_FMRes_Department].OfficeTypeID";
+                var getSubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == model.DepartmentList.SectorID select a).ToList();
+                foreach (var item in getSubSector)
+                {
+                    model.SubSectorList.Add(new SelectListItem() { Text = item.SubSectorTitle, Value = item.SubSectorID.ToString() });
+                }
+                model.SubSectorList.Add(new SelectListItem() { Text = "N/A", Value = "0" });
+            }
+            else
+            {
+                var firstSector = (from a in BOSSDB.Tbl_FMSector_Sector orderby a.SectorTitle select a).FirstOrDefault();
+                var getSubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == firstSector.SectorID select a).ToList();
+                foreach (var item in getSubSector)
+                {
+                    model.SubSectorList.Add(new SelectListItem() { Text = item.SubSectorTitle, Value = item.SubSectorID.ToString() });
+                }
+                model.SubSectorList.Add(new SelectListItem() { Text = "N/A", Value = "000" });
+
+
+            }
+
+            model.FundList = new SelectList(BOSSDB.Tbl_FMFund_Fund, "FundID", "FundTitle");
+            model.FundList = (from li in model.FundList orderby li.Text select li).ToList();
+
+            model.SectorList = new SelectList(BOSSDB.Tbl_FMSector_Sector, "SectorID", "SectorTitle");
+            model.SectorList = (from li in model.SectorList orderby li.Text select li).ToList();
+
+            model.OfficeTypeList = new SelectList(BOSSDB.Tbl_FMOfficeType, "OfficeTypeID", "OfficeTypeTitle");
+            model.OfficeTypeList = (from li in model.OfficeTypeList orderby li.Text select li).ToList();
+
+
+
+            model.ActionID = ActionID;
+
+            return PartialView("DepartmentTab/_DeptForm", model);
+        }
+        public ActionResult GetDeptDTable()
+        {
+            DepartmentModel model = new DepartmentModel();
+            
+            var SQLQuery = @"SELECT Tbl_FMRes_Department.*, Tbl_FMSector_Sector.SectorTitle, Tbl_FMSector_SubSector.SubSectorTitle,
+                            Tbl_FMFund_Fund.FundTitle, Tbl_FMOfficeType.OfficeTypeTitle
+                            FROM Tbl_FMRes_Department
+                            INNER JOIN Tbl_FMFund_Fund ON
+                            Tbl_FMRes_Department.FundID = Tbl_FMFund_Fund.FundID
+                            INNER JOIN Tbl_FMSector_Sector ON
+                            Tbl_FMRes_Department.SectorID = Tbl_FMSector_Sector.SectorID
+                            LEFT JOIN Tbl_FMSector_SubSector ON 
+                            Tbl_FMRes_Department.SubSectorID = Tbl_FMSector_SubSector.SubSectorID
+                            INNER JOIN Tbl_FMOfficeType ON
+                            Tbl_FMRes_Department.OfficeTypeID = Tbl_FMOfficeType.OfficeTypeID";
+
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -62,158 +108,267 @@ namespace BOSS.Controllers
                     SqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
-                        getDeptList.Add(new DepartmentList()
+
+                        model.getDepartmentList.Add(new DepartmentList()
                         {
-                            DeptID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[1]),
-                            DeptAbbrv = GlobalFunction.ReturnEmptyString(dr[2]),
-                            RCcode = GlobalFunction.ReturnEmptyString(dr[3]),
-                            FundTitle = GlobalFunction.ReturnEmptyString(dr[4]),
-                            SectorTitle = GlobalFunction.ReturnEmptyString(dr[5]),
+                            DeptID = GlobalFunction.ReturnEmptyInt(dr[0]), //okie
+                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[1]), //okie
+                            DeptAbbrv = GlobalFunction.ReturnEmptyString(dr[2]), //okie
+                            DeptOfficeCode = GlobalFunction.ReturnEmptyString(dr[3]),
+                            RCcode = GlobalFunction.ReturnEmptyString(dr[4]),
+                            SectorTitle = GlobalFunction.ReturnEmptyString(dr[9]),
                             SubSectorID = GlobalFunction.ReturnEmptyInt(dr[6]),
-                            OfficeTypeTitle = GlobalFunction.ReturnEmptyString(dr[7]),
-                            DeptOfficeCode = GlobalFunction.ReturnEmptyString(dr[8])
+                            FundTitle = GlobalFunction.ReturnEmptyString(dr[11]),
+                            OfficeTypeTitle = GlobalFunction.ReturnEmptyString(dr[12]),
+
                         });
                     }
                 }
                 Connection.Close();
             }
-            model.getDeptList = getDeptList.ToList();
-
-            return PartialView("DepartmentTab/_TableDepartmentList", model.getDeptList);
+            return PartialView("DepartmentTab/_TableDepartment", model.getDepartmentList);
         }
-        //Get Add Department Partial View
-        public ActionResult GetAddDepartment()
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveDept(DepartmentModel model)
         {
-            DepartmentModel model = new DepartmentModel();
-            return PartialView("DepartmentTab/_AddDepartment", model);
-        }
-        ////Add Department
-        public JsonResult AddNewDepartment(DepartmentModel model)
-        {
-            Tbl_FMRes_Department DepartmentTable = new Tbl_FMRes_Department();
+            var isExist = "";
 
-            DepartmentTable.DeptTitle = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptTitle);
-            DepartmentTable.DeptAbbrv = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptAbbrv);
-            DepartmentTable.RCcode = GlobalFunction.ReturnEmptyString(model.getDeptColumns.RCcode);
-            DepartmentTable.FundID = GlobalFunction.ReturnEmptyInt(model.FundID);
-            DepartmentTable.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
-            var SubSectorTemp = GlobalFunction.ReturnEmptyInt(model.SubSectorID);
-            if (SubSectorTemp == 0)
+            if (ModelState.IsValid)
             {
-                DepartmentTable.SubSectorID = null;
-            }
-            else
-            {
-                DepartmentTable.SubSectorID = model.SubSectorID;
-            }
-            DepartmentTable.OfficeTypeID = GlobalFunction.ReturnEmptyInt(model.OfficeTypeID);
-            DepartmentTable.DeptOfficeCode = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptOfficeCode);
+                var deptTitle = GlobalFunction.RemoveSpaces(model.DepartmentList.DeptTitle);
+                var deptAbbrv = GlobalFunction.RemoveSpaces(model.DepartmentList.DeptAbbrv);
+                var DeptOfficeCode = GlobalFunction.RemoveSpaces(model.DepartmentList.DeptOfficeCode);
+                var RCcode = GlobalFunction.RemoveSpaces(model.DepartmentList.RCcode);
+                var fundID = model.DepartmentList.FundID;
+                var sectorID = model.DepartmentList.SectorID;
+                var officeTypeID = model.DepartmentList.OfficeTypeID;
 
-            BOSSDB.Tbl_FMRes_Department.Add(DepartmentTable);
-            BOSSDB.SaveChanges();
-            return Json(DepartmentTable);
-        }
-        public ActionResult GetDynamicSubSector(int SectorID)
-        {
-            DepartmentModel model = new DepartmentModel();
 
-            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSector_SubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-            return PartialView("DepartmentTab/_DynamicSubSector", model);
-        }
-        public ActionResult GetDynamicSubSector2(DepartmentModel model, int SectorID, int subsectorIDHidden)
-        {
-            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSector_SubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-            model.SubSectorID = subsectorIDHidden;
-            return PartialView("DepartmentTab/_DynamicSubSector", model);
-        }
-        //Get Department Update Partial View
-        public ActionResult Get_UpdateDepartment(DepartmentModel model, int DeptID)
-        {
-            Tbl_FMRes_Department departmentTable = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-
-            model.getDeptColumns.DeptTitle = departmentTable.DeptTitle;
-            model.getDeptColumns.DeptAbbrv = departmentTable.DeptAbbrv;
-            model.getDeptColumns.RCcode = departmentTable.RCcode;
-            model.FundID = Convert.ToInt32(departmentTable.FundID);
-            model.SectorID = Convert.ToInt32(departmentTable.SectorID);
-            model.subsectorIDHidden = Convert.ToInt32(departmentTable.SubSectorID);
-            model.getDeptColumns.DeptOfficeCode = departmentTable.DeptOfficeCode;
-            model.OfficeTypeID = Convert.ToInt32(departmentTable.OfficeTypeID);
-            model.DeptID = DeptID;
-
-            return PartialView("DepartmentTab/_UpdateDepartment", model);
-        }
-        //Update Department
-        public ActionResult UpdateDepartment(DepartmentModel model)
-        {
-            Tbl_FMRes_Department departmentTBL = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == model.DeptID select e).FirstOrDefault();
-
-            departmentTBL.DeptTitle = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptTitle);
-            departmentTBL.DeptAbbrv = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptAbbrv);
-            departmentTBL.RCcode = GlobalFunction.ReturnEmptyString(model.getDeptColumns.RCcode);
-            departmentTBL.FundID = GlobalFunction.ReturnEmptyInt(model.FundID);
-            departmentTBL.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
-            var SubSectorTemp = GlobalFunction.ReturnEmptyInt(model.SubSectorID);
-            if (SubSectorTemp == 0)
-            {
-                departmentTBL.SubSectorID = null;
-            }
-            else
-            {
-                departmentTBL.SubSectorID = model.SubSectorID;
-            }
-            departmentTBL.OfficeTypeID = GlobalFunction.ReturnEmptyInt(model.OfficeTypeID);
-            departmentTBL.DeptOfficeCode = GlobalFunction.ReturnEmptyString(model.getDeptColumns.DeptOfficeCode);
-            BOSSDB.Entry(departmentTBL);
-            BOSSDB.SaveChanges();
-            return PartialView("DepartmentTab/_AddDepartment", model);
-        }
-        public ActionResult DeleteDepartment(DepartmentModel model, int DeptID)
-        {
-            List<Tbl_FMRes_Section> tblOfficeSec = (from e in BOSSDB.Tbl_FMRes_Section where e.DeptID == DeptID select e).ToList();
-            List<Tbl_FMRes_Function> tblfunction = (from e in BOSSDB.Tbl_FMRes_Function where e.DeptID == DeptID select e).ToList();
-            if (tblOfficeSec != null)
-            {
-                foreach (var items in tblOfficeSec)
+                int? subSectorID = model.DepartmentList.SubSectorID;
+                if (subSectorID == 000 || subSectorID == 0)
                 {
-                    BOSSDB.Tbl_FMRes_Section.Remove(items);
-                    BOSSDB.SaveChanges();
+                    subSectorID = null;
                 }
-            } else if (tblfunction != null)
-            {
-                foreach (var items in tblfunction)
+                else
                 {
-                    BOSSDB.Tbl_FMRes_Function.Remove(items);
-                    BOSSDB.SaveChanges();
+                    subSectorID = model.DepartmentList.SubSectorID;
+                }
+
+                List<Tbl_FMRes_Department> deptFields = (from a in BOSSDB.Tbl_FMRes_Department where (a.FundID == fundID && a.SectorID == sectorID) && (a.SubSectorID == subSectorID && a.OfficeTypeID == officeTypeID) select a).ToList();
+                Tbl_FMRes_Department deptTbl = (from a in BOSSDB.Tbl_FMRes_Department where a.DeptID == model.DepartmentList.DeptID select a).FirstOrDefault();
+                var save = false;
+                if (deptFields.Count > 0)
+                {
+                    foreach (var item in deptFields)
+                    {
+                        if (deptTbl != null)
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.DeptTitle) == GlobalFunction.AutoCaps_RemoveSpaces(deptTitle) &&
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.DeptOfficeCode) == GlobalFunction.AutoCaps_RemoveSpaces(DeptOfficeCode) &&
+                                item.DeptID == deptTbl.DeptID)  // walang binago
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.DeptTitle) != GlobalFunction.AutoCaps_RemoveSpaces(deptTitle) &&
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.DeptOfficeCode) != GlobalFunction.AutoCaps_RemoveSpaces(DeptOfficeCode) || item.DeptID == deptTbl.DeptID) // may binago pero walang kaparehas
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.DeptTitle) == GlobalFunction.AutoCaps_RemoveSpaces(deptTitle) ||
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.DeptOfficeCode) == GlobalFunction.AutoCaps_RemoveSpaces(DeptOfficeCode)) // may binago pero may kaparehas
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.DeptTitle) != GlobalFunction.AutoCaps_RemoveSpaces(deptTitle) &&
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.DeptOfficeCode) != GlobalFunction.AutoCaps_RemoveSpaces(DeptOfficeCode)) // for adding
+                            {
+                                save = true;
+                            }
+                            else
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    save = true;
+                }
+
+                switch (save)
+                {
+                    case true:
+                        switch (model.ActionID)
+                        {
+                            case 1:
+                                Tbl_FMRes_Department deptTblAdd = new Tbl_FMRes_Department();
+                                deptTblAdd.DeptTitle = deptTitle;
+                                deptTblAdd.DeptAbbrv = deptAbbrv;
+                                deptTblAdd.DeptOfficeCode = DeptOfficeCode;
+                                deptTblAdd.RCcode = RCcode;
+                                deptTblAdd.FundID = fundID;
+                                deptTblAdd.SectorID = sectorID;
+                                deptTblAdd.SubSectorID = subSectorID;
+                                deptTblAdd.OfficeTypeID = officeTypeID;
+
+                                BOSSDB.Tbl_FMRes_Department.Add(deptTblAdd);
+                                BOSSDB.SaveChanges();
+                                isExist = "false";
+                                break;
+
+                            case 2:
+                                deptTbl.DeptTitle = deptTitle;
+                                deptTbl.DeptAbbrv = deptAbbrv;
+                                deptTbl.DeptOfficeCode = DeptOfficeCode;
+                                deptTbl.RCcode = RCcode;
+                                deptTbl.FundID = fundID;
+                                deptTbl.SectorID = sectorID;
+                                deptTbl.SubSectorID = subSectorID;
+                                deptTbl.OfficeTypeID = officeTypeID;
+
+                                BOSSDB.Entry(deptTbl);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                                break;
+                        }
+                        break;
+                    default:
+                        isExist = "true";
+                        break;
                 }
             }
-            //List<Tbl_FMRes_Function> tblfunction = (from e in BOSSDB.Tbl_FMRes_Function where e.DeptID == DeptID select e).ToList();
-            //if (tblfunction != null)
-            //{
-            //    foreach (var items in tblfunction)
-            //    {
-            //        BOSSDB.Tbl_FMRes_Function.Remove(items);
-            //        BOSSDB.SaveChanges();
-            //    }
-            //}
-            Tbl_FMRes_Department deptTBL = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMRes_Department.Remove(deptTBL);
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteDept(int PrimaryID)
+        {
+            Tbl_FMRes_Department deptTbl = (from a in BOSSDB.Tbl_FMRes_Department where a.DeptID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMRes_Function functTbl = (from a in BOSSDB.Tbl_FMRes_Function where a.DeptID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (deptTbl != null)
+            {
+                if (functTbl != null)
+                {
+                    confirmDelete = "restricted";
+                }
+
+                else
+                {
+                    confirmDelete = "false";
+                }
+
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteDept(int PrimaryID)
+        {
+            Tbl_FMRes_Department deptTbl = (from a in BOSSDB.Tbl_FMRes_Department where a.DeptID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.Tbl_FMRes_Department.Remove(deptTbl);
             BOSSDB.SaveChanges();
-            return RedirectToAction("FileResponsibility");
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         //===============================================================================================
         //Function Tab
         //===============================================================================================
-        //View Table For Function Table
-        public ActionResult GetFunctionDT()
+        public ActionResult GetFunctionTab()
+        {
+            return PartialView("FunctionTab/IndexFuncTab");
+        }
+        public ActionResult GetFuncForm(int ActionID, int FunctionID)
         {
             FunctionModel model = new FunctionModel();
 
-            List<FunctionList> getFuncList = new List<FunctionList>();
-            var SQLQuery = "";
-            //SQLQuery = "SELECT [FunctionID], [FunctionTitle], [FunctionAbbrv], [FunctionCode], [SectorTitle],[Tbl_FMRes_Department].[SubSectorID],[FundTitle], [dbo].[Tbl_FMRes_Function].[DeptID]FROM [dbo].[Tbl_FMRes_Function], [dbo].[FundType],[dbo].[Tbl_FMRes_Department] ,[dbo].[Sector] where[FundType].FundID = [Tbl_FMRes_Function].FundID and [Tbl_FMRes_Department].[DeptID] = [Tbl_FMRes_Function].[DeptID] and [Sector].[SectorID] = [Tbl_FMRes_Department].[SectorID] and [Tbl_FMRes_Function].[DeptID]=" + deptID;
-            SQLQuery = "SELECT [FunctionID], [DeptTitle], [FunctionTitle], [FunctionAbbrv], [FunctionCode], [FundTitle], [SectorTitle], [Tbl_FMRes_Function].[SubSectorID], [OfficeTypeTitle], [DeptOfficeCodefunc] FROM [BOSS].[dbo].[Tbl_FMRes_Function], [Tbl_FMSector_Sector], [Tbl_FMRes_Department], [Tbl_FMOfficeType], [Tbl_FMFund_Fund] where [Tbl_FMSector_Sector].SectorID = [Tbl_FMRes_Function].SectorID and [Tbl_FMRes_Department].DeptID = [Tbl_FMRes_Function].DeptID and [Tbl_FMOfficeType].OfficeTypeID = [Tbl_FMRes_Function].OfficeTypeID and [Tbl_FMFund_Fund].FundID = [Tbl_FMRes_Department].FundID";
+            if (ActionID == 2)
+            {
+                Tbl_FMRes_Function funcTbl = (from a in BOSSDB.Tbl_FMRes_Function where a.FunctionID == FunctionID select a).FirstOrDefault();
+                model.FunctionList.FunctionTitle = funcTbl.FunctionTitle;
+                model.FunctionList.FunctionAbbrv = funcTbl.FunctionAbbrv;
+                model.FunctionList.FunctionCode = funcTbl.FunctionCode;
+                model.FunctionList.SectorID = GlobalFunction.ReturnEmptyInt(funcTbl.SectorID);
+                model.FunctionList.SubSectorID = GlobalFunction.ReturnEmptyInt(funcTbl.SubSectorID);
+                model.FunctionList.OfficeTypeID = GlobalFunction.ReturnEmptyInt(funcTbl.OfficeTypeID);
+                model.FunctionList.DeptID = GlobalFunction.ReturnEmptyInt(funcTbl.DeptID);
+                model.FunctionList.FundTitle = GlobalFunction.ReturnEmptyString(funcTbl.Tbl_FMRes_Department.Tbl_FMFund_Fund.FundTitle);
+
+                model.FunctionList.DeptOfficeCodefunc = funcTbl.DeptOfficeCodefunc;
+                model.FunctionList.FunctionID = funcTbl.FunctionID;
+
+                var getSubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == model.FunctionList.SectorID select a).ToList();
+                foreach (var item in getSubSector)
+                {
+                    model.SubSectorList.Add(new SelectListItem() { Text = item.SubSectorTitle, Value = item.SubSectorID.ToString() });
+                }
+                model.SubSectorList.Add(new SelectListItem() { Text = "N/A", Value = "0" });
+            }
+            else
+            {
+                var firstSector = (from a in BOSSDB.Tbl_FMSector_Sector orderby a.SectorTitle select a).FirstOrDefault();
+                var getSubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == firstSector.SectorID select a).ToList();
+                foreach (var item in getSubSector)
+                {
+                    model.SubSectorList.Add(new SelectListItem() { Text = item.SubSectorTitle, Value = item.SubSectorID.ToString() });
+                }
+                model.SubSectorList.Add(new SelectListItem() { Text = "N/A", Value = "000" });
+                var getFirstDept = (from a in BOSSDB.Tbl_FMRes_Department orderby a.DeptTitle select a).FirstOrDefault();
+                if (getFirstDept != null)
+                {
+                    model.FunctionList.FundTitle = getFirstDept.Tbl_FMFund_Fund.FundTitle;
+                    model.FunctionList.DeptOfficeCodefunc = getFirstDept.DeptOfficeCode;
+                }
+
+
+            }
+
+            model.DeptList = new SelectList(BOSSDB.Tbl_FMRes_Department, "DeptID", "DeptTitle");
+            model.DeptList = (from li in model.DeptList orderby li.Text select li).ToList();
+
+            model.SectorList = new SelectList(BOSSDB.Tbl_FMSector_Sector, "SectorID", "SectorTitle");
+            model.SectorList = (from li in model.SectorList orderby li.Text select li).ToList();
+
+            model.OfficeTypeList = new SelectList(BOSSDB.Tbl_FMOfficeType, "OfficeTypeID", "OfficeTypeTitle");
+            model.OfficeTypeList = (from li in model.OfficeTypeList orderby li.Text select li).ToList();
+
+
+
+
+            model.ActionID = ActionID;
+
+            return PartialView("FunctionTab/_FuncForm", model);
+        }
+        public ActionResult GetFuncDTable()
+        {
+            FunctionModel model = new FunctionModel();
+
+            var SQLQuery = @"SELECT Tbl_FMRes_Function.*, Tbl_FMSector_Sector.SectorTitle, Tbl_FMSector_SubSector.SubSectorTitle,
+                            Tbl_FMRes_Department.DeptTitle, Tbl_FMOfficeType.OfficeTypeTitle, Tbl_FMFund_Fund.FundTitle
+                            FROM Tbl_FMRes_Function
+							INNER JOIN Tbl_FMRes_Department ON
+                            Tbl_FMRes_Function.DeptID = Tbl_FMRes_Department.DeptID
+							INNER JOIN Tbl_FMFund_Fund ON
+                            Tbl_FMRes_Department.FundID = Tbl_FMFund_Fund.FundID
+                            INNER JOIN Tbl_FMSector_Sector ON
+                            Tbl_FMRes_Function.SectorID = Tbl_FMSector_Sector.SectorID
+                            LEFT JOIN Tbl_FMSector_SubSector ON 
+                            Tbl_FMRes_Function.SubSectorID = Tbl_FMSector_SubSector.SubSectorID
+                            INNER JOIN Tbl_FMOfficeType ON
+                            Tbl_FMRes_Function.OfficeTypeID = Tbl_FMOfficeType.OfficeTypeID";
+
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -224,199 +379,230 @@ namespace BOSS.Controllers
                     SqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
-                        getFuncList.Add(new FunctionList()
+
+                        model.getFunctionList.Add(new FunctionList()
                         {
-                            FunctionID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[1]),
-                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            FunctionAbbrv = GlobalFunction.ReturnEmptyString(dr[3]),
-                            FunctionCode = GlobalFunction.ReturnEmptyString(dr[4]),
-                            FundTitle = GlobalFunction.ReturnEmptyString(dr[5]),
-                            SectorTitle = GlobalFunction.ReturnEmptyString(dr[6]),
-                            SubSectorID = GlobalFunction.ReturnEmptyInt(dr[7]),
-                            OfficeTypeTitle =GlobalFunction.ReturnEmptyString(dr[8]),
-                            DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(dr[9])
+
+                            FunctionID = GlobalFunction.ReturnEmptyInt(dr[0]), //okie
+                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[1]), //okie
+                            FunctionAbbrv = GlobalFunction.ReturnEmptyString(dr[2]), //okie
+                            FunctionCode = GlobalFunction.ReturnEmptyString(dr[3]),
+                            DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(dr[7]),
+
+                            SectorTitle = GlobalFunction.ReturnEmptyString(dr[9]),
+                            SubSectorID = GlobalFunction.ReturnEmptyInt(dr[5]),
+                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[11]),
+                            OfficeTypeTitle = GlobalFunction.ReturnEmptyString(dr[12]),
+                            FundTitle = GlobalFunction.ReturnEmptyString(dr[13]),
                         });
                     }
                 }
                 Connection.Close();
             }
-            model.getFuncList = getFuncList.ToList();
-
-            return PartialView("FunctionTab/_TableFunctionList", model.getFuncList);
+            return PartialView("FunctionTab/_TableFunc", model.getFunctionList);
         }
-        //Get Add Function Partial View
-        public ActionResult GetAddFunction()
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveFunction(FunctionModel model)
         {
-            FunctionModel model = new FunctionModel();
-            return PartialView("FunctionTab/_AddFunction", model);
-        }
-        //Viewing of Fund Title
-        public ActionResult GetFund(int DeptID)
-        {
-            FunctionModel model = new FunctionModel();
-            var funcTable = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-            //model.FundTitle = funcTable.Fund.FundTitle;
+            var isExist = "";
 
-            var departmentFund = (from e in BOSSDB.Tbl_FMFund_Fund where e.FundID == funcTable.FundID select e).FirstOrDefault();
-
-            var fundtitle = "N/A";
-            if (departmentFund != null)
+            if (ModelState.IsValid)
             {
-                fundtitle = departmentFund.FundTitle;
-            }
-            model.FundTitle = fundtitle;
-            return PartialView("FunctionTab/_DynamicFundTitle", model);
-        }
-        //Viewing of Department / Office Code
-        public ActionResult GetDeptOfficeCode(int DeptID)
-        {
-            FunctionModel model = new FunctionModel();
-            var deptTable = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-            model.DeptOfficeCodefunc = deptTable.DeptOfficeCode;
-            
-            return PartialView("FunctionTab/_DynamicDeptOfficeCode", model);
-        }
-        ////Viewing of Sector Code
-        //public ActionResult GetSectorfromDept(int DeptID)
-        //{
-        //    FunctionModel model = new FunctionModel();
-        //    var deptTable = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-           
-        //    model.SectorID = Convert.ToInt32(deptTable.SectorID);
+                var FunctionTitle = GlobalFunction.RemoveSpaces(model.FunctionList.FunctionTitle);
+                var FunctionAbbrv = GlobalFunction.RemoveSpaces(model.FunctionList.FunctionAbbrv);
+                var FunctionCode = GlobalFunction.RemoveSpaces(model.FunctionList.FunctionCode);
+                var DeptOfficeCodefunc = GlobalFunction.RemoveSpaces(model.FunctionList.DeptOfficeCodefunc);
+                var SectorID = model.FunctionList.SectorID;
+                var OfficeTypeID = model.FunctionList.OfficeTypeID;
+                var DeptID = model.FunctionList.DeptID;
+                var FunctionID = model.FunctionList.FunctionID;
 
-        //    return PartialView("FunctionTab/_DynamicSectorField", model);
-        //}
-        ////Viewing of SubSector Code
-        //public ActionResult GetSubSectorfromDept(int DeptID)
-        //{
-        //    FunctionModel model = new FunctionModel();
-        //    var deptTable = (from e in BOSSDB.Tbl_FMRes_Department where e.DeptID == DeptID select e).FirstOrDefault();
-
-        //    model.SubSectorID = deptTable.SubSector.SubSectorID;
-
-        //    return PartialView("FunctionTab/_DynamicSubSectorfunc", model);
-        //}
-        //Add Function
-        public ActionResult AddNewFunction(FunctionModel model)
-        {
-            Tbl_FMRes_Function FunctionTable = new Tbl_FMRes_Function();
-
-            FunctionTable.FunctionTitle = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionTitle);
-            FunctionTable.FunctionAbbrv = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionAbbrv);
-            FunctionTable.FunctionCode = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionCode);
-            FunctionTable.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
-            var SubSectorTemp = GlobalFunction.ReturnEmptyInt(model.SubSectorID);
-            if (SubSectorTemp == 0)
-            {
-                FunctionTable.SubSectorID = null;
-            }
-            else
-            {
-                FunctionTable.SubSectorID = model.SubSectorID;
-            }
-            FunctionTable.OfficeTypeID = GlobalFunction.ReturnEmptyInt(model.OfficeTypeID);
-            FunctionTable.DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(model.DeptOfficeCodefunc);
-            FunctionTable.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
-            BOSSDB.Tbl_FMRes_Function.Add(FunctionTable);
-            BOSSDB.SaveChanges();
-
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetDynamicSubSectorfunc(int SectorID)
-        {
-            FunctionModel model = new FunctionModel();
-
-            model.SubSectorListfunc = new SelectList((from s in BOSSDB.Tbl_FMSector_SubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-
-            return PartialView("FunctionTab/_DynamicSubSectorfunc", model);
-        }
-        public ActionResult GetDynamicSubSectorfunc2(FunctionModel model, int SectorID, int subsectorIDHiddenfunc)
-        {
-            model.SubSectorListfunc = new SelectList((from s in BOSSDB.Tbl_FMSector_SubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-            model.SubSectorID = subsectorIDHiddenfunc;
-            return PartialView("FunctionTab/_DynamicSubSector", model);
-        }
-        //Get Function Update Partial View
-        public ActionResult Get_UpdateFunction(FunctionModel model, int FunctionID)
-        {
-            Tbl_FMRes_Function functionTable = (from e in BOSSDB.Tbl_FMRes_Function where e.FunctionID == FunctionID select e).FirstOrDefault();
-
-            model.getFunctionColumns.FunctionTitle = functionTable.FunctionTitle;
-            model.getFunctionColumns.FunctionAbbrv = functionTable.FunctionAbbrv;
-            model.getFunctionColumns.FunctionCode = functionTable.FunctionCode;
-            model.SectorID = Convert.ToInt32(functionTable.SectorID);
-            model.subsectorIDHiddenfunc = Convert.ToInt32(functionTable.SubSectorID);
-            model.OfficeTypeID = Convert.ToInt32(functionTable.OfficeTypeID);
-            model.getFunctionColumns.DeptOfficeCodefunc = functionTable.DeptOfficeCodefunc;
-            model.DeptID = Convert.ToInt32(functionTable.DeptID);
-            model.FunctionID = FunctionID;
-            return PartialView("FunctionTab/_UpdateFunction", model);
-        }
-        //Get Dynamic SubSector For Update Partial View
-        public ActionResult GetSectorSubsectorforUpdate(int SectorID)
-        {
-            DepartmentModel model = new DepartmentModel();
-
-            model.SubSectorList = new SelectList((from s in BOSSDB.Tbl_FMSector_SubSector.Where(a => a.SectorID == SectorID).ToList() select new { SubSectorID = s.SubSectorID, SubSectorTitle = s.SubSectorTitle }), "SubSectorID", "SubSectorTitle");
-
-            return PartialView("DynamicFields/_UpdateDynamicSubSector", model);
-        }
-        //Update Function
-        public ActionResult UpdateFunction(FunctionModel model)
-        {
-            Tbl_FMRes_Function functionTBL = (from e in BOSSDB.Tbl_FMRes_Function where e.FunctionID == model.FunctionID select e).FirstOrDefault();
-
-            functionTBL.FunctionTitle = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionTitle);
-            functionTBL.FunctionAbbrv = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionAbbrv);
-            functionTBL.FunctionCode = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.FunctionCode);
-            functionTBL.SectorID = GlobalFunction.ReturnEmptyInt(model.SectorID);
-            var SubSectorTemp = GlobalFunction.ReturnEmptyInt(model.SubSectorID);
-            if (SubSectorTemp == 0)
-            {
-                functionTBL.SubSectorID = null;
-            }
-            else
-            {
-                functionTBL.SubSectorID = model.SubSectorID;
-            }
-            functionTBL.OfficeTypeID = GlobalFunction.ReturnEmptyInt(model.OfficeTypeID);
-            functionTBL.DeptOfficeCodefunc = GlobalFunction.ReturnEmptyString(model.getFunctionColumns.DeptOfficeCodefunc);
-            functionTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
-            BOSSDB.Entry(functionTBL);
-            BOSSDB.SaveChanges();
-
-            var result = "";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        //Delete Function
-        public ActionResult DeleteFunction(FunctionModel model, int FunctionID)
-        {
-            List<Tbl_FMRes_Section> tblOfficeSec = (from e in BOSSDB.Tbl_FMRes_Section where e.FunctionID == FunctionID select e).ToList();
-            if (tblOfficeSec != null)
-            {
-                foreach (var items in tblOfficeSec)
+                int? SubSectorID = model.FunctionList.SubSectorID;
+                if (SubSectorID == 000 || SubSectorID == 0)
                 {
-                    BOSSDB.Tbl_FMRes_Section.Remove(items);
-                    BOSSDB.SaveChanges();
+                    SubSectorID = null;
+                }
+                else
+                {
+                    SubSectorID = model.FunctionList.SubSectorID;
+                }
+
+                List<Tbl_FMRes_Function> functionList = (from a in BOSSDB.Tbl_FMRes_Function where (a.DeptID == DeptID) select a).ToList();
+                Tbl_FMRes_Function functionRecord = (from a in BOSSDB.Tbl_FMRes_Function where a.FunctionID == FunctionID select a).FirstOrDefault();
+                var save = false;
+                if (functionList.Count > 0)
+                {
+                    foreach (var item in functionList)
+                    {
+                        if (functionRecord != null)
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionTitle) == GlobalFunction.AutoCaps_RemoveSpaces(FunctionTitle) &&
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionCode) == GlobalFunction.AutoCaps_RemoveSpaces(FunctionCode) &&
+                                item.DeptID == functionRecord.DeptID)  // walang binago
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionTitle) != GlobalFunction.AutoCaps_RemoveSpaces(FunctionTitle) &&
+                               GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionCode) != GlobalFunction.AutoCaps_RemoveSpaces(FunctionCode) ||
+                               item.DeptID == functionRecord.DeptID) // may binago pero walang kaparehas
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionTitle) == GlobalFunction.AutoCaps_RemoveSpaces(FunctionTitle) ||
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionCode) == GlobalFunction.AutoCaps_RemoveSpaces(FunctionCode)) // may binago pero may kaparehas
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionTitle) != GlobalFunction.AutoCaps_RemoveSpaces(FunctionTitle) &&
+                                GlobalFunction.AutoCaps_RemoveSpaces(item.FunctionCode) != GlobalFunction.AutoCaps_RemoveSpaces(FunctionCode)) // for adding
+                            {
+                                save = true;
+                            }
+                            else
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    save = true;
+                }
+
+                switch (save)
+                {
+                    case true:
+                        switch (model.ActionID)
+                        {
+                            case 1:
+                                Tbl_FMRes_Function functionAdd = new Tbl_FMRes_Function();
+                                functionAdd.FunctionTitle = FunctionTitle;
+                                functionAdd.FunctionAbbrv = FunctionAbbrv;
+                                functionAdd.FunctionCode = FunctionCode;
+                                functionAdd.DeptOfficeCodefunc = DeptOfficeCodefunc;
+                                functionAdd.SectorID = SectorID;
+                                functionAdd.SubSectorID = SubSectorID;
+                                functionAdd.OfficeTypeID = OfficeTypeID;
+                                functionAdd.DeptID = DeptID;
+
+                                BOSSDB.Tbl_FMRes_Function.Add(functionAdd);
+                                BOSSDB.SaveChanges();
+                                isExist = "false";
+                                break;
+
+                            case 2:
+                                functionRecord.FunctionTitle = FunctionTitle;
+                                functionRecord.FunctionAbbrv = FunctionAbbrv;
+                                functionRecord.FunctionCode = FunctionCode;
+                                functionRecord.DeptOfficeCodefunc = DeptOfficeCodefunc;
+                                functionRecord.SectorID = SectorID;
+                                functionRecord.SubSectorID = SubSectorID;
+                                functionRecord.OfficeTypeID = OfficeTypeID;
+                                functionRecord.DeptID = DeptID;
+
+                                BOSSDB.Entry(functionRecord);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                                break;
+                        }
+                        break;
+                    default:
+                        isExist = "true";
+                        break;
                 }
             }
-            Tbl_FMRes_Function FuncTBL = (from e in BOSSDB.Tbl_FMRes_Function where e.FunctionID == FunctionID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMRes_Function.Remove(FuncTBL);
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteFunction(int PrimaryID)
+        {
+            Tbl_FMRes_Function functionTbl = (from a in BOSSDB.Tbl_FMRes_Function where a.FunctionID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMRes_Section sectionRecord = (from a in BOSSDB.Tbl_FMRes_Section where a.FunctionID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (functionTbl != null)
+            {
+                if (sectionRecord != null)
+                {
+                    confirmDelete = "restricted";
+                }
+
+                else
+                {
+                    confirmDelete = "false";
+                }
+
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteFunction(int PrimaryID)
+        {
+            Tbl_FMRes_Function functionTbl = (from a in BOSSDB.Tbl_FMRes_Function where a.FunctionID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.Tbl_FMRes_Function.Remove(functionTbl);
             BOSSDB.SaveChanges();
-            return RedirectToAction("FileResponsibility");
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         //===============================================================================================
         //Section Tab
         //===============================================================================================
-        //View Table For Office Section Table
-        public ActionResult GetSectionDT()
+        public ActionResult GetSecTab()
+        {
+            return PartialView("SectionTab/IndexSectionTab");
+        }
+        public ActionResult GetSectionForm(int ActionID, int SectionID)
         {
             SectionModel model = new SectionModel();
-            List<SectionList> getOfficeSecList = new List<SectionList>();
-            var SQLQuery = "SELECT [SectionID], [SectionTitle], [DeptTitle], [FunctionTitle] FROM [BOSS].[dbo].[Tbl_FMRes_Section],Tbl_FMRes_Department,Tbl_FMRes_Function where Tbl_FMRes_Department.DeptID = [Tbl_FMRes_Section].DeptID and Tbl_FMRes_Function.FunctionID = [Tbl_FMRes_Section].FunctionID";
-            
+
+            if (ActionID == 2)
+            {
+                Tbl_FMRes_Section sectionTbl = (from a in BOSSDB.Tbl_FMRes_Section where a.SectionID == SectionID select a).FirstOrDefault();
+                model.SectionList.SectionTitle = sectionTbl.SectionTitle;
+                model.SectionList.FunctionID = GlobalFunction.ReturnEmptyInt(sectionTbl.FunctionID);
+                model.SectionList.DeptID = GlobalFunction.ReturnEmptyInt(sectionTbl.Tbl_FMRes_Function.Tbl_FMRes_Department.DeptID);
+                model.SectionList.SectionID = sectionTbl.SectionID;
+                var functionList = (from a in BOSSDB.Tbl_FMRes_Function where a.DeptID == model.SectionList.DeptID orderby a.FunctionTitle select a).ToList();
+                model.FunctionList = new SelectList(functionList, "FunctionID", "FunctionTitle");
+            }
+            else
+            {
+                model.SectionList.DeptID = (from a in BOSSDB.Tbl_FMRes_Department orderby a.DeptTitle select a.DeptID).FirstOrDefault();
+                var functionList = (from a in BOSSDB.Tbl_FMRes_Function where a.DeptID == model.SectionList.DeptID orderby a.FunctionTitle select a).ToList();
+                model.FunctionList = new SelectList(functionList, "FunctionID", "FunctionTitle");
+            }
+
+            model.DeptList = new SelectList(BOSSDB.Tbl_FMRes_Department, "DeptID", "DeptTitle");
+            model.DeptList = (from li in model.DeptList orderby li.Text select li).ToList();
+
+
+            model.ActionID = ActionID;
+            return PartialView("SectionTab/_SectionForm", model);
+        }
+        public ActionResult GetSectionDTable()
+        {
+            SectionModel model = new SectionModel();
+
+            var SQLQuery = @"SELECT Tbl_FMRes_Section.*, Tbl_FMRes_Function.FunctionTitle, Tbl_FMRes_Department.DeptTitle
+                            FROM Tbl_FMRes_Section
+                            INNER JOIN Tbl_FMRes_Function ON 
+                            Tbl_FMRes_Section.FunctionID = Tbl_FMRes_Function.FunctionID
+                            INNER JOIN Tbl_FMRes_Department ON 
+                            Tbl_FMRes_Function.DeptID = Tbl_FMRes_Department.DeptID  ";
+
             using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
             {
                 Connection.Open();
@@ -427,88 +613,182 @@ namespace BOSS.Controllers
                     SqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
-                        getOfficeSecList.Add(new SectionList()
+
+                        model.getSectionList.Add(new SectionList()
                         {
-                            SectionID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            SectionID = GlobalFunction.ReturnEmptyInt(dr[0]), 
                             SectionTitle = GlobalFunction.ReturnEmptyString(dr[1]),
-                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[2]),
-                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[3])
+                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[4]),
+                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[5]),
                         });
                     }
                 }
                 Connection.Close();
             }
-            model.getSectionList = getOfficeSecList.ToList();
-
-            return PartialView("SectionTab/_TableSectionList", model.getSectionList);
+            return PartialView("SectionTab/_TableSection", model.getSectionList);
         }
-        public ActionResult GetDynamicFunction(int DeptID)
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveSection(SectionModel model)
         {
-            SectionModel model = new SectionModel();
+            var isExist = "";
 
-            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMRes_Function.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
+            if (ModelState.IsValid)
+            {
+                var SectionTitle = GlobalFunction.RemoveSpaces(model.SectionList.SectionTitle);
+                var FunctionID = model.SectionList.FunctionID;
+                var SectionID = model.SectionList.SectionID;
+                var DeptID = model.SectionList.DeptID;
 
-            return PartialView("SectionTab/_DynamicFunction", model);
+
+                List<Tbl_FMRes_Section> sectionList = (from a in BOSSDB.Tbl_FMRes_Section where (a.FunctionID == FunctionID && a.Tbl_FMRes_Function.DeptID == DeptID) select a).ToList();
+                Tbl_FMRes_Section sectionRecord = (from a in BOSSDB.Tbl_FMRes_Section where a.SectionID == SectionID select a).FirstOrDefault();
+                var save = false;
+                if (sectionList.Count > 0)
+                {
+                    foreach (var item in sectionList)
+                    {
+                        if (sectionRecord != null)
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.SectionTitle) == GlobalFunction.AutoCaps_RemoveSpaces(SectionTitle) && item.SectionID == sectionRecord.SectionID)  // walang binago
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.SectionTitle) != GlobalFunction.AutoCaps_RemoveSpaces(SectionTitle) || item.SectionID == sectionRecord.SectionID) // may binago pero walang kaparehas
+                            {
+                                save = true;
+                            }
+                            else if (GlobalFunction.AutoCaps_RemoveSpaces(item.SectionTitle) == GlobalFunction.AutoCaps_RemoveSpaces(SectionTitle)) // may binago pero may kaparehas
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (GlobalFunction.AutoCaps_RemoveSpaces(item.SectionTitle) != GlobalFunction.AutoCaps_RemoveSpaces(SectionTitle)) // for adding
+                            {
+                                save = true;
+                            }
+                            else
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    save = true;
+                }
+
+                switch (save)
+                {
+                    case true:
+                        switch (model.ActionID)
+                        {
+                            case 1:
+                                Tbl_FMRes_Section sectionAdd = new Tbl_FMRes_Section();
+                                sectionAdd.SectionTitle = SectionTitle;
+                                sectionAdd.FunctionID = FunctionID;
+
+                                BOSSDB.Tbl_FMRes_Section.Add(sectionAdd);
+                                BOSSDB.SaveChanges();
+                                isExist = "false";
+                                break;
+
+                            case 2:
+                                sectionRecord.SectionTitle = SectionTitle;
+                                sectionRecord.FunctionID = FunctionID;
+
+                                BOSSDB.Entry(sectionRecord);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                                break;
+                        }
+                        break;
+                    default:
+                        isExist = "true";
+                        break;
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
         }
-        public ActionResult GetDynamicFunction2(SectionModel model, int DeptID, int FunctionIDHidden)
-        {
-            model.FunctionList = new SelectList((from s in BOSSDB.Tbl_FMRes_Function.Where(a => a.DeptID == DeptID).ToList() select new { FunctionID = s.FunctionID, FunctionTitle = s.FunctionTitle }), "FunctionID", "FunctionTitle");
-            model.FunctionID = FunctionIDHidden;
 
-            return PartialView("SectionTab/_DynamicFunction", model);
-        }
-        public ActionResult GetAddSection()
+        public ActionResult DeleteSection(int PrimaryID)
         {
-            SectionModel model = new SectionModel();
-            return PartialView("SectionTab/_AddSection", model);
-        }
-        //Add Section
-        public ActionResult AddNewSection(SectionModel model)
-        {
-            Tbl_FMRes_Section sectionTable = new Tbl_FMRes_Section();
+            Tbl_FMRes_Section section = (from a in BOSSDB.Tbl_FMRes_Section where a.SectionID == PrimaryID select a).FirstOrDefault();
+            //Tbl_FMRes_Section sectionRecord = (from a in BOSSDB.Tbl_FMRes_Section where a.FunctionID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (section != null)
+            {
+                //if (sectionRecord != null)
+                //{
+                //    confirmDelete = "restricted";
+                //}
 
-            sectionTable.SectionTitle = GlobalFunction.ReturnEmptyString(model.getSectionColumns.SectionTitle);
-            sectionTable.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
-            sectionTable.FunctionID = GlobalFunction.ReturnEmptyInt(model.FunctionID);
-            BOSSDB.Tbl_FMRes_Section.Add(sectionTable);
+                //else
+                //{
+                //    confirmDelete = "false";
+                //}
+                confirmDelete = "false";
+
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteSection(int PrimaryID)
+        {
+            Tbl_FMRes_Section section = (from a in BOSSDB.Tbl_FMRes_Section where a.SectionID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.Tbl_FMRes_Section.Remove(section);
             BOSSDB.SaveChanges();
 
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        //Get Function Update Partial View
-        public ActionResult Get_UpdateSection(SectionModel model, int SectionID)
+        //=========================================================================================
+        //ONCHANGE
+        //=========================================================================================
+        public ActionResult ChangeSector_SubSector(int SectorID, DepartmentModel model)
         {
-            Tbl_FMRes_Section officeSecTable = (from e in BOSSDB.Tbl_FMRes_Section where e.SectionID == SectionID select e).FirstOrDefault();
-           
-            model.getSectionColumns.SectionTitle = officeSecTable.SectionTitle;
-            model.DeptID = Convert.ToInt32(officeSecTable.DeptID);
-            model.FunctionIDHidden = Convert.ToInt32(officeSecTable.FunctionID);
+            var subSectorTbl = (from a in BOSSDB.Tbl_FMSector_SubSector where a.SectorID == SectorID orderby a.SubSectorTitle select a).ToList();
+            //foreach (var item in subSectorTbl)
+            //{
+            //    model.SubSectorList.Add(new SelectListItem() { Text = item.SubSectorTitle, Value = item.SubSectorID.ToString() });
 
-            return PartialView("SectionTab/_UpdateSection", model);
+            //}
+            return Json(new SelectList(subSectorTbl, "SubSectorID", "SubSectorTitle"), JsonRequestBehavior.AllowGet);
+
         }
-        //Update Office Section 
-        public ActionResult UpdateSection(SectionModel model)
+
+        public ActionResult ChangeDepartment_FundDeptCode(int DeptID, DepartmentModel model)
         {
-            Tbl_FMRes_Section officeSecTBL = (from e in BOSSDB.Tbl_FMRes_Section where e.SectionID == model.SectionID select e).FirstOrDefault();
-
-            officeSecTBL.SectionTitle = GlobalFunction.ReturnEmptyString(model.getSectionColumns.SectionTitle);
-            officeSecTBL.DeptID = GlobalFunction.ReturnEmptyInt(model.DeptID);
-            officeSecTBL.FunctionID = GlobalFunction.ReturnEmptyInt(model.FunctionID);
-
-            BOSSDB.Entry(officeSecTBL);
-            BOSSDB.SaveChanges();
-
-            var result = "";
+            var DeptOfficeCodefunc = "";
+            var fundTitle = "";
+            var deptTbl = (from a in BOSSDB.Tbl_FMRes_Department where a.DeptID == DeptID select a).FirstOrDefault();
+            if (deptTbl != null)
+            {
+                DeptOfficeCodefunc = deptTbl.DeptOfficeCode;
+                fundTitle = deptTbl.Tbl_FMFund_Fund.FundTitle;
+            }
+            var result = new { DeptOfficeCodefunc = DeptOfficeCodefunc, fundTitle = fundTitle };
             return Json(result, JsonRequestBehavior.AllowGet);
+
         }
-        //Delete Section
-        public ActionResult DeleteSection(DepartmentModel model, int SectionID)
+
+        public ActionResult ChangeDepartment_Function(int DeptID, DepartmentModel model)
         {
-            Tbl_FMRes_Section officeSecTBL = (from e in BOSSDB.Tbl_FMRes_Section where e.SectionID == SectionID select e).FirstOrDefault();
-            BOSSDB.Tbl_FMRes_Section.Remove(officeSecTBL);
-            BOSSDB.SaveChanges();
-            return RedirectToAction("FileResponsibility");
+            var function = (from a in BOSSDB.Tbl_FMRes_Function where a.DeptID == DeptID orderby a.FunctionTitle select a).ToList();
+            return Json(new SelectList(function, "FunctionID", "FunctionTitle"), JsonRequestBehavior.AllowGet);
+
         }
     }
 }

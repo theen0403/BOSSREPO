@@ -18,49 +18,11 @@ namespace BOSS.Controllers
     {
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         DatatypeValidation GlobalFunction = new DatatypeValidation();
-        // GET: FileMaintenanceSignatory
         [Authorize]
         public ActionResult FileSignatory()
         {
             SignatoryModel model = new SignatoryModel();
             return View(model);
-        }
-        //View Table For Signatory
-        public ActionResult GetSignatoryDTable()
-        {
-            SignatoryModel model = new SignatoryModel();
-
-            List<SignatoryList> getSignatoryList = new List<SignatoryList>();
-
-            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMRes_Department].DeptTitle, [Tbl_FMRes_Function].[FunctionTitle], [isHead], [isActive]  FROM [Tbl_FMSignatory], [Tbl_FMRes_Function], [Tbl_FMPosition], [Tbl_FMRes_Department] where[Tbl_FMRes_Department].DeptID = [Tbl_FMRes_Function].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMRes_Function].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
-            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
-            {
-                Connection.Open();
-                using (SqlCommand command = new SqlCommand("[dbo].[SP_Signatory]", Connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
-                    SqlDataReader dr = command.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        getSignatoryList.Add(new SignatoryList()
-                        {
-                            SignatoryID = GlobalFunction.ReturnEmptyInt(dr[0]),
-                            SignatoryName = GlobalFunction.ReturnEmptyString(dr[1]),
-                            PreferredName = GlobalFunction.ReturnEmptyString(dr[2]),
-                            PositionTitle = GlobalFunction.ReturnEmptyString(dr[4]),
-                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[5]),
-                            isHead = GlobalFunction.ReturnEmptyBool(dr[7]),
-                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[6]),
-                            Division = GlobalFunction.ReturnEmptyString(dr[3]),
-                            isActive = GlobalFunction.ReturnEmptyBool(dr[8])
-                        });
-                    }
-                }
-                Connection.Close();
-            }
-            model.getSignatoryList = getSignatoryList.ToList();
-            return PartialView("_TableFileMaintenanceSignatory", model.getSignatoryList);
         }
         public ActionResult GetSignatoryForm(int ActionID, int PrimaryID)
         {
@@ -97,6 +59,42 @@ namespace BOSS.Controllers
             model.FunctionList = (from li in model.FunctionList orderby li.Text select li).ToList();
             model.ActionID = ActionID;
             return PartialView("_SignatoryForm", model);
+        }
+        public ActionResult GetSignatoryDTable()
+        {
+            SignatoryModel model = new SignatoryModel();
+
+            List<SignatoryList> getSignatoryList = new List<SignatoryList>();
+
+            var SQLQuery = "SELECT [SignatoryID], [SignatoryName], [PreferredName], [Division], Tbl_FMPosition.PositionTitle, [Tbl_FMRes_Department].DeptTitle, [Tbl_FMRes_Function].[FunctionTitle], [isHead], [isActive]  FROM [Tbl_FMSignatory], [Tbl_FMRes_Function], [Tbl_FMPosition], [Tbl_FMRes_Department] where[Tbl_FMRes_Department].DeptID = [Tbl_FMRes_Function].DeptID and[Tbl_FMSignatory].FunctionID = [Tbl_FMRes_Function].FunctionID and [Tbl_FMSignatory].PositionID = [Tbl_FMPosition].PositionID";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Signatory]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        getSignatoryList.Add(new SignatoryList()
+                        {
+                            SignatoryID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            SignatoryName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            PreferredName = GlobalFunction.ReturnEmptyString(dr[2]),
+                            PositionTitle = GlobalFunction.ReturnEmptyString(dr[4]),
+                            DeptTitle = GlobalFunction.ReturnEmptyString(dr[5]),
+                            isHead = GlobalFunction.ReturnEmptyBool(dr[7]),
+                            FunctionTitle = GlobalFunction.ReturnEmptyString(dr[6]),
+                            Division = GlobalFunction.ReturnEmptyString(dr[3]),
+                            isActive = GlobalFunction.ReturnEmptyBool(dr[8])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getSignatoryList = getSignatoryList.ToList();
+            return PartialView("_TableFileMaintenanceSignatory", model.getSignatoryList);
         }
         public ActionResult onChangeSignatory(SignatoryModel model, int DeptID)
         {

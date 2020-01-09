@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMResCenterModels.DepartmentList>
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+
+<div class="row">
+    <div class="col">
+        <table class="table table-responsive table-striped table-bordered table-condensed zero-configuration w-100 table-smss-hover">
+            <thead class="text-center">
+                <tr>
+                    <th width="35%">Department</th>
+                    <th>Department Abbreviation</th>
+                    <th>Responsibility Center Code</th>
+                    <th>Fund</th>
+                    <th>Sector</th>
+                    <th>Sub Sector</th>
+                    <th>Office Type</th>
+                    <th>Department / Office Code</th>
+                    <th width="5%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var Items in Model)
+                    {
+                <tr>
+                    <td>@Items.DeptTitle</td>
+                    <td class="text-center">@Items.DeptAbbrv</td>
+                    <td class="text-center">@Items.RCcode</td>
+                    <td>@Items.FundTitle</td>
+                    <td>@Items.SectorTitle</td>
+                    <td>
+                        @{
+                            var SubsectorTitleValue = "N/A";
+                            var departmentTable = (from e in BOSSDB.Tbl_FMSector_SubSector where e.SubSectorID == Items.SubSectorID select e).FirstOrDefault();
+
+                            if (departmentTable != null)
+                            {
+                                SubsectorTitleValue = departmentTable.SubSectorTitle;
+                            }
+                        }
+                        @SubsectorTitleValue
+                    </td>
+
+
+                    @*<td>@Items.SubSectorTitle</td>*@
+                    <td>@Items.OfficeTypeTitle</td>
+                    <td class="text-center">@Items.DeptOfficeCode</td>
+
+
+                    <td class="text-center">
+                        @{
+                            var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditDeptID' DeptAttr='" + Items.DeptID + "'><i class='ft-edit'></i> Edit</button>";
+                            var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteDeptID' DeptAttr='" + Items.DeptID + "'><i class='la la-trash'></i> Delete</button>";
+
+                            var Action = Update + Remove;
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger"
+                                    data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        }
+                    </td>
+                </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

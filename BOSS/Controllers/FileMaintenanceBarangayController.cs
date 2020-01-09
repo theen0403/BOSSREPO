@@ -27,7 +27,6 @@ namespace BOSS.Controllers
         //---------------------------------------------------------------------------------------------------------------------
         //Barangay Name Tab
         //---------------------------------------------------------------------------------------------------------------------
-
         public ActionResult GetBrgyNameTab()
         {
             BrgyNameModel model = new BrgyNameModel();
@@ -304,8 +303,156 @@ namespace BOSS.Controllers
         //---------------------------------------------------------------------------------------------------------------------
         public ActionResult GetBrgyBankAccntTab()
         {
-            return PartialView("BrgyBankAccountTab/_BrgyBankAccountForm");
+            return PartialView("BrgyBankAccountTab/IndexBrgyBankAccount");
         }
-        
+        public ActionResult GetBrgyBankAccntForm(int ActionID, int PrimaryID)
+        {
+            BrgyBankAccountModel model = new BrgyBankAccountModel();
+            if (ActionID == 2)
+            {
+                var brgy = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where a.BrgyBankAccntID == PrimaryID select a).FirstOrDefault();
+                model.BrgyBankAccountList.BrgyBankAccntID = brgy.BrgyBankAccntID;
+                model.BrgyID = Convert.ToInt32(brgy.BrgyID);
+                model.BankID = Convert.ToInt32(brgy.Tbl_FMBank_BankAccounts.BankID);
+                var accntnoCount = (from a in BOSSDB.Tbl_FMBank_BankAccounts orderby a.AccntNo where a.BankID == model.BankID select a).ToList();
+                if (accntnoCount.Count > 0)
+                {
+                    model.BankAccntNoList = new SelectList(accntnoCount, "BankAccntID", "AccntNo");
+                }
+            }
+            else
+            {
+                var bankTbl = (from a in BOSSDB.Tbl_FMBank_Banks orderby a.BankTitle select a.BankID).FirstOrDefault();
+                var accntnoCount = (from a in BOSSDB.Tbl_FMBank_BankAccounts orderby a.AccntNo where a.BankID == bankTbl select a).ToList();
+                if (accntnoCount.Count > 0)
+                {
+                    model.BankAccntNoList = new SelectList(accntnoCount, "BankAccntID", "AccntNo");
+                }
+            }
+            model.BankAccntNoList = (from li in model.BankAccntNoList orderby li.Text select li).ToList();
+            model.ActionID = ActionID;
+            return PartialView("BrgyBankAccountTab/_BrgyBankAccountForm", model);
+        }
+        public ActionResult onChangeAccntNo(BrgyBankAccountModel model, int BankID)
+        {
+            var AccntNoClass = (from a in BOSSDB.Tbl_FMBank_BankAccounts where a.BankID == BankID select a).ToList();
+            return Json(new SelectList(AccntNoClass, "BankAccntID", "AccntNo"), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetBrgyBankAccntDTable()
+        {
+            BrgyBankAccountModel model = new BrgyBankAccountModel();
+            List<BrgyBankAccountList> getBrgyBankAccountList = new List<BrgyBankAccountList>();
+            var SQLQuery = "SELECT [BrgyBankAccntID], Tbl_FMBrgy_Barangay.BrgyName, Tbl_FMBank_Banks.BankTitle, Tbl_FMBank_BankAccounts.AccntNo FROM [Tbl_FMBrgy_BrgyBankAccount], Tbl_FMBrgy_Barangay, Tbl_FMBank_Banks, Tbl_FMBank_BankAccounts WHERE Tbl_FMBank_Banks.BankID = Tbl_FMBank_BankAccounts.BankID And Tbl_FMBank_BankAccounts.BankAccntID =[Tbl_FMBrgy_BrgyBankAccount].BankAccntID And Tbl_FMBrgy_Barangay.BrgyID = [Tbl_FMBrgy_BrgyBankAccount].BrgyID";
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_Brgy]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        getBrgyBankAccountList.Add(new BrgyBankAccountList()
+                        {
+                            BrgyBankAccntID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            BrgyName = GlobalFunction.ReturnEmptyString(dr[1]),
+                            BankTitle = GlobalFunction.ReturnEmptyString(dr[2]),
+                            AccntNo = GlobalFunction.ReturnEmptyString(dr[3])
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            model.getBrgyBankAccountList = getBrgyBankAccountList.ToList();
+            return PartialView("BrgyBankAccountTab/_TableBrgyBankAccount", getBrgyBankAccountList);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveBrgyBankAccnt(BrgyBankAccountModel model)
+        {
+            var isExist = "";
+            if (ModelState.IsValid)
+            {
+                var brgyid = model.BrgyID;
+                var bankaccntid = model.BankAccntID;
+                var brgybankaccntid = model.BrgyBankAccountList.BrgyBankAccntID;
+
+                Tbl_FMBrgy_BrgyBankAccount checkBBA = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where (a.BrgyID == brgyid && a.BankAccntID == bankaccntid) select a).FirstOrDefault();
+
+                if (model.ActionID == 1)
+                {
+                    if (checkBBA == null)
+                    {
+                        Tbl_FMBrgy_BrgyBankAccount brgyBAccnt = new Tbl_FMBrgy_BrgyBankAccount();
+                        brgyBAccnt.BrgyID = brgyid;
+                        brgyBAccnt.BankAccntID = bankaccntid;
+                        BOSSDB.Tbl_FMBrgy_BrgyBankAccount.Add(brgyBAccnt);
+                        BOSSDB.SaveChanges();
+                        isExist = "false";
+                    }
+                    else if (checkBBA != null)
+                    {
+                        isExist = "true";
+                    }
+                }
+                else if (model.ActionID == 2)
+                {
+                    Tbl_FMBrgy_BrgyBankAccount updateBBA = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where a.BrgyBankAccntID == brgybankaccntid select a).FirstOrDefault();
+                    List<Tbl_FMBrgy_BrgyBankAccount> brgyidCount = (from e in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where e.BrgyID == brgyid select e).ToList();
+                    List<Tbl_FMBrgy_BrgyBankAccount> bnkaccntidCount = (from e in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where e.BankAccntID == bankaccntid select e).ToList();
+                    if (checkBBA != null)
+                    {
+                        if (updateBBA.BrgyID != brgyid && brgyidCount.Count >= 1 && updateBBA.BankAccntID != bankaccntid && bnkaccntidCount.Count >= 1)
+                        {
+                            isExist = "true";
+                        }
+                        else
+                        {
+                            isExist = "justUpdate";
+                        }
+                    }
+                    else if (checkBBA == null)
+                    {
+                        isExist = "justUpdate";
+                    }
+
+                    if (isExist == "justUpdate")
+                    {
+                        updateBBA.BrgyID = brgyid;
+                        updateBBA.BankAccntID = bankaccntid;
+                        updateBBA.BrgyBankAccntID = brgybankaccntid;
+                        BOSSDB.Entry(updateBBA);
+                        BOSSDB.SaveChanges();
+                    }
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteBrgyBankAccnt(int PrimaryID)
+        {
+            Tbl_FMBrgy_BrgyBankAccount brgybnkaccnt = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where a.BrgyBankAccntID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (brgybnkaccnt != null)
+            {
+                confirmDelete = "false";
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteBrgyBankAccnt(int PrimaryID)
+        {
+            Tbl_FMBrgy_BrgyBankAccount BBA = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where a.BrgyBankAccntID == PrimaryID select a).FirstOrDefault();
+            BOSSDB.Tbl_FMBrgy_BrgyBankAccount.Remove(BBA);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -7,176 +7,51 @@
 </script>
 <div class="content-header row">
     <div class=" content-header-left col-md-12 mb-0">
-        <h3 class="content-header-title"><strong>Supplier</strong></h3>
+        <h3 class="content-header-title">
+            <strong>Supplier</strong>
+        </h3>
     </div>
 </div>
-<div class="card box-shadow-2">
-    <div class="card-header bg-active">
-        <h4 class="card-title m-1"></h4>
-        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-        <div class="heading-elements mt-0">
-            <ul class="list-inline mb-0">
-                <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="card-content">
-        <div class="card-body px-1 card-body rounded box-shadow-3">
-            <table class="table table-striped zero-configuration text-center table-bordered scroll-horizontal table-smss-hover m-0 w-100">
-                <thead>
-                    <tr>
-                        <th>Company Name</th>
-                        <th>Company Address</th>
-                        <th>Tel. No.</th>
-                        <th>Owner's Name</th>
-                        <th width="5px;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>ACE Hardware</td>
-                        <td>Quezon City</td>
-                        <td>6356287</td>
-                        <td></td>
-                        <td class="text-center">
-                            @{
-                                var DeleteConfirmationMess = "Are you sure do you want to delete this?";
-                                var DeleteSuccesMess = "Successfully Deleted";
-                                var successUpdate = "Successfully Updated!";
-
-                                var UpdateReceiptIncome = "<button class=\"btn btn-icon btn-block black btn-menuorange\" type=\"button\" onclick=\"swalSuccess('" + successUpdate + "')\"> <i class='la la-edit'></i> Edit</button>";
-                                var RemoveReceiptIncome = "<button class=\"btn btn-icon btn-block btn-menuRed\" type=\"button\" onclick=\"swalConfirmation('" + @DeleteConfirmationMess + "', '', '" + @DeleteSuccesMess + "')\"><i class='la la-trash'></i> Delete</button>";
-
-                                var ActionReceiptIncome = UpdateReceiptIncome + RemoveReceiptIncome;
-
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
-                                        data-toggle="popover" data-content="@ActionReceiptIncome">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>National Book Store</td>
-                        <td>Pasig City</td>
-                        <td></td>
-                        <td></td>
-                        <td class="text-center">
-                            @{
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
-                                        data-toggle="popover" data-content="@ActionReceiptIncome">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ARNELITOS HARDWARE AND MERCHANDISE</td>
-                        <td>Quezon City</td>
-                        <td>9451235</td>
-                        <td>Arnel Malate</td>
-                        <td class="text-center">
-                            @{
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
-                                        data-toggle="popover" data-content="@ActionReceiptIncome">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>CDM POULTRY SUPPLY & GENERAL MERCHANDISE</td>
-                        <td>Quezon City</td>
-                        <td>9413265</td>
-                        <td>Jose Gomez</td>
-                        <td class="text-center">
-                            @{
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
-                                        data-toggle="popover" data-content="@ActionReceiptIncome">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ABIVA PHARMACY</td>
-                        <td>Quezon City</td>
-                        <td>6453564</td>
-                        <td>Juan dela Cruz</td>
-                        <td class="text-center">
-                            @{
-                                <button type="button" onfocusout="PopoveLostFocus()"
-                                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
-                                        data-toggle="popover" data-content="@ActionReceiptIncome">
-                                    <i class="la la-bars"></i>
-                                </button>
-                            }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
 
-        </div>
-    </div>
+<div class="content-body black">
+    <div class="row">
+        <div class="content-header-left col-12">
+            <div class="card box-shadow-4">
+                <div class="card-content collapse show">
+                    <div class="card-body rounded p-0" style="border: 1px solid; border-color: #9BC69D;">
+                        <div class="col-12">
+                            <div class="card box-shadow-2">
+                                <div class="card-header bg-active mt-1">
+                                    <h4 class="card-title black"><b>Supplier's List</b></h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements mt-0">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus black"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body box-shadow-1">
+                                        <div class="row">
+                                            <div class="col" id="tablesupplierID"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="supplierTempID">
 
-    <div class="card-body px-1 card-body rounded box-shadow-3">
-        <div class="row">
-            <div class="col-xl-1 col-lg-1"></div>
-            <div class="col-xl-10 col-lg-10">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Description</label>
-                            <input type="text" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-4">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Short Description</label>
-                            <input type="text" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-2 col-md-2 text-center mt-xl-2 mt-md-2">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Is Used?</label>
-                            <input type="checkbox" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Percentage</label>
-                            <input type="text" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3">
-                        <div class="form-group">
-                            <label class="custom-form-margin">Base</label>
-                            <input type="text" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="form-group">
-                            <label class="custom-form-margin">General Account Class</label>
-                            <input type="text" class="form-control" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetPayeeForm(1, 0)">Cancel</button>
-                            <button type="submit" id="btnAddPayee" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
-
-
 </div>
+
+<script>
+    $(function () {
+        GetSupplierForm(1, 0);
+    })
+</script>

@@ -1,0 +1,39 @@
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.SectionModel
+@using (Ajax.BeginForm("SaveSection", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "ifExists(data,  GetSectionForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{ 
+    @Html.HiddenFor(m => m.SectionList.SectionID, new { @id = "SectionID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xl-4 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Department</label>
+                @Html.DropDownListFor(m => m.SectionList.DeptID, Model.DeptList, new { @class = "form-control select2 deptDD", id = "", onchange = "ChangeDepartment_Function()" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Function</label>
+                @Html.DropDownListFor(m => m.SectionList.FunctionID, Model.FunctionList, new { @class = "form-control select2 functionDD", id = "", onchange = "" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin">Section</label>
+                @Html.TextAreaFor(m => m.SectionList.SectionTitle, new { @class = "form-control", @rows = 1, id = "OfficeSecTitle" })
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSectionForm(1,0)">Cancel</button>
+                <button type="submit" id="btnAddSection" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        LoadICheck();
+    })
+</script>

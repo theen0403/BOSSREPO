@@ -1,9 +1,0 @@
-﻿@model BOSS.Models.FMmodels.FMResCenterModels.FunctionModel
-@{
-    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
-}
-@using BOSS.Models;
-<div class="form-group">
-    <label class="custom-form-margin">Department / Office Code</label>
-    @Html.TextBoxFor(m => m.DeptOfficeCodefunc, new { @class = "form-control", type = "text", id = "DeptOfficeCodefunc" })
-</div>

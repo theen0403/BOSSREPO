@@ -156,6 +156,8 @@ namespace BOSS.Controllers
         {
             Tbl_FMBank_Banks banks = (from a in BOSSDB.Tbl_FMBank_Banks where a.BankID == PrimaryID select a).FirstOrDefault();
             Tbl_FMBank_BankAccounts bankaccnt = (from a in BOSSDB.Tbl_FMBank_BankAccounts where a.BankID == PrimaryID select a).FirstOrDefault();
+            //Tbl_FMBrgy_BrgyBankAccount brgy = (from a in BOSSDB.Tbl_FMBrgy_BrgyBankAccount where a.BankID == PrimaryID select a).FirstOrDefault();
+
             var confirmDelete = "";
             if (banks != null)
             {

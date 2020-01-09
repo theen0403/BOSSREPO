@@ -12,9 +12,15 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMBalance
+    public partial class TBL_FMCOA_SubLedger_SLAccnt
     {
-        public int BalanceID { get; set; }
-        public string BalanceTitle { get; set; }
+        public int SLAccntID { get; set; }
+        public string SLAccntTitle { get; set; }
+        public string SLAccntCode { get; set; }
+        public string SLAccntCategory { get; set; }
+        public Nullable<int> SLAccntCatDescription { get; set; }
+        public Nullable<int> SLClassID { get; set; }
+    
+        public virtual TBL_FMCOA_SubLedger_SLClass TBL_FMCOA_SubLedger_SLClass { get; set; }
     }
 }

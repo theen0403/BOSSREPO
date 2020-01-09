@@ -4,8 +4,8 @@
 }
 @using BOSS.Models;
 <div class="row">
-    <div class="col-xl-2 col-lg-2"></div>
-    <div class="col-xl-8 col-lg-8">
+    <div class="col-xl-1 col-lg-1"></div>
+    <div class="col-xl-10 col-lg-10">
         <table class="table table-striped zero-configuration table-bordered dataTable scroll-horizontal table-smss-hover no-footer m-0 w-100">
             <thead>
                 <tr>
@@ -17,10 +17,10 @@
                 @{
                     foreach (var Items in Model)
                     {
-                        
+
                         var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditBrgyCollectorID' BrgyCollectorAttr='" + Items.BrgyCollectorID + "'><i class='ft-edit'></i> Edit</button>";
                         var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteBrgyCollectorID' BrgyCollectorAttr='" + Items.BrgyCollectorID + "'><i class='la la-trash'></i> Delete</button>";
-                        
+
                         var Action = Update + Remove;
 
                         <tr>
@@ -39,8 +39,8 @@
         </table>
     </div>
 </div>
-<script>
-    $(function () {
-        LoadDataTable();
-    })
-</script>
+    <script>
+        $(function () {
+            LoadDataTable();
+        })
+    </script>

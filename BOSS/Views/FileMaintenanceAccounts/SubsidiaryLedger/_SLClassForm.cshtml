@@ -1,0 +1,53 @@
+﻿@model BOSS.Models.FMmodels.FMAccountsModels.SubsidiaryLedgerClassModel
+@{
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+}
+@using BOSS.Models;
+@using (Ajax.BeginForm("SaveSLClass", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetSLClassForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+<div class="card-body px-1 card-body rounded menubackground">
+    @Html.TextBoxFor(m => m.SLClassList.SLClassID, new { @id = "SLClassID" })
+    @Html.TextBoxFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="row">
+        <div class="col-xl-1 col-lg-1"></div>
+        <div class="col-xl-10 col-lg-10">
+            <div class="row">
+                <div class="col-xl-7 col-lg-7 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Subsidiary Ledger Class</label>
+                        @Html.TextBoxFor(m => m.SLClassList.SLClassTitle, new { @class = "form-control capsFirstLetter", type = "text", id = "" })
+                        @Html.ValidationMessageFor(m => m.SLClassList.SLClassTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-6">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Subsidiary Ledger Code</label>
+                        @Html.TextBoxFor(m => m.SLClassList.SLClassCode, new { @class = "form-control", type = "text", id = "" })
+                        @Html.ValidationMessageFor(m => m.SLClassList.SLClassCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5">
+                    <div class="form-group">
+                        <label class="custom-form-margin">Fund</label>
+                        @Html.DropDownListFor(m => m.SLClassList.FundID, Model.FundList, new { @class = "form-control select2 ", id = "", onchange = "" })
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-7">
+                    <div class="form-group">
+                        <label class="custom-form-margin">General Ledger Account</label>
+                        @Html.DropDownListFor(m => m.SLClassList.GAID, Model.GenAccntGrpList, new { @class = "form-control select2", id = "", onchange = "" })
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetSLClassForm(1, 0)">Cancel</button>
+                    <button type="submit" id="btnAddSLClass" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+

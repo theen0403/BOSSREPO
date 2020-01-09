@@ -18,6 +18,7 @@ namespace BOSS.Models
         public Tbl_FMCOA_GeneralAccount()
         {
             this.Tbl_FMBank_BankAccounts = new HashSet<Tbl_FMBank_BankAccounts>();
+            this.TBL_FMCOA_SubLedger_SLClass = new HashSet<TBL_FMCOA_SubLedger_SLClass>();
             this.Tbl_FMTax = new HashSet<Tbl_FMTax>();
         }
     
@@ -38,6 +39,8 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMBank_BankAccounts> Tbl_FMBank_BankAccounts { get; set; }
         public virtual Tbl_FMCOA_SubMajorAccountGroup Tbl_FMCOA_SubMajorAccountGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TBL_FMCOA_SubLedger_SLClass> TBL_FMCOA_SubLedger_SLClass { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tbl_FMTax> Tbl_FMTax { get; set; }
     }

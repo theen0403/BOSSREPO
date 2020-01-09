@@ -1,0 +1,44 @@
+﻿
+@model IEnumerable<BOSS.Models.FMmodels.FMSupplierModels.SupplierList>
+@using BOSS.Models;
+
+<table class="table table-striped zero-configuration table-bordered scroll-horizontal table-smss-hover m-0 w-100">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Company Address</th>
+            <th>Tel. No.</th>
+            <th>Owner's Name</th>
+            <th width="5px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+                var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSupplierID' SupplierAttr='" + Items.SupplierID + "'><i class='ft-edit'></i> Edit</button>";
+                var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSupplierID' SupplierAttr='" + Items.SupplierID + "'><i class='la la-trash'></i> Delete</button>";
+
+                var Action = Update + Remove;
+                <tr>
+                    <td>@Items.CompanyName</td>
+                    <td>@Items.Address</td>
+                    <td class="text-center">@Items.TelNo</td>
+                    <td>@Items.MFName</td>
+                    <td class="text-center">
+                        <button type="button" onfocusout="PopoveLostFocus()"
+                                class="btn btn-m btn-btnbackcolor popover-trigger"
+                                data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
+                            <i class="la la-bars"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    })
+</script>

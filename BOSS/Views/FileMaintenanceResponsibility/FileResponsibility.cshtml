@@ -15,7 +15,7 @@
     </div>
 </div>
 @*BODY*@
-<div class="content-body" id="FMResponsibilityController" ng-controller="FMResponsibilityController" ng-init="DepartmentTab()">
+<div class="content-body">
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-4">
@@ -26,28 +26,25 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs nav-underline">
                                     <li class="nav-item">
-                                        <a class="nav-link active bg-backcolorheader" ng-click="DepartmentTab()" id="base-tab1" data-toggle="tab" aria-controls="tab1" href="#tab1" aria-expanded="true">Department</a>
+                                        <a class="nav-link active bg-backcolorheader" id="deptNavID" data-toggle="tab" aria-controls="tab1" href="#deptNavID" aria-expanded="true">Department</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab2" ng-click="FunctionTab()" data-toggle="tab" aria-controls="tab2" href="#tab2" aria-expanded="false">Function</a>
+                                        <a class="nav-link bg-backcolorheader" id="funcNavID" data-toggle="tab" aria-controls="tab2" href="#funcNavID" aria-expanded="false">Function</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader" id="base-tab3" ng-click="SectionTab()" data-toggle="tab" aria-controls="tab3" href="#tab3" aria-expanded="false">Section</a>
+                                        <a class="nav-link bg-backcolorheader" id="secNavID" data-toggle="tab" aria-controls="tab3" href="#secNavID" aria-expanded="false">Section</a>
                                     </li>
                                 </ul>
                                 @*TAB*@
                                 <div class="tab-content w-100" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
-                                        @*Department Tab*@
-                                        <div class="tab-pane active" id="tab1" ng-bind-html="tab1">
+                                        <div class="tab-pane active" id="tabDeptID">
 
                                         </div>
-                                        @*Function Tab*@
-                                        <div class="tab-pane" id="tab2" ng-bind-html="tab2">
+                                        <div class="tab-pane" id="tabFuncID">
 
                                         </div>
-                                        @*Office Section Tab*@
-                                        <div class="tab-pane" id="tab3" ng-bind-html="tab3">
+                                        <div class="tab-pane" id="tabSecID">
 
                                         </div>
                                     </div>
@@ -60,37 +57,8 @@
         </div>
     </div>
 </div>
-
-@*=============================================*@
 <script>
-    app.controller('FMResponsibilityController', function ($scope, $http, $sce) {
-        var F = $scope, P = $http, D = $sce.trustAsHtml;
-        //Department Tab
-        F.DepartmentTab = function () {
-            F.tab1 = null;
-            P({
-                url: '/FileMaintenanceResponsibility/DepartmentTab',
-            }).then(function (response) {
-                F.tab1 = D(response.data);
-            });
-        }
-        //Function Tab
-        F.FunctionTab = function () {
-            F.tab2 = null;
-            P({
-                url: '/FileMaintenanceResponsibility/FunctionTab',
-            }).then(function (response) {
-                F.tab2 = D(response.data);
-            });
-        }
-        //Office Section Tab
-        F.SectionTab = function () {
-            F.tab3 = null;
-            P({
-                url: '/FileMaintenanceResponsibility/SectionTab',
-            }).then(function (response) {
-                F.tab3 = D(response.data);
-            });
-        }
+    $(function () {
+        $("#deptNavID").click();
     });
 </script>

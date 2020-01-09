@@ -24,11 +24,6 @@ namespace BOSS.Controllers
             GeneralAccountModel model = new GeneralAccountModel();
             return View(model);
         }
-        public ActionResult GetSubsidiaryTab()
-        {
-            GeneralAccountModel model = new GeneralAccountModel();
-            return PartialView("SubsidiaryLedger/_IndexSubsidiaryLedger", model);
-        }
         //--------------------------------------------------------------------------------------------------------------------
         //Revision Year
         //--------------------------------------------------------------------------------------------------------------------
@@ -1100,7 +1095,7 @@ namespace BOSS.Controllers
             if (ActionID == 2)
             {
                 var genAccntGrp = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.GAID == GAID select a).FirstOrDefault();
-                model.GeneralAccountList.GeneralAccountID = genAccntGrp.GAID;
+                model.GeneralAccountList.GAID = genAccntGrp.GAID;
 
                 model.GeneralAccountList.GATitle = genAccntGrp.GATitle;
                 model.GeneralAccountList.GACode = genAccntGrp.GACode;
@@ -1120,7 +1115,6 @@ namespace BOSS.Controllers
                 {
                     model.GeneralAccountList.ReservePercent = genAccntGrp.ReservePercent.ToString();
                 }
-
                 model.GeneralAccountList.SMAGID = GlobalFunction.ReturnEmptyInt(genAccntGrp.SMAGID);
                 model.GeneralAccountList.MAGID = GlobalFunction.ReturnEmptyInt(genAccntGrp.Tbl_FMCOA_SubMajorAccountGroup.Tbl_FMCOA_MajorAccountGroup.MAGID);
                 model.GeneralAccountList.AGID = GlobalFunction.ReturnEmptyInt(genAccntGrp.Tbl_FMCOA_SubMajorAccountGroup.Tbl_FMCOA_MajorAccountGroup.Tbl_FMCOA_AccountGroup.AGID);
@@ -1167,7 +1161,7 @@ namespace BOSS.Controllers
                     model.GenAccntGrpList = new SelectList(genAccntGrpList, "GAID", "GATitle");
                     model.GenAccntGrpList = (from li in model.GenAccntGrpList orderby li.Text select li).ToList();
 
-                    model.GeneralAccountList.GAID = genAccntGrp.isSubAccount;
+                    model.GeneralAccountList.GAID2 = Convert.ToInt32(genAccntGrp.isSubAccount);
                     model.GeneralAccountList.isSubAccountCheckBox = true;
                     model.GeneralAccountList.isContraAccountCheckBox = false;
                 }
@@ -1177,7 +1171,7 @@ namespace BOSS.Controllers
                     model.GenAccntGrpList = new SelectList(genAccntGrpList, "GAID", "GATitle");
                     model.GenAccntGrpList = (from li in model.GenAccntGrpList orderby li.Text select li).ToList();
 
-                    model.GeneralAccountList.GAID = genAccntGrp.isContraAccount;
+                    model.GeneralAccountList.GAID2 = Convert.ToInt32(genAccntGrp.isContraAccount);
                     model.GeneralAccountList.isContraAccountCheckBox = true;
                     model.GeneralAccountList.isSubAccountCheckBox = false;
                 }
@@ -1187,7 +1181,7 @@ namespace BOSS.Controllers
                     model.GenAccntGrpList = new SelectList(genAccntGrpList, "GAID", "GATitle");
                     model.GenAccntGrpList = (from li in model.GenAccntGrpList orderby li.Text select li).ToList();
 
-                    model.GeneralAccountList.GAID = 0;
+                    model.GeneralAccountList.GAID2 = 0;
                     model.GeneralAccountList.isContraAccountCheckBox = false;
                     model.GeneralAccountList.isSubAccountCheckBox = false;
                 }
@@ -1215,7 +1209,6 @@ namespace BOSS.Controllers
                         if (firstAllotClass.AllotmentClassID == 0)
                         {
                             allotID = null;
-
                         }
                         else
                         {
@@ -1270,6 +1263,757 @@ namespace BOSS.Controllers
             model.ActionID = ActionID;
             return PartialView("GeneralAccount/_GAForm", model);
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveGA(GeneralAccountModel model)
+        {
+            var isExist = "";
+
+            if (ModelState.IsValid)
+            {
+                //Required Fields
+                var GATitle = GlobalFunction.RemoveSpaces(model.GeneralAccountList.GATitle);
+                var genGACode = model.GeneralAccountList.GACode;
+                var reserve = model.GeneralAccountList.IsReserve;
+                var release = model.GeneralAccountList.IsRelease;
+                var continuing = model.GeneralAccountList.IsContinuing;
+                var obrCashAdvnc = model.GeneralAccountList.IsOBRCash;
+                var normalBal = model.GeneralAccountList.NormalBal;
+                var subMajAccntGrpID = model.GeneralAccountList.SMAGID;
+                var miscellaneous = model.GeneralAccountList.IsMiscellaneous;
+
+                //Optional Fields
+                var contra = model.GeneralAccountList.GAID2;
+                var subAccnt = model.GeneralAccountList.GAID2;
+
+                //Conditional Validation
+                var reservePercent = model.GeneralAccountList.ReservePercent;
+                var GAID = model.GeneralAccountList.GAID2;
+
+
+                var genAccountID = model.GeneralAccountList.GAID2;
+
+                Tbl_FMCOA_GeneralAccount genAccntAdd = new Tbl_FMCOA_GeneralAccount();
+                Tbl_FMCOA_GeneralAccount genAccntGrp = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.GAID == genAccountID select a).FirstOrDefault();
+                List<Tbl_FMCOA_GeneralAccount> selectGenAccntGrp = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where (a.SMAGID == subMajAccntGrpID) select a).ToList();
+                List<Tbl_FMCOA_GeneralAccount> selectContraAccntGrp = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where (a.SMAGID == subMajAccntGrpID && a.isContraAccount != 0) select a).ToList();
+                List<Tbl_FMCOA_GeneralAccount> selectSubAccntGrp = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where (a.SMAGID == subMajAccntGrpID && a.isSubAccount != 0) select a).ToList();
+                var save = false;
+
+                if (model.GeneralAccountList.isContraAccountCheckBox == true)
+                {
+                    if (selectContraAccntGrp.Count > 0)
+                    {
+                        foreach (var item in selectContraAccntGrp)
+                        {
+                            if (genAccntGrp != null)
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode == genGACode && item.GAID == genAccntGrp.GAID)  // walang binago
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode != genGACode || item.GAID == genAccntGrp.GAID) // may binago pero walang kaparehas
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) || item.GACode == genGACode) // may binago pero may kaparehas
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) &&
+                                    item.GACode != genGACode) // for adding
+                                {
+                                    save = true;
+                                }
+                                else
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        save = true;
+                    }
+                    if (model.ActionID == 2)
+                    {
+                        genAccntGrp.isContraAccount = contra;
+                        genAccntGrp.isSubAccount = 0;
+                    }
+                    else
+                    {
+                        genAccntAdd.isContraAccount = contra;
+                        genAccntAdd.isSubAccount = 0;
+                    }
+                }
+                else if (model.GeneralAccountList.isSubAccountCheckBox == true)
+                {
+                    if (selectSubAccntGrp.Count > 0)
+                    {
+                        foreach (var item in selectSubAccntGrp)
+                        {
+                            if (genAccntGrp != null)
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode == genGACode && item.GAID == genAccntGrp.GAID)  // walang binago
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode != genGACode || item.GAID == genAccntGrp.GAID) // may binago pero walang kaparehas
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) || item.GACode == genGACode) // may binago pero may kaparehas
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) &&
+                                        item.GACode != genGACode) // for adding
+                                {
+                                    save = true;
+                                }
+                                else
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        save = true;
+                    }
+                    if (model.ActionID == 2)
+                    {
+                        genAccntGrp.isContraAccount = 0;
+                        genAccntGrp.isSubAccount = subAccnt;
+                    }
+                    else
+                    {
+                        genAccntAdd.isContraAccount = 0;
+                        genAccntAdd.isSubAccount = subAccnt;
+                    }
+                }
+                else if (model.GeneralAccountList.isSubAccountCheckBox == false && model.GeneralAccountList.isContraAccountCheckBox == false)
+                {
+                    if (selectGenAccntGrp.Count > 0)
+                    {
+                        foreach (var item in selectGenAccntGrp)
+                        {
+                            if (genAccntGrp != null)
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode == genGACode && item.GAID == genAccntGrp.GAID)  // walang binago
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) && item.GACode != genGACode || item.GAID == genAccntGrp.GAID) // may binago pero walang kaparehas
+                                {
+                                    save = true;
+                                }
+                                else if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) == GlobalFunction.AutoCaps_RemoveSpaces(GATitle) || item.GACode == genGACode) // may binago pero may kaparehas
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (GlobalFunction.AutoCaps_RemoveSpaces(item.GATitle) != GlobalFunction.AutoCaps_RemoveSpaces(GATitle) &&
+                                        item.GACode != genGACode) // for adding
+                                {
+                                    save = true;
+                                }
+                                else
+                                {
+                                    save = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        save = true;
+                    }
+                    if (model.ActionID == 2)
+                    {
+                        genAccntGrp.isContraAccount = 0;
+                        genAccntGrp.isSubAccount = 0;
+                    }
+                    else
+                    {
+                        genAccntAdd.isContraAccount = 0;
+                        genAccntAdd.isSubAccount = 0;
+                    }
+                }
+                switch (save)
+                {
+                    case true:
+                        switch (model.ActionID)
+                        {
+                            case 1:
+
+                                genAccntAdd.GATitle = GATitle;
+                                genAccntAdd.GACode = genGACode;
+                                genAccntAdd.isReserve = reserve;
+                                genAccntAdd.isFullRelease = release;
+                                genAccntAdd.isContinuing = continuing;
+                                genAccntAdd.isOBRCashAdvance = obrCashAdvnc;
+                                genAccntAdd.NormalBalance = normalBal;
+                                genAccntAdd.SMAGID = subMajAccntGrpID;
+
+                                genAccntAdd.ReservePercent = reservePercent;
+                                genAccntAdd.isMiscellaneousAccount = Convert.ToInt32(miscellaneous);
+
+                                BOSSDB.Tbl_FMCOA_GeneralAccount.Add(genAccntAdd);
+                                BOSSDB.SaveChanges();
+                                isExist = "false";
+
+
+                                break;
+
+                            case 2:
+                                genAccntGrp.GATitle = GATitle;
+                                genAccntGrp.GACode = genGACode;
+                                genAccntGrp.isReserve = reserve;
+                                genAccntGrp.isFullRelease = release;
+                                genAccntGrp.isContinuing = continuing;
+                                genAccntGrp.isOBRCashAdvance = obrCashAdvnc;
+                                genAccntGrp.NormalBalance = normalBal;
+                                genAccntGrp.SMAGID = subMajAccntGrpID;
+
+                                genAccntGrp.ReservePercent = reservePercent;
+                                genAccntGrp.isMiscellaneousAccount = Convert.ToInt32(miscellaneous);
+
+                                BOSSDB.Entry(genAccntGrp);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                                break;
+                        }
+                        break;
+                    default:
+                        isExist = "true";
+                        break;
+                }
+            }
+            else
+            {
+                isExist = "Error Saving";
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteGA(int PrimaryID)
+        {
+            Tbl_FMCOA_GeneralAccount genAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.GAID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMCOA_GeneralAccount ContraAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.isContraAccount == PrimaryID select a).FirstOrDefault();
+            Tbl_FMCOA_GeneralAccount SubAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.isSubAccount == PrimaryID select a).FirstOrDefault();
+
+            //TBL_FMCOA_SubLedger_SLClass slClass = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where a.GAID == PrimaryID select a).FirstOrDefault();
+            //FMTbl_Bank_BankAccnt bankAccnt = (from a in BOSSDB.FMTbl_Bank_BankAccnt where a.GAID == PrimaryID select a).FirstOrDefault();
+            //FMTbl_Taxes taxes = (from a in BOSSDB.FMTbl_Taxes where a.GAID == PrimaryID select a).FirstOrDefault();
+
+            var confirmDelete = "";
+            if (genAccnt != null)
+            {
+                confirmDelete = "false";
+                //if (ContraAccnt != null || SubAccnt != null || slClass != null || bankAccnt != null || taxes != null)
+                //{
+                //    confirmDelete = "restricted";
+                //}
+
+                //else
+                //{
+                //    confirmDelete = "false";
+                //}
+
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteGA(int PrimaryID)
+        {
+            Tbl_FMCOA_GeneralAccount genAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.GAID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.Tbl_FMCOA_GeneralAccount.Remove(genAccnt);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------
+        //Subsidiary Ledger Tab
+        //--------------------------------------------------------------------------------------------------------------------
+        //Subsidiary Ledger Class
+        public ActionResult SLClassTab()
+        {
+            SubsidiaryLedgerClassModel model = new SubsidiaryLedgerClassModel();
+            return PartialView("SubsidiaryLedger/IndexSubsidiaryLedger", model);
+        }
+        public ActionResult GetSLClassForm(int ActionID, int SLClassID)
+        {
+            SubsidiaryLedgerClassModel model = new SubsidiaryLedgerClassModel();
+
+            if (ActionID == 2)
+            {
+                var subClass = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where a.SLClassID == SLClassID select a).FirstOrDefault();
+                model.SLClassList.SLClassID = subClass.SLClassID;
+                model.SLClassList.SLClassTitle = subClass.SLClassTitle;
+                model.SLClassList.SLClassCode = subClass.SLClassCode;
+                model.SLClassList.FundID = subClass.Tbl_FMFund_Fund.FundID;
+                model.SLClassList.GAID = subClass.Tbl_FMCOA_GeneralAccount.GAID;
+
+            }
+            model.FundList = new SelectList(BOSSDB.Tbl_FMFund_Fund, "FundID", "FundTitle");
+            model.FundList = (from li in model.FundList orderby li.Text select li).ToList();
+
+            var genAccntGrpList = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.isSubAccount == null orderby a.GATitle select a).ToList();
+
+            model.GenAccntGrpList = new SelectList(genAccntGrpList, "GAID", "GATitle");
+            model.GenAccntGrpList = (from li in model.GenAccntGrpList orderby li.Text select li).ToList();
+
+            model.ActionID = ActionID;
+            return PartialView("SubsidiaryLedger/_SLClassForm", model);
+        }
+        public ActionResult GetSLClassDTable()
+        {
+            SubsidiaryLedgerClassModel model = new SubsidiaryLedgerClassModel();
+
+            var SQLQuery = @"SELECT TBL_FMCOA_SubLedger_SLClass.*, Tbl_FMFund_Fund.FundTitle, Tbl_FMCOA_GeneralAccount.GATitle FROM TBL_FMCOA_SubLedger_SLClass
+                            INNER JOIN Tbl_FMFund_Fund
+                            ON TBL_FMCOA_SubLedger_SLClass.FundID = Tbl_FMFund_Fund.FundID
+                            INNER JOIN Tbl_FMCOA_GeneralAccount
+                            ON TBL_FMCOA_SubLedger_SLClass.GAID = Tbl_FMCOA_GeneralAccount.GAID";
+
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMSubsidiaryLedger]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        model.getSLClassList.Add(new SLClassList()
+                        {
+                            SLClassID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            SLClassTitle = GlobalFunction.ReturnEmptyString(dr[1]),
+                            SLClassCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                            FundTitle = GlobalFunction.ReturnEmptyString(dr[5]),
+                            GATitle = GlobalFunction.ReturnEmptyString(dr[6]),
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            return PartialView("SubsidiaryLedger/_SLClassTable", model.getSLClassList);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveSLClass(SubsidiaryLedgerClassModel model)
+        {
+            var isExist = "";
+            if (ModelState.IsValid)
+            {
+                var SLClassTitle = model.SLClassList.SLClassTitle;
+                var SLClassCode = model.SLClassList.SLClassCode;
+                var SLClassID = model.SLClassList.SLClassID;
+                var FundID = model.SLClassList.FundID;
+                var GAID = model.SLClassList.GAID;
+
+                SLClassTitle = GlobalFunction.AutoCaps_RemoveSpaces(SLClassTitle);
+                SLClassCode = GlobalFunction.RemoveSpaces(SLClassCode);
+
+                TBL_FMCOA_SubLedger_SLClass subLedgerTbl = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where (a.FundID == FundID && a.GAID == GAID) && (a.SLClassTitle == SLClassTitle || a.SLClassCode == SLClassCode) select a).FirstOrDefault();
+
+                if (model.ActionID == 1)
+                {
+                    if (subLedgerTbl == null)
+                    {
+                        TBL_FMCOA_SubLedger_SLClass subLedger = new TBL_FMCOA_SubLedger_SLClass();
+                        subLedger.SLClassTitle = SLClassTitle;
+                        subLedger.SLClassCode = SLClassCode;
+                        subLedger.FundID = FundID;
+                        subLedger.GAID = GAID;
+
+                        BOSSDB.TBL_FMCOA_SubLedger_SLClass.Add(subLedger);
+                        BOSSDB.SaveChanges();
+                        isExist = "false";
+                    }
+                    else if (subLedgerTbl != null)
+                    {
+                        isExist = "true";
+                    }
+                }
+                else if (model.ActionID == 2)
+                {
+                    List<TBL_FMCOA_SubLedger_SLClass> selectFundGenAccnt = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where (a.FundID == FundID && a.GAID == GAID) select a).ToList();
+                    TBL_FMCOA_SubLedger_SLClass subLedgerClass = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where a.SLClassID == SLClassID select a).FirstOrDefault();
+                    var save = false;
+                    if (selectFundGenAccnt.Count > 0)
+                    {
+                        foreach (var item in selectFundGenAccnt)
+                        {
+                            if (item.SLClassTitle != SLClassTitle && item.SLClassCode != SLClassCode || item.SLClassID == subLedgerClass.SLClassID)
+                            {
+                                save = true;
+                            }
+                            else if (item.SLClassTitle == SLClassTitle || item.SLClassCode == SLClassCode)
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        save = true;
+                    }
+                    switch (save)
+                    {
+                        case true:
+                            subLedgerClass.SLClassTitle = SLClassTitle;
+                            subLedgerClass.SLClassCode = SLClassCode;
+                            subLedgerClass.FundID = FundID;
+                            subLedgerClass.GAID = GAID;
+                            BOSSDB.Entry(subLedgerClass);
+                            BOSSDB.SaveChanges();
+                            isExist = "justUpdate";
+                            break;
+                        default:
+                            isExist = "true";
+                            break;
+                    }
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteSLClass(int PrimaryID)
+        {
+            TBL_FMCOA_SubLedger_SLClass subLedgerClass = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where a.SLClassID == PrimaryID select a).FirstOrDefault();
+            TBL_FMCOA_SubLedger_SLAccnt subLedgerAccnt = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where a.SLAccntID == PrimaryID select a).FirstOrDefault();
+            Tbl_FMCOA_GeneralAccount SubAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.isSubAccount == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (subLedgerClass != null)
+            {
+                if (subLedgerAccnt != null)
+                {
+                    confirmDelete = "restricted";
+                }
+
+                else
+                {
+                    confirmDelete = "false";
+                }
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteSLClass(int PrimaryID)
+        {
+            TBL_FMCOA_SubLedger_SLClass subLedgerClass = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLClass where a.SLClassID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.TBL_FMCOA_SubLedger_SLClass.Remove(subLedgerClass);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        } 
+        //Subsidiary Ledger Account
+        public ActionResult SLAccntTab()
+        {
+            SubsidiaryLedgerClassModel model = new SubsidiaryLedgerClassModel();
+            return PartialView("SubsidiaryLedger/IndexSubsidiaryLedger", model);
+        }
+        public ActionResult GetSLAccntForm(int ActionID2, int SLAccntID)
+        {
+            SubsidiaryLedgerAccountModel model = new SubsidiaryLedgerAccountModel();
+
+            if (ActionID2 == 2)
+            {
+                var subAccnt = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where a.SLAccntID == SLAccntID select a).FirstOrDefault();
+                model.SLAccntList.SLAccntID = subAccnt.SLAccntID;
+                model.SLAccntList.SLAccntTitle = subAccnt.SLAccntTitle;
+                model.SLAccntList.SLAccntCode = subAccnt.SLAccntCode;
+                model.SLAccntList.SLClassID = GlobalFunction.ReturnEmptyInt(subAccnt.SLClassID);
+
+                if (subAccnt.SLAccntCategory == "Bank Account")
+                {
+                    model.SLDescTitle = new SelectList(BOSSDB.Tbl_FMBank_BankAccounts, "BankAccntID", "AccntNo");
+                    model.SLDescTitle = (from li in model.SLDescTitle orderby li.Text select li).ToList();
+
+                    //var bankTbl = (from a in BOSSDB.FMTbl_Bank_BankAccnt where a.BankAccntID select a).FirstOrDefault();
+                    model.SLAccntList.SLDescID = GlobalFunction.ReturnEmptyInt(subAccnt.SLAccntCatDescription);
+                    model.SLAccntList.SLCategory = "Bank Account";
+                }
+                else if (subAccnt.SLAccntCategory == "Payee")
+                {
+                    model.SLDescTitle = new SelectList(BOSSDB.Tbl_FMPayee, "PayeeID", "Name");
+                    model.SLDescTitle = (from li in model.SLDescTitle orderby li.Text select li).ToList();
+
+                    //var payeeTbl = (from a in BOSSDB.FMTbl_Payee select a).FirstOrDefault();
+                    //model.SLAccntList.SLDescID = payeeTbl.PayeeID;
+                    model.SLAccntList.SLDescID = GlobalFunction.ReturnEmptyInt(subAccnt.SLAccntCatDescription);
+                    model.SLAccntList.SLCategory = "Payee";
+                }
+                else if (subAccnt.SLAccntCategory == "Supplier")
+                {
+                    model.SLDescTitle = new SelectList(BOSSDB.Tbl_FMSupplier, "SupplierID", "CompanyName");
+                    model.SLDescTitle = (from li in model.SLDescTitle orderby li.Text select li).ToList();
+
+                    //var supplierTbl = (from a in BOSSDB.FMTbl_Supplier select a).FirstOrDefault();
+                    //model.SLAccntList.SLDescID = supplierTbl.SupplierID;
+                    model.SLAccntList.SLDescID = GlobalFunction.ReturnEmptyInt(subAccnt.SLAccntCatDescription);
+                    model.SLAccntList.SLCategory = "Supplier";
+                }
+                else if (subAccnt.SLAccntCategory == "Tax")
+                {
+                    model.SLDescTitle = new SelectList(BOSSDB.Tbl_FMTax, "TaxID", "Description");
+                    model.SLDescTitle = (from li in model.SLDescTitle orderby li.Text select li).ToList();
+
+                    //var taxTbl = (from a in BOSSDB.FMTbl_Taxes select a).FirstOrDefault();
+                    //model.SLAccntList.SLDescID = taxTbl.TaxID;
+                    model.SLAccntList.SLDescID = GlobalFunction.ReturnEmptyInt(subAccnt.SLAccntCatDescription);
+                    model.SLAccntList.SLCategory = "Tax";
+                }
+            }
+            else
+            {
+                model.SLDescTitle = new SelectList(BOSSDB.Tbl_FMBank_BankAccounts, "BankAccntID", "AccntNo");
+                model.SLDescTitle = (from li in model.SLDescTitle orderby li.Text select li).ToList();
+            }
+
+            model.SLClassTitleList = new SelectList(BOSSDB.TBL_FMCOA_SubLedger_SLClass, "SLClassID", "SLClassTitle");
+            model.SLClassTitleList = (from li in model.SLClassTitleList orderby li.Text select li).ToList();
+
+            model.ActionID2 = ActionID2;
+            return PartialView("SubsidiaryLedger/_SLAccntForm", model);
+        }
+        public ActionResult GetSLAccntDTable()
+        {
+            SubsidiaryLedgerAccountModel model = new SubsidiaryLedgerAccountModel();
+
+            var SQLQuery = @"select TBL_FMCOA_SubLedger_SLAccnt.*,TBL_FMCOA_SubLedger_SLClass.SLClassTitle, Tbl_FMBank_BankAccounts.AccntNo, Tbl_FMSupplier.CompanyName,
+                            Tbl_FMTax.Description, Tbl_FMPayee.Name from TBL_FMCOA_SubLedger_SLAccnt
+                            inner join TBL_FMCOA_SubLedger_SLClass on
+                            TBL_FMCOA_SubLedger_SLAccnt.SLClassID = TBL_FMCOA_SubLedger_SLClass.SLClassID
+                            left join Tbl_FMBank_BankAccounts on
+                            TBL_FMCOA_SubLedger_SLAccnt.SLAccntCatDescription = Tbl_FMBank_BankAccounts.BankAccntID
+                            left join Tbl_FMSupplier on
+                            TBL_FMCOA_SubLedger_SLAccnt.SLAccntCatDescription = Tbl_FMSupplier.SupplierID
+                            left join Tbl_FMTax on
+                            TBL_FMCOA_SubLedger_SLAccnt.SLAccntCatDescription = Tbl_FMTax.TaxID
+							left join Tbl_FMPayee on
+                            TBL_FMCOA_SubLedger_SLAccnt.SLAccntCatDescription = Tbl_FMPayee.PayeeID";
+
+            using (SqlConnection Connection = new SqlConnection(GlobalFunction.ReturnConnectionString()))
+            {
+                Connection.Open();
+                using (SqlCommand command = new SqlCommand("[dbo].[SP_FMSubsidiaryLedger]", Connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@SQLStatement", SQLQuery));
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+
+                        model.getSLAccntList.Add(new SLAccntList()
+                        {
+
+                            SLAccntID = GlobalFunction.ReturnEmptyInt(dr[0]),
+                            SLAccntTitle = GlobalFunction.ReturnEmptyString(dr[1]),
+                            SLAccntCode = GlobalFunction.ReturnEmptyString(dr[2]),
+                            SLCategory = GlobalFunction.ReturnEmptyString(dr[3]),
+                            SLClassTitle = GlobalFunction.ReturnEmptyString(dr[6]), 
+                        });
+                    }
+                }
+                Connection.Close();
+            }
+            return PartialView("SubsidiaryLedger/_SLAccntTable", model.getSLAccntList);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveSLAccnt(SubsidiaryLedgerAccountModel model)
+        {
+            var isExist = "";
+
+            if (ModelState.IsValid)
+            {
+                var SLAccntTitle = model.SLAccntList.SLAccntTitle;
+                var SLAccntCode = model.SLAccntList.SLAccntCode;
+
+
+                var SLClassID = model.SLAccntList.SLClassID;
+                var SLAccntID = model.SLAccntList.SLAccntID;
+
+                SLAccntTitle = GlobalFunction.RemoveSpaces(SLAccntTitle);
+                SLAccntCode = GlobalFunction.RemoveSpaces(SLAccntCode);
+
+                int? slDesc = model.SLAccntList.SLDescID;
+
+                if (slDesc == 0)
+                {
+                    slDesc = null;
+                }
+
+                var slCat = model.SLAccntList.SLCategory;
+                if (slCat == "0")
+                {
+                    slCat = "N/A";
+                }
+
+
+
+
+                List<TBL_FMCOA_SubLedger_SLAccnt> subLedgerAccnts = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where (a.SLClassID == SLClassID && a.SLAccntCategory == slCat && a.SLAccntCatDescription == slDesc) select a).ToList();
+
+                TBL_FMCOA_SubLedger_SLAccnt subLedgerAccntTbl = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where a.SLAccntID == SLAccntID select a).FirstOrDefault();
+                var save = false;
+                if (subLedgerAccnts.Count > 0)
+                {
+                    foreach (var item in subLedgerAccnts)
+                    {
+                        if (subLedgerAccntTbl != null)
+                        {
+                            if (item.SLAccntTitle == SLAccntTitle && item.SLAccntCode == SLAccntCode && item.SLAccntID == subLedgerAccntTbl.SLAccntID)
+                            {
+                                save = true;
+                            }
+                            else if (item.SLAccntTitle != SLAccntTitle && item.SLAccntCode != SLAccntCode || item.SLAccntID == subLedgerAccntTbl.SLAccntID) 
+                            {
+                                save = true;
+                            }
+                            else if (item.SLAccntTitle == SLAccntTitle || item.SLAccntCode == SLAccntCode)
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (item.SLAccntTitle != SLAccntTitle && item.SLAccntCode != SLAccntCode)
+                            {
+                                save = true;
+                            }
+                            else
+                            {
+                                save = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    save = true;
+                }
+
+                switch (save)
+                {
+                    case true:
+                        switch (model.ActionID2)
+                        {
+                            case 1:
+                                TBL_FMCOA_SubLedger_SLAccnt subLedgerAccntAdd = new TBL_FMCOA_SubLedger_SLAccnt();
+                                subLedgerAccntAdd.SLAccntTitle = SLAccntTitle;
+                                subLedgerAccntAdd.SLAccntCode = SLAccntCode;
+                                if (slCat == "0")
+                                {
+                                    subLedgerAccntAdd.SLAccntCategory = "N/A";
+                                    subLedgerAccntAdd.SLAccntCatDescription = null;
+                                }
+                                else
+                                {
+                                    subLedgerAccntAdd.SLAccntCategory = slCat;
+                                    subLedgerAccntAdd.SLAccntCatDescription = slDesc;
+                                }
+
+                                subLedgerAccntAdd.SLClassID = SLClassID;
+
+                                BOSSDB.TBL_FMCOA_SubLedger_SLAccnt.Add(subLedgerAccntAdd);
+                                BOSSDB.SaveChanges();
+                                isExist = "false";
+                                break;
+
+                            case 2:
+                                subLedgerAccntTbl.SLAccntTitle = SLAccntTitle;
+                                subLedgerAccntTbl.SLAccntCode = SLAccntCode;
+
+                                if (slCat == "0")
+                                {
+                                    subLedgerAccntTbl.SLAccntCategory = "N/A";
+                                    subLedgerAccntTbl.SLAccntCatDescription = null;
+                                }
+                                else
+                                {
+                                    subLedgerAccntTbl.SLAccntCategory = slCat;
+                                    subLedgerAccntTbl.SLAccntCatDescription = slDesc;
+                                }
+
+                                subLedgerAccntTbl.SLClassID = SLClassID;
+
+                                BOSSDB.Entry(subLedgerAccntTbl);
+                                BOSSDB.SaveChanges();
+                                isExist = "justUpdate";
+                                break;
+                        }
+                        break;
+                    default:
+                        isExist = "true";
+                        break;
+                }
+            }
+            return new JsonResult()
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new { isExist = isExist }
+            };
+        }
+        public ActionResult DeleteSLAccnt(int PrimaryID)
+        {
+            TBL_FMCOA_SubLedger_SLAccnt slAccnt = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where a.SLAccntID == PrimaryID select a).FirstOrDefault();
+            var confirmDelete = "";
+            if (slAccnt != null)
+            {
+                confirmDelete = "false";
+            }
+            var result = new { confirmDelete = confirmDelete };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ConfirmDeleteSLAccnt(int PrimaryID)
+        {
+            TBL_FMCOA_SubLedger_SLAccnt slAccnt = (from a in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where a.SLAccntID == PrimaryID select a).FirstOrDefault();
+
+            BOSSDB.TBL_FMCOA_SubLedger_SLAccnt.Remove(slAccnt);
+            BOSSDB.SaveChanges();
+
+            var result = "";
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
 
 
@@ -1277,24 +2021,9 @@ namespace BOSS.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //-------------------------------------------------------------------
-        // Onchange 
-        //-------------------------------------------------------------------
+        //==========================================================================
+        // ONCHANGE
+        //==========================================================================
         public ActionResult ChangeRevisionYear_AllotClass(int RevID, AccountGroupModel model)
         {
             var allotClass = (from a in BOSSDB.Tbl_FMCOA_AllotmentClass where a.RevID == RevID orderby a.AllotmentClassTitle select a).ToList();
@@ -1326,24 +2055,51 @@ namespace BOSS.Controllers
             var SubmajAccntClass = (from a in BOSSDB.Tbl_FMCOA_SubMajorAccountGroup where a.MAGID == MAGID orderby a.SMAGTitle select a).ToList();
             return Json(new SelectList(SubmajAccntClass, "SMAGID", "SMAGTitle"), JsonRequestBehavior.AllowGet);
         }
-        //public ActionResult ChangeSubMajAccntGrp_GenAccntGrp(int SMAGID, bool chckBoxContra, bool chckBoxSub, GeneralAccountModel model)
-        //{
-        //    List<Tbl_FMCOA_GeneralAccount> GenAccntClass = new List<Tbl_FMCOA_GeneralAccount>();
-        //    if (chckBoxContra == true)
-        //    {
-        //        GenAccntClass = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.SMAGID == SMAGID && a.isContraAccount == 0 && a.isSubAccount == 0 orderby a.GATitle select a).ToList();
+        public ActionResult ChangeSubMajAccntGrp_GenAccntGrp(int SMAGID, bool chckBoxContra, bool chckBoxSub, GeneralAccountModel model)
+        {
+            List<Tbl_FMCOA_GeneralAccount> GenAccntClass = new List<Tbl_FMCOA_GeneralAccount>();
+            if (chckBoxContra == true)
+            {
+                GenAccntClass = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.SMAGID == SMAGID && a.isContraAccount == 0 && a.isSubAccount == 0 orderby a.GATitle select a).ToList();
 
-        //    }
-        //    else if (chckBoxSub == true)
-        //    {
-        //        GenAccntClass = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.SMAGID == SMAGID && a.isSubAccount == 0 orderby a.GATitle select a).ToList();
+            }
+            else if (chckBoxSub == true)
+            {
+                GenAccntClass = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.SMAGID == SMAGID && a.isSubAccount == 0 orderby a.GATitle select a).ToList();
 
-        //    }
-        //    return Json(new SelectList(GenAccntClass, "GAID", "GATitle"), JsonRequestBehavior.AllowGet);
-        //}
-        //================================
-        // OM CHANGE CODES
-        //================================
+            }
+            return Json(new SelectList(GenAccntClass, "GAID", "GATitle"), JsonRequestBehavior.AllowGet);
+        }
+        //Onchange Subsidiary Category
+        public ActionResult ChangeSLCategory_SLDesc(string SLCategory, SubsidiaryLedgerAccountModel model)
+        {
+            if (SLCategory == "Bank Account")
+            {
+                var bankAccntTbl = (from a in BOSSDB.Tbl_FMBank_BankAccounts orderby a.AccntNo select a).ToList();
+                return Json(new SelectList(bankAccntTbl, "BankAccntID", "AccntNo"), JsonRequestBehavior.AllowGet);
+            }
+            else if (SLCategory == "Payee")
+            {
+                var payeeTbl = (from a in BOSSDB.Tbl_FMPayee select a).ToList();
+                return Json(new SelectList(payeeTbl, "PayeeID", "Name"), JsonRequestBehavior.AllowGet);
+            }
+            else if (SLCategory == "Supplier")
+            {
+                var supplierTbl = (from a in BOSSDB.Tbl_FMSupplier select a).ToList();
+                return Json(new SelectList(supplierTbl, "SupplierID", "CompanyName"), JsonRequestBehavior.AllowGet);
+            }
+            else /*if (SLCategory == "Tax")*/
+            {
+                var taxTbl = (from a in BOSSDB.Tbl_FMTax select a).ToList();
+                return Json(new SelectList(taxTbl, "TaxID", "Description"), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+        //==========================================================================
+        // ON CHANGE CODES
+        //==========================================================================
         public ActionResult ChangeAccountCode(int AGID, MajorAccountGroupModel model)
         {
             var accntGrp = (from a in BOSSDB.Tbl_FMCOA_AccountGroup where a.AGID == AGID select a).FirstOrDefault();
@@ -1356,7 +2112,7 @@ namespace BOSS.Controllers
             var result = new { passCon = passCon };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult ChangeMajAccountCode(int MAGID, MajorAccountGroupModel model)
+        public ActionResult ChangeMajAccountCode(int MAGID, SubMajorAccountGroupModel model)
         {
             var majAccntGrp = (from a in BOSSDB.Tbl_FMCOA_MajorAccountGroup where a.MAGID == MAGID select a).FirstOrDefault();
             var passCon = "";
@@ -1371,8 +2127,7 @@ namespace BOSS.Controllers
             var result = new { passCon = passCon };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult ChangeSubMajorAccountCode(int SMAGID, MajorAccountGroupModel model)
+        public ActionResult ChangeSubMajorAccountCode(int SMAGID, GeneralAccountModel model)
         {
             var subMajAccntGrp = (from a in BOSSDB.Tbl_FMCOA_SubMajorAccountGroup where a.SMAGID == SMAGID select a).FirstOrDefault();
             var majAccntGrp = (from a in BOSSDB.Tbl_FMCOA_MajorAccountGroup where a.MAGID == subMajAccntGrp.MAGID select a).FirstOrDefault();
@@ -1386,10 +2141,31 @@ namespace BOSS.Controllers
             var result = new { passCon = passCon };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult ChangeGenAccountCode(int GAID, GeneralAccountModel model)
+        {
+            var genAccnt = (from a in BOSSDB.Tbl_FMCOA_GeneralAccount where a.GAID == GAID select a).FirstOrDefault();
+            var passCon = "";
+            if (genAccnt == null)
+            {
+                passCon = "";
+            }
+            else
+            {
+                var subMajAccntGrp = (from a in BOSSDB.Tbl_FMCOA_SubMajorAccountGroup where a.SMAGID == genAccnt.SMAGID select a).FirstOrDefault();
+                var majAccntGrp = (from a in BOSSDB.Tbl_FMCOA_MajorAccountGroup where a.MAGID == subMajAccntGrp.MAGID select a).FirstOrDefault();
+                var accntGrp = (from a in BOSSDB.Tbl_FMCOA_AccountGroup where a.AGID == majAccntGrp.AGID select a).FirstOrDefault();
+
+                if (accntGrp != null)
+                {
+                    passCon = (accntGrp.AGCode + "-" + majAccntGrp.MAGCode + "-" + subMajAccntGrp.SMAGCode + "-" + genAccnt.GACode);
+                }
+            }
+            var result = new { passCon = passCon };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
 
 
 
-       
     }
 }

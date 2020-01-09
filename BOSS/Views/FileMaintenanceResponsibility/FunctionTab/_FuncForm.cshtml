@@ -1,0 +1,83 @@
+﻿@model BOSS.Models.FMmodels.FMResCenterModels.FunctionModel
+@using (Ajax.BeginForm("SaveFunction", "FileMaintenanceResponsibility", new AjaxOptions { OnSuccess = "ifExists(data,  GetFuncForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+
+{
+    @Html.HiddenFor(m => m.FunctionList.FunctionID, new { @id = "FunctionID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-xl-3 col-lg-6 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2">Department</label>
+                @Html.DropDownListFor(m => m.FunctionList.DeptID, Model.DeptList, new { @class = "form-control select2 deptID", id = "", onchange = "ChangeDepartment_FundDeptCode()" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2">Function</label>
+                @Html.TextBoxFor(m => m.FunctionList.FunctionTitle, new { @class = "form-control ", type = "text", id = "" })
+                @Html.ValidationMessageFor(m => m.FunctionList.FunctionTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin">Function Abbreviation</label>
+                @Html.TextBoxFor(m => m.FunctionList.FunctionAbbrv, new { @class = "form-control ", type = "text", id = "" })
+                @Html.ValidationMessageFor(m => m.FunctionList.FunctionAbbrv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-0 mt-md-2">Function Code</label>
+                @Html.TextBoxFor(m => m.FunctionList.FunctionCode, new { @class = "form-control ", type = "text", id = "" })
+                @Html.ValidationMessageFor(m => m.FunctionList.FunctionCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-4 col-md-6 mt-xl-2 mt-lg-0 mt-md-2">
+            <div class="form-group">
+                <label class="custom-form-margin">Fund</label>
+                @Html.TextBoxFor(m => m.FunctionList.FundTitle, new { @class = "form-control fundTitle", type = "text", id = "", disabled = "true" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-5 col-md-6">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2">Sector</label>
+                @Html.DropDownListFor(m => m.FunctionList.SectorID, Model.SectorList, new { @class = "form-control select2nosearch sectorDD", id = "", onchange = "onChangeSector_SubSector()" })
+                @Html.ValidationMessageFor(m => m.FunctionList.SectorID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-5 col-md-6 mt-xl-2 mt-lg-2">
+            <div class="form-group">
+                <label class="custom-form-margin">Sub Sector</label>
+                @Html.DropDownListFor(m => m.FunctionList.SubSectorID, Model.SubSectorList, new { @class = "form-control select2nosearch subSectorDD", id = "", onchange = "" })
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin mt-xl-2 mt-lg-2 mt-md-2">Office Type</label>
+                @Html.DropDownListFor(m => m.FunctionList.OfficeTypeID, Model.OfficeTypeList, new { @class = "form-control select2nosearch", id = "", onchange = "" })
+                @Html.ValidationMessageFor(m => m.FunctionList.OfficeTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-xl-2 col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="custom-form-margin">Department / Office Code</label>
+                @Html.TextBoxFor(m => m.FunctionList.DeptOfficeCodefunc, new { @class = "form-control deptCode", type = "text", id = "" })
+                @Html.ValidationMessageFor(m => m.FunctionList.DeptOfficeCodefunc, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <button type="button" class="float-right btn btn-min-width ml-1 btn-menuRed" onclick="GetFuncForm(1,0)">Cancel</button>
+                <button type="submit" id="btnAddFunc" class="float-right btn btn-btnbackcolor btn-min-width">Add</button>
+            </div>
+        </div>
+    </div>
+}
+    <script>
+        $(function () {
+            LoadICheck();
+            select2nosearch();
+        })
+    </script>

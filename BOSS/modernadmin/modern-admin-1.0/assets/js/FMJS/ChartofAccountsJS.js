@@ -24,7 +24,8 @@ $(document).on('click', '#GeneralAccountNavTabID', function (e) {
     TabActive('tabGenAccnt');
 });
 $(document).on('click', '#SubsiLedgerNavTabID', function (e) {
-    GetSubsidiaryTab();
+    SLClassTab();
+    SLAccntTab();
     TabActive('tabSubsiLedger');
 });
 function ClearTabContentFileMaintenanceAccounts() {
@@ -194,7 +195,8 @@ function GetMAGForm(ActionID, MAGID) {
         success: function (result) {
             $("#MAGTempID").html(result);
 
-            GetMAGDTable()
+            GetMAGDTable();
+            ChangeAccountCode();
             changeBtnTxt('btnAddMAG');
             $('form').removeData("validator");
             $.validator.unobtrusive.parse(document);
@@ -288,11 +290,71 @@ function GetGAForm(ActionID, GAID) {
             $("#GATempID").html(result);
 
             GetGADTable();
-            ChangeSubMajorAccountCode();
             ChangeGenAccountCode();
+            ChangeSubMajorAccountCode();
             changeBtnTxt('btnAddGA');
             $('form').removeData("validator");
             $.validator.unobtrusive.parse(document);
+        }
+    })
+}
+function GetGAForm2(ActionID, GAID) {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/GetGAForm",
+        data: { ActionID: ActionID, GAID: GAID },
+        success: function (result) {
+            $("#GATempID").html(result);
+
+            $('form').removeData("validator");
+            $.validator.unobtrusive.parse(document);
+
+            if ($("#contraAccntIDCheckBox").is(':checked') == true) {
+
+                $("#subAccntIDCheckBox").prop("checked", false);
+                $("#genAccntGrpDropDownID").prop("disabled", false);
+                // $("#genIDError").removeClass("hidden");
+                $(".lblGenAccnt").html("Contra Account");
+
+                $(".subMajAccntCode").removeClass("hidden");
+                $(".genAccntCode").addClass("hidden");
+                var actionID = $(".ActionID").text();
+
+                if (actionID == "1") {
+                    onChangeSubMajAccntGrp_GenAccntGrp();
+                }
+
+                //ChangeSubMajorAccountCode();
+            }
+            else if ($("#subAccntIDCheckBox").is(':checked') == true) {
+
+                $("#contraAccntIDCheckBox").prop("checked", false);
+                $("#genAccntGrpDropDownID").prop("disabled", false);
+                //  $("#genIDError").removeClass("hidden");
+
+                $(".lblGenAccnt").html("Sub Account");
+
+                $(".subMajAccntCode").addClass("hidden");
+                $(".genAccntCode").removeClass("hidden");
+                ChangeGenAccountCode();
+                //ChangeGenAccountCode();
+            }
+            else {
+                onChangeSubMajAccntGrp_GenAccntGrp();
+            }
+
+            var reserve = $('.withReserve option:selected').val();
+            switch (reserve) {
+                case "true":
+                    $(".rsrvedPercent").prop("disabled", false);
+                    break;
+                case "false":
+                    $(".rsrvedPercent").prop("disabled", true);
+                    break;
+                default:
+                    $(".rsrvedPercent").prop("disabled", true);
+                    break;
+            }
+
         }
     })
 }
@@ -306,6 +368,16 @@ function GetGADTable() {
         }
     })
 }
+
+$(document).on('click', '#btnEditGAID', function (e) {
+    var GAID = $(this).attr('GAAttr');
+    GetGAForm2(2, GAID);
+});
+$(document).on('click', "#btnDeleteGAID", function () {
+    var PrimaryID = $(this).attr('GAAttr');
+    DeleteRecord(PrimaryID, '/FMCOA/DeleteGA', '/FMCOA/ConfirmDeleteGA', ' GetGAForm(1, 0)');
+});
+//ONCLICK RADIO BUTTON
 $(document).on('click', "#contraAccntIDCheckBox", function () {
     var chk = $(this).is(':checked');
     if (chk == true) {
@@ -316,7 +388,8 @@ $(document).on('click', "#contraAccntIDCheckBox", function () {
         $(".lblGenAccnt").html("Contra Account");
 
         $(".subMajAccntCode").removeClass("hidden");
-        $(".genAccntCode").addClass("hidden");
+        $(".GACode").addClass("hidden");
+
 
     }
     else if (chk == false) {
@@ -325,7 +398,7 @@ $(document).on('click', "#contraAccntIDCheckBox", function () {
         $(".lblGenAccnt").html("General Ledger Account");
 
         $(".subMajAccntCode").removeClass("hidden");
-        $(".genAccntCode").addClass("hidden");
+        $(".GACode").addClass("hidden");
     }
     onChangeSubMajAccntGrp_GenAccntGrp();
 });
@@ -340,7 +413,7 @@ $(document).on('click', "#subAccntIDCheckBox", function () {
         $(".subMajAccntCode").addClass("hidden");
         $(".genAccntCode").removeClass("hidden");
 
-        $("#accntCodeID").removeClass("numbersOnly");
+        $("#GACode").removeClass("numbersOnly");
     }
     else if (chk == false) {
         $("#genAccntGrpDropDownID").prop("disabled", true);
@@ -351,7 +424,7 @@ $(document).on('click', "#subAccntIDCheckBox", function () {
         $(".subMajAccntCode").removeClass("hidden");
         $(".genAccntCode").addClass("hidden");
 
-        $("#accntCodeID").addClass("numbersOnly");
+        $("#GACode").addClass("numbersOnly");
     }
     onChangeSubMajAccntGrp_GenAccntGrp();
 });
@@ -370,25 +443,132 @@ $(document).on('change', ".withReserve", function () {
             break;
     }
 });
-$(document).on('click', '#btnEditGAID', function (e) {
-    var GenAccntID = $(this).attr('GAAttr');
-    GetGenAccForm2(2, GAID);
-});
 
-$(document).on('click', "#btnDeleteGAID", function () {
-    var PrimaryID = $(this).attr('GAAttr');
-    DeleteRecord(PrimaryID, '/FMCOA/DeleteGA', '/FMCOA/ConfirmDeleteGA', ' GetGAForm(1, 0)');
+$(document).on('click', '#btnEditGAID', function (e) {
+    var GAID = $(this).attr('GAAttr');
+    GetGAForm2(2, GAID);
 });
-//--------------------------
-function GetSubsidiaryTab() {
+$(document).on('click', "#btnDeleteGenAccntGrpID", function () {
+    var PrimaryID = $(this).attr('GAAttr');
+    var RecordAttr = $(this).attr("RecordAttr");
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteGA', '/FileMaintenanceAccounts/ConfirmDeleteGA', ' GetGAForm(1, 0)', RecordAttr);
+});
+//---------------------------------------------------------------------------------------------------------------------
+//Subsidiary Ledger Tab
+//---------------------------------------------------------------------------------------------------------------------
+//Subsidiary Ledger Class
+function SLClassTab() {
     $.ajax({
-        url: "/FileMaintenanceAccounts/GetSubsidiaryTab",
+        url: "/FileMaintenanceAccounts/SLClassTab",
         success: function (result) {
             ClearTabContentFileMaintenanceAccounts();
             $('#tabSubsiLedger').html(result);
+            GetSLClassForm(1,0);
         }
     })
 }
+function GetSLClassForm(ActionID, SLClassID) {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/GetSLClassForm",
+        data: { ActionID: ActionID, SLClassID: SLClassID },
+        success: function (result) {
+            $("#SLClasstempID").html(result);
+            GetSLClassDTable();
+
+            changeBtnTxt('btnAddSLClass');
+            $('form').removeData("validator");
+            $.validator.unobtrusive.parse(document);
+        }
+    })
+}
+function GetSLClassDTable() {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/GetSLClassDTable",
+        success: function (result) {
+            $("#tableSLClassID").html(result)
+            GetSLAccntForm(1, 0);
+        }
+    })
+}
+$(document).on('click', '#btnEditSLClassID', function (e) {
+    var SLClassID = $(this).attr('SLClassAttr');
+    GetSLClassForm(2, SLClassID);
+});
+$(document).on('click', "#btnDeleteSLClassID", function () {
+    var PrimaryID = $(this).attr('SLClassAttr');
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteSLClass', '/FileMaintenanceAccounts/ConfirmDeleteSLClass', ' SLClassTab()');
+});
+function onChangeSLCategory() {
+    var selectedSLCategory = $(".slCategoryDD").val();
+    if (selectedSLCategory != "0") {
+        $.ajax({
+            url: "/FileMaintenanceAccounts/ChangeSLCategory_SLDesc",
+            data: { SLCategory: selectedSLCategory },
+            success: function (result) {
+                $(".slDescDD > option").remove();
+                var items = "";
+
+                $.each(result, function (i, List) {
+                    items += "<option value ='" + List.Value + "'>" + List.Text + "</option>";
+                });
+
+                if (items != "") {
+                    $(".slDescDD").append(items);
+                }
+                else {
+                    $(".slDescDD > option").remove();
+                }
+            }
+        });
+    }
+    else {
+        $(".slDescDD > option").remove();
+        $(".slDescDD").append("<option value=0>N/A</option>");
+    }
+
+}
+//Subsidiary Ledger Account
+function SLAccntTab() {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/SLAccntTab",
+        success: function (result) {
+            ClearTabContentFileMaintenanceAccounts();
+            $('#tabSubsiLedger').html(result);
+            GetSLAccntForm(1, 0);
+        }
+    })
+}
+function GetSLAccntForm(ActionID2, SLAccntID) {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/GetSLAccntForm",
+        data: { ActionID2: ActionID2, SLAccntID: SLAccntID },
+        success: function (result) {
+            $("#SLAccnttempID").html(result);
+            GetSLAccntDTable();
+
+            changeBtnTxt('btnAddSLAccnt');
+            $('form').removeData("validator");
+            $.validator.unobtrusive.parse(document);
+        }
+    })
+}
+function GetSLAccntDTable() {
+    $.ajax({
+        url: "/FileMaintenanceAccounts/GetSLAccntDTable",
+        success: function (result) {
+            $("#tableSLAccntID").html(result)
+
+        }
+    })
+}
+$(document).on('click', '#btnEditSLAccntID', function (e) {
+    var SLAccntID = $(this).attr('SLAccntAttr');
+    GetSLAccntForm(2, SLAccntID);
+});
+$(document).on('click', "#btnDeleteSLAccntID", function () {
+    var PrimaryID = $(this).attr('SLAccntAttr');
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteSLAccnt', '/FileMaintenanceAccounts/ConfirmDeleteSLAccnt', ' SLAccntTab()');
+});
 
 
 
@@ -430,13 +610,9 @@ function GetSubsidiaryTab() {
 
 
 
-
-
-
-//--------------------------------------------------
-// Onchange
-//--------------------------------------------------
-//first used in Account Tab 
+//===========================================
+//ONCHANGE CODES DROPDOWNS
+//===========================================
 function onChangeRevisionYear_AllotClass() { // revision year drop down changes allotment class drop down
     var selectedRevYear = $(".revYearDropDown").val();
     $.ajax({
@@ -559,7 +735,7 @@ function onChangeMajAccntGrp_SubMajAccntGrp() { // major account group drop down
                     ChangeSubMajorAccountCode();
                     ChangeGenAccountCode();
                 }
-                //onChangeSubMajAccntGrp_GenAccntGrp();
+                onChangeSubMajAccntGrp_GenAccntGrp();
             }
         });
     }
@@ -575,7 +751,7 @@ function onChangeSubMajAccntGrp_GenAccntGrp() { // sub major account group drop 
     if (selectedMajAccntGrp != null) {
         $.ajax({
             url: "/FileMaintenanceAccounts/ChangeSubMajAccntGrp_GenAccntGrp",
-            data: { SubMajAccntID: selectedMajAccntGrp, chckBoxContra: chckBoxContra, chckBoxSub: chckBoxSub },
+            data: { SMAGID: selectedMajAccntGrp, chckBoxContra: chckBoxContra, chckBoxSub: chckBoxSub },
             success: function (result) {
                 $(".genAccntGrpDropDown > option").remove();
                 var items = "";
@@ -592,7 +768,6 @@ function onChangeSubMajAccntGrp_GenAccntGrp() { // sub major account group drop 
 
                     $("#genIDError").removeClass("hidden");
                 }
-
                 ChangeSubMajorAccountCode();
                 ChangeGenAccountCode();
             }
@@ -607,6 +782,7 @@ function onChangeSubMajAccntGrp_GenAccntGrp() { // sub major account group drop 
 //===========================================
 //ONCHANGE CODES
 //===========================================
+//GENERAL TAB onchange/onLoad
 function ChangeAccountCode(AGID = $('.accntGrpDropDown option:selected').val()) { // account group drop down changes account code
     if (AGID != null) {
         $.ajax({

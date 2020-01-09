@@ -72,7 +72,7 @@ namespace BOSS.Models.FMmodels.FMAccountsModels
         //[RequiredIf("IsContraCheckBox == true || IsSubAccntCheckBox == true", ErrorMessage = "Please enter Reserved Pecent")]
         public int? GAID { get; set; }
 
-        public int GeneralAccountID { get; set; }
+        public int GAID2 { get; set; }
 
       //  [RequiredIf("IsReserve == true", ErrorMessage = "Please enter Reserved Pecent")]
         public string ReservePercent { get; set; }

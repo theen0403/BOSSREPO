@@ -35,11 +35,9 @@ namespace BOSS.Models
         public virtual DbSet<Level3Modules> Level3Modules { get; set; }
         public virtual DbSet<ParentModule> ParentModules { get; set; }
         public virtual DbSet<PersonalInformation> PersonalInformations { get; set; }
-        public virtual DbSet<PIN_Accounts> PIN_Accounts { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tbl_FMApprop_AppropriationSource> Tbl_FMApprop_AppropriationSource { get; set; }
         public virtual DbSet<Tbl_FMApprop_FundSource> Tbl_FMApprop_FundSource { get; set; }
-        public virtual DbSet<Tbl_FMBalance> Tbl_FMBalance { get; set; }
         public virtual DbSet<Tbl_FMBank_AccountType> Tbl_FMBank_AccountType { get; set; }
         public virtual DbSet<Tbl_FMBank_BankAccounts> Tbl_FMBank_BankAccounts { get; set; }
         public virtual DbSet<Tbl_FMBank_Banks> Tbl_FMBank_Banks { get; set; }
@@ -51,6 +49,8 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMCOA_GeneralAccount> Tbl_FMCOA_GeneralAccount { get; set; }
         public virtual DbSet<Tbl_FMCOA_MajorAccountGroup> Tbl_FMCOA_MajorAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMCOA_RevisionYear> Tbl_FMCOA_RevisionYear { get; set; }
+        public virtual DbSet<TBL_FMCOA_SubLedger_SLAccnt> TBL_FMCOA_SubLedger_SLAccnt { get; set; }
+        public virtual DbSet<TBL_FMCOA_SubLedger_SLClass> TBL_FMCOA_SubLedger_SLClass { get; set; }
         public virtual DbSet<Tbl_FMCOA_SubMajorAccountGroup> Tbl_FMCOA_SubMajorAccountGroup { get; set; }
         public virtual DbSet<Tbl_FMFund_Fund> Tbl_FMFund_Fund { get; set; }
         public virtual DbSet<Tbl_FMFund_SubFund> Tbl_FMFund_SubFund { get; set; }
@@ -63,6 +63,7 @@ namespace BOSS.Models
         public virtual DbSet<Tbl_FMSector_Sector> Tbl_FMSector_Sector { get; set; }
         public virtual DbSet<Tbl_FMSector_SubSector> Tbl_FMSector_SubSector { get; set; }
         public virtual DbSet<Tbl_FMSignatory> Tbl_FMSignatory { get; set; }
+        public virtual DbSet<Tbl_FMSupplier> Tbl_FMSupplier { get; set; }
         public virtual DbSet<Tbl_FMTax> Tbl_FMTax { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -292,6 +293,24 @@ namespace BOSS.Models
                 new ObjectParameter("SQLStatement", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Brgy", sQLStatementParameter);
+        }
+    
+        public virtual int SP_Supplier(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_Supplier", sQLStatementParameter);
+        }
+    
+        public virtual int SP_FMSubsidiaryLedger(string sQLStatement)
+        {
+            var sQLStatementParameter = sQLStatement != null ?
+                new ObjectParameter("SQLStatement", sQLStatement) :
+                new ObjectParameter("SQLStatement", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_FMSubsidiaryLedger", sQLStatementParameter);
         }
     }
 }

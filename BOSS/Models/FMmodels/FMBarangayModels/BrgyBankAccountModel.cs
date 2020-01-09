@@ -10,12 +10,15 @@ namespace BOSS.Models.FMmodels.FMBarangayModels
         BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
         public BrgyBankAccountModel()
         {
-            getBarangayBankAccountList = new List<BarangayBankAccountList>();
-            BarangayBankAccountList = new BarangayBankAccountList();
+            getBrgyBankAccountList = new List<BrgyBankAccountList>();
+            BrgyBankAccountList = new BrgyBankAccountList();
         }
         public int ActionID { get; set; }
-        public List<BarangayBankAccountList> getBarangayBankAccountList { get; set; }
-        public BarangayBankAccountList BarangayBankAccountList { get; set; }
+        public List<BrgyBankAccountList> getBrgyBankAccountList { get; set; }
+        public BrgyBankAccountList BrgyBankAccountList { get; set; }
+        public int BrgyID { get; set; }
+        public int BankID { get; set; }
+        public int BankAccntID { get; set; }
         public IEnumerable<System.Web.Mvc.SelectListItem> BrgyList
         {
             get
@@ -32,14 +35,13 @@ namespace BOSS.Models.FMmodels.FMBarangayModels
                 return new System.Web.Mvc.SelectList(banks, "BankID", "BankTitle");
             }
         }
+        public IEnumerable<System.Web.Mvc.SelectListItem> BankAccntNoList { get; set; }
     }
-    public class BarangayBankAccountList
+    public class BrgyBankAccountList
     {
         public int BrgyBankAccntID { get; set; }
-        public int BrgyID { get; set; }
-        public int BankID { get; set; }
-        public int BankAccntID { get; set; }
         public string BrgyName { get; set; }
+        public string BankTitle { get; set; }
         public string BankName { get; set; }
         public string AccntNo { get; set; }
     }

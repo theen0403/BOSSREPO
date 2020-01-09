@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BOSS.Models.FMmodels.FMAccountsModels.SLAccntList>
+@using BOSS.Models;
+
+<table class="table table-striped table-bordered table-responsive table-condensed zero-configuration w-100 table-smss-hover">
+    <thead class="text-center">
+        <tr>
+            <th>Subsidiary Ledger Account</th>
+            <th>Subsidiary Ledger Code</th>
+            <th>Subsidiary Ledger Class</th>
+            <th>Subsidiary Ledger Category</th>
+            <th>Category Description</th>
+            <th width="5px">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var Items in Model)
+            {
+
+
+        <tr>
+            <td>@Items.SLAccntTitle</td>
+            <td class="text-center">@Items.SLAccntCode</td>
+            <td>@Items.SLClassTitle</td>
+            <td>@Items.SLCategory</td>
+            <td>
+                @{
+                    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
+                    var SLAccntID = Items.SLAccntID;
+                    var SLAccntTbl = (from e in BOSSDB.TBL_FMCOA_SubLedger_SLAccnt where e.SLAccntID == SLAccntID select e).FirstOrDefault();
+                    if (SLAccntTbl.SLAccntCategory == "Bank Account")
+                    {
+                        var bankAccnt = (from e in BOSSDB.Tbl_FMBank_BankAccounts where e.BankAccntID == SLAccntTbl.SLAccntCatDescription select e).FirstOrDefault();
+                        Items.SLClassDesc = bankAccnt.AccntNo;
+                    }
+                    else if (SLAccntTbl.SLAccntCategory == "Payee")
+                    {
+                        var payee = (from e in BOSSDB.Tbl_FMPayee where e.PayeeID == SLAccntTbl.SLAccntCatDescription select e).FirstOrDefault();
+                        Items.SLClassDesc = payee.Name;
+                    }
+                    else if (SLAccntTbl.SLAccntCategory == "Supplier")
+                    {
+                        var supplier = (from e in BOSSDB.Tbl_FMSupplier where e.SupplierID == SLAccntTbl.SLAccntCatDescription select e).FirstOrDefault();
+                        Items.SLClassDesc = supplier.CompanyName;
+                    }
+                    else if (SLAccntTbl.SLAccntCategory == "Tax")
+                    {
+                        var tax = (from e in BOSSDB.Tbl_FMTax where e.TaxID == SLAccntTbl.SLAccntCatDescription select e).FirstOrDefault();
+                        Items.SLClassDesc = tax.Description;
+                    }
+                    else
+                    {
+                        Items.SLClassDesc = "N/A";
+                    }
+
+                    @Items.SLClassDesc
+                }
+            </td>
+            <td class="text-center">
+                @{
+                    var Update = "<button class='btn btn-icon black btn-menuorange btn-block border-0' id='btnEditSLAccntID' SLAccntAttr='" + Items.SLAccntID + "'><i class='ft-edit'></i> Edit</button>";
+                    var Remove = "<button class='btn btn-icon btn-menuRed white btn-block border-0' id='btnDeleteSLAccntID' SLAccntAttr='" + Items.SLAccntID + "'><i class='la la-trash'></i> Delete</button>";
+                    
+                    var Action = Update + Remove;
+                <button type="button" onfocusout="PopoveLostFocus()"
+                        class="btn btn-m btn-btnbackcolor popover-trigger" data-placement="left"
+                        data-toggle="popover" data-content="@Action">
+                    <i class="la la-bars"></i>
+                </button>
+
+                }
+                </td>
+            </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        LoadDataTable();
+    });
+</script>

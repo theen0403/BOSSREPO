@@ -6,8 +6,8 @@
 
 @using (Ajax.BeginForm("SaveSLAccnt", "FileMaintenanceAccounts", new AjaxOptions { OnSuccess = "ifExists(data,  GetSLAccntForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
 {
-    @Html.TextBoxFor(m => m.SLAccntList.SLAccntID, new { @id = "SLAccntID" })
-    @Html.TextBoxFor(m => m.ActionID2, new { @class = "ActionID2" })
+    @Html.HiddenFor(m => m.SLAccntList.SLAccntID, new { @id = "SLAccntID" })
+    @Html.HiddenFor(m => m.ActionID2, new { @class = "ActionID2" })
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <div class="card-body px-1 card-body rounded menubackground">

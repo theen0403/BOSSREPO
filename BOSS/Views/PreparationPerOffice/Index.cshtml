@@ -1,8 +1,8 @@
-﻿
+﻿@model BOSS.Models.BPmodels.AIPmodels.PPAperOfficeModel
 @{
-    ViewBag.Title = "Index";
+    BOSSEFConnectionString BOSSDB = new BOSSEFConnectionString();
 }
-
+@using BOSS.Models;
 <script>
     $("#PreparationPerOfficeID").addClass("active");
 </script>
@@ -15,7 +15,7 @@
 </div>
 
 @*BODY*@
-<div class="content-body" id="PerOfficeController" ng-controller="PerOfficeController" ng-init="GetProgramlistDTable(); GetProjectlistDTable(); GetActivitylistDTable();">
+<div class="content-body" @*id="PerOfficeController" ng-controller="PerOfficeController" ng-init="GetProgramlistDTable(); GetProjectlistDTable(); GetActivitylistDTable();"*@>
     <div class="row">
         <div class="content-header-left col-md-12">
             <div class="card box-shadow-2">
@@ -26,13 +26,9 @@
                             <div class="col-md-2 col-sm-4">
                                 <div class="form-group">
                                     <label>Budget Year</label>
-                                    <select class="form-control">
-                                        <option>2018</option>
-                                        <option>2019</option>
-                                    </select>
+                                    @Html.DropDownListFor(m => m.BudgetYearID, Model.BudgetYearList, new { @class = "form-control select2nosearch", id = "BudgetYearID" })
                                 </div>
                             </div>
-
                             <div class="col-md-4 col-sm-6">
                                 <div class="form-group">
                                     <label>Responsibility Center</label>
@@ -54,6 +50,7 @@
                                 </button>
                             </div>
                         </div>
+
                         @*Program*@
                         <div class="card box-shadow-2 m-0 p-0">
                             <div class="card-header bg-active mt-1">
@@ -73,7 +70,7 @@
                                             Add Program
                                         </button>
                                     </div>
-                                    <div class="row m-0" ng-bind-html="ProgramListID">
+                                    <div class="row m-0" id="ProgramListID">
 
                                     </div>
                                 </div>
@@ -91,6 +88,7 @@
                                 </div>
                             </div>
                         </div>
+
                         @*LIST OF PROJECTS*@
                         <div class="card box-shadow-2 m-0 p-0">
                             <div class="card-header bg-active mt-1">
@@ -165,6 +163,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>

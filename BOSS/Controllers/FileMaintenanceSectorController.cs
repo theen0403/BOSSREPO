@@ -92,9 +92,6 @@ namespace BOSS.Controllers
             if (ModelState.IsValid)
             {
                 var SectorTitle = model.SectorList.SectorTitle;
-                SectorTitle = Regex.Replace(SectorTitle, @"\s\s+", "");
-                SectorTitle = Regex.Replace(SectorTitle, @"^\s+", "");
-                SectorTitle = Regex.Replace(SectorTitle, @"\s+$", "");
                 SectorTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(SectorTitle);
 
                 Tbl_FMSector_Sector checkSector = (from a in BOSSDB.Tbl_FMSector_Sector where (a.SectorTitle == SectorTitle || a.SectorCode == model.SectorList.SectorCode) select a).FirstOrDefault();
@@ -257,9 +254,9 @@ namespace BOSS.Controllers
             if (ModelState.IsValid)
             {
                 var SubSectorTitle = model.SubSectorList.SubSectorTitle;
-                SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s\s+", "");
-                SubSectorTitle = Regex.Replace(SubSectorTitle, @"^\s+", "");
-                SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s+$", "");
+                //SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s\s+", "");
+                ////SubSectorTitle = Regex.Replace(SubSectorTitle, @"^\s+", "");
+                ////SubSectorTitle = Regex.Replace(SubSectorTitle, @"\s+$", "");
                 SubSectorTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(SubSectorTitle);
                 Tbl_FMSector_SubSector checksubSector = (from a in BOSSDB.Tbl_FMSector_SubSector where (a.SubSectorTitle == SubSectorTitle || a.SubSectorCode == model.SubSectorList.SubSectorCode) select a).FirstOrDefault();
 

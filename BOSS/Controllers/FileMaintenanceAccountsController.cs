@@ -1044,7 +1044,6 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         //--------------------------------------------------------------------------------------------------------------------
         //General Account Tab
         //--------------------------------------------------------------------------------------------------------------------
@@ -1556,7 +1555,6 @@ namespace BOSS.Controllers
             var result = "";
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         //--------------------------------------------------------------------------------------------------------------------
         //Subsidiary Ledger Tab
         //--------------------------------------------------------------------------------------------------------------------
@@ -2163,9 +2161,5 @@ namespace BOSS.Controllers
             var result = new { passCon = passCon };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
     }
 }

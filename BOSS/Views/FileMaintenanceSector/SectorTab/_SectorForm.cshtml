@@ -17,7 +17,7 @@
                 <div class="col-xl-8 col-lg-8 col-md-8">
                     <div class="form-group">
                         <label class="custom-form-margin">Sector</label>
-                        @Html.TextAreaFor(m => m.SectorList.SectorTitle, new { @class = "form-control noSpeChar", @rows = 1, id = "SectorTitle" })
+                        @Html.TextAreaFor(m => m.SectorList.SectorTitle, new { @class = "form-control", @rows = 1, id = "SectorTitle" })
                         @Html.ValidationMessageFor(m => m.SectorList.SectorTitle, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -41,6 +41,5 @@
 <script>
     $(document).ready(function () {
         numbersOnly();
-        noSpeChar();
     });
 </script>

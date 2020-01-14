@@ -248,7 +248,7 @@ function GlobalFunctionsTwoParams( ActionName, IDParams1, IDParams2) {
 }
 //End Gloabal Function---------------------------------------------------------------------
 
-//FROM OPPA OSCAR
+//FROM OSCAR
 function DeleteRecord(PrimaryID, ControllerUrl, ControllerUrl2, FormField) {
     var ActionDelete = " ConfirmDelete(" + PrimaryID + ",'" + ControllerUrl2 + "'," + FormField + ")";
     var confirmMess2 = "Are you sure you want to delete this?";

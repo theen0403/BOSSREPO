@@ -92,9 +92,6 @@ namespace BOSS.Controllers
             if (ModelState.IsValid)
             {
                 var fundTitle = model.FundList.FundTitle;
-                fundTitle = Regex.Replace(fundTitle, @"\s\s+", "");
-                fundTitle = Regex.Replace(fundTitle, @"^\s+", "");
-                fundTitle = Regex.Replace(fundTitle, @"\s+$", "");
                 fundTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(fundTitle);
                 Tbl_FMFund_Fund checkFund = (from a in BOSSDB.Tbl_FMFund_Fund where (a.FundTitle == fundTitle || a.FundCode == model.FundList.FundCode) select a).FirstOrDefault();
 
@@ -250,9 +247,6 @@ namespace BOSS.Controllers
             if (ModelState.IsValid)
             {
                 var subfundTitle = model.SubFundList.SubFundTitle;
-                subfundTitle = Regex.Replace(subfundTitle, @"\s\s+", " ");
-                subfundTitle = Regex.Replace(subfundTitle, @"^\s+", "");
-                subfundTitle = Regex.Replace(subfundTitle, @"\s+$", "");
                 subfundTitle = new CultureInfo("en-US").TextInfo.ToTitleCase(subfundTitle);
 
                 Tbl_FMFund_SubFund checksubFund = (from a in BOSSDB.Tbl_FMFund_SubFund where (a.SubFundTitle == model.SubFundList.SubFundTitle) select a).FirstOrDefault();

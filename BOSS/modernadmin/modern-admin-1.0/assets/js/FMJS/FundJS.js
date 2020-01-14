@@ -121,7 +121,7 @@ var ifExists = function (data, getForm) {
     }
     else if (data.isExist == "false") {
         getForm;
-        swalSuccess('Success', 'Successfully Saved.');
+        swalSuccess('Success', 'New record added.');
     }
     else if (data.isExist == "activeIsUsed") {
         getForm;

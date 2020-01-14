@@ -17,7 +17,7 @@
                             <div class="row m-0">
                                 <ul class="nav nav-tabs nav-underline">
                                     <li class="nav-item">
-                                        <a class="nav-link  bg-backcolorheader custom-pad" id="RevisionNavTabID" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad active" id="RevisionNavTabID" data-toggle="tab" aria-controls="tabRevision" href="#tabRevision" aria-expanded="false">Revision Year</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link bg-backcolorheader custom-pad" id="AllotmentNavTabID" data-toggle="tab" aria-controls="tabAllotment" href="#tabAllotment" aria-expanded="false">Allotment Class</a>
@@ -35,13 +35,13 @@
                                         <a class="nav-link bg-backcolorheader custom-pad" id="GeneralAccountNavTabID" data-toggle="tab" aria-controls="tabGenAccnt" href="#tabGenAccnt" aria-expanded="false">General Account</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link bg-backcolorheader custom-pad active" id="SubsiLedgerNavTabID" data-toggle="tab" aria-controls="tabSubsiLedger" href="#tabSubsiLedger" aria-expanded="false">Subsidiary Ledger</a>
+                                        <a class="nav-link bg-backcolorheader custom-pad" id="SubsiLedgerNavTabID" data-toggle="tab" aria-controls="tabSubsiLedger" href="#tabSubsiLedger" aria-expanded="false">Subsidiary Ledger</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content w-100 skin skin-square" id="nav-tabContent">
                                     <div class="tab-content px-1 pt-1 card-body rounded box-shadow-3">
 
-                                        <div class="tab-pane" id="tabRevision">
+                                        <div class="tab-pane active" id="tabRevision">
                                         </div>
                                         <div class="tab-pane" id="tabAllotment">
                                         </div>
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="tab-pane" id="tabGenAccnt">
                                         </div>
-                                        <div class="tab-pane active" id="tabSubsiLedger">
+                                        <div class="tab-pane" id="tabSubsiLedger">
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
 </div>
 <script>
     $(function () {
-        $("#SubsiLedgerNavTabID").click();
+        $("#RevisionNavTabID").click();
     });
 </script>
 @*<script>

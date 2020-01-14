@@ -289,6 +289,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BOSSEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BPmodels\AIPmodels\PPAperOfficeModel.cs" />
     <Compile Include="Models\FMApprop_AppropriationSourceType.cs">
       <DependentUpon>BOSSEntities.tt</DependentUpon>
     </Compile>
@@ -5438,6 +5439,7 @@
     <Content Include="modernadmin\modern-admin-1.0\app-assets\vendors\js\vendors.min.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style-rtl.css" />
     <Content Include="modernadmin\modern-admin-1.0\assets\css\style.css" />
+    <Content Include="modernadmin\modern-admin-1.0\assets\js\BPJS\AIPJS\PPAperOffice.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\AppropSourceJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\BankJS.js" />
     <Content Include="modernadmin\modern-admin-1.0\assets\js\FMJS\BarangayJS.js" />
@@ -9066,10 +9068,10 @@
     <Content Include="Views\PreparationAnnualInvestmentPlan\_ViewProject.cshtml" />
     <Content Include="Views\PreparationAnnualInvestmentPlan\_ViewActivity.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewAddActivity.cshtml" />
-    <Content Include="Views\PreparationPerOffice\_ViewEditProgram.cshtml" />
+    <Content Include="Views\PreparationPerOffice\1PROGRAM\_ViewEditProgram.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewAddAttachment.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewAddProject.cshtml" />
-    <Content Include="Views\PreparationPerOffice\_ViewAddProgram.cshtml" />
+    <Content Include="Views\PreparationPerOffice\1PROGRAM\_ViewAddProgram.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewEditProject.cshtml" />
     <Content Include="Views\PreparationPerOffice\_ViewEditActivity.cshtml" />
     <Content Include="Views\PreparationLBPF1\_ViewAddAccountStateofReceipt.cshtml" />
@@ -9146,7 +9148,7 @@
     <Content Include="Views\PreparationAnnualInvestmentPlan\_TableProgramList.cshtml" />
     <Content Include="Views\PreparationAnnualInvestmentPlan\_TableProjectList.cshtml" />
     <Content Include="Views\PreparationAnnualInvestmentPlan\_TableActivityList.cshtml" />
-    <Content Include="Views\PreparationPerOffice\_TableProgramList.cshtml" />
+    <Content Include="Views\PreparationPerOffice\1PROGRAM\_TableProgramList.cshtml" />
     <Content Include="Views\PreparationPerOffice\_TableProjectList.cshtml" />
     <Content Include="Views\PreparationPerOffice\_TableActivityList.cshtml" />
     <Content Include="Views\PreparationSummary\_TableResponsibilityCenter.cshtml" />
@@ -9261,6 +9263,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\PreparationPerOffice\2PROJECT\" />
+    <Folder Include="Views\PreparationPerOffice\3ACTIVITY\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

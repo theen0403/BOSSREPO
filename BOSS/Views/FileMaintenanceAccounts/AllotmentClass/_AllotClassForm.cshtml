@@ -23,7 +23,7 @@
                 <div class="col-xl-9 col-lg-8 col-md-8">
                     <div class="form-group">
                         <label><b>Allotment Class</b></label>
-                        @Html.TextBoxFor(m => m.AllotmentClassList.AllotmentClassTitle, new { @class = "form-control capsFirstLetter noSpecialChar", type = "text", id = "" })
+                        @Html.TextBoxFor(m => m.AllotmentClassList.AllotmentClassTitle, new { @class = "form-control capsFirstLetter noSpeChar", type = "text", id = "" })
                         @Html.ValidationMessageFor(m => m.AllotmentClassList.AllotmentClassTitle, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -40,5 +40,6 @@
     <script>
         $(function () {
             select2nosearch();
+            noSpeChar();
         })
     </script>

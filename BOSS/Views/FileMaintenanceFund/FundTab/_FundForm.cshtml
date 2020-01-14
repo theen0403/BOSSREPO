@@ -18,7 +18,7 @@
                 <div class="col-xl-8 col-lg-8 col-md-8">
                     <div class="form-group required1">
                         <label class="custom-form-margin">Fund</label>
-                        @Html.TextBoxFor(m => m.FundList.FundTitle, new { @class = "form-control noSpeChar", type = "text", id = "FundTitle" })
+                        @Html.TextBoxFor(m => m.FundList.FundTitle, new { @class = "form-control", type = "text", id = "FundTitle" })
                         @Html.ValidationMessageFor(m => m.FundList.FundTitle, "", new { @class = "text-danger" })
                     </div>
                 </div>

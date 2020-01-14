@@ -25,7 +25,6 @@ $(document).on('click', '#GeneralAccountNavTabID', function (e) {
 });
 $(document).on('click', '#SubsiLedgerNavTabID', function (e) {
     SLClassTab();
-    SLAccntTab();
     TabActive('tabSubsiLedger');
 });
 function ClearTabContentFileMaintenanceAccounts() {
@@ -81,7 +80,7 @@ $(document).on('click', '#btnEditRevID', function (e) {
 //Click Delete in action button
 $(document).on('click', "#btnDeleteRevID", function () {
     var PrimaryID = $(this).attr('RevAttr');
-    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteRevision', '/FileMaintenanceAccounts/ConfirmDelete', ' GetRevisionForm(1, 0)');
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteRevision', '/FileMaintenanceAccounts/ConfirmDelete', ' GetRevisionTab()');
 });
 //---------------------------------------------------------------------------------------------------------------------
 //Allotment Tab
@@ -127,7 +126,7 @@ $(document).on('click', '#btnEditAllotID', function (e) {
 });
 $(document).on('click', "#btnDeleteAllotID", function () {
     var PrimaryID = $(this).attr('AllotAttr');
-    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteAllotClass', '/FileMaintenanceAccounts/ConfirmDeleteAllot', ' GetAllotClassForm(1, 0)');
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteAllotClass', '/FileMaintenanceAccounts/ConfirmDeleteAllot', ' AllotmentClassTab()');
 });
 //---------------------------------------------------------------------------------------------------------------------
 //Acount Group Tab
@@ -463,7 +462,8 @@ function SLClassTab() {
         success: function (result) {
             ClearTabContentFileMaintenanceAccounts();
             $('#tabSubsiLedger').html(result);
-            GetSLClassForm(1,0);
+            GetSLClassForm(1, 0);
+            SLAccntTab();
         }
     })
 }
@@ -567,7 +567,7 @@ $(document).on('click', '#btnEditSLAccntID', function (e) {
 });
 $(document).on('click', "#btnDeleteSLAccntID", function () {
     var PrimaryID = $(this).attr('SLAccntAttr');
-    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteSLAccnt', '/FileMaintenanceAccounts/ConfirmDeleteSLAccnt', ' SLAccntTab()');
+    DeleteRecord(PrimaryID, '/FileMaintenanceAccounts/DeleteSLAccnt', '/FileMaintenanceAccounts/ConfirmDeleteSLAccnt', ' SLClassTab()');
 });
 
 

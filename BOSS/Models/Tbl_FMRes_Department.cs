@@ -17,6 +17,7 @@ namespace BOSS.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Tbl_FMRes_Department()
         {
+            this.BPAIP_PPAperOffice = new HashSet<BPAIP_PPAperOffice>();
             this.Tbl_FMPayee = new HashSet<Tbl_FMPayee>();
             this.Tbl_FMRes_Function = new HashSet<Tbl_FMRes_Function>();
             this.Tbl_FMRes_Section = new HashSet<Tbl_FMRes_Section>();
@@ -32,6 +33,8 @@ namespace BOSS.Models
         public Nullable<int> OfficeTypeID { get; set; }
         public string DeptOfficeCode { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BPAIP_PPAperOffice> BPAIP_PPAperOffice { get; set; }
         public virtual Tbl_FMFund_Fund Tbl_FMFund_Fund { get; set; }
         public virtual Tbl_FMOfficeType Tbl_FMOfficeType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

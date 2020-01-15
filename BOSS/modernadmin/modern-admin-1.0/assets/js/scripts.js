@@ -74,6 +74,7 @@ function formatCurrency(input, blur) {
     caret_pos = updated_len - original_len + caret_pos;
     input[0].setSelectionRange(caret_pos, caret_pos);
 }
+
 //Select All checkbox
 function Checkall() {
     $('#checkedAll').change(function () {

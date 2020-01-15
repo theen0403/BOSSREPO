@@ -16,6 +16,40 @@
           <Property Name="IsLock" Type="bit" />
           <Property Name="PersonalInfoID" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="BP_PPA_Amount">
+          <Key>
+            <PropertyRef Name="PPACCCostID" />
+          </Key>
+          <Property Name="PPACCCostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PS" Type="varchar" MaxLength="50" />
+          <Property Name="CO" Type="varchar" MaxLength="50" />
+          <Property Name="MOOE" Type="varchar" MaxLength="50" />
+          <Property Name="OFExpense" Type="varchar" MaxLength="50" />
+          <Property Name="PPATotal" Type="varchar" MaxLength="50" />
+          <Property Name="CCAdoptation" Type="varchar" MaxLength="50" />
+          <Property Name="CCMitigation" Type="varchar" MaxLength="50" />
+          <Property Name="CCTypologyCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="BPAIP_PPAperOffice">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeptID" Type="int" />
+          <Property Name="BudgetYear" Type="varchar" MaxLength="50" />
+          <Property Name="isInfrastructure" Type="bit" />
+          <Property Name="AIPCode" Type="varchar" MaxLength="50" />
+          <Property Name="ProgDescription" Type="varchar(max)" />
+          <Property Name="ProgType" Type="varchar" MaxLength="50" />
+          <Property Name="FundID" Type="int" />
+          <Property Name="ProgStartDate" Type="datetime" />
+          <Property Name="ProgCompletionDate" Type="datetime" />
+          <Property Name="ProgPolicyObjective" Type="varchar(max)" />
+          <Property Name="ExpectedOutput" Type="varchar" MaxLength="50" />
+          <Property Name="ProgOImplementingOffice" Type="varchar" MaxLength="50" />
+          <Property Name="SubSectorID" Type="int" />
+          <Property Name="PPACCCostID" Type="int" />
+        </EntityType>
         <EntityType Name="FMApprop_AppropriationSourceType">
           <Key>
             <PropertyRef Name="AppropSourceTypeID" />
@@ -400,6 +434,54 @@
             </Principal>
             <Dependent Role="Accounts">
               <PropertyRef Name="PersonalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_PPA_Amount">
+          <End Role="BP_PPA_Amount" Type="Self.BP_PPA_Amount" Multiplicity="0..1" />
+          <End Role="BPAIP_PPAperOffice" Type="Self.BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BP_PPA_Amount">
+              <PropertyRef Name="PPACCCostID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="PPACCCostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund">
+          <End Role="Tbl_FMFund_Fund" Type="Self.Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Role="BPAIP_PPAperOffice" Type="Self.BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMRes_Department">
+          <End Role="Tbl_FMRes_Department" Type="Self.Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Role="BPAIP_PPAperOffice" Type="Self.BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector">
+          <End Role="Tbl_FMSector_SubSector" Type="Self.Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Role="BPAIP_PPAperOffice" Type="Self.BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -932,6 +1014,8 @@
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="BOSSModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BP_PPA_Amount" EntityType="Self.BP_PPA_Amount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BPAIP_PPAperOffice" EntityType="Self.BPAIP_PPAperOffice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FMApprop_AppropriationSourceType" EntityType="Self.FMApprop_AppropriationSourceType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FMApprop_BudgetYear" EntityType="Self.FMApprop_BudgetYear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Level1Modules" EntityType="Self.Level1Modules" Schema="dbo" store:Type="Tables" />
@@ -972,6 +1056,22 @@
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="Self.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformation" />
             <End Role="Accounts" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_PPA_Amount" Association="Self.FK_BPAIP_PPAperOffice_PPA_Amount">
+            <End Role="BP_PPA_Amount" EntitySet="BP_PPA_Amount" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund" Association="Self.FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMRes_Department" Association="Self.FK_BPAIP_PPAperOffice_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector" Association="Self.FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_Level1Modules_ParentModules" Association="Self.FK_Level1Modules_ParentModules">
             <End Role="ParentModules" EntitySet="ParentModules" />
@@ -1206,6 +1306,8 @@
           <Parameter Name="SQLStatement" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Accounts" EntityType="BOSSModel.Account" />
+          <EntitySet Name="BP_PPA_Amount" EntityType="BOSSModel.BP_PPA_Amount" />
+          <EntitySet Name="BPAIP_PPAperOffice" EntityType="BOSSModel.BPAIP_PPAperOffice" />
           <EntitySet Name="FMApprop_AppropriationSourceType" EntityType="BOSSModel.FMApprop_AppropriationSourceType" />
           <EntitySet Name="FMApprop_BudgetYear" EntityType="BOSSModel.FMApprop_BudgetYear" />
           <EntitySet Name="Level1Modules" EntityType="BOSSModel.Level1Modules" />
@@ -1246,6 +1348,22 @@
           <AssociationSet Name="FK_Accounts_PersonalInformation" Association="BOSSModel.FK_Accounts_PersonalInformation">
             <End Role="PersonalInformation" EntitySet="PersonalInformations" />
             <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_PPA_Amount" Association="BOSSModel.FK_BPAIP_PPAperOffice_PPA_Amount">
+            <End Role="BP_PPA_Amount" EntitySet="BP_PPA_Amount" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund" Association="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund">
+            <End Role="Tbl_FMFund_Fund" EntitySet="Tbl_FMFund_Fund" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMRes_Department" Association="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMRes_Department">
+            <End Role="Tbl_FMRes_Department" EntitySet="Tbl_FMRes_Department" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector" Association="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector">
+            <End Role="Tbl_FMSector_SubSector" EntitySet="Tbl_FMSector_SubSector" />
+            <End Role="BPAIP_PPAperOffice" EntitySet="BPAIP_PPAperOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_Tbl_FMFundSource_AppropriationSourceType" Association="BOSSModel.FK_Tbl_FMFundSource_AppropriationSourceType">
             <End Role="FMApprop_AppropriationSourceType" EntitySet="FMApprop_AppropriationSourceType" />
@@ -1418,6 +1536,45 @@
           <Property Name="IsLock" Type="Boolean" />
           <Property Name="PersonalInfoID" Type="Guid" />
           <NavigationProperty Name="PersonalInformation" Relationship="BOSSModel.FK_Accounts_PersonalInformation" FromRole="Account" ToRole="PersonalInformation" />
+        </EntityType>
+        <EntityType Name="BP_PPA_Amount">
+          <Key>
+            <PropertyRef Name="PPACCCostID" />
+          </Key>
+          <Property Name="PPACCCostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MOOE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OFExpense" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PPATotal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CCAdoptation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CCMitigation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CCTypologyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BPAIP_PPAperOffice" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_PPA_Amount" FromRole="BP_PPA_Amount" ToRole="BPAIP_PPAperOffice" />
+        </EntityType>
+        <EntityType Name="BPAIP_PPAperOffice">
+          <Key>
+            <PropertyRef Name="ProgramID" />
+          </Key>
+          <Property Name="ProgramID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeptID" Type="Int32" />
+          <Property Name="BudgetYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isInfrastructure" Type="Boolean" />
+          <Property Name="AIPCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProgDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProgType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FundID" Type="Int32" />
+          <Property Name="ProgStartDate" Type="DateTime" Precision="3" />
+          <Property Name="ProgCompletionDate" Type="DateTime" Precision="3" />
+          <Property Name="ProgPolicyObjective" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExpectedOutput" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProgOImplementingOffice" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SubSectorID" Type="Int32" />
+          <Property Name="PPACCCostID" Type="Int32" />
+          <NavigationProperty Name="BP_PPA_Amount" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_PPA_Amount" FromRole="BPAIP_PPAperOffice" ToRole="BP_PPA_Amount" />
+          <NavigationProperty Name="Tbl_FMFund_Fund" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund" FromRole="BPAIP_PPAperOffice" ToRole="Tbl_FMFund_Fund" />
+          <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMRes_Department" FromRole="BPAIP_PPAperOffice" ToRole="Tbl_FMRes_Department" />
+          <NavigationProperty Name="Tbl_FMSector_SubSector" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector" FromRole="BPAIP_PPAperOffice" ToRole="Tbl_FMSector_SubSector" />
         </EntityType>
         <EntityType Name="FMApprop_AppropriationSourceType">
           <Key>
@@ -1700,6 +1857,7 @@
           <Property Name="FundID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FundTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FundCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BPAIP_PPAperOffice" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="BPAIP_PPAperOffice" />
           <NavigationProperty Name="Tbl_FMBank_BankAccounts" Relationship="BOSSModel.FK_Tbl_FMBank_BankAccounts_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMBank_BankAccounts" />
           <NavigationProperty Name="TBL_FMCOA_SubLedger_SLClass" Relationship="BOSSModel.FK_TBL_FMCOA_SubLedger_SLClass_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="TBL_FMCOA_SubLedger_SLClass" />
           <NavigationProperty Name="Tbl_FMFund_SubFund" Relationship="BOSSModel.FK_Tbl_FMFund_SubFund_Tbl_FMFund_Fund" FromRole="Tbl_FMFund_Fund" ToRole="Tbl_FMFund_SubFund" />
@@ -1756,6 +1914,7 @@
           <Property Name="SubSectorID" Type="Int32" />
           <Property Name="OfficeTypeID" Type="Int32" />
           <Property Name="DeptOfficeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BPAIP_PPAperOffice" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Department" ToRole="BPAIP_PPAperOffice" />
           <NavigationProperty Name="Tbl_FMFund_Fund" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMFund_Fund" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMFund_Fund" />
           <NavigationProperty Name="Tbl_FMOfficeType" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMOfficeType" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMOfficeType" />
           <NavigationProperty Name="Tbl_FMPayee" Relationship="BOSSModel.FK_Tbl_FMPayee_Tbl_FMRes_Department" FromRole="Tbl_FMRes_Department" ToRole="Tbl_FMPayee" />
@@ -1814,6 +1973,7 @@
           <Property Name="SubSectorTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="SubSectorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SectorID" Type="Int32" />
+          <NavigationProperty Name="BPAIP_PPAperOffice" Relationship="BOSSModel.FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector" FromRole="Tbl_FMSector_SubSector" ToRole="BPAIP_PPAperOffice" />
           <NavigationProperty Name="Tbl_FMRes_Department" Relationship="BOSSModel.FK_Tbl_FMRes_Department_Tbl_FMSector_SubSector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMRes_Department" />
           <NavigationProperty Name="Tbl_FMRes_Function" Relationship="BOSSModel.FK_Tbl_FMRes_Function_Tbl_FMSector_SubSector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMRes_Function" />
           <NavigationProperty Name="Tbl_FMSector_Sector" Relationship="BOSSModel.FK_Tbl_FMSector_SubSector_Tbl_FMSector_Sector" FromRole="Tbl_FMSector_SubSector" ToRole="Tbl_FMSector_Sector" />
@@ -1878,6 +2038,54 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="PersonalInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_PPA_Amount">
+          <End Type="BOSSModel.BP_PPA_Amount" Role="BP_PPA_Amount" Multiplicity="0..1" />
+          <End Type="BOSSModel.BPAIP_PPAperOffice" Role="BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BP_PPA_Amount">
+              <PropertyRef Name="PPACCCostID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="PPACCCostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMFund_Fund">
+          <End Type="BOSSModel.Tbl_FMFund_Fund" Role="Tbl_FMFund_Fund" Multiplicity="0..1" />
+          <End Type="BOSSModel.BPAIP_PPAperOffice" Role="BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMFund_Fund">
+              <PropertyRef Name="FundID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="FundID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMRes_Department">
+          <End Type="BOSSModel.Tbl_FMRes_Department" Role="Tbl_FMRes_Department" Multiplicity="0..1" />
+          <End Type="BOSSModel.BPAIP_PPAperOffice" Role="BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMRes_Department">
+              <PropertyRef Name="DeptID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="DeptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BPAIP_PPAperOffice_Tbl_FMSector_SubSector">
+          <End Type="BOSSModel.Tbl_FMSector_SubSector" Role="Tbl_FMSector_SubSector" Multiplicity="0..1" />
+          <End Type="BOSSModel.BPAIP_PPAperOffice" Role="BPAIP_PPAperOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_FMSector_SubSector">
+              <PropertyRef Name="SubSectorID" />
+            </Principal>
+            <Dependent Role="BPAIP_PPAperOffice">
+              <PropertyRef Name="SubSectorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2388,6 +2596,42 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BP_PPA_Amount">
+            <EntityTypeMapping TypeName="BOSSModel.BP_PPA_Amount">
+              <MappingFragment StoreEntitySet="BP_PPA_Amount">
+                <ScalarProperty Name="CCTypologyCode" ColumnName="CCTypologyCode" />
+                <ScalarProperty Name="CCMitigation" ColumnName="CCMitigation" />
+                <ScalarProperty Name="CCAdoptation" ColumnName="CCAdoptation" />
+                <ScalarProperty Name="PPATotal" ColumnName="PPATotal" />
+                <ScalarProperty Name="OFExpense" ColumnName="OFExpense" />
+                <ScalarProperty Name="MOOE" ColumnName="MOOE" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="PS" ColumnName="PS" />
+                <ScalarProperty Name="PPACCCostID" ColumnName="PPACCCostID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BPAIP_PPAperOffice">
+            <EntityTypeMapping TypeName="BOSSModel.BPAIP_PPAperOffice">
+              <MappingFragment StoreEntitySet="BPAIP_PPAperOffice">
+                <ScalarProperty Name="PPACCCostID" ColumnName="PPACCCostID" />
+                <ScalarProperty Name="SubSectorID" ColumnName="SubSectorID" />
+                <ScalarProperty Name="ProgOImplementingOffice" ColumnName="ProgOImplementingOffice" />
+                <ScalarProperty Name="ExpectedOutput" ColumnName="ExpectedOutput" />
+                <ScalarProperty Name="ProgPolicyObjective" ColumnName="ProgPolicyObjective" />
+                <ScalarProperty Name="ProgCompletionDate" ColumnName="ProgCompletionDate" />
+                <ScalarProperty Name="ProgStartDate" ColumnName="ProgStartDate" />
+                <ScalarProperty Name="FundID" ColumnName="FundID" />
+                <ScalarProperty Name="ProgType" ColumnName="ProgType" />
+                <ScalarProperty Name="ProgDescription" ColumnName="ProgDescription" />
+                <ScalarProperty Name="AIPCode" ColumnName="AIPCode" />
+                <ScalarProperty Name="isInfrastructure" ColumnName="isInfrastructure" />
+                <ScalarProperty Name="BudgetYear" ColumnName="BudgetYear" />
+                <ScalarProperty Name="DeptID" ColumnName="DeptID" />
+                <ScalarProperty Name="ProgramID" ColumnName="ProgramID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

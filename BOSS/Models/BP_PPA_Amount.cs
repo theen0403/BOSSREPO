@@ -12,27 +12,25 @@ namespace BOSS.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tbl_FMSector_SubSector
+    public partial class BP_PPA_Amount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Tbl_FMSector_SubSector()
+        public BP_PPA_Amount()
         {
             this.BPAIP_PPAperOffice = new HashSet<BPAIP_PPAperOffice>();
-            this.Tbl_FMRes_Department = new HashSet<Tbl_FMRes_Department>();
-            this.Tbl_FMRes_Function = new HashSet<Tbl_FMRes_Function>();
         }
     
-        public int SubSectorID { get; set; }
-        public string SubSectorTitle { get; set; }
-        public string SubSectorCode { get; set; }
-        public Nullable<int> SectorID { get; set; }
+        public int PPACCCostID { get; set; }
+        public string PS { get; set; }
+        public string CO { get; set; }
+        public string MOOE { get; set; }
+        public string OFExpense { get; set; }
+        public string PPATotal { get; set; }
+        public string CCAdoptation { get; set; }
+        public string CCMitigation { get; set; }
+        public string CCTypologyCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BPAIP_PPAperOffice> BPAIP_PPAperOffice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMRes_Department> Tbl_FMRes_Department { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tbl_FMRes_Function> Tbl_FMRes_Function { get; set; }
-        public virtual Tbl_FMSector_Sector Tbl_FMSector_Sector { get; set; }
     }
 }

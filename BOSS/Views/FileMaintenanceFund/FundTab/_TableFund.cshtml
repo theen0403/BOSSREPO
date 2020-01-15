@@ -23,17 +23,17 @@
                    
                         var Action = Update + Remove;
 
-                <tr>
-                    <td>@Items.FundTitle</td>
-                    <td class="text-center">@Items.FundCode</td>
-                    <td class="text-center">
-                        <button type="button" onfocusout="PopoveLostFocus()"
-                                class="btn btn-m btn-btnbackcolor popover-trigger"
-                                data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
-                            <i class="la la-bars"></i>
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@Items.FundTitle</td>
+                        <td class="text-center">@Items.FundCode</td>
+                        <td class="text-center">
+                            <button type="button" onfocusout="PopoveLostFocus()"
+                                    class="btn btn-m btn-btnbackcolor popover-trigger"
+                                    data-toggle="popover" data-content="@Action" data-html="true" data-placement="left">
+                                <i class="la la-bars"></i>
+                            </button>
+                        </td>
+                    </tr>
                     }
                 }
             </tbody>

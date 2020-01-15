@@ -28,6 +28,8 @@ namespace BOSS.Models
         }
     
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<BP_PPA_Amount> BP_PPA_Amount { get; set; }
+        public virtual DbSet<BPAIP_PPAperOffice> BPAIP_PPAperOffice { get; set; }
         public virtual DbSet<FMApprop_AppropriationSourceType> FMApprop_AppropriationSourceType { get; set; }
         public virtual DbSet<FMApprop_BudgetYear> FMApprop_BudgetYear { get; set; }
         public virtual DbSet<Level1Modules> Level1Modules { get; set; }

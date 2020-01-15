@@ -1,0 +1,212 @@
+﻿@model BOSS.Models.BPmodels.AIPmodels.PPAperOfficeModel
+@using (Ajax.BeginForm("SaveProgramPPA", "PreparationPerOffice", new AjaxOptions { OnSuccess = "ifExists(data,  GetDeptForm(1,0))", OnFailure = "swalError('Error saving', 'An error occured while saving data.')", HttpMethod = "post" }))
+{
+    @Html.HiddenFor(m => m.PPAperOfficeList.ProgramID, new { @id = "ProgramID" })
+    @Html.HiddenFor(m => m.PPAperOfficeList.PPACCCostID, new { @id = "PPACCCostID" })
+    @Html.HiddenFor(m => m.ActionID, new { @class = "ActionID" })
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="col">
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Sector:</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(m => m.PPAperOfficeList.SectorID, Model.SectorList, new { @class = "form-control select2nosearch sectorDD", id = "", onchange = "onChangeSector_SubSector()" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Sub-Sector:</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(m => m.PPAperOfficeList.SubSectorID, Model.SubSectorList, new { @class = "form-control select2nosearch subSectorDD", id = "", onchange = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">AIP Reference Code:</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(m => m.PPAperOfficeList.AIPCode, new { @class = "form-control ", type = "text", id = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Program Description:</label>
+            <div class="col-sm-7">
+                @Html.TextAreaFor(m => m.PPAperOfficeList.ProgDescription, new { @class = "form-control ", @rows = 1, type = "text", id = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Type:</label>
+            <div class="col-sm-7">
+                @{
+                    List<SelectListItem> listItems = new List<SelectListItem>();
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "-Unclassified-",
+                        Value = "0",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Gender and Development - Related Program",
+                        Value = "Gender and Development - Related Program",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Development - Related Program",
+                        Value = "Development - Related Program",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Peace and Order - Related Program",
+                        Value = "Peace and Order - Related Program",
+                    });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "Disaster Risk Management - Related Program",
+                        Value = "Disaster Risk Management - Related Program",
+                    });
+                }
+                @Html.DropDownListFor(m => m.PPAperOfficeList.ProgType, listItems, new { @class = "form-control select2nosearch withReserve", type = "text", id = "", })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Funding Source:</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(m => m.PPAperOfficeList.FundID, Model.FundList, new { @class = "form-control select2nosearch", id = "", onchange = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Start Date:</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.TextBoxFor(m => m.PPAperOfficeList.ProgStartDate, new { @class = "form-control pickadate", type = "text", id = "" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Completion Date:</label>
+            <div class="col-sm-7">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    @Html.TextBoxFor(m => m.PPAperOfficeList.ProgCompletionDate, new { @class = "form-control pickadate", type = "text", id = "" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Program's Policy Objective/s:</label>
+            <div class="col-sm-7">
+                @Html.TextAreaFor(m => m.PPAperOfficeList.ProgPolicyObjective, new { @class = "form-control ", @rows = 1, type = "text", id = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Expected Output/s:</label>
+            <div class="col-sm-7">
+                @Html.TextAreaFor(m => m.PPAperOfficeList.ExpectedOutput, new { @class = "form-control ", @rows = 1, type = "text", id = "" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-sm-5">Other Implementing Department/s:</label>
+            <div class="col-sm-7">
+                @Html.TextAreaFor(m => m.PPAperOfficeList.ProgOImplementingOffice, new { @class = "form-control ", @rows = 1, type = "text", id = "" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+                <div class="form-group text-center custom-form-margin">
+                    <label><i>(If this Program doesn't have atleast one PROJECT/ACTIVITY)</i></label><br />
+                    <label class="mb-0"><i>Estimated Cost (Amount in Php)</i></label>
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(m => m.PPAperOfficeList.PPACCCostID, new { @id = "PPACCCostID" })
+        <div class="row m-0 p-0">
+            <div class="col-md-6 mb-0 mt-1">
+                <div class="form-group row custom-form-margin">
+                    <label class="col-md-3 mr-1 pr-0 font-small-3">Personal Services:</label>
+                    <div class="col-md-8 pl-0">
+                        @Html.TextBoxFor(m => m.PPAperOfficeList.PS, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-0 mt-1">
+                <div class="form-group row custom-form-margin">
+                    <label class="col-md-3 mr-1 pr-0 font-small-3">MOOE:</label>
+                    <div class="col-md-8 pl-0">
+                        @Html.TextBoxFor(m => m.PPAperOfficeList.MOOE, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-md-6 mb-0">
+                <div class="form-group row custom-form-margin">
+                    <label class="col-md-3 mr-1 pr-0 font-small-3">Capital Outlay:</label>
+                    <div class="col-md-8 pl-0">
+                        @Html.TextBoxFor(m => m.PPAperOfficeList.CO, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-0">
+                <div class="form-group row custom-form-margin">
+                    <label class="col-md-3 mr-1 pr-0 font-small-3">Other Fee:</label>
+                    <div class="col-md-8 pl-0">
+                        @Html.TextBoxFor(m => m.PPAperOfficeList.OFExpense, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-md-6 mb-0">
+            </div>
+            <div class="col-md-6 mb-0">
+                <div class="form-group row custom-form-margin">
+                    <label class="col-md-3 mr-1 pr-0 font-small-3">Total (Php):</label>
+                    <div class="col-md-8 pl-0">
+                        @Html.TextBoxFor(m => m.PPAperOfficeList.PPATotal, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 bg-active">
+                <div class="form-group text-center custom-form-margin">
+                    <label class="mt-1"><i>Climate Change</i></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin mt-1">
+            <label class="col-md-6 mr-0 pr-0">Climate Change Adoptation:</label>
+            <div class="col-md-6 pl-0">
+                @Html.TextBoxFor(m => m.PPAperOfficeList.CCAdoptation, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-md-6 mr-0 pr-0">Climate Change Mitigation:</label>
+            <div class="col-md-6 pl-0">
+                @Html.TextBoxFor(m => m.PPAperOfficeList.CCMitigation, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+            </div>
+        </div>
+        <div class="form-group row custom-form-margin">
+            <label class="col-md-6 mr-0 pr-0">Climate Change Typology Code:</label>
+            <div class="col-md-6 pl-0">
+                @Html.TextBoxFor(m => m.PPAperOfficeList.CCTypologyCode, new { @class = "form-control moneyFormat text-right", type = "currency", id = "", placeholder = "0.00" })
+            </div>
+        </div>
+    </div>
+}
+
+@*JS*@
+<script>
+    LoadDatePicker();
+    select2nosearch();
+    $("input[type='currency']").on({
+        keyup: function () {
+            formatCurrency($(this));
+        },
+        blur: function () {
+            formatCurrency($(this), "blur");
+        }
+    });
+    formatCurrency();
+    formatNumber();
+</script>
